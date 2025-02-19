@@ -1,0 +1,26 @@
+# Recreate the spreadsheet with Temporary Works calculations and Large-Tracked Plant Design using BRE470
+
+# Recreate DataFrames
+df_falsework = pd.DataFrame(falsework_data)
+df_wind = pd.DataFrame(wind_load_data)
+df_shoring = pd.DataFrame(shoring_data)
+df_buckling = pd.DataFrame(buckling_data)
+df_large_tracked = pd.DataFrame(large_tracked_data)
+
+# Recalculate Ground Pressure
+df_large_tracked.loc[df_large_tracked["Parameter"] == "Ground Pressure (kN/m²)", "Value"] = \
+    df_large_tracked.loc[df_large_tracked["Parameter"] == "Plant Weight (kN)", "Value"].values[0] / \
+    (df_large_tracked.loc[df_large_tracked["Parameter"] == "Track Length (m)", "Value"].values[0] *
+     df_large_tracked.loc[df_large_tracked["Parameter"] == "Track Width (m)", "Value"].values[0])
+
+# Save the spreadsheet
+file_path = "/mnt/data/Temporary_Works_and_BRE470.xlsx"
+with pd.ExcelWriter(file_path) as writer:
+    df_falsework.to_excel(writer, sheet_name="Falsework", index=False)
+    df_wind.to_excel(writer, sheet_name="Wind Load", index=False)
+    df_shoring.to_excel(writer, sheet_name="Excavation Shoring", index=False)
+    df_buckling.to_excel(writer, sheet_name="Buckling Check", index=False)
+    df_large_tracked.to_excel(writer, sheet_name="Large Tracked Plant (BRE470)", index=False)
+
+# Return the file path for user to download
+file_path
