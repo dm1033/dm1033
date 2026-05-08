@@ -1,0 +1,25 @@
+{
+  "_comment": "Apply this on https://www.bre470pilingmatdesign.com/ — describes the tool itself.",
+
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "BRE 470 Piling Mat Design Tool",
+  "url": "https://www.bre470pilingmatdesign.com",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "description": "Online BRE 470 piling mat / working platform design tool for engineers, contractors, piling rig and crane teams. Provides indicative working platform sizing in line with BRE 470 principles. A practical aid; project-specific design must consider site, ground, plant and loading conditions.",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Civil engineers, Temporary Works Designers, Temporary Works Coordinators, piling contractors, crane teams, contractors"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Temporary Works Consulting",
+    "url": "https://www.temporaryworksconsulting.com"
+  },
+  "isAccessibleForFree": true,
+  "inLanguage": "en-GB",
+  "sameAs": [
+    "https://www.temporaryworksconsulting.com"
+  ]
+}

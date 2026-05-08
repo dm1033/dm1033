@@ -1,0 +1,78 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Temporary Works Design?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Temporary Works Design is the engineering of any temporary construction needed to support permanent works during construction — for example falsework, formwork, propping, shoring, excavation support, working platforms, hoardings and crane bases. The aim is to make temporary works safe, buildable and fit for the loads, ground and plant involved."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When is a Temporary Works Design required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Whenever the temporary works are not entirely covered by a manufacturer's standard solution, or where there is risk to people, plant, the permanent works or third parties. In practice, most contractors apply the BS 5975:2024 procedure to identify which items require design and design checking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a CAT 3 design check?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Within the BS 5975:2024 framework, design checks are categorised by complexity and risk. CAT 3 is the highest category — an independent check by a designer not involved in the original design and from a separate organisation, used for complex, high-risk or unusual temporary works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is BS 5975:2024?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BS 5975:2024 is the UK code of practice for temporary works procedures. It sets out roles such as the Temporary Works Coordinator and Temporary Works Supervisor, the design and check process, design briefs, registers and permits to load."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a BRE 470 piling mat / working platform design?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BRE 470 — Working Platforms for Tracked Plant — is the established UK guidance for designing granular working platforms beneath piling rigs, cranes and other large tracked plant. A BRE 470 design considers plant ground pressures, platform thickness, granular material properties and the underlying ground."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide RAMS and ITPs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Risk Assessments and Method Statements (RAMS), Inspection and Test Plans (ITPs) and supporting construction safety documentation are available alongside Temporary Works Design and as standalone services."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you support international projects?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. International projects are welcomed. Designs are produced with reference to the standards specified by the project (Eurocodes, local codes or contract-defined references), subject to project-specific information being provided."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How quickly can temporary works support be provided?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Short-notice and overflow requests are a regular part of the workload. Triage of urgent requests is usually possible the same UK working day; turnaround for design or check work depends on scope and information provided."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the BRE 470 piling mat design tool replace a project-specific design?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The tool at bre470pilingmatdesign.com is a practical aid for sizing working platforms in line with BRE 470 principles. Project-specific design must consider site, ground, plant and loading conditions, and outputs should be reviewed by a competent engineer for the specific project."
+      }
+    }
+  ]
+}

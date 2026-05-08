@@ -1,0 +1,17 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Temporary Works Consulting",
+  "url": "https://www.temporaryworksconsulting.com",
+  "inLanguage": "en-GB",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Temporary Works Consulting",
+    "url": "https://www.temporaryworksconsulting.com"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.temporaryworksconsulting.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
