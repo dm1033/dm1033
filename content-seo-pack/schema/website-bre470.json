@@ -1,0 +1,19 @@
+{
+  "_comment": "Apply this on https://www.bre470pilingmatdesign.com/ — describes the tool site as its own WebSite entity. Do NOT use schema/website.json on this domain (that one identifies temporaryworksconsulting.com).",
+
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "BRE 470 Piling Mat Design Tool",
+  "url": "https://www.bre470pilingmatdesign.com",
+  "inLanguage": "en-GB",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Temporary Works Consulting",
+    "url": "https://www.temporaryworksconsulting.com"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.bre470pilingmatdesign.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}

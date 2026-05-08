@@ -66,8 +66,8 @@ For each page, check against `meta-tags/meta-tags.md`:
 - [ ] No content claiming clients, accreditations or testimonials that aren't real.
 
 ### 2.4 Schema
-- [ ] ProfessionalService / EngineeringService JSON-LD on the homepage of `temporaryworksconsulting.com`.
-- [ ] WebSite JSON-LD on each homepage.
+- [ ] ProfessionalService / EngineeringService JSON-LD on the homepage of `temporaryworksconsulting.com` (`schema/organization-professionalservice.json`).
+- [ ] WebSite JSON-LD per domain — `schema/website.json` on TWC, `schema/website-bre470.json` on the BRE 470 site (these are different entities; do not share one file).
 - [ ] FAQPage JSON-LD on the FAQ page.
 - [ ] BreadcrumbList JSON-LD on every non-homepage page.
 - [ ] SoftwareApplication JSON-LD on the homepage of `bre470pilingmatdesign.com`.
@@ -120,7 +120,7 @@ Sequence:
 1. **Content** — Replace each page's body with the corresponding file in `pages/`, adjusted for your CMS layout.
 2. **Metadata** — Apply each page's title / description / canonical / OG / Twitter from `meta-tags/meta-tags.md`.
 3. **Schema** — Add JSON-LD blocks from `schema/` into each page's `<head>` (or your CMS's "custom code" slot).
-4. **Sitemap & robots** — Replace with the versions in `technical-seo/`.
+4. **Sitemap & robots** — Replace per domain: `technical-seo/sitemap.xml` + `technical-seo/robots.txt` on `temporaryworksconsulting.com`; `technical-seo/sitemap-bre470.xml` + `technical-seo/robots-bre470.txt` on `bre470pilingmatdesign.com` (rename to `sitemap.xml` / `robots.txt` at that domain root).
 5. **Cross-site linking** — Add tool callouts and cross-site footer links per `conversion/conversion-improvements.md`.
 6. **Conversion** — Apply CTAs, footer, contact-form changes from `conversion/conversion-improvements.md`.
 7. **Submit** — Re-submit each sitemap in Google Search Console and Bing Webmaster Tools.

@@ -96,6 +96,7 @@ For HTML implementations, the head template at the bottom of this file shows whe
 - **OG url:** https://www.bre470pilingmatdesign.com/
 - **OG image:** [Tool screenshot — 1200×630]
 - **Twitter card:** summary_large_image
+- **Add JSON-LD:** `schema/website-bre470.json` and `schema/bre470-softwareapplication.json`
 
 ### `/about` (if present)
 - **Title:** About the BRE 470 Piling Mat Design Tool

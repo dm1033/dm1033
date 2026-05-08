@@ -30,15 +30,17 @@ content-seo-pack/
 ├── meta-tags/
 │   └── meta-tags.md        SEO title, meta description, OG, Twitter, canonical for every page
 ├── schema/                 JSON-LD blocks to drop into <head>
-│   ├── organization-professionalservice.json
-│   ├── website.json
-│   ├── faqpage.json
-│   ├── breadcrumblist-template.json
-│   └── bre470-softwareapplication.json
+│   ├── organization-professionalservice.json   (TWC homepage)
+│   ├── website.json                            (TWC homepage)
+│   ├── website-bre470.json                     (BRE 470 site homepage)
+│   ├── faqpage.json                            (TWC /faq page only)
+│   ├── breadcrumblist-template.json            (per-page template)
+│   └── bre470-softwareapplication.json         (BRE 470 site homepage)
 ├── technical-seo/
-│   ├── sitemap.xml
-│   ├── sitemap-bre470.xml
-│   ├── robots.txt
+│   ├── sitemap.xml                             (TWC)
+│   ├── sitemap-bre470.xml                      (BRE 470 site)
+│   ├── robots.txt                              (TWC)
+│   ├── robots-bre470.txt                       (BRE 470 site)
 │   └── technical-seo-checklist.md
 ├── marketing/
 │   ├── linkedin-company-post.md
@@ -71,8 +73,12 @@ Search and replace these across the pack:
 
 1. Open each page file in `pages/` and paste the body into the equivalent live-site page.
 2. Apply the metadata from `meta-tags/meta-tags.md` to each page's SEO settings.
-3. Add the JSON-LD blocks from `schema/` into the page `<head>` (one per page, plus FAQPage on the FAQ page only).
-4. Replace `sitemap.xml` and `robots.txt` on each live site with the versions in `technical-seo/`.
+3. Add the JSON-LD blocks from `schema/` into each page's `<head>`. Domain mapping:
+   - **temporaryworksconsulting.com** — `organization-professionalservice.json` and `website.json` site-wide; `faqpage.json` on `/faq` only; `breadcrumblist-template.json` per non-home page.
+   - **bre470pilingmatdesign.com** — `website-bre470.json` and `bre470-softwareapplication.json` on the homepage; `breadcrumblist-template.json` per non-home page (with the breadcrumb URLs adjusted to the bre470 domain).
+4. Replace `sitemap.xml` and `robots.txt` on each live site with the right versions:
+   - TWC → `technical-seo/sitemap.xml` and `technical-seo/robots.txt`
+   - BRE 470 site → `technical-seo/sitemap-bre470.xml` (rename to `sitemap.xml` at that domain root) and `technical-seo/robots-bre470.txt` (rename to `robots.txt` at that domain root)
 5. Work through `audit/live-site-audit-checklist.md` against the live sites and fix the items that apply.
 6. Use `marketing/` and `blog-plan/` to start outbound and content marketing.
 

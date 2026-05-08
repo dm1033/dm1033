@@ -1,4 +1,6 @@
 {
+  "_comment": "Apply this on https://www.temporaryworksconsulting.com/ ONLY. For the BRE 470 tool site, use schema/website-bre470.json instead.",
+
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Temporary Works Consulting",

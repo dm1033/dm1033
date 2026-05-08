@@ -24,10 +24,10 @@ Run this against the live sites. Most items can be checked free with: Chrome Dev
 
 ## 3. Schema / structured data
 
-- [ ] ProfessionalService / EngineeringService JSON-LD on the homepage of `temporaryworksconsulting.com`.
-- [ ] WebSite JSON-LD on the homepage of each domain.
+- [ ] ProfessionalService / EngineeringService JSON-LD (`schema/organization-professionalservice.json`) on the homepage of `temporaryworksconsulting.com`.
+- [ ] WebSite JSON-LD per domain — `schema/website.json` on `temporaryworksconsulting.com`, `schema/website-bre470.json` on `bre470pilingmatdesign.com` (do not paste the TWC one onto the bre470 domain).
 - [ ] FAQPage JSON-LD only on the FAQ page (don't duplicate elsewhere).
-- [ ] BreadcrumbList JSON-LD on every page that sits below the homepage.
+- [ ] BreadcrumbList JSON-LD on every page that sits below the homepage (adjust URLs to the page's domain).
 - [ ] SoftwareApplication JSON-LD on the homepage of `bre470pilingmatdesign.com`.
 - [ ] Validate every block in the [Schema.org Validator](https://validator.schema.org/) and Google's [Rich Results Test](https://search.google.com/test/rich-results).
 

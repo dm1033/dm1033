@@ -1,5 +1,7 @@
 # robots.txt for temporaryworksconsulting.com
 # Standard "open" policy — let search engines crawl, point them at the sitemap.
+# Do NOT use this file on bre470pilingmatdesign.com — that domain has its own
+# robots file at technical-seo/robots-bre470.txt.
 
 User-agent: *
 Allow: /
@@ -10,10 +12,3 @@ Allow: /
 # Disallow: /?s=
 
 Sitemap: https://www.temporaryworksconsulting.com/sitemap.xml
-
-# ---
-# For bre470pilingmatdesign.com use a separate robots.txt at that domain root:
-#
-# User-agent: *
-# Allow: /
-# Sitemap: https://www.bre470pilingmatdesign.com/sitemap.xml
