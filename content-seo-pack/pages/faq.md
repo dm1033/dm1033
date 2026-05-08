@@ -1,15 +1,14 @@
-# FAQ — temporaryworksconsulting.com
-
-**SEO title:** Temporary Works FAQ | Design, CAT 3 Checks, BRE 470 | Temporary Works Consulting
-**Meta description:** Practical answers on Temporary Works Design, CAT 3 design checking, BS 5975:2024, BRE 470 piling mat design, RAMS, ITPs and international project support.
-**Canonical:** https://www.temporaryworksconsulting.com/faq
-
-> Apply the FAQPage JSON-LD from `schema/faqpage.json` to this page only.
-
+---
+layout: base.njk
+title: "Temporary Works FAQ | Design, CAT 3 Checks, BRE 470 | Temporary Works Consulting"
+description: "Practical answers on Temporary Works Design, CAT 3 design checking, BS 5975:2024, BRE 470 piling mat design, RAMS, ITPs and international project support."
+canonical: https://www.temporaryworksconsulting.com/faq
+permalink: /faq/
+schema_files:
+  - faqpage
 ---
 
-## H1
-Temporary Works — Frequently Asked Questions
+# Temporary Works — Frequently Asked Questions
 
 ---
 

@@ -1,13 +1,29 @@
 # Temporary Works Consulting — Content & SEO Pack
 
-Paste-ready content, metadata, schema and marketing assets for:
+Content, metadata, schema and marketing assets for:
 
-1. **temporaryworksconsulting.com** — main consultancy site
-2. **bre470pilingmatdesign.com** — BRE 470 piling mat / working platform design tool
+1. **temporaryworksconsulting.com** — main consultancy site (GoDaddy cPanel)
+2. **bre470pilingmatdesign.com** — BRE 470 piling mat / working platform design tool (Manus)
 
-## Why this is a pack, not a code edit
+## Two ways to use this pack
 
-The current repo contains no website source files (no HTML, no framework, no CMS export). Both live sites are hosted elsewhere. So this pack is structured for **direct copy-paste into whatever platform hosts the live sites** (Wix, Squarespace, WordPress, Webflow, Framer, custom HTML, etc.).
+### 1. Build to HTML with the included Eleventy scaffold (recommended for TWC)
+
+The repo root has an Eleventy scaffold that builds the markdown in `pages/` into a static HTML site you can upload to GoDaddy cPanel's `public_html/`. From the repo root:
+
+```sh
+npm install
+npm run build      # output goes to _site/
+npm run serve      # local preview at http://localhost:8080
+```
+
+Then upload the contents of `_site/` to `public_html/` via cPanel File Manager (or rsync). Re-run `npm run build` after any content edit.
+
+The scaffold reads YAML frontmatter from each `pages/*.md` file (title, description, canonical, permalink, schema_files) and applies the layout in `src/_includes/base.njk`, which injects `<title>`, meta description, canonical, Open Graph, Twitter cards and the JSON-LD blocks you list in `schema_files`.
+
+### 2. Paste the markdown bodies into a CMS (use this for the Manus site)
+
+Each `pages/*.md` file is also valid pasted body content. The YAML frontmatter at the top is delimited by `---` and can be skipped or removed for CMSs that don't parse it. Apply per-page metadata from `meta-tags/meta-tags.md` separately in the CMS's SEO settings.
 
 ## Contents
 

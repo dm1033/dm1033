@@ -1,20 +1,16 @@
-# BS 5975:2024 Temporary Works Consultancy — Service Page
-
-**SEO title:** BS 5975:2024 Consultancy | Temporary Works Coordinator Support | UK
-**Meta description:** BS 5975:2024 procedure support, design briefs, registers and Temporary Works Coordinator overflow assistance for UK and international contractors.
-**Canonical:** https://www.temporaryworksconsulting.com/services/bs5975-temporary-works-consultancy
-
+---
+layout: base.njk
+title: "BS 5975:2024 Consultancy | Temporary Works Coordinator Support | UK"
+description: "BS 5975:2024 procedure support, design briefs, registers and Temporary Works Coordinator overflow assistance for UK and international contractors."
+canonical: https://www.temporaryworksconsulting.com/services/bs5975-temporary-works-consultancy
+permalink: /services/bs5975-temporary-works-consultancy/
 ---
 
-## H1
-BS 5975:2024 Temporary Works Consultancy
+# BS 5975:2024 Temporary Works Consultancy
 
-## Intro
 Practical support for contractors operating to **BS 5975:2024 — Code of practice for temporary works procedures** — including design briefs, register management, design checking, and overflow assistance for Temporary Works Coordinators (TWCs) and Temporary Works Supervisors (TWSs).
 
-**Primary CTAs:** [Request a Quote] · [Email David]
-
-## H2 — Areas of support
+## Areas of support
 
 ### Procedure setup
 - Drafting or reviewing a contractor's Temporary Works Procedure
@@ -39,18 +35,18 @@ Practical support for contractors operating to **BS 5975:2024 — Code of practi
 - Inspection regimes for temporary works in service
 - Removal sequences and de-propping procedures
 
-## H2 — Who this suits
+## Who this suits
 
 - Principal Contractors implementing or maintaining a BS 5975:2024 procedure
 - Tier 1 and Tier 2 contractors needing TWC overflow capacity
 - Smaller contractors needing structured temporary works competence on a project
 - Consultancies advising clients on temporary works governance
 
-## H2 — Cautions and limits
+## Cautions and limits
 
 This consultancy supports the contractor's procedure — it does not replace the appointment of a competent in-house Temporary Works Coordinator where the contract or procedure requires it. Specific allocations of duty are confirmed in writing per project.
 
-## H2 — Related services
+## Related services
 - [Temporary Works Design](/services/temporary-works-design)
 - [Design Checking / CAT 3 Checks](/services/design-checking)
 - [RAMS, ITPs & Safety Documentation](/services/rams-itps-safety-documentation)

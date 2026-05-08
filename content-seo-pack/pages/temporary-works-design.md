@@ -1,20 +1,16 @@
-# Temporary Works Design — Service Page
-
-**SEO title:** Temporary Works Design Consultant | UK & International | Temporary Works Consulting
-**Meta description:** Temporary Works Design calculations and drawings for falsework, formwork, propping, shoring, excavation support and working platforms. UK civil engineer, fast turnaround.
-**Canonical:** https://www.temporaryworksconsulting.com/services/temporary-works-design
-
+---
+layout: base.njk
+title: "Temporary Works Design Consultant | UK & International | Temporary Works Consulting"
+description: "Temporary Works Design calculations and drawings for falsework, formwork, propping, shoring, excavation support and working platforms. UK civil engineer, fast turnaround."
+canonical: https://www.temporaryworksconsulting.com/services/temporary-works-design
+permalink: /services/temporary-works-design/
 ---
 
-## H1
-Temporary Works Design
+# Temporary Works Design
 
-## Intro
 Specialist Temporary Works Design for UK and international construction projects — calculations, drawings and design briefs produced by an experienced UK civil engineer and Temporary Works Designer.
 
-**Primary CTAs:** [Request a Quote] · [Email David]
-
-## H2 — What is covered
+## What is covered
 
 - Falsework and formwork
 - Propping, needling and temporary support
@@ -27,7 +23,7 @@ Specialist Temporary Works Design for UK and international construction projects
 - Temporary supports for façade retention and demolition
 - Site-specific bespoke temporary works
 
-## H2 — Typical deliverables
+## Typical deliverables
 
 - Stamped design calculations
 - Temporary works drawings (PDF / DWG where required)
@@ -35,7 +31,7 @@ Specialist Temporary Works Design for UK and international construction projects
 - Inspection and check categories aligned with BS 5975:2024
 - Revisions and RFI responses through construction
 
-## H2 — How a design typically runs
+## How a design typically runs
 
 1. **Brief.** Send drawings, ground information, plant data and the scope.
 2. **Fee proposal.** Clear scope, deliverables, programme and price.
@@ -43,10 +39,10 @@ Specialist Temporary Works Design for UK and international construction projects
 4. **Check.** Independent design checking arranged at the appropriate category.
 5. **Site support.** RFIs, revisions and queries handled through the build.
 
-## H2 — Standards and references
+## Standards and references
 Designs are produced in accordance with relevant standards and principles, including the Eurocodes (BS EN 1990, 1991, 1993, 1996, 1997), BS 5975:2024, BRE 470 and applicable TWf and CIRIA guidance, subject to project-specific information.
 
-## H2 — Sectors
+## Sectors
 - Main and principal contractors
 - Civil engineering and groundworks contractors
 - Piling and foundation contractors
@@ -54,7 +50,7 @@ Designs are produced in accordance with relevant standards and principles, inclu
 - Demolition and façade retention contractors
 - Developers and project managers
 
-## H2 — Related services
+## Related services
 - [Design Checking / CAT 1, 2 and 3 Checks](/services/design-checking)
 - [BRE 470 Working Platform Design](/services/bre470-working-platform-design)
 - [Excavation Support Design](/services/excavation-support-design)

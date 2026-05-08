@@ -1,30 +1,27 @@
-# Homepage — temporaryworksconsulting.com
-
-**SEO title:** Temporary Works Design Consultant | UK & International | Temporary Works Consulting
-**Meta description:** Specialist Temporary Works Design, CAT 3 design checking, BRE 470 piling mat design and BS 5975:2024 support. Led by a UK civil engineer with 28+ years' experience.
-**Canonical:** https://www.temporaryworksconsulting.com/
-
+---
+layout: base.njk
+title: "Temporary Works Design Consultant | UK & International | Temporary Works Consulting"
+description: "Specialist Temporary Works Design, CAT 3 design checking, BRE 470 piling mat design and BS 5975:2024 support. Led by a UK civil engineer with 28+ years' experience."
+canonical: https://www.temporaryworksconsulting.com/
+permalink: /
+og_title: "Temporary Works Design Consultant — UK & International"
+og_description: "Specialist Temporary Works Design, CAT 3 checks, BRE 470 piling mat design and BS 5975:2024 support."
+schema_files:
+  - organization-professionalservice
+  - website
 ---
 
-## H1
-Specialist Temporary Works Design and Engineering Support
+# Specialist Temporary Works Design and Engineering Support
 
-## Subheading / hero strapline
 Responsive, professional Temporary Works Design, design checking, RAMS/ITPs and BRE 470 piling mat design — for UK and international construction projects.
 
-## Primary CTAs (above the fold)
-- **Request a Quote** → /contact
-- **Email David** → mailto:[CONTACT_EMAIL]
-
----
-
-## H2 — What I provide
+## What I provide
 
 A focused Temporary Works Design service led personally by David, a UK civil engineer with over 28 years' construction, civil engineering, safety and training experience. Support is offered to contractors, principal contractors, design managers, Temporary Works Coordinators and consultants needing fast, technically sound assistance.
 
 ---
 
-## H2 — Core services
+## Core services
 
 Service cards / grid:
 
@@ -54,7 +51,7 @@ Construction-phase BREEAM support and assistance with ISO 9001, 14001, 45001, 27
 
 ---
 
-## H2 — Try the BRE 470 Piling Mat Design Tool
+## Try the BRE 470 Piling Mat Design Tool
 
 A practical online aid for engineers, contractors, piling teams, crane teams and Temporary Works Coordinators working to BRE 470 principles. The tool helps speed up working platform sizing for piling rigs, cranes and large tracked plant — useful at tender stage, during pre-construction planning and as a working aid during design.
 
@@ -64,7 +61,7 @@ A practical online aid for engineers, contractors, piling teams, crane teams and
 
 ---
 
-## H2 — Why work with Temporary Works Consulting
+## Why work with Temporary Works Consulting
 
 - **Specialist focus.** Temporary Works Design is the core service, not an add-on.
 - **Direct access to the engineer.** No hand-offs — David handles design and design checking personally.
@@ -74,7 +71,7 @@ A practical online aid for engineers, contractors, piling teams, crane teams and
 
 ---
 
-## H2 — Sectors and clients supported
+## Sectors and clients supported
 
 - UK and international main contractors
 - Civil engineering and groundworks contractors
@@ -86,7 +83,7 @@ A practical online aid for engineers, contractors, piling teams, crane teams and
 
 ---
 
-## H2 — How a project typically runs
+## How a project typically runs
 
 1. **Brief.** Send drawings, plant data, ground information and the temporary works scope.
 2. **Fee proposal.** A clear scope and fee returned promptly.
@@ -95,7 +92,7 @@ A practical online aid for engineers, contractors, piling teams, crane teams and
 
 ---
 
-## H2 — Frequently asked
+## Frequently asked
 
 A short FAQ teaser linking to /faq:
 
