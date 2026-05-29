@@ -37,10 +37,10 @@ breadcrumbs:
 <!-- TRUST BAR -->
 <div class="trustbar">
   <div class="container">
-    <span><span class="dot"></span> Temporary Works Design &amp; checking</span>
+    <span><span class="dot"></span> Incorporated UK company (No. {{ site.companyNumber }})</span>
+    <span><span class="dot"></span> Fully insured</span>
+    <span><span class="dot"></span> Led by {{ site.director }}, Temporary Works Designer</span>
     <span><span class="dot"></span> With reference to BS 5975:2024</span>
-    <span><span class="dot"></span> RAMS, ITPs &amp; method statements</span>
-    <span><span class="dot"></span> BRE 470 working platforms</span>
     <span><span class="dot"></span> UK &amp; international</span>
   </div>
 </div>
@@ -97,7 +97,7 @@ breadcrumbs:
     <div class="prose">
       <p class="eyebrow">Why contractors use this service</p>
       <h2>Clear calculations. Practical advice. Faster decisions.</h2>
-      <p>Temporary works should reduce risk and keep the job moving — not add delay. Support here is direct, led personally by an experienced construction and temporary works consultant, and written to be used on site.</p>
+      <p>Temporary works should reduce risk and keep the job moving — not add delay. Support here is direct, led personally by {{ site.director }} — an experienced, competent temporary works designer — and written to be used on site. {{ site.brand }} is an incorporated, fully insured consultancy.</p>
       <ul>
         <li><strong>Fast response</strong> for quotes, queries and overflow work.</li>
         <li><strong>Buildable designs</strong> with stated assumptions and clear design risk.</li>
@@ -168,8 +168,9 @@ breadcrumbs:
     <aside class="panel">
       <h3>Also available</h3>
       <ul>
-        <li><a href="{{ site.sisterSites.scaffold }}" style="color:#cfe0f2">Scaffold Design Visualiser</a></li>
-        <li><a href="{{ site.sisterSites.toolbox }}" style="color:#cfe0f2">Temporary Works Toolbox</a></li>
+        <li><a href="{{ site.sisterSites.scaffold }}" style="color:#cfe0f2">{{ site.sisterSiteLabels.scaffold }}</a></li>
+        <li><a href="{{ site.sisterSites.toolbox }}" style="color:#cfe0f2">{{ site.sisterSiteLabels.toolbox }}</a></li>
+        <li><a href="/ebook/" style="color:#cfe0f2">Mastering Temporary Works ebook</a></li>
       </ul>
     </aside>
   </div>
@@ -202,6 +203,27 @@ breadcrumbs:
       <li class="chip">Temporary Works Forum</li>
       <li class="chip">TG20 / TG30 (where applicable)</li>
     </ul>
+  </div>
+</section>
+
+<!-- EBOOK PROMO -->
+<section class="section section--tint">
+  <div class="container feature feature--reverse">
+    <aside class="panel" style="text-align:center">
+      <p class="eyebrow">eBook</p>
+      <h3 style="font-size:1.4rem">{{ site.ebook.title }}</h3>
+      <p class="muted">{{ site.ebook.subtitle }}</p>
+      <p class="price" style="font-size:1.6rem;font-weight:800;color:var(--navy)">{{ site.ebook.price }}</p>
+      <a class="btn btn-primary" href="/ebook/">View the ebook</a>
+    </aside>
+    <div class="prose">
+      <p class="eyebrow">Learn temporary works</p>
+      <h2>Mastering Temporary Works — 3-volume ebook set</h2>
+      <p>A practical, plain-English ebook set covering temporary works design, control and documentation — written for site teams, Temporary Works Coordinators and anyone building their temporary works competence.</p>
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="/ebook/">Find out more</a>
+      </div>
+    </div>
   </div>
 </section>
 

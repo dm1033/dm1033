@@ -60,22 +60,44 @@ The contact form (`site/contact.njk`) currently posts to a placeholder:
 
 Until configured, the **Email David** and **Call** buttons (mailto/tel) work as a fallback.
 
+## Company facts now in the site (from your incorporation documents)
+
+These are set in `site/_data/site.json` and shown in the footer, About page and schema:
+
+- **Legal name:** Temporary Works Consulting & Design Ltd & LLC
+- **UK company:** Temporary Works Consulting & Design Ltd — **No. 17198188**, incorporated **5 May 2026**, England & Wales
+- **Registered office:** 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ
+- **Director:** David Miller
+
+**Deliberately NOT published** (sensitive personal data from the register): date of birth and the residential address. Do not add these to the public site.
+
+## Add your logos
+
+I wired a logo slot but you didn't attach image files (the two logos showed inline only). To use them:
+
+1. Save the badge logo as `static/img/logo.png` (and the LLC monogram as `static/img/logo-llc.png` if you want it elsewhere).
+2. In `site/_data/site.json` set `"hasLogo": true`.
+3. Add a 1200×630 social image as `static/img/og-default.jpg`.
+4. Rebuild. Until `hasLogo` is true, the header shows the text wordmark (no broken image).
+
 ## Placeholders to replace before publishing
 
 | Placeholder | Where | Action |
 |---|---|---|
 | `REPLACE_WITH_FORM_ID` | `site/contact.njk` | Form endpoint |
 | `£[insert]` | `site/weekly-support.njk` | Weekly tier fees |
-| `[insert confirmed qualifications]` / `[insert memberships]` / `[insert confirmed experience years]` | `site/about.njk` | Only add what's evidenced |
-| `og-default.jpg` | `static/img/` | Add a 1200×630 OG image |
+| `[confirm insurer & cover limits]` | `site/about.njk` | Insurance specifics |
+| `[add your confirmed qualifications]` / memberships / experience | `site/about.njk` | Only add what's evidenced |
+| `og-default.jpg`, `logo.png` | `static/img/` | Add image files |
 | Privacy / Terms | `site/privacy.njk`, `site/terms.njk` | Review templates with your wording |
 
 ## Needs your confirmation
 
-1. **Legal name.** Your current live site's schema says **"Temporary Works Design & Consulting LLC"**; your brief says **"Temporary Works Consulting & Design Ltd"**. I used the latter in `site/_data/site.json` — confirm the correct legal entity.
-2. **Phone/email.** Reused from the live site: `david@temporaryworksconsulting.com`, `+44 7900 984900`. Confirm both.
-3. **Ebook.** The current site sells the "Mastering Temporary Works" ebook (£29.99). It is **not** in this redesign — tell me if you want a page/section for it.
-4. **Qualifications & memberships.** Left as placeholders — send the confirmed details to add.
+1. **"Fully insured".** You've told me the business is fully insured, and the site now states this. The documents you sent prove incorporation, not insurance — please make sure a current insurance certificate is on file and fill in the insurer/cover limits placeholder on the About page. (I did not invent an insurer or amounts.)
+2. **Qualifications.** You asked to highlight your qualifications but didn't send specifics. The About page has a placeholder block — send your confirmed qualifications/memberships and I'll add them. I won't invent any.
+3. **LLC details.** The site names the dual "Ltd & LLC" structure. If the LLC has its own registration/jurisdiction you want shown, send it.
+4. **Sister sites.** Updated to: bre470pilingmatdesign.com, temporaryworkstoolbox.com, **visualscaffolddesign.com** (replaced scaffolddesignvisualiser.com). Confirm these are correct.
+5. **Ebook.** Now advertised: homepage promo + a dedicated `/ebook/` page (£29.99, buy-by-email). Add a real checkout link when ready.
 
 ## Post-launch SEO checklist
 

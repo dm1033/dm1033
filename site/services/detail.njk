@@ -7,20 +7,22 @@ layout: base.njk
 eleventyExcludeFromCollections: true
 permalink: "/services/{{ svc.slug }}/"
 eleventyComputed:
-  title: "{{ svc.title }}"
-  seoTitle: "{{ svc.seoTitle }}"
-  metaDescription: "{{ svc.metaDescription }}"
+  title: "{{ svc.title | safe }}"
+  seoTitle: "{{ svc.seoTitle | safe }}"
+  metaDescription: "{{ svc.metaDescription | safe }}"
   serviceSchema:
-    name: "{{ svc.title }}"
-    description: "{{ svc.metaDescription }}"
-  breadcrumbs:
-    - name: "Home"
-      url: "/"
-    - name: "Services"
-      url: "/services/"
-    - name: "{{ svc.nav }}"
-      url: "/services/{{ svc.slug }}/"
+    name: "{{ svc.title | safe }}"
+    description: "{{ svc.metaDescription | safe }}"
 ---
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "{{ site.url }}/services/" },
+    { "@type": "ListItem", "position": 3, "name": {{ svc.nav | dump | safe }}, "item": "{{ site.url }}/services/{{ svc.slug }}/" }
+  ]
+}</script>
 <div class="container">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="/">Home</a><span>/</span><a href="/services/">Services</a><span>/</span>{{ svc.nav }}

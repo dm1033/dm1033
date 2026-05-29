@@ -1,11 +1,16 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <p class="footer-brand"><b>{{ site.legalName }}</b></p>
+      <p class="footer-brand"><b>{{ site.brand }}</b></p>
       <p>{{ site.tagline }}.</p>
       <p>
         <a href="mailto:{{ site.email }}">{{ site.email }}</a><br />
         <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>
+      </p>
+      <p class="small" style="color:#8ea1b6">
+        {{ site.legalNameUk }}<br />
+        Incorporated in {{ site.jurisdiction }} &middot; Company No. {{ site.companyNumber }}<br />
+        Registered office: {{ site.registeredOffice }}
       </p>
     </div>
 
@@ -35,9 +40,10 @@
       <h4>Tools &amp; sites</h4>
       <ul>
         <li><a href="{{ site.url }}">temporaryworksconsulting.com</a></li>
-        <li><a href="{{ site.sisterSites.bre470 }}">BRE 470 Piling Mat Tool</a></li>
-        <li><a href="{{ site.sisterSites.scaffold }}">Scaffold Design Visualiser</a></li>
-        <li><a href="{{ site.sisterSites.toolbox }}">Temporary Works Toolbox</a></li>
+        <li><a href="{{ site.sisterSites.bre470 }}">{{ site.sisterSiteLabels.bre470 }}</a></li>
+        <li><a href="{{ site.sisterSites.scaffold }}">{{ site.sisterSiteLabels.scaffold }}</a></li>
+        <li><a href="{{ site.sisterSites.toolbox }}">{{ site.sisterSiteLabels.toolbox }}</a></li>
+        <li><a href="/ebook/">Mastering Temporary Works (ebook)</a></li>
       </ul>
       <h4 style="margin-top:1.25rem">Legal</h4>
       <ul>
