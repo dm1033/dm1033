@@ -69,7 +69,13 @@ These are set in `site/_data/site.json` and shown in the footer, About page and 
 - **Registered office:** 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ
 - **Director:** David Miller
 
-**Deliberately NOT published** (sensitive personal data from the register): date of birth and the residential address. Do not add these to the public site.
+**US entity:** Temporary Works Design & Consulting LLC — a **Delaware, USA** single-member LLC formation, held to support international tendering. Presented as a *formation only* (per your instruction), shown in the footer and the About page's "International capability" section.
+
+**Deliberately NOT published** (confidential): date of birth, residential address, the LLC's **EIN (36-5172938)**, and the formation-agent details. Do not add these to the public site.
+
+## Build output
+
+`npm run build` now produces **minified HTML** (comments and redundant whitespace removed, inline CSS minified). JSON-LD `<script>` blocks are preserved verbatim (`minifyJS: false`), so structured data is untouched. Output is in `_site/` ready to upload to `public_html/`.
 
 ## Add your logos
 
