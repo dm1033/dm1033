@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Information needed for Temporary Works Design",
+    "items": [
+      "Project name and location",
+      "Layout and relevant permanent works drawings",
+      "Ground information or factual GI report (where relevant)",
+      "Loads, plant and any imposed actions",
+      "Programme dates and site constraints",
+      "The standards or client procedure that apply"
+    ]
+  },
+  {
+    "title": "Information needed for Piling Mat / BRE 470 review",
+    "items": [
+      "Plant data sheet (rig type, track dimensions, weights, loads)",
+      "Pile schedule or sequence",
+      "Ground investigation report or available ground data",
+      "Proposed platform material and source",
+      "Site layout, levels and constraints"
+    ]
+  },
+  {
+    "title": "Information needed for Crane Outrigger checks",
+    "items": [
+      "Crane type and configuration",
+      "Outrigger loads and pad sizes",
+      "Lift plan and positions",
+      "Ground information beneath the outrigger positions",
+      "Any nearby excavations, services or basements"
+    ]
+  },
+  {
+    "title": "Information needed for Hoarding Design",
+    "items": [
+      "Hoarding height, length and layout",
+      "Ground conditions at the hoarding line",
+      "Exposure and any sheeting or signage",
+      "Vehicle, impact or surcharge sources nearby",
+      "Foundation or kentledge constraints"
+    ]
+  },
+  {
+    "title": "Information needed for Propping Design",
+    "items": [
+      "Existing structure drawings or survey",
+      "Loads to be supported",
+      "Openings, sequence and access constraints",
+      "Ground information for any foundations",
+      "Programme and removal requirements"
+    ]
+  },
+  {
+    "title": "Information needed for RAMS / ITP support",
+    "items": [
+      "Scope of works and method",
+      "Relevant temporary works designs or drawings",
+      "Site constraints, access and sequencing",
+      "Your preferred document format, if any"
+    ]
+  },
+  {
+    "title": "Temporary Works Register checklist",
+    "items": [
+      "Every temporary works item identified and listed",
+      "Risk category assigned to each item",
+      "Design and check status recorded",
+      "Design brief reference for each item",
+      "Permit to load / dig and inspection status",
+      "Dismantling and removal recorded"
+    ]
+  },
+  {
+    "title": "Information needed for a Virtual Site Audit",
+    "items": [
+      "Photos and video of the temporary works",
+      "Temporary works register and design briefs",
+      "Relevant RAMS and drawings",
+      "The specific query or concern"
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+---
+layout: base.njk
+permalink: /services/
+title: "Services"
+seoTitle: "Temporary Works Design Services | Checking, RAMS, BS 5975 | UK"
+metaDescription: "Temporary Works Design, design checking, BS 5975:2024 support, RAMS & ITPs, hoardings, propping, excavations, working platforms, scaffold support, virtual audits and weekly support."
+breadcrumbs:
+  - name: "Home"
+    url: "/"
+  - name: "Services"
+    url: "/services/"
+---
+<div class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top:0">
+      <a href="/">Home</a><span>/</span>Services
+    </nav>
+    <p class="eyebrow">Services</p>
+    <h1>Temporary Works Design &amp; advisory services</h1>
+    <p>Practical support across the full temporary works lifecycle — design, checking, documentation, audits, training and retained weekly support. UK and international, remote and project-based.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2">
+      {%- for s in services %}
+      <div class="card">
+        <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="{{ s.icon }}"/></svg></span>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.summary }}</p>
+        <p class="card-meta"><b>Typical deliverables:</b> {{ s.deliverables | join(", ") }}.</p>
+        <p class="card-meta"><b>Suitable for:</b> {{ s.clients | join(", ") }}.</p>
+        <div class="btn-row" style="margin-top:0.5rem">
+          <a class="btn btn-outline" href="/services/{{ s.slug }}/">Learn more</a>
+          <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        </div>
+      </div>
+      {%- endfor %}
+
+      <!-- Weekly support card -->
+      <div class="card" style="border-color:var(--amber)">
+        <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></span>
+        <h3>Weekly Temporary Works Support</h3>
+        <p>Retained, predictable support for contractors who need ongoing temporary works input.</p>
+        <p class="card-meta"><b>Typical deliverables:</b> register, brief, RAMS/ITP review, virtual audits, mentoring, early risk input.</p>
+        <p class="card-meta"><b>Suitable for:</b> contractors needing fast, recurring advisory support.</p>
+        <div class="btn-row" style="margin-top:0.5rem">
+          <a class="btn btn-outline" href="/weekly-support/">Learn more</a>
+          <a class="btn btn-primary" href="/contact/?type=weekly">Ask for Weekly Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Not sure which service you need?</h2>
+      <p>Send your Temporary Works Register, design brief or site query and the right support will be confirmed with a clear scope and fee.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Book a Call</a>
+      </div>
+    </div>
+  </div>
+</section>

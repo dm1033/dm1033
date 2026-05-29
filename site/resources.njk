@@ -1,0 +1,55 @@
+---
+layout: base.njk
+permalink: /resources/
+title: "Resources"
+seoTitle: "Temporary Works Resources & Checklists | Design Brief, Register, RAMS | UK"
+metaDescription: "Free temporary works checklists — what information is needed for design, piling mat / BRE 470 review, hoarding, propping, RAMS/ITPs, the Temporary Works Register and virtual audits."
+breadcrumbs:
+  - name: "Home"
+    url: "/"
+  - name: "Resources"
+    url: "/resources/"
+---
+<div class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top:0">
+      <a href="/">Home</a><span>/</span>Resources
+    </nav>
+    <p class="eyebrow">Resources</p>
+    <h1>Temporary works checklists</h1>
+    <p>Practical checklists of the information typically needed to get a fast, accurate response. Downloadable PDF versions can be added later.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2">
+      {%- for r in resources %}
+      <div class="card">
+        <h3>{{ r.title }}</h3>
+        <ul>
+          {%- for i in r.items %}<li>{{ i }}</li>{% endfor %}
+        </ul>
+        <div class="btn-row" style="margin-top:0.5rem">
+          <a class="btn btn-outline" href="/contact/">Send this information</a>
+          <button class="btn btn-secondary" type="button" disabled title="PDF download coming soon">Download PDF (soon)</button>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+    <p class="form-note mt-2">Tip: the more of the relevant information you can share up front, the faster and more accurate the response. Anything missing can be confirmed as the work progresses — subject to project-specific information.</p>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Ready to send your information?</h2>
+      <p>Use the contact form to send your Temporary Works Register, design brief or site query.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Book a Call</a>
+      </div>
+    </div>
+  </div>
+</section>

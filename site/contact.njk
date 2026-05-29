@@ -1,0 +1,146 @@
+---
+layout: base.njk
+permalink: /contact/
+title: "Contact"
+seoTitle: "Contact | Request a Temporary Works Quote | Send Your TW Register"
+metaDescription: "Request a quote or send your Temporary Works Register, design brief or site query. Direct contact with David at Temporary Works Consulting. Fast response, UK & international."
+breadcrumbs:
+  - name: "Home"
+    url: "/"
+  - name: "Contact"
+    url: "/contact/"
+---
+<div class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top:0">
+      <a href="/">Home</a><span>/</span>Contact
+    </nav>
+    <p class="eyebrow">Contact</p>
+    <h1>Request a quote or send a query</h1>
+    <p>Send your Temporary Works Register, design brief or current site query. A clear scope and response will follow promptly.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container feature">
+    <div>
+      <!-- IMPORTANT: set the form action before going live. See deployment notes. -->
+      <form class="form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
+        <div class="row">
+          <div class="field">
+            <label for="name">Your name <span class="req">*</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="company">Client company</label>
+            <input id="company" name="company" type="text" autocomplete="organization" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="email">Email <span class="req">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="project">Project name</label>
+            <input id="project" name="project" type="text" />
+          </div>
+          <div class="field">
+            <label for="location">Project / site location</label>
+            <input id="location" name="location" type="text" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="design-type">Design / support type</label>
+            <select id="design-type" name="design_type">
+              <option value="">Please choose…</option>
+              {%- for s in services %}
+              <option value="{{ s.nav }}">{{ s.nav }}</option>
+              {%- endfor %}
+              <option value="Weekly Support">Weekly Support</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="required-date">Required return date</label>
+            <input id="required-date" name="required_date" type="date" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="urgency">Urgency</label>
+            <select id="urgency" name="urgency">
+              <option value="Standard">Standard</option>
+              <option value="Soon">Soon</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="drawings-link">Drawings link (e.g. WeTransfer)</label>
+            <input id="drawings-link" name="drawings_link" type="url" placeholder="https://" />
+          </div>
+        </div>
+
+        <fieldset class="row" style="border:0;padding:0;margin:0">
+          <div class="field">
+            <label for="twr">Temporary Works Register received?</label>
+            <select id="twr" name="twr_received"><option>No</option><option>Yes</option></select>
+          </div>
+          <div class="field">
+            <label for="brief">Design brief received?</label>
+            <select id="brief" name="brief_received"><option>No</option><option>Yes</option></select>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="drawings-available">Drawings available?</label>
+          <select id="drawings-available" name="drawings_available"><option>No</option><option>Yes</option></select>
+        </div>
+
+        <div class="field">
+          <label for="message">Message <span class="req">*</span></label>
+          <textarea id="message" name="message" required placeholder="Outline the temporary works, the support you need and any constraints."></textarea>
+        </div>
+
+        <p class="form-note">Please do not upload confidential information unless you are authorised to share it. Share large files via a link (e.g. WeTransfer) rather than uploading.</p>
+
+        <label class="checkbox">
+          <input type="checkbox" name="consent" required />
+          <span>I consent to my details being used to respond to this enquiry, in line with the <a href="/privacy/">privacy policy</a>. <span class="req">*</span></span>
+        </label>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="submit">Send your Temporary Works Register, design brief or site query</button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="panel">
+      <h3>Prefer email or phone?</h3>
+      <p>Direct contact with David:</p>
+      <p>
+        <a class="btn btn-secondary" href="mailto:{{ site.email }}?subject=Temporary%20Works%20Design%20Quote&body=Project%20name%3A%0ALocation%3A%0AService%20required%3A%0ADrawings%20available%3A%0AProgramme%20deadline%3A%0ASite%20constraints%3A">Email David</a>
+      </p>
+      <p>
+        <a class="btn btn-outline" href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>
+      </p>
+      <hr class="divider" />
+      <h3>Fast response</h3>
+      <p class="muted small">Enquiries are reviewed personally. Urgent requests can usually be triaged the same UK working day — please flag urgency above.</p>
+      <hr class="divider" />
+      <h3>Working internationally</h3>
+      <p class="muted small">Projects outside the UK are welcome. Designs are produced with reference to the standards specified by the project, subject to project-specific information.</p>
+    </aside>
+  </div>
+</section>

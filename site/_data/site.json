@@ -1,0 +1,19 @@
+{
+  "name": "Temporary Works Consulting",
+  "legalName": "Temporary Works Consulting & Design Ltd",
+  "url": "https://www.temporaryworksconsulting.com",
+  "lang": "en-GB",
+  "tagline": "Temporary Works Support Without Delay",
+  "description": "Fast, practical Temporary Works Design, checking, RAMS, ITPs, virtual site audits and advisory support for contractors. UK and international, remote and project-based.",
+  "email": "david@temporaryworksconsulting.com",
+  "phone": "+44 7900 984900",
+  "phoneHref": "+447900984900",
+  "ogImage": "https://www.temporaryworksconsulting.com/assets/img/og-default.jpg",
+  "person": "David",
+  "sisterSites": {
+    "bre470": "https://www.bre470pilingmatdesign.com",
+    "scaffold": "https://www.scaffolddesignvisualiser.com",
+    "toolbox": "https://www.temporaryworkstoolbox.com"
+  },
+  "year": 2026
+}

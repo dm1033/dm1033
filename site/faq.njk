@@ -1,0 +1,49 @@
+---
+layout: base.njk
+permalink: /faq/
+title: "FAQ"
+seoTitle: "Temporary Works FAQ | Design, CAT 3, BS 5975, BRE 470 | UK"
+metaDescription: "Answers on Temporary Works Design, when you need a designer, the Temporary Works Register, design briefs, CAT 3 checks, BS 5975:2024, RAMS, ITPs, virtual audits and BRE 470."
+faqSchema: true
+breadcrumbs:
+  - name: "Home"
+    url: "/"
+  - name: "FAQ"
+    url: "/faq/"
+---
+<div class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top:0">
+      <a href="/">Home</a><span>/</span>FAQ
+    </nav>
+    <p class="eyebrow">FAQ</p>
+    <h1>Temporary works — frequently asked questions</h1>
+    <p>Practical answers on temporary works design, checking, documentation and support.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="faq">
+      {%- for f in faqs %}
+      <details{% if loop.index == 1 %} open{% endif %}>
+        <summary>{{ f.q }}</summary>
+        <div>{{ f.a }}</div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Still have a question?</h2>
+      <p>Send your query and I'll come back with a clear answer and, where relevant, a scope and fee.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="mailto:{{ site.email }}">Email David</a>
+      </div>
+    </div>
+  </div>
+</section>

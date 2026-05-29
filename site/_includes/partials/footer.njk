@@ -1,0 +1,59 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand"><b>{{ site.legalName }}</b></p>
+      <p>{{ site.tagline }}.</p>
+      <p>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a><br />
+        <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>
+      </p>
+    </div>
+
+    <div>
+      <h4>Services</h4>
+      <ul>
+        {%- for s in services %}
+        <li><a href="/services/{{ s.slug }}/">{{ s.nav }}</a></li>
+        {%- endfor %}
+        <li><a href="/weekly-support/">Weekly Support</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/resources/">Resources</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Tools &amp; sites</h4>
+      <ul>
+        <li><a href="{{ site.url }}">temporaryworksconsulting.com</a></li>
+        <li><a href="{{ site.sisterSites.bre470 }}">BRE 470 Piling Mat Tool</a></li>
+        <li><a href="{{ site.sisterSites.scaffold }}">Scaffold Design Visualiser</a></li>
+        <li><a href="{{ site.sisterSites.toolbox }}">Temporary Works Toolbox</a></li>
+      </ul>
+      <h4 style="margin-top:1.25rem">Legal</h4>
+      <ul>
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="/privacy/#disclaimer">Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-disclaimer">
+    Technical advice and designs are subject to project-specific information, agreed scope and formal appointment.
+  </div>
+
+  <div class="container footer-bottom">
+    <span>&copy; {{ site.year }} {{ site.legalName }}. All rights reserved.</span>
+    <span>{{ site.tagline }}</span>
+  </div>
+</footer>

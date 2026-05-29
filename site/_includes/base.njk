@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{ seoTitle or (title + " | " + site.name) }}</title>
+  <meta name="description" content="{{ metaDescription or description or site.description }}" />
+  <link rel="canonical" href="{{ canonical or (site.url + page.url) }}" />
+  <meta name="robots" content="{{ robots or 'index,follow' }}" />
+  <meta http-equiv="content-language" content="{{ site.lang }}" />
+  <meta name="theme-color" content="#0b2440" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ site.name }}" />
+  <meta property="og:title" content="{{ ogTitle or title }}" />
+  <meta property="og:description" content="{{ ogDescription or metaDescription or description or site.description }}" />
+  <meta property="og:type" content="{{ ogType or 'website' }}" />
+  <meta property="og:url" content="{{ canonical or (site.url + page.url) }}" />
+  <meta property="og:image" content="{{ ogImage or site.ogImage }}" />
+  <meta property="og:locale" content="en_GB" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ ogTitle or title }}" />
+  <meta name="twitter:description" content="{{ ogDescription or metaDescription or description or site.description }}" />
+  <meta name="twitter:image" content="{{ ogImage or site.ogImage }}" />
+
+  <!-- Fonts: system stack by default; Inter loaded non-blocking -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="/assets/css/site.css" />
+
+  <!-- Site-wide structured data -->
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["ProfessionalService", "Organization"],
+        "@id": "{{ site.url }}/#org",
+        "name": "{{ site.name }}",
+        "legalName": "{{ site.legalName }}",
+        "url": "{{ site.url }}",
+        "email": "{{ site.email }}",
+        "telephone": "{{ site.phone }}",
+        "areaServed": ["United Kingdom", "Worldwide"],
+        "description": "{{ site.description }}",
+        "sameAs": ["{{ site.sisterSites.bre470 }}", "{{ site.sisterSites.scaffold }}", "{{ site.sisterSites.toolbox }}"],
+        "serviceType": [
+          "Temporary Works Design", "Temporary Works Design Checking", "BS 5975:2024 support",
+          "RAMS and ITP preparation", "Working platform and piling mat support",
+          "Hoarding, propping and excavation support", "Virtual site audits",
+          "Training, mentoring and coaching"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "publisher": { "@id": "{{ site.url }}/#org" },
+        "inLanguage": "en-GB"
+      }
+      {%- if breadcrumbs %},
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {%- for c in breadcrumbs %}
+          { "@type": "ListItem", "position": {{ loop.index }}, "name": "{{ c.name }}", "item": "{{ site.url }}{{ c.url }}" }{% if not loop.last %},{% endif %}
+          {%- endfor %}
+        ]
+      }
+      {%- endif %}
+      {%- if serviceSchema %},
+      {
+        "@type": "Service",
+        "name": "{{ serviceSchema.name }}",
+        "serviceType": "{{ serviceSchema.name }}",
+        "url": "{{ canonical or (site.url + page.url) }}",
+        "provider": { "@id": "{{ site.url }}/#org" },
+        "areaServed": ["United Kingdom", "Worldwide"],
+        "description": "{{ serviceSchema.description }}"
+      }
+      {%- endif %}
+      {%- if faqSchema %},
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {%- for f in faqs %}
+          { "@type": "Question", "name": {{ f.q | dump | safe }}, "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | dump | safe }} } }{% if not loop.last %},{% endif %}
+          {%- endfor %}
+        ]
+      }
+      {%- endif %}
+    ]
+  }</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "partials/header.njk" %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+  {% include "partials/sticky-cta.njk" %}
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

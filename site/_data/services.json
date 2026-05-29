@@ -1,0 +1,464 @@
+[
+  {
+    "slug": "temporary-works-design",
+    "nav": "Temporary Works Design",
+    "title": "Temporary Works Design",
+    "seoTitle": "Temporary Works Design | UK & International | Temporary Works Consulting",
+    "metaDescription": "Fast, practical Temporary Works Design for contractors — calculations, drawings, design briefs and design risk, with reference to BS 5975:2024. Remote and project-based.",
+    "h1": "Temporary Works Design",
+    "icon": "M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6",
+    "summary": "Clear calculations and buildable designs for falsework, propping, excavations, hoardings, working platforms and more.",
+    "intro": "Practical Temporary Works Design produced for the people who have to build it. Calculations are clear, assumptions are stated, and design risk is communicated so the site team and Temporary Works Coordinator can act quickly.",
+    "deliverables": [
+      "Design calculations",
+      "Temporary works drawings or sketches",
+      "Design brief and assumptions register",
+      "Design risk assessment",
+      "Installation, use and dismantling notes"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Civil engineering contractors",
+      "Housebuilders",
+      "Contractors needing overflow design support"
+    ],
+    "sections": [
+      {
+        "h2": "What Temporary Works Design is",
+        "body": "Temporary Works Design covers the engineering of anything built to support the permanent works or keep the site safe during construction — falsework, formwork, propping, shoring, excavation support, working platforms, hoardings, crane bases and similar. The aim is a design that is safe, buildable and matched to the loads, ground and plant on your project."
+      },
+      {
+        "h2": "Why contractors need it",
+        "body": "Where temporary works are not fully covered by a standard manufacturer solution, or where there is risk to people, plant, the permanent works or third parties, a design and an appropriate check are needed. Most contractors manage this through a temporary works procedure aligned with BS 5975:2024."
+      },
+      {
+        "h2": "Typical design items",
+        "list": [
+          "Falsework and formwork support",
+          "Propping, needling and shoring",
+          "Excavation support and battered cuts",
+          "Working platforms, piling mats and crane bases",
+          "Hoardings and temporary fencing supports",
+          "Scaffold foundations and access interface checks",
+          "Temporary stability during construction sequencing"
+        ]
+      },
+      {
+        "h2": "How design risk is communicated",
+        "body": "Designs are issued with a clear statement of assumptions, limitations and the information they rely on. Installation, use and dismantling risks are highlighted so they can be carried into RAMS and the temporary works register. Designs are subject to project-specific information and an agreed scope."
+      }
+    ],
+    "info": [
+      "Project name and location",
+      "Layout and relevant permanent works drawings",
+      "Ground information or factual GI report (where relevant)",
+      "Plant and loading data (for platforms, crane bases, lifting)",
+      "Programme dates and any site constraints",
+      "The standards or client procedure that apply"
+    ],
+    "cta": { "label": "Send your design brief or Temporary Works Register for review", "type": "quote" },
+    "featured": true
+  },
+  {
+    "slug": "design-checking",
+    "nav": "Design Checking",
+    "title": "Temporary Works Design Checking — CAT 1, 2 and 3 Support",
+    "seoTitle": "CAT 3 Design Check Support | Temporary Works Design Checking | UK",
+    "metaDescription": "Independent temporary works design check support — CAT 1, CAT 2 and CAT 3, with clear review comments. Requirements depend on category, complexity and client procedure.",
+    "h1": "Design Checking — CAT 1, CAT 2 and CAT 3 Support",
+    "icon": "M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11",
+    "summary": "Independent design check support with clear, practical review comments — at the category your project and procedure require.",
+    "intro": "Independent check support for temporary works designs, with clear review comments and a focus on what matters on site. Design checking requirements depend on the project, temporary works category, complexity and client procedure.",
+    "deliverables": [
+      "Independent review of calculations and drawings",
+      "Schedule of design check comments",
+      "Review of design assumptions and limitations",
+      "Confirmation when comments are resolved",
+      "Coordination of independent checks where required"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Temporary Works Coordinators",
+      "Designers needing an independent check",
+      "Consultancies needing overflow capacity"
+    ],
+    "sections": [
+      {
+        "h2": "Check categories",
+        "body": "Temporary works are checked at a category proportionate to risk and complexity. As a guide, CAT 1 is a check by a different competent person, CAT 2 is an independent check, and CAT 3 is an independent check by a designer not involved in the original design and from a separate organisation. The category for any item should be confirmed in the temporary works procedure and design brief.",
+        "list": [
+          "CAT 1 — straightforward, lower-risk items",
+          "CAT 2 — more complex items, independent check",
+          "CAT 3 — complex, high-risk or unusual items; independent and separate organisation"
+        ]
+      },
+      {
+        "h2": "What a check involves",
+        "list": [
+          "Review of the design brief and stated assumptions",
+          "Independent verification or recalculation as appropriate",
+          "Review of drawings against the calculations",
+          "Comments returned in a clear, trackable schedule",
+          "Sign-off once comments are closed out"
+        ]
+      },
+      {
+        "h2": "Practical, site-focused checking",
+        "body": "Comments are written to be useful — flagging genuine issues, buildability concerns and missing information rather than noise. The goal is a design that can be issued and built with confidence, subject to project-specific information."
+      }
+    ],
+    "info": [
+      "Designer's calculations and drawings",
+      "Design brief and assumptions register",
+      "Ground information where relevant",
+      "Plant and loading data where relevant",
+      "The required check category and client procedure"
+    ],
+    "cta": { "label": "Request design check support", "type": "quote" },
+    "featured": true
+  },
+  {
+    "slug": "bs5975-support",
+    "nav": "BS 5975 Support",
+    "title": "BS 5975:2024 Temporary Works Procedure Support",
+    "seoTitle": "BS 5975:2024 Support | Temporary Works Coordinator Support | UK",
+    "metaDescription": "Support implementing BS 5975:2024 — temporary works registers, design briefs, design categories, TWC/TWS support, permits, hold points and change control. Subject to project scope.",
+    "h1": "BS 5975:2024 Temporary Works Support",
+    "icon": "M4 4h16v16H4zM8 8h8M8 12h8M8 16h5",
+    "summary": "Help setting up and running a temporary works control process aligned with BS 5975:2024 — registers, briefs, categories and TWC/TWS support.",
+    "intro": "Support for contractors implementing and running a temporary works control process aligned with BS 5975:2024. This is advisory and procedural support, with reference to the code rather than reproducing it.",
+    "deliverables": [
+      "Temporary works register setup and review",
+      "Design brief preparation and review",
+      "Design category guidance",
+      "TWC / TWS advisory support",
+      "Permit, hold point and change control guidance"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Temporary Works Coordinators and Supervisors",
+      "Smaller contractors building competence",
+      "Project teams setting up controls"
+    ],
+    "sections": [
+      {
+        "h2": "Temporary works control process",
+        "body": "Support covers the practical elements of a temporary works procedure: roles and responsibilities, the register, design briefs, design and check categories, permits to load and dig, inspection and dismantling. Approaches are aligned with BS 5975:2024 and the client's own procedure where one exists."
+      },
+      {
+        "h2": "Registers and design briefs",
+        "list": [
+          "Setting up or reviewing a temporary works register",
+          "Confirming categories against risk and complexity",
+          "Preparing structured design briefs",
+          "Tracking design and check status against programme"
+        ]
+      },
+      {
+        "h2": "TWC and TWS support",
+        "body": "Overflow and advisory support for in-house Temporary Works Coordinators and Supervisors, including technical input on unusual items and review of contractor proposals. This supports — and does not replace — the appointment of a competent TWC where the procedure requires one."
+      },
+      {
+        "h2": "Change control and dismantling",
+        "body": "Guidance on managing design changes, hold points and the inspection and dismantling sequence, so temporary works remain controlled through their full life on site."
+      }
+    ],
+    "info": [
+      "Your current temporary works procedure, if any",
+      "Project scope and programme",
+      "Known temporary works items and risks",
+      "Existing register and design briefs"
+    ],
+    "cta": { "label": "Ask about BS 5975 support", "type": "quote" },
+    "featured": true
+  },
+  {
+    "slug": "rams-itps-method-statements",
+    "nav": "RAMS / ITPs",
+    "title": "RAMS, ITPs and Construction Safety Documentation",
+    "seoTitle": "RAMS & ITPs Construction | Method Statements & Safety Documentation | UK",
+    "metaDescription": "RAMS, ITPs, method statements, risk assessments and construction safety advice — site-specific and written to be used on site. Subject to project-specific information.",
+    "h1": "RAMS, ITPs and Construction Safety Documentation",
+    "icon": "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M9 13h6M9 17h4",
+    "summary": "Site-specific RAMS, ITPs, method statements and risk assessments that teams will actually read and use.",
+    "intro": "Risk assessments and method statements (RAMS), inspection and test plans (ITPs) and supporting construction safety documentation — concise, site-specific and written to be used, not filed.",
+    "deliverables": [
+      "Risk assessments and method statements (RAMS)",
+      "Inspection and test plans (ITPs) with hold points",
+      "Task-specific safe systems of work",
+      "Permit requirement guidance",
+      "Construction safety advice"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Subcontractors and trade packages",
+      "Project and site managers",
+      "Temporary Works Coordinators"
+    ],
+    "sections": [
+      {
+        "h2": "What can be provided",
+        "list": [
+          "RAMS for temporary works installation, use and dismantling",
+          "ITPs aligned with the project quality plan",
+          "Hold points and witness/verification points",
+          "Permit requirements (load, dig and similar)",
+          "Site-specific risk assessments"
+        ]
+      },
+      {
+        "h2": "Practical and site-specific",
+        "body": "Documents are kept concise so site teams will read them, with hazards linked to controls that are realistic for the site. RAMS and ITPs are written to support — not duplicate — your existing systems, and are subject to project-specific information."
+      }
+    ],
+    "info": [
+      "Scope of works and method",
+      "Relevant temporary works designs or drawings",
+      "Site constraints, access and sequencing",
+      "Your document templates, if you have a preferred format"
+    ],
+    "cta": { "label": "Request RAMS or ITP support", "type": "quote" },
+    "featured": true
+  },
+  {
+    "slug": "crane-piling-mat-working-platforms",
+    "nav": "Mats & Platforms",
+    "title": "Crane Mats, Piling Mats and Working Platform Support",
+    "seoTitle": "Crane Mat & Piling Mat Design | BRE 470 Working Platform Support | UK",
+    "metaDescription": "Working platform, piling mat and crane mat support with reference to BRE 470 — plant loading, ground bearing and outrigger checks. Subject to site-specific ground and plant data.",
+    "h1": "Crane Mats, Piling Mats and Working Platforms",
+    "icon": "M2 20h20M4 20V10l8-5 8 5v10M9 20v-5h6v5",
+    "summary": "Working platform and mat support with reference to BRE 470 — plus a free online BRE 470 design tool.",
+    "intro": "Support for working platforms, piling mats, crane mats and outrigger bearing, with reference to BRE 470 principles. A free online BRE 470 design tool is also available for quick, indicative sizing.",
+    "deliverables": [
+      "Working platform / piling mat support to BRE 470 principles",
+      "Plant loading derivation from manufacturer data",
+      "Ground bearing checks against available ground data",
+      "Crane mat and outrigger bearing checks",
+      "Recommendations on material, testing and inspection"
+    ],
+    "clients": [
+      "Piling contractors",
+      "Crane and lifting teams",
+      "Groundworks and civil engineering contractors",
+      "Temporary Works Coordinators"
+    ],
+    "sections": [
+      {
+        "h2": "BRE 470 working platform support",
+        "body": "BRE 470 is the established UK reference for granular working platforms beneath piling rigs, cranes and other large tracked plant. Support considers plant ground pressures, platform thickness, granular material properties and the underlying ground — all subject to site-specific ground and plant information."
+      },
+      {
+        "h2": "Crane bases and outrigger checks",
+        "list": [
+          "Outrigger pad and spreader bearing checks",
+          "Crawler crane track bearing",
+          "Heavy lift load spreading",
+          "Edge effects, slopes and made ground considerations"
+        ]
+      },
+      {
+        "h2": "Try the BRE 470 tool",
+        "body": "For early-stage and indicative sizing, the online BRE 470 Piling Mat Design Tool lets engineers and contractors enter plant and ground inputs and get a quick working platform sizing in line with BRE 470 principles. It is a practical aid — project-specific design must consider site, ground, plant and loading conditions.",
+        "toolLink": true
+      }
+    ],
+    "info": [
+      "Plant data sheet (track/outrigger dimensions, weights, loads)",
+      "Pile schedule or lift plan",
+      "Ground investigation report or available ground data",
+      "Site layout, levels and constraints"
+    ],
+    "cta": { "label": "Request a project-specific working platform review", "type": "quote" },
+    "featured": true
+  },
+  {
+    "slug": "hoarding-propping-excavation-support",
+    "nav": "Hoardings & Excavations",
+    "title": "Hoarding, Propping and Excavation Support Design",
+    "seoTitle": "Hoarding Design, Propping & Excavation Support | Temporary Works | UK",
+    "metaDescription": "Hoarding design, temporary propping, needling, shoring and excavation support — with construction sequencing and installation, use and dismantling risk. Subject to project information.",
+    "h1": "Hoarding, Propping and Excavation Support",
+    "icon": "M3 21h18M6 21V8h4v13M14 21V11h4v10M5 8l5-3 9 4",
+    "summary": "Propping, needling, shoring, excavation support and hoarding design — with sequencing and temporary stability considered.",
+    "intro": "Design support for temporary propping, needling, shoring, excavation support and hoardings — with construction sequencing and temporary stability considered from the outset.",
+    "deliverables": [
+      "Temporary propping and needling schemes",
+      "Shoring and excavation support design",
+      "Hoarding design with wind and impact considerations",
+      "Construction sequence and removal guidance",
+      "Installation, use and dismantling risk notes"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Demolition and refurbishment contractors",
+      "Groundworks contractors",
+      "Developers"
+    ],
+    "sections": [
+      {
+        "h2": "Propping, needling and shoring",
+        "list": [
+          "Propping schemes for openings, slabs and beams",
+          "Needling sequences for new openings in load-bearing walls",
+          "Raking, flying and dead shoring",
+          "Temporary support to existing and historic structures"
+        ]
+      },
+      {
+        "h2": "Excavation support",
+        "list": [
+          "Sheet pile and soldier pile schemes",
+          "Trench support and battered cuts",
+          "Surcharge and groundwater considerations",
+          "Sequencing, monitoring and removal"
+        ]
+      },
+      {
+        "h2": "Hoarding design",
+        "list": [
+          "Wind loading checks (with reference to BS EN 1991-1-4)",
+          "Foundation, kentledge and fixing checks",
+          "Returns, stiffening posts and gates",
+          "Vehicle and impact considerations where relevant"
+        ]
+      },
+      {
+        "h2": "Temporary stability and sequencing",
+        "body": "Temporary stability is considered alongside the construction or demolition sequence, with installation, use and dismantling risks highlighted. All designs are subject to project-specific information and an agreed scope."
+      }
+    ],
+    "info": [
+      "Existing structure drawings or survey",
+      "Loads to be supported and ground information",
+      "Excavation depth, extent and adjacent constraints",
+      "Programme and construction or demolition sequence"
+    ],
+    "cta": { "label": "Request hoarding, propping or excavation support", "type": "quote" },
+    "featured": true
+  },
+  {
+    "slug": "scaffold-access-support",
+    "nav": "Scaffold & Access",
+    "title": "Scaffold and Access Interface Support",
+    "seoTitle": "Scaffold Support & Access Interface Checks | TG20 / TG30 Support | UK",
+    "metaDescription": "Scaffold foundation and access interface checks, scaffold base support and TG20 / TG30 compliance sheet support where applicable. Subject to project-specific information.",
+    "h1": "Scaffold and Access Interface Support",
+    "icon": "M4 3v18M20 3v18M4 8h16M4 13h16M4 18h16M9 3v18M15 3v18",
+    "summary": "Scaffold foundation and base support, access interface checks and TG20 / TG30 sheet support where applicable.",
+    "intro": "Support at the interface between scaffolding, access and the supporting structure or ground — scaffold foundations, base support and compliance sheet support where applicable.",
+    "deliverables": [
+      "Scaffold foundation and sole plate checks",
+      "Scaffold base and bearing support",
+      "Access interface checks with permanent or temporary works",
+      "TG20 / TG30 compliance sheet support where applicable"
+    ],
+    "clients": [
+      "Scaffolding contractors",
+      "Principal contractors",
+      "Access and facade contractors"
+    ],
+    "sections": [
+      {
+        "h2": "Scaffold foundations and bases",
+        "body": "Checks on scaffold foundations, sole plates and base bearing against the ground or supporting structure, including load spreading where required."
+      },
+      {
+        "h2": "TG20 / TG30 support where applicable",
+        "body": "Support with TG20 compliance sheets and TG30 considerations where applicable to the scaffold and project. Bespoke scaffold design itself is provided where scoped, and is subject to project-specific information."
+      }
+    ],
+    "info": [
+      "Scaffold layout and loading",
+      "Ground or supporting structure information",
+      "Tie and interface details",
+      "Relevant TG20 / TG30 information where applicable"
+    ],
+    "cta": { "label": "Ask about scaffold and access support", "type": "quote" },
+    "featured": false
+  },
+  {
+    "slug": "virtual-site-audits",
+    "nav": "Virtual Site Audits",
+    "title": "Virtual Site Audits",
+    "seoTitle": "Virtual Site Audit Construction | Remote Temporary Works Review | UK",
+    "metaDescription": "Remote virtual site audits for temporary works — photo and video review, register and design brief review, RAMS review, action tracker and follow-up report. Fast turnaround.",
+    "h1": "Virtual Site Audits",
+    "icon": "M23 7l-7 5 7 5V7zM1 5h15a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H1z",
+    "summary": "Remote review of temporary works using photos, video and documents — with an action tracker and follow-up report.",
+    "intro": "A fast, remote way to get experienced eyes on temporary works without waiting for a site visit. Useful for contractors who need quick, practical advice or a second opinion.",
+    "deliverables": [
+      "Remote review by photo and video",
+      "Temporary works register review",
+      "Design brief and RAMS review",
+      "Action tracker of findings",
+      "Follow-up report"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Temporary Works Coordinators and Supervisors",
+      "Site and project managers",
+      "International contractors needing UK-standard advice"
+    ],
+    "sections": [
+      {
+        "h2": "How a virtual audit works",
+        "list": [
+          "You share photos, video and key documents",
+          "A structured remote review against the register and briefs",
+          "Findings captured in a clear action tracker",
+          "A short follow-up report with practical next steps"
+        ]
+      },
+      {
+        "h2": "Why contractors use it",
+        "body": "Virtual audits give fast advisory input before issues escalate into delay, rework or unsafe decisions — at a fraction of the time and cost of a site visit. They suit overflow support, remote projects and early risk identification, and are subject to the quality of information shared and project-specific factors."
+      }
+    ],
+    "info": [
+      "Photos and video of the temporary works",
+      "Temporary works register and design briefs",
+      "Relevant RAMS and drawings",
+      "The specific query or concern"
+    ],
+    "cta": { "label": "Book a virtual site audit", "type": "call" },
+    "featured": true
+  },
+  {
+    "slug": "training-mentoring-coaching",
+    "nav": "Training & Mentoring",
+    "title": "Training, Mentoring and Coaching",
+    "seoTitle": "Temporary Works Training, Mentoring & Coaching | Contractors | UK",
+    "metaDescription": "Practical temporary works training, mentoring and coaching for site teams, TWCs and TWSs — building competence and confidence. Tailored to your projects and procedures.",
+    "h1": "Training, Mentoring and Coaching",
+    "icon": "M12 14l9-5-9-5-9 5 9 5zM12 14v7M6 11v4a6 3 0 0 0 12 0v-4",
+    "summary": "Practical training, mentoring and coaching to build temporary works competence in your team.",
+    "intro": "Practical, contractor-focused training, mentoring and coaching to build temporary works competence and confidence — for site teams, Temporary Works Coordinators and Supervisors.",
+    "deliverables": [
+      "Tailored temporary works awareness sessions",
+      "Mentoring for TWCs and TWSs",
+      "Coaching on registers, briefs and the control process",
+      "Standards and guidance review support"
+    ],
+    "clients": [
+      "Principal contractors",
+      "Developing TWCs and TWSs",
+      "Site and project teams",
+      "Smaller contractors building competence"
+    ],
+    "sections": [
+      {
+        "h2": "Tailored to your projects",
+        "body": "Sessions are built around your projects, procedures and the items your teams actually encounter — not generic slides. The aim is competence that holds up on site, with reference to current standards and guidance."
+      }
+    ],
+    "info": [
+      "Your team's roles and current experience",
+      "Project types and common temporary works items",
+      "Your temporary works procedure",
+      "Preferred format (remote or in person) and timing"
+    ],
+    "cta": { "label": "Enquire about training and mentoring", "type": "quote" },
+    "featured": false
+  }
+]

@@ -1,0 +1,242 @@
+---
+layout: base.njk
+permalink: /
+title: "Temporary Works Support Without Delay"
+seoTitle: "Temporary Works Design & Support for Contractors | UK & International"
+metaDescription: "Fast, practical Temporary Works Design, checking, RAMS, ITPs, virtual site audits and advisory support for contractors. Clear calculations, fast response, UK & international."
+ogTitle: "Temporary Works Support Without Delay"
+ogDescription: "Fast, practical Temporary Works Design, checking, RAMS, ITPs and advisory support for contractors. UK and international, remote and project-based."
+faqSchema: true
+breadcrumbs:
+  - name: "Home"
+    url: "/"
+---
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <p class="eyebrow" style="color:var(--amber)">Temporary Works Design &amp; Advisory</p>
+      <h1>Temporary Works Support Without Delay</h1>
+      <p class="lead">Fast, practical Temporary Works Design, checking, RAMS, ITPs, virtual audits and advisory support for contractors.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="/contact/?type=register">Send Your Temporary Works Register</a>
+        <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Book a Call</a>
+      </div>
+      <ul class="trust-points">
+        <li>Clear calculations</li>
+        <li>Fast response</li>
+        <li>Site-focused advice</li>
+        <li>Risk assessment included</li>
+        <li>Remote &amp; project-based</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trustbar">
+  <div class="container">
+    <span><span class="dot"></span> Temporary Works Design &amp; checking</span>
+    <span><span class="dot"></span> With reference to BS 5975:2024</span>
+    <span><span class="dot"></span> RAMS, ITPs &amp; method statements</span>
+    <span><span class="dot"></span> BRE 470 working platforms</span>
+    <span><span class="dot"></span> UK &amp; international</span>
+  </div>
+</div>
+
+<!-- WHO WE HELP -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">Who this is for</p>
+    <h2>Built for contractors who need answers fast</h2>
+    <p class="prose lead">Support is shaped around the people delivering construction — on site, under programme pressure, needing clear and buildable temporary works advice.</p>
+    <ul class="chips mt-2">
+      <li class="chip">Principal contractors</li>
+      <li class="chip">Civil engineering contractors</li>
+      <li class="chip">Housebuilders</li>
+      <li class="chip">Schools &amp; public sector</li>
+      <li class="chip">Healthcare construction</li>
+      <li class="chip">Commercial construction</li>
+      <li class="chip">Infrastructure</li>
+      <li class="chip">Power &amp; utilities</li>
+      <li class="chip">Water &amp; sewerage</li>
+      <li class="chip">Rail / highways interfaces</li>
+      <li class="chip">Overflow design support</li>
+      <li class="chip">International contractors</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SERVICES OVERVIEW -->
+<section class="section section--tint">
+  <div class="container">
+    <p class="eyebrow">Services</p>
+    <h2>Temporary Works Design and advisory support</h2>
+    <div class="grid grid-3 mt-2">
+      {%- for s in services %}
+        {%- if s.featured %}
+        <a class="card" href="/services/{{ s.slug }}/" style="text-decoration:none">
+          <span class="icon-badge"><svg viewBox="0 0 24 24"><path d="{{ s.icon }}"/></svg></span>
+          <h3>{{ s.nav }}</h3>
+          <p>{{ s.summary }}</p>
+          <span class="card-link">Learn more</span>
+        </a>
+        {%- endif %}
+      {%- endfor %}
+    </div>
+    <div class="btn-row mt-2">
+      <a class="btn btn-secondary" href="/services/">View all services</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CONTRACTORS USE US -->
+<section class="section">
+  <div class="container feature">
+    <div class="prose">
+      <p class="eyebrow">Why contractors use this service</p>
+      <h2>Clear calculations. Practical advice. Faster decisions.</h2>
+      <p>Temporary works should reduce risk and keep the job moving — not add delay. Support here is direct, led personally by an experienced construction and temporary works consultant, and written to be used on site.</p>
+      <ul>
+        <li><strong>Fast response</strong> for quotes, queries and overflow work.</li>
+        <li><strong>Buildable designs</strong> with stated assumptions and clear design risk.</li>
+        <li><strong>Site-focused checking</strong> that flags what matters, not noise.</li>
+        <li><strong>Remote and project-based</strong> support for UK and international projects.</li>
+      </ul>
+    </div>
+    <aside class="panel">
+      <h3>Send a query in minutes</h3>
+      <p class="muted">Have a brief, register or drawing? Send it and get a clear scope and timeline back.</p>
+      <div class="btn-row" style="margin-top:1rem">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-outline" href="mailto:{{ site.email }}">Email David</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- PROCESS / FAST-RESPONSE WORKFLOW -->
+<section class="section section--tint">
+  <div class="container">
+    <p class="eyebrow">Fast-response workflow</p>
+    <h2>How support works</h2>
+    <div class="timeline mt-2">
+      <div class="step"><h3>Send your brief</h3><p>Share drawings, register, plant data or a site query — whatever you have.</p></div>
+      <div class="step"><h3>Scope &amp; fee</h3><p>A clear scope, deliverables and fee returned promptly, with a realistic timeline.</p></div>
+      <div class="step"><h3>Design or review</h3><p>Calculations, drawings, RAMS/ITPs or check comments delivered to programme.</p></div>
+      <div class="step"><h3>Site support</h3><p>Follow-up on queries, revisions and the install, use and dismantling stages.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY SUPPORT MODEL -->
+<section class="section">
+  <div class="container feature feature--reverse">
+    <aside class="panel">
+      <h3>Predictable cost, faster response</h3>
+      <ul>
+        <li>Temporary Works Register review</li>
+        <li>Design brief &amp; RAMS / ITP review</li>
+        <li>Virtual audits and early risk identification</li>
+        <li>Mentoring, coaching and guidance</li>
+      </ul>
+      <a class="btn btn-primary" href="/weekly-support/" style="margin-top:1rem">Explore weekly support</a>
+    </aside>
+    <div class="prose">
+      <p class="eyebrow">Weekly support model</p>
+      <h2>Ongoing Temporary Works support, on tap</h2>
+      <p>Some contractors need frequent temporary works input; others very little. A weekly support model gives predictable cost, faster response and early advisory input — before delay, rework or unsafe decisions escalate.</p>
+      <p>Choose a level of involvement that suits the project, from light advisory support through to project-critical input.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BRE 470 TOOL PROMO -->
+<section class="section section--navy">
+  <div class="container feature">
+    <div class="prose">
+      <p class="eyebrow">Specialist tool</p>
+      <h2>BRE 470 Piling Mat Design Tool</h2>
+      <p>A practical online tool for quick, indicative working platform and piling mat sizing in line with BRE 470 principles — useful for piling teams, crane teams, engineers and Temporary Works Coordinators at tender and planning stage.</p>
+      <p class="small muted" style="color:#9fb4cc">It is an engineering aid. Project-specific design must consider site, ground, plant and loading conditions.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="{{ site.sisterSites.bre470 }}">Try the BRE 470 Tool</a>
+        <a class="btn btn-ghost" href="/services/crane-piling-mat-working-platforms/">Working platform support</a>
+      </div>
+    </div>
+    <aside class="panel">
+      <h3>Also available</h3>
+      <ul>
+        <li><a href="{{ site.sisterSites.scaffold }}" style="color:#cfe0f2">Scaffold Design Visualiser</a></li>
+        <li><a href="{{ site.sisterSites.toolbox }}" style="color:#cfe0f2">Temporary Works Toolbox</a></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- VIRTUAL SITE AUDITS -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">Virtual site audits</p>
+    <h2>Experienced eyes on your temporary works — remotely</h2>
+    <p class="prose lead">Share photos, video and documents and get a structured remote review, an action tracker and a follow-up report. Fast advice without waiting for a site visit.</p>
+    <div class="btn-row mt-2">
+      <a class="btn btn-secondary" href="/services/virtual-site-audits/">How virtual audits work</a>
+      <a class="btn btn-outline" href="/contact/?type=audit">Book a virtual audit</a>
+    </div>
+  </div>
+</section>
+
+<!-- STANDARDS & GUIDANCE -->
+<section class="section section--tint">
+  <div class="container">
+    <p class="eyebrow">Standards &amp; guidance support</p>
+    <h2>Aligned with the standards your project uses</h2>
+    <p class="prose">Designs and advice are produced with reference to relevant standards and guidance, applied where applicable and subject to project-specific information.</p>
+    <ul class="chips mt-2">
+      <li class="chip">BS 5975:2024</li>
+      <li class="chip">BS EN 1990–1997 (Eurocodes)</li>
+      <li class="chip">BRE 470</li>
+      <li class="chip">CIRIA guidance</li>
+      <li class="chip">Temporary Works Forum</li>
+      <li class="chip">TG20 / TG30 (where applicable)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow text-center">FAQ</p>
+    <h2 class="text-center">Common questions</h2>
+    <div class="faq mt-2">
+      {%- for f in faqs %}
+        {%- if loop.index <= 8 %}
+        <details{% if loop.index == 1 %} open{% endif %}>
+          <summary>{{ f.q }}</summary>
+          <div>{{ f.a }}</div>
+        </details>
+        {%- endif %}
+      {%- endfor %}
+    </div>
+    <div class="btn-row mt-2" style="justify-content:center">
+      <a class="btn btn-outline" href="/faq/">See all FAQs</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="section section--tint" id="contact">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Need a quote quickly?</h2>
+      <p>Send your Temporary Works Register, design brief or current site query and get a clear scope and response without delay.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="mailto:{{ site.email }}">Email David</a>
+        <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Book a Call</a>
+      </div>
+    </div>
+  </div>
+</section>
