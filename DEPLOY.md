@@ -77,6 +77,10 @@ These are set in `site/_data/site.json` and shown in the footer, About page and 
 
 `npm run build` now produces **minified HTML** (comments and redundant whitespace removed, inline CSS minified). JSON-LD `<script>` blocks are preserved verbatim (`minifyJS: false`), so structured data is untouched. Output is in `_site/` ready to upload to `public_html/`.
 
+## Engagement contract template
+
+A draft engagement contract for use with clients is at `legal/Engagement-Contract-Template.md`. It is a **starting template** — have a solicitor review it before using on a live project. The fee/PI/cap amounts and signing details are left as placeholders.
+
 ## Add your logos
 
 I wired a logo slot but you didn't attach image files (the two logos showed inline only). To use them:

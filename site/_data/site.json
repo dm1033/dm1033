@@ -19,7 +19,7 @@
   "phone": "+44 7900 984900",
   "phoneHref": "+447900984900",
   "ogImage": "https://www.temporaryworksconsulting.com/assets/img/og-default.jpg",
-  "hasLogo": false,
+  "hasLogo": true,
   "logo": "/assets/img/logo.png",
   "insured": true,
   "person": "David Miller",
