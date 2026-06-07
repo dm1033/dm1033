@@ -1,0 +1,45 @@
+{
+  "marketplace": {
+    "name": "dm1033-marketplace",
+    "version": "1.0.0",
+    "description": "Aggregated Claude Code marketplace for dm1033",
+    "owner": {
+      "name": "David",
+      "email": "david@dmtecs.com"
+    }
+  },
+  "sources": [
+    {
+      "type": "marketplace",
+      "url": "https://github.com/OWNER/CHILD-MARKETPLACE.git",
+      "branch": "main",
+      "tag_prefix": "example-marketplace",
+      "denylist": [
+        "unwanted-plugin-name"
+      ]
+    },
+    {
+      "type": "skill",
+      "name": "example-remote-skill",
+      "url": "https://github.com/OWNER/SOME-SKILL-REPO.git",
+      "branch": "main",
+      "target_path": "skills/example-remote-skill",
+      "description": "A skill cloned from a remote repo",
+      "category": "skills"
+    },
+    {
+      "type": "local_skill",
+      "name": "example-local-skill",
+      "path": "skills/example-local-skill"
+    }
+  ],
+  "sync_settings": {
+    "exclude_patterns": [
+      ".git",
+      ".github",
+      "*.pyc",
+      "__pycache__",
+      "node_modules"
+    ]
+  }
+}
