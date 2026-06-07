@@ -1,0 +1,85 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/services/', label: 'Services' },
+  { href: '/sectors/', label: 'Sectors' },
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
+];
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/">
+      <span class="brand__mark" aria-hidden="true">TWC</span>
+      <span class="brand__name">Temporary Works Consulting</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--c-border);
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 1rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--c-fg);
+    font-weight: 700;
+  }
+  .brand:hover { text-decoration: none; }
+  .brand__mark {
+    background: var(--c-accent);
+    color: white;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .brand__name { font-family: var(--font-display); }
+  nav ul {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--c-fg);
+    font-weight: 500;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+  }
+  nav a[aria-current='page'] {
+    color: var(--c-accent);
+    border-color: var(--c-accent);
+  }
+  nav a:hover { text-decoration: none; color: var(--c-accent); }
+  @media (max-width: 640px) {
+    .brand__name { display: none; }
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const groups = [
+  {
+    heading: 'Design',
+    items: [
+      { title: 'Falsework and formwork', body: 'Soffit falsework, wall and column formwork, propping systems. Output: calculations, layouts, member schedules, sign-off pack.' },
+      { title: 'Excavation shoring', body: 'Battered cuts, trench boxes, sheet pile retention, soldier piles with timber lagging, propped excavations.' },
+      { title: 'Crane and piling rig pads (BRE 470)', body: 'Ground bearing pressures, timber and steel mat sizing, mat layouts under tracked plant.' },
+      { title: 'Temporary steelwork', body: 'Needling, propping, transfer beams, temporary bracing — to NZS 3404 / AS 4100.' },
+      { title: 'Edge protection and access', body: 'Loading, anchorage and tie-in design for proprietary and bespoke systems.' },
+      { title: 'Hoarding and screens', body: 'Wind load assessment to AS/NZS 1170.2, foundation and fixing design.' },
+    ],
+  },
+  {
+    heading: 'Checking',
+    items: [
+      { title: 'Category 1 — same-designer check', body: 'Internal independence on lower-risk works.' },
+      { title: 'Category 2 — independent check, same firm', body: 'Independent checker not involved in the original design.' },
+      { title: 'Category 3 — independent firm check', body: 'Fully independent design check by a separate practice — high consequence works.' },
+      { title: 'Methodology and constructability review', body: 'Risk-based review of proposed methods before design is committed.' },
+    ],
+  },
+  {
+    heading: 'Advisory',
+    items: [
+      { title: 'Temporary Works Coordinator support', body: 'BS 5975 aligned procedures, registers, briefs and check certificates.' },
+      { title: 'Site queries and RFI response', body: 'On-call engineer for change, damage, or unforeseen ground conditions.' },
+      { title: 'Training and toolbox sessions', body: 'Tailored sessions for site teams on temporary works risks and responsibilities.' },
+    ],
+  },
+];
+---
+<Base title="Services" description="Temporary works design, independent design checks (Category 1–3) and on-call advisory for construction projects in New Zealand.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Services</p>
+      <h1>What we do.</h1>
+      <p class="lead">Three offerings — design, checking, advisory — across the full temporary works lifecycle.</p>
+    </div>
+  </section>
+
+  {groups.map((g) => (
+    <section class="section section--band" style="padding-top:2.5rem;">
+      <div class="container">
+        <h2>{g.heading}</h2>
+        <div class="grid" style="margin-top:1.5rem;">
+          {g.items.map((s) => (
+            <article class="card">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section">
+    <div class="container">
+      <h2>Not sure which you need?</h2>
+      <p class="lead">Send your drawings and a brief methodology — we'll tell you whether you need a design, a check, or just a conversation.</p>
+      <div class="kicker-row">
+        <a class="btn btn--primary" href="/contact/">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+</Base>

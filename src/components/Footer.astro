@@ -1,0 +1,68 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <strong>Temporary Works Consulting</strong>
+      <p>Independent engineering for temporary works on construction and infrastructure projects across Aotearoa New Zealand.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:office@twconsulting.co.nz">office@twconsulting.co.nz</a></li>
+        <li><a href="tel:+64273338320">+64 27 333 8320</a></li>
+        <li>11 Marina View, Paremata, Porirua</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/sectors/">Sectors</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__base">
+    <small>&copy; {year} Temporary Works Consulting Ltd. All rights reserved.</small>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #0b1620;
+    color: #c9d4dd;
+    margin-top: 3rem;
+    padding: 3rem 0 1.25rem;
+  }
+  .site-footer__inner {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+  .site-footer h4 {
+    color: white;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.75rem;
+  }
+  .site-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .site-footer a { color: #a9c1d6; }
+  .site-footer__base {
+    margin-top: 2.5rem;
+    border-top: 1px solid #1c2935;
+    padding-top: 1rem;
+  }
+  @media (max-width: 720px) {
+    .site-footer__inner { grid-template-columns: 1fr; }
+  }
+</style>
