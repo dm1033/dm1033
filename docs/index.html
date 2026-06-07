@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scaffold Design Visualiser | Launching the app&hellip;</title>
     <meta
       name="description"
       content="Scaffold Design Visualiser by TWC turns site photos and dimensions into CAD-style TG20:21 and TG30:24 scaffold compliance drawings, calculations and design packs."
@@ -14,11 +15,12 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.visualscaffolddesign.com" />
-    <title>Scaffold Design Visualiser | CAD TG20 & TG30 Compliance Sheets</title>
+    <link rel="canonical" href="https://scaffoldapp-dlpfkbtn.manus.space/" />
+    <meta http-equiv="refresh" content="0; url=https://scaffoldapp-dlpfkbtn.manus.space/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -41,7 +43,7 @@
         padding: 0;
         background-color: var(--paper);
         color: var(--ink);
-        font-family: "Source Sans 3", system-ui, -apple-system, sans-serif;
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
         line-height: 1.55;
         -webkit-font-smoothing: antialiased;
       }
@@ -50,233 +52,96 @@
           linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
         background-size: 32px 32px;
         min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        text-align: center;
       }
-      .wrap {
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 32px 24px 64px;
-      }
-      header.bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        border-bottom: 1px solid var(--rule);
-        padding-bottom: 18px;
-        margin-bottom: 56px;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 13px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
+      .card {
+        max-width: 520px;
       }
       .brand {
         font-family: "Archivo", sans-serif;
         font-weight: 800;
         font-stretch: 80%;
-        font-size: 18px;
+        font-size: 22px;
         letter-spacing: 0.02em;
-        text-transform: none;
-      }
-      .status {
-        color: var(--ink-soft);
-        display: inline-flex;
-        align-items: center;
-      }
-      .status::before {
-        content: "";
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background: var(--accent);
-        border-radius: 50%;
-        margin-right: 8px;
-      }
-      section.hero {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 48px;
-        align-items: end;
-        border-bottom: 1px solid var(--rule);
-        padding-bottom: 56px;
-      }
-      @media (min-width: 900px) {
-        section.hero {
-          grid-template-columns: 1.4fr 1fr;
-        }
+        margin-bottom: 32px;
       }
       h1 {
         font-family: "Archivo", sans-serif;
         font-weight: 900;
-        font-stretch: 80%;
-        font-size: clamp(40px, 6vw, 76px);
-        line-height: 1.02;
-        letter-spacing: -0.02em;
-        margin: 0 0 24px;
-      }
-      h1 em {
-        font-style: normal;
-        color: var(--accent);
-      }
-      .lead {
-        font-size: clamp(17px, 1.4vw, 19px);
-        color: var(--ink-soft);
-        max-width: 56ch;
-        margin: 0;
-      }
-      .sheet {
-        border: 1px solid var(--ink);
-        padding: 18px 20px;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 12.5px;
-        line-height: 1.7;
-        background: rgba(255, 255, 255, 0.55);
-      }
-      .sheet h4 {
-        margin: 0 0 12px;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--ink-soft);
-        font-weight: 600;
-      }
-      .sheet dl {
-        margin: 0;
-      }
-      .sheet dt {
-        display: inline-block;
-        width: 9em;
-        color: var(--ink-soft);
-      }
-      .sheet dd {
-        display: inline;
-        margin: 0;
-        color: var(--ink);
-      }
-      .sheet dd::after {
-        content: "\A";
-        white-space: pre;
-      }
-      .grid3 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        margin: 56px 0;
-        border: 1px solid var(--rule);
-      }
-      .grid3 article {
-        padding: 28px 24px;
-        border-right: 1px solid var(--rule);
-      }
-      .grid3 article:last-child {
-        border-right: none;
-      }
-      .grid3 .tag {
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 12px;
-      }
-      .grid3 h3 {
-        font-family: "Archivo", sans-serif;
-        font-weight: 800;
         font-stretch: 85%;
-        font-size: 22px;
-        margin: 0 0 8px;
+        font-size: clamp(28px, 4vw, 36px);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        margin: 0 0 16px;
       }
-      .grid3 p {
-        margin: 0;
-        font-size: 15px;
+      .sub {
         color: var(--ink-soft);
+        font-size: 14px;
+        margin: 0 0 28px;
       }
-      footer.bar {
-        border-top: 1px solid var(--rule);
-        padding-top: 24px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px 32px;
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        margin-right: 8px;
+        vertical-align: 1px;
+        animation: pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.35;
+          transform: scale(0.85);
+        }
+      }
+      .cta {
+        display: inline-block;
+        padding: 14px 22px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+        text-decoration: none;
         font-family: "IBM Plex Mono", monospace;
-        font-size: 12.5px;
-        color: var(--ink-soft);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
-      footer.bar a {
-        color: inherit;
-        text-decoration: underline;
-        text-underline-offset: 3px;
+      .cta:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .small {
+        margin-top: 24px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <header class="bar">
-        <div class="brand">Scaffold Design Visualiser</div>
-        <div class="status">Site launching soon</div>
-      </header>
-
-      <section class="hero">
-        <div>
-          <h1>
-            CAD-grade <em>TG20:21</em> &amp; <em>TG30:24</em> scaffold compliance &mdash;
-            from a site photo.
-          </h1>
-          <p class="lead">
-            Scaffold Design Visualiser by TWC turns site photos and dimensions into
-            exact-layout compliance sheets, CAD-style drawings and TWC-ready design packs
-            for principal contractors, scaffold contractors and Temporary Works teams.
-          </p>
-        </div>
-        <aside class="sheet" aria-label="Drawing reference">
-          <h4>Drawing reference</h4>
-          <dl>
-            <dt>Project</dt>
-            <dd>VSD-001 / Visualiser Launch</dd>
-            <dt>Standards</dt>
-            <dd>NASC TG20:21, TG30:24</dd>
-            <dt>Output</dt>
-            <dd>Compliance sheet, CAD drawing, design pack</dd>
-            <dt>Issue</dt>
-            <dd>Pre-launch / placeholder</dd>
-            <dt>Status</dt>
-            <dd>In preparation</dd>
-          </dl>
-        </aside>
-      </section>
-
-      <section class="grid3">
-        <article>
-          <div class="tag">01 / Input</div>
-          <h3>Photo &amp; dimensions</h3>
-          <p>
-            Upload site photos and key dimensions. The visualiser captures the working
-            geometry without the surveyor overhead.
-          </p>
-        </article>
-        <article>
-          <div class="tag">02 / Generate</div>
-          <h3>Compliance sheets</h3>
-          <p>
-            Receive exact-layout TG20:21 and TG30:24 compliance sheets with calculations
-            and configuration notes ready for review.
-          </p>
-        </article>
-        <article>
-          <div class="tag">03 / Issue</div>
-          <h3>Design pack out</h3>
-          <p>
-            Export TWC-ready packs &mdash; CAD drawings, calculations and method-statement
-            annexes &mdash; straight to your contractor or TWC team.
-          </p>
-        </article>
-      </section>
-
-      <footer class="bar">
-        <div>&copy; <span id="y"></span> TWC &middot; Scaffold Design Visualiser</div>
-        <div>Pre-launch &middot; Full visualiser coming soon</div>
-        <div><a href="mailto:david@dmtecs.com">david@dmtecs.com</a></div>
-      </footer>
+    <div class="card">
+      <div class="brand">Scaffold Design Visualiser</div>
+      <h1><span class="dot"></span>Launching the visualiser&hellip;</h1>
+      <p class="sub">
+        Redirecting you to the live tool. If the page does not load automatically,
+        use the button below.
+      </p>
+      <a class="cta" href="https://scaffoldapp-dlpfkbtn.manus.space/">Open the visualiser</a>
+      <div class="small">TG20:21 &nbsp;&middot;&nbsp; TG30:24 &nbsp;&middot;&nbsp; CAD-grade compliance</div>
     </div>
     <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
+      window.location.replace("https://scaffoldapp-dlpfkbtn.manus.space/");
     </script>
   </body>
 </html>
