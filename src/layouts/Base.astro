@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Independent Temporary Works engineering, design and design checks for construction projects across New Zealand.',
+  description = 'Independent Temporary Works engineering, design and design checks for construction and infrastructure projects across the United Kingdom.',
   canonical,
 } = Astro.props;
 
@@ -21,7 +21,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
 const ogImage = new URL('/logo.png', Astro.site).toString();
 ---
 <!doctype html>
-<html lang="en-NZ">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,16 +47,19 @@ const ogImage = new URL('/logo.png', Astro.site).toString();
       name: 'Temporary Works Consulting & Design Ltd',
       image: ogImage,
       url: 'https://www.temporaryworksconsulting.com',
-      telephone: '+64 27 333 8320',
-      email: 'office@twconsulting.co.nz',
+      telephone: '+44 7900 984900',
+      email: 'david@temporaryworksconsulting.com',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '11 Marina View, Paremata',
-        addressLocality: 'Porirua',
-        postalCode: '5026',
-        addressCountry: 'NZ',
+        addressCountry: 'GB',
+        addressRegion: 'England',
       },
-      areaServed: 'NZ',
+      areaServed: 'GB',
+      identifier: {
+        '@type': 'PropertyValue',
+        propertyID: 'CompaniesHouseNumber',
+        value: '17198188',
+      },
     })} />
   </head>
   <body>
