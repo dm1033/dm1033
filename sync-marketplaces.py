@@ -1,0 +1,534 @@
+#!/usr/bin/env python3
+"""
+Claude Code Marketplace Aggregator
+
+Recursively syncs plugins from multiple child marketplaces into a parent marketplace,
+with support for denylisting specific skills and tracking origin.
+
+Usage:
+    python sync-marketplaces.py [--config .sync-config.json] [--output .claude-plugin/marketplace.json]
+"""
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from typing import Dict, List, Set, Optional, Tuple
+from urllib.parse import urlparse
+import re
+
+
+class MarketplaceAggregator:
+    """Aggregates multiple Claude Code marketplaces into a single marketplace."""
+
+    def __init__(self, config_path: str, output_path: str, verbose: bool = False):
+        self.config_path = Path(config_path)
+        self.output_path = Path(output_path)
+        self.verbose = verbose
+        self.temp_dir = None
+        self.processed_marketplaces: Set[str] = set()
+        self.all_plugins: List[Dict] = []
+        self.origin_map: Dict[str, List[str]] = {}  # plugin_name -> [marketplace_chain]
+
+        # Load configuration
+        with open(self.config_path) as f:
+            self.config = json.load(f)
+
+    def log(self, message: str, level: str = "info"):
+        """Log a message if verbose mode is enabled."""
+        if self.verbose or level == "error":
+            prefix = "ERROR" if level == "error" else "INFO"
+            print(
+                f"[{prefix}] {message}",
+                file=sys.stderr if level == "error" else sys.stdout,
+            )
+
+    def run(self):
+        """Main entry point for the aggregator."""
+        try:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                self.temp_dir = Path(temp_dir)
+                self.log(f"Using temporary directory: {self.temp_dir}")
+
+                # Process all sources (only immediate children)
+                for source in self.config.get("sources", []):
+                    self._process_source(source, parent_chain=[])
+
+                # Generate final marketplace.json
+                self._generate_marketplace()
+
+                # Generate origins.json with provenance information
+                self._generate_origins_file()
+
+                self.log("✓ Marketplace aggregation complete!")
+                return 0
+        except Exception as e:
+            self.log(f"Failed to aggregate marketplace: {e}", level="error")
+            import traceback
+
+            traceback.print_exc()
+            return 1
+
+    def _process_source(self, source: Dict, parent_chain: List[str]):
+        """Process a single source (marketplace, skill, or local_skill)."""
+        source_type = source.get("type", "skill")
+
+        if source_type == "marketplace":
+            self._process_marketplace(source, parent_chain)
+        elif source_type == "skill":
+            self._process_skill(source, parent_chain)
+        elif source_type == "local_skill":
+            self._process_local_skill(source, parent_chain)
+        else:
+            self.log(f"Unknown source type: {source_type}", level="error")
+
+    def _process_marketplace(self, source: Dict, parent_chain: List[str]):
+        """Process a marketplace source by pulling all its plugins (non-recursive)."""
+        url = source["url"]
+        branch = source.get("branch", "main")
+        denylist = set(source.get("denylist", []))
+        tag_prefix = source.get("tag_prefix", self._extract_repo_name(url))
+
+        # Avoid processing the same marketplace twice
+        marketplace_id = f"{url}@{branch}"
+        if marketplace_id in self.processed_marketplaces:
+            self.log(f"Already processed {marketplace_id}, skipping")
+            return
+
+        self.processed_marketplaces.add(marketplace_id)
+        self.log(f"Processing marketplace: {url} (branch: {branch})")
+
+        # Clone the marketplace
+        clone_dir = self.temp_dir / f"marketplace-{len(self.processed_marketplaces)}"
+        self._clone_repo(url, branch, clone_dir)
+
+        # Read the marketplace.json
+        marketplace_file = clone_dir / ".claude-plugin" / "marketplace.json"
+        if not marketplace_file.exists():
+            self.log(f"No marketplace.json found in {url}", level="error")
+            return
+
+        with open(marketplace_file) as f:
+            marketplace_data = json.load(f)
+
+        # Process plugins from this marketplace (only immediate children, not recursive)
+        new_parent_chain = parent_chain + [tag_prefix]
+
+        for plugin in marketplace_data.get("plugins", []):
+            plugin_name = plugin["name"]
+
+            # Check denylist
+            if plugin_name in denylist:
+                self.log(f"  Skipping denylisted plugin: {plugin_name}")
+                continue
+
+            # Copy plugin without adding origin field
+            plugin_copy = plugin.copy()
+
+            # Convert local source paths to proper schema-compliant source objects
+            if "source" in plugin_copy:
+                source = plugin_copy["source"]
+                # Only convert if it's a string starting with "./" (local path)
+                if isinstance(source, str) and source.startswith("./"):
+                    # Convert to proper GitHub or URL source object
+                    plugin_copy["source"] = self._convert_source_to_object(source, url)
+                # If source is already an object or non-local string, keep as-is
+
+            # Track origin
+            if plugin_name not in self.origin_map:
+                self.origin_map[plugin_name] = []
+            self.origin_map[plugin_name].append("/".join(new_parent_chain))
+
+            self.log(f"  Adding plugin: {plugin_name} (from {'/'.join(new_parent_chain)})")
+            self.all_plugins.append(plugin_copy)
+
+        self.log(
+            f"✓ Processed {len(marketplace_data.get('plugins', []))} plugins from {tag_prefix}"
+        )
+
+    def _process_skill(self, source: Dict, parent_chain: List[str]):
+        """Process a single skill source."""
+        name = source["name"]
+        url = source["url"]
+        branch = source.get("branch", "main")
+        target_path = source.get("target_path", f"skills/{name}")
+
+        self.log(f"Processing skill: {name} from {url}")
+
+        # Clone the skill
+        clone_dir = self.temp_dir / f"skill-{name}"
+        self._clone_repo(url, branch, clone_dir)
+
+        # Copy skill to target location (in parent repo)
+        parent_dir = (
+            self.output_path.parent.parent
+        )  # Assuming output is .claude-plugin/marketplace.json
+        target = parent_dir / target_path
+
+        # Remove existing content
+        if target.exists():
+            shutil.rmtree(target)
+
+        # Copy new content (exclude .git)
+        shutil.copytree(
+            clone_dir,
+            target,
+            ignore=shutil.ignore_patterns(
+                *self.config.get("sync_settings", {}).get("exclude_patterns", [".git"])
+            ),
+        )
+
+        # Extract version from SKILL.md if present
+        version = self._extract_version_from_skill(target / "SKILL.md")
+
+        # Create plugin entry
+        plugin_entry = {
+            "name": name,
+            "description": source.get("description", f"Skill: {name}"),
+            "version": version,
+            "source": f"./{target_path}",
+            "category": source.get("category", "skills"),
+        }
+
+        # Track origin
+        origin = "/".join(parent_chain) if parent_chain else "direct"
+        if name not in self.origin_map:
+            self.origin_map[name] = []
+        self.origin_map[name].append(origin)
+
+        self.all_plugins.append(plugin_entry)
+        self.log(f"✓ Added skill: {name} (version: {version})")
+
+    def _process_local_skill(self, source: Dict, parent_chain: List[str]):
+        """Process a local skill source (already in the repository)."""
+        name = source["name"]
+        path = source["path"]
+
+        self.log(f"Processing local skill: {name} from {path}")
+
+        # Resolve path relative to config file location
+        parent_dir = self.config_path.parent
+        skill_path = parent_dir / path
+
+        # Validate that the path exists
+        if not skill_path.exists():
+            self.log(f"Local skill path does not exist: {skill_path}", level="error")
+            raise FileNotFoundError(f"Local skill path does not exist: {skill_path}")
+
+        # Check for SKILL.md
+        skill_md = skill_path / "SKILL.md"
+        if not skill_md.exists():
+            self.log(f"SKILL.md not found in {skill_path}", level="error")
+            raise FileNotFoundError(f"SKILL.md not found in {skill_path}")
+
+        # Extract version and metadata from SKILL.md
+        version = self._extract_version_from_skill(skill_md)
+        metadata = self._extract_metadata_from_skill(skill_md)
+
+        # Create plugin entry
+        plugin_entry = {
+            "name": name,
+            "description": metadata.get("description", f"Skill: {name}"),
+            "version": version,
+            "source": f"./{path}",
+        }
+
+        # Add optional fields if present in metadata
+        if "author" in metadata:
+            plugin_entry["author"] = metadata["author"]
+        if "categories" in metadata:
+            plugin_entry["categories"] = metadata["categories"]
+
+        # Track origin
+        origin = "/".join(parent_chain) if parent_chain else "local"
+        if name not in self.origin_map:
+            self.origin_map[name] = []
+        self.origin_map[name].append(origin)
+
+        self.all_plugins.append(plugin_entry)
+        self.log(f"✓ Added local skill: {name} (version: {version})")
+
+    def _clone_repo(self, url: str, branch: str, target_dir: Path):
+        """Clone a git repository."""
+        self.log(f"Cloning {url} (branch: {branch}) to {target_dir}")
+
+        # Support both GitHub/GitLab URLs
+        # Disable credential prompts to prevent hanging on invalid URLs
+        env = os.environ.copy()
+        env["GIT_TERMINAL_PROMPT"] = "0"  # Disable credential prompts
+        env["GIT_ASKPASS"] = "true"  # Use /bin/true for askpass (returns nothing)
+
+        try:
+            subprocess.run(
+                [
+                    "git",
+                    "clone",
+                    "--branch",
+                    branch,
+                    "--depth",
+                    "1",
+                    url,
+                    str(target_dir),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                env=env,
+            )
+        except subprocess.CalledProcessError as e:
+            self.log(f"Failed to clone {url}: {e.stderr}", level="error")
+            raise
+
+    def _extract_repo_name(self, url: str) -> str:
+        """Extract a reasonable name from a git URL."""
+        # Handle various URL formats
+        # https://github.com/owner/repo.git -> repo
+        # git@github.com:owner/repo.git -> repo
+        # https://github.com/owner/repo -> repo
+
+        path = urlparse(url).path if url.startswith("http") else url.split(":")[-1]
+        name = path.rstrip("/").split("/")[-1]
+        name = name.replace(".git", "")
+        return name
+
+    def _parse_github_url(self, url: str) -> Optional[Tuple[str, str]]:
+        """
+        Parse a GitHub URL and extract owner/repo.
+
+        Returns (owner, repo) tuple if it's a GitHub URL, None otherwise.
+
+        Examples:
+            https://github.com/owner/repo.git -> ("owner", "repo")
+            https://github.com/owner/repo -> ("owner", "repo")
+            git@github.com:owner/repo.git -> ("owner", "repo")
+            https://gitlab.com/owner/repo -> None
+        """
+        # Check for GitHub domain
+        if "github.com" not in url:
+            return None
+
+        # Extract path portion
+        if url.startswith("http"):
+            path = urlparse(url).path
+        else:
+            # SSH format: git@github.com:owner/repo.git
+            path = url.split(":")[-1]
+
+        # Clean up path
+        path = path.strip("/").replace(".git", "")
+        parts = path.split("/")
+
+        if len(parts) >= 2:
+            owner, repo = parts[0], parts[1]
+            return (owner, repo)
+
+        return None
+
+    def _convert_source_to_object(self, source: str, marketplace_url: str) -> Dict:
+        """
+        Convert a local source path to proper schema-compliant source object.
+
+        Args:
+            source: Local path like "./plugins/foo"
+            marketplace_url: URL of the marketplace containing this plugin
+
+        Returns:
+            GitHub source object: {"source": "github", "repo": "owner/repo", "path": "..."}
+            or URL source object: {"source": "url", "url": "...", "path": "..."}
+        """
+        # Extract the plugin path from the local source
+        local_path = source.lstrip("./")
+
+        # Try to parse as GitHub URL
+        github_info = self._parse_github_url(marketplace_url)
+
+        if github_info:
+            owner, repo = github_info
+            return {"source": "github", "repo": f"{owner}/{repo}", "path": local_path}
+        else:
+            # Non-GitHub URL - use URL object format
+            # Clean up URL (remove .git if present for cleaner URLs)
+            clean_url = marketplace_url
+            return {"source": "url", "url": clean_url, "path": local_path}
+
+    def _extract_version_from_skill(self, skill_md_path: Path) -> str:
+        """Extract semantic version from SKILL.md file."""
+        if not skill_md_path.exists():
+            return "1.0.0"
+
+        try:
+            with open(skill_md_path) as f:
+                content = f.read()
+
+            # Try YAML frontmatter first
+            frontmatter_match = re.search(
+                r'^---\s*\nversion:\s*["\']?([0-9.]+)["\']?\s*\n', content, re.MULTILINE
+            )
+            if frontmatter_match:
+                return frontmatter_match.group(1)
+
+            # Try metadata section
+            metadata_match = re.search(
+                r'##\s*Skill Metadata.*?version:\s*["\']?([0-9.]+)["\']?',
+                content,
+                re.DOTALL | re.IGNORECASE,
+            )
+            if metadata_match:
+                return metadata_match.group(1)
+
+            return "1.0.0"
+        except Exception as e:
+            self.log(f"Failed to extract version from {skill_md_path}: {e}", level="error")
+            return "1.0.0"
+
+    def _extract_metadata_from_skill(self, skill_md_path: Path) -> Dict:
+        """Extract metadata (description, author, categories) from SKILL.md file."""
+        metadata = {}
+
+        if not skill_md_path.exists():
+            return metadata
+
+        try:
+            with open(skill_md_path) as f:
+                content = f.read()
+
+            # Extract metadata from ## Skill Metadata section
+            metadata_section = re.search(
+                r"##\s*Skill Metadata\s*\n(.*?)(?=\n##|\Z)",
+                content,
+                re.DOTALL | re.IGNORECASE,
+            )
+
+            if metadata_section:
+                section_content = metadata_section.group(1)
+
+                # Extract description
+                desc_match = re.search(r'-\s*description:\s*["\']([^"\']+)["\']', section_content)
+                if desc_match:
+                    metadata["description"] = desc_match.group(1)
+
+                # Extract author
+                author_match = re.search(r'-\s*author:\s*["\']([^"\']+)["\']', section_content)
+                if author_match:
+                    metadata["author"] = author_match.group(1)
+
+                # Extract categories (array format)
+                categories_match = re.search(
+                    r"-\s*categories:\s*\[(.*?)\]", section_content, re.DOTALL
+                )
+                if categories_match:
+                    categories_str = categories_match.group(1)
+                    # Parse comma-separated quoted strings
+                    categories = [
+                        cat.strip().strip("\"'") for cat in categories_str.split(",") if cat.strip()
+                    ]
+                    if categories:
+                        metadata["categories"] = categories
+
+            return metadata
+        except Exception as e:
+            self.log(f"Failed to extract metadata from {skill_md_path}: {e}", level="error")
+            return metadata
+
+    def _generate_marketplace(self):
+        """Generate the final marketplace.json file."""
+        marketplace_config = self.config.get("marketplace", {})
+
+        # Deduplicate plugins (keep first occurrence)
+        seen_plugins = {}  # name -> plugin dict
+
+        for plugin in self.all_plugins:
+            name = plugin["name"]
+            if name not in seen_plugins:
+                # First occurrence - keep it
+                seen_plugins[name] = plugin
+            else:
+                # Duplicate - just log it (origin merging happens in origin_map)
+                self.log(f"Duplicate plugin '{name}' found, keeping first occurrence")
+
+        unique_plugins = list(seen_plugins.values())
+
+        # Build marketplace structure
+        marketplace_data = {
+            "name": marketplace_config.get("name", "aggregated-marketplace"),
+            "version": marketplace_config.get("version", "1.0.0"),
+            "description": marketplace_config.get(
+                "description", "Aggregated Claude Code marketplace"
+            ),
+            "owner": marketplace_config.get(
+                "owner",
+                {"name": "Marketplace Aggregator", "email": "noreply@example.com"},
+            ),
+            "plugins": unique_plugins,
+        }
+
+        # Write to output file
+        self.output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.output_path, "w") as f:
+            json.dump(marketplace_data, f, indent=2)
+
+        self.log(
+            f"✓ Generated marketplace.json with {len(unique_plugins)} plugins at {self.output_path}"
+        )
+
+        # Print summary
+        print("\n=== Aggregation Summary ===")
+        print(f"Total plugins: {len(unique_plugins)}")
+        print(f"Total marketplaces processed: {len(self.processed_marketplaces)}")
+        print(f"Output: {self.output_path}")
+
+        if self.origin_map:
+            print("\n=== Origin Summary ===")
+            for plugin_name, sources in sorted(self.origin_map.items()):
+                print(f"  {plugin_name}: {', '.join(sources)}")
+
+    def _generate_origins_file(self):
+        """Generate the origins.json file with provenance information."""
+        # Build origins data structure
+        # For each plugin, if it has multiple origins, store as array; if single origin, store as string
+        origins_data = {}
+        for plugin_name, sources in self.origin_map.items():
+            if len(sources) == 1:
+                origins_data[plugin_name] = sources[0]
+            else:
+                # Multiple sources - store as sorted array for consistency
+                origins_data[plugin_name] = sorted(set(sources))
+
+        # Write to origins.json in the same directory as marketplace.json
+        origins_file = self.output_path.parent / "origins.json"
+        with open(origins_file, "w") as f:
+            json.dump(origins_data, f, indent=2)
+
+        self.log(
+            f"✓ Generated origins.json with {len(origins_data)} plugin origins at {origins_file}"
+        )
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Aggregate multiple Claude Code marketplaces into a single marketplace"
+    )
+    parser.add_argument(
+        "--config",
+        default=".sync-config.json",
+        help="Path to sync configuration file (default: .sync-config.json)",
+    )
+    parser.add_argument(
+        "--output",
+        default=".claude-plugin/marketplace.json",
+        help="Path to output marketplace.json file (default: .claude-plugin/marketplace.json)",
+    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
+
+    args = parser.parse_args()
+
+    aggregator = MarketplaceAggregator(args.config, args.output, args.verbose)
+    sys.exit(aggregator.run())
+
+
+if __name__ == "__main__":
+    main()
