@@ -12,9 +12,12 @@ const isActive = (href: string) =>
 ---
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="/">
-      <span class="brand__mark" aria-hidden="true">TWC</span>
-      <span class="brand__name">Temporary Works Consulting</span>
+    <a class="brand" href="/" aria-label="Temporary Works Consulting & Design — home">
+      <img src="/logo.png" alt="" width="48" height="48" />
+      <span class="brand__text">
+        <span class="brand__name">Temporary Works Consulting &amp; Design</span>
+        <span class="brand__sub">Ltd</span>
+      </span>
     </a>
     <nav aria-label="Primary">
       <ul>
@@ -31,7 +34,7 @@ const isActive = (href: string) =>
 <style>
   .site-header {
     border-bottom: 1px solid var(--c-border);
-    background: white;
+    background: var(--c-bg-card);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -40,26 +43,30 @@ const isActive = (href: string) =>
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 72px;
     gap: 1rem;
   }
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    color: var(--c-fg);
-    font-weight: 700;
+    gap: 0.75rem;
+    color: var(--c-navy);
   }
   .brand:hover { text-decoration: none; }
-  .brand__mark {
-    background: var(--c-accent);
-    color: white;
-    border-radius: 6px;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
+  .brand img { display: block; border-radius: 6px; }
+  .brand__text { display: grid; line-height: 1.05; }
+  .brand__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.98rem;
+    letter-spacing: -0.005em;
   }
-  .brand__name { font-family: var(--font-display); }
+  .brand__sub {
+    font-size: 0.72rem;
+    color: var(--c-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
   nav ul {
     display: flex;
     gap: 1.25rem;
@@ -75,11 +82,11 @@ const isActive = (href: string) =>
     border-bottom: 2px solid transparent;
   }
   nav a[aria-current='page'] {
-    color: var(--c-accent);
-    border-color: var(--c-accent);
+    color: var(--c-accent-strong);
+    border-color: var(--c-accent-strong);
   }
-  nav a:hover { text-decoration: none; color: var(--c-accent); }
-  @media (max-width: 640px) {
-    .brand__name { display: none; }
+  nav a:hover { text-decoration: none; color: var(--c-accent-strong); }
+  @media (max-width: 720px) {
+    .brand__text { display: none; }
   }
 </style>

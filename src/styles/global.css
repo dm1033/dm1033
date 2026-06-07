@@ -1,11 +1,13 @@
 :root {
-  --c-bg: #ffffff;
-  --c-fg: #0f1a24;
-  --c-muted: #5b6b7a;
-  --c-accent: #0a4f7a;
-  --c-accent-strong: #073a5a;
-  --c-band: #f3f6f9;
-  --c-border: #d9e1e8;
+  --c-bg: #faf6ef;
+  --c-bg-card: #ffffff;
+  --c-fg: #112a3a;
+  --c-muted: #4f6877;
+  --c-accent: #2f8e8e;
+  --c-accent-strong: #1f6d6d;
+  --c-navy: #14324a;
+  --c-band: #f1ece2;
+  --c-border: #d8cfbe;
   --c-warn: #c2410c;
   --c-ok: #166534;
 
@@ -27,7 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--c-accent); text-decoration: none; }
+a { color: var(--c-accent-strong); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 h1, h2, h3 {
@@ -35,6 +37,7 @@ h1, h2, h3 {
   letter-spacing: -0.01em;
   line-height: 1.15;
   margin: 0 0 0.5em;
+  color: var(--c-navy);
 }
 h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); }
 h2 { font-size: clamp(1.5rem, 2.8vw, 2.1rem); }
@@ -55,8 +58,8 @@ p { margin: 0 0 1em; }
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--c-accent);
+  font-weight: 700;
+  color: var(--c-accent-strong);
   margin-bottom: 0.6rem;
 }
 
@@ -65,18 +68,20 @@ p { margin: 0 0 1em; }
   padding: 0.75rem 1.25rem;
   border-radius: var(--r);
   font-weight: 600;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
 }
 .btn--primary {
-  background: var(--c-accent);
+  background: var(--c-navy);
   color: white;
 }
-.btn--primary:hover { background: var(--c-accent-strong); text-decoration: none; }
+.btn--primary:hover { background: #0d2236; text-decoration: none; }
 .btn--ghost {
-  border: 1px solid var(--c-border);
+  border-color: var(--c-border);
   color: var(--c-fg);
+  background: var(--c-bg-card);
 }
-.btn--ghost:hover { background: white; text-decoration: none; }
+.btn--ghost:hover { border-color: var(--c-navy); text-decoration: none; }
 
 .grid {
   display: grid;
@@ -85,7 +90,7 @@ p { margin: 0 0 1em; }
 }
 
 .card {
-  background: white;
+  background: var(--c-bg-card);
   border: 1px solid var(--c-border);
   border-radius: var(--r);
   padding: 1.5rem;

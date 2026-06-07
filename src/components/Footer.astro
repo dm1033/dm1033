@@ -4,8 +4,13 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <div>
-      <strong>Temporary Works Consulting</strong>
-      <p>Independent engineering for temporary works on construction and infrastructure projects across Aotearoa New Zealand.</p>
+      <div class="footer-brand">
+        <img src="/logo.png" alt="" width="44" height="44" />
+        <div>
+          <strong>Temporary Works Consulting &amp; Design Ltd</strong>
+          <p>Independent engineering for temporary works on construction and infrastructure projects across Aotearoa New Zealand.</p>
+        </div>
+      </div>
     </div>
     <div>
       <h4>Contact</h4>
@@ -26,13 +31,13 @@ const year = new Date().getFullYear();
     </div>
   </div>
   <div class="container site-footer__base">
-    <small>&copy; {year} Temporary Works Consulting Ltd. All rights reserved.</small>
+    <small>&copy; {year} Temporary Works Consulting &amp; Design Ltd. All rights reserved.</small>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    background: #0b1620;
+    background: var(--c-navy);
     color: #c9d4dd;
     margin-top: 3rem;
     padding: 3rem 0 1.25rem;
@@ -42,6 +47,13 @@ const year = new Date().getFullYear();
     gap: 2rem;
     grid-template-columns: 1.4fr 1fr 1fr;
   }
+  .footer-brand {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  .footer-brand img { border-radius: 6px; flex: none; }
+  .footer-brand strong { color: white; display: block; margin-bottom: 0.4rem; }
   .site-footer h4 {
     color: white;
     font-size: 0.95rem;
@@ -59,7 +71,7 @@ const year = new Date().getFullYear();
   .site-footer a { color: #a9c1d6; }
   .site-footer__base {
     margin-top: 2.5rem;
-    border-top: 1px solid #1c2935;
+    border-top: 1px solid #1c3a55;
     padding-top: 1rem;
   }
   @media (max-width: 720px) {

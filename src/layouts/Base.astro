@@ -11,13 +11,14 @@ interface Props {
 
 const {
   title,
-  description = 'Independent Temporary Works engineering, design checks and consultancy for construction projects across New Zealand.',
+  description = 'Independent Temporary Works engineering, design and design checks for construction projects across New Zealand.',
   canonical,
 } = Astro.props;
 
-const siteName = 'Temporary Works Consulting';
-const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+const siteName = 'Temporary Works Consulting & Design';
+const fullTitle = title === siteName ? `${siteName} Ltd` : `${title} — ${siteName}`;
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL('/logo.png', Astro.site).toString();
 ---
 <!doctype html>
 <html lang="en-NZ">
@@ -27,15 +28,36 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#14324a" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={siteName} />
+    <meta property="og:site_name" content={`${siteName} Ltd`} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      name: 'Temporary Works Consulting & Design Ltd',
+      image: ogImage,
+      url: 'https://www.temporaryworksconsulting.com',
+      telephone: '+64 27 333 8320',
+      email: 'office@twconsulting.co.nz',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '11 Marina View, Paremata',
+        addressLocality: 'Porirua',
+        postalCode: '5026',
+        addressCountry: 'NZ',
+      },
+      areaServed: 'NZ',
+    })} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -49,7 +71,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
         position: absolute;
         left: -9999px;
         top: 0;
-        background: #073a5a;
+        background: #14324a;
         color: white;
         padding: 0.5rem 1rem;
         z-index: 100;
