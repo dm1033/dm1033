@@ -1,0 +1,115 @@
+:root {
+  --c-bg: #faf6ef;
+  --c-bg-card: #ffffff;
+  --c-fg: #112a3a;
+  --c-muted: #4f6877;
+  --c-accent: #2f8e8e;
+  --c-accent-strong: #1f6d6d;
+  --c-navy: #14324a;
+  --c-band: #f1ece2;
+  --c-border: #d8cfbe;
+  --c-warn: #c2410c;
+  --c-ok: #166534;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --maxw: 1120px;
+  --r: 8px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--c-fg);
+  background: var(--c-bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--c-accent-strong); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  color: var(--c-navy);
+}
+h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+h2 { font-size: clamp(1.5rem, 2.8vw, 2.1rem); }
+h3 { font-size: 1.2rem; }
+
+p { margin: 0 0 1em; }
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.section { padding: 4rem 0; }
+.section--band { background: var(--c-band); }
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-accent-strong);
+  margin-bottom: 0.6rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--r);
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
+}
+.btn--primary {
+  background: var(--c-navy);
+  color: white;
+}
+.btn--primary:hover { background: #0d2236; text-decoration: none; }
+.btn--ghost {
+  border-color: var(--c-border);
+  color: var(--c-fg);
+  background: var(--c-bg-card);
+}
+.btn--ghost:hover { border-color: var(--c-navy); text-decoration: none; }
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card {
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+}
+.card h3 { margin-top: 0; }
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--c-muted);
+  max-width: 60ch;
+}
+
+.kicker-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

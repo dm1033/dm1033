@@ -1,0 +1,79 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <div class="footer-brand">
+        <img src="/logo.png" alt="" width="44" height="44" />
+        <div>
+          <strong>Temporary Works Consulting &amp; Design Ltd</strong>
+          <p>Independent temporary works engineering — design, design checks and on-call advice for construction and infrastructure projects across the United Kingdom.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:david@temporaryworksconsulting.com">david@temporaryworksconsulting.com</a></li>
+        <li><a href="tel:+447900984900">+44 7900 984900</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/sectors/">Sectors</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__base">
+    <small>&copy; {year} Temporary Works Consulting &amp; Design Ltd. Registered in England and Wales, company number 17198188.</small>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--c-navy);
+    color: #c9d4dd;
+    margin-top: 3rem;
+    padding: 3rem 0 1.25rem;
+  }
+  .site-footer__inner {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+  .footer-brand {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  .footer-brand img { border-radius: 6px; flex: none; }
+  .footer-brand strong { color: white; display: block; margin-bottom: 0.4rem; }
+  .site-footer h4 {
+    color: white;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.75rem;
+  }
+  .site-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .site-footer a { color: #a9c1d6; }
+  .site-footer__base {
+    margin-top: 2.5rem;
+    border-top: 1px solid #1c3a55;
+    padding-top: 1rem;
+  }
+  @media (max-width: 720px) {
+    .site-footer__inner { grid-template-columns: 1fr; }
+  }
+</style>

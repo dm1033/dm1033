@@ -1,0 +1,8 @@
+name = "dm1033"
+compatibility_date = "2026-05-01"
+main = "src/worker.ts"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"

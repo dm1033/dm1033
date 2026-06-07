@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found">
+  <section class="section">
+    <div class="container narrow">
+      <p class="eyebrow">404</p>
+      <h1>That page doesn't exist.</h1>
+      <p class="lead">It may have moved, or the link may be wrong.</p>
+      <div class="kicker-row">
+        <a class="btn btn--primary" href="/">Back to home</a>
+        <a class="btn btn--ghost" href="/contact/">Contact us</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrow { max-width: 640px; }
+</style>

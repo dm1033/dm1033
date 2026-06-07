@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const sectors = [
+  { title: 'Buildings', body: 'Multi-storey concrete and steel framed buildings — propping, formwork, façade access and edge protection.' },
+  { title: 'Bridges', body: 'Falsework for in-situ decks, temporary supports during deck launching, jacking and bearing replacement.' },
+  { title: 'Civil infrastructure', body: 'Pump stations, retaining structures, culverts and deep excavations.' },
+  { title: 'Energy and water', body: 'Tanks, intakes, outfalls, dewatering systems and access platforms.' },
+  { title: 'Industrial and process', body: 'Plant relocation, structural temporary supports, demolition propping.' },
+  { title: 'Marine and coastal', body: 'Wharf and jetty repairs, cofferdams and temporary access.' },
+];
+---
+<Base title="Sectors" description="Sectors we work in — buildings, bridges, civil infrastructure, energy and water, industrial, marine.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Sectors</p>
+      <h1>Where we work.</h1>
+      <p class="lead">We support main contractors, sub-contractors, designers and PCBUs across these sectors.</p>
+      <div class="grid" style="margin-top:2rem;">
+        {sectors.map((s) => (
+          <article class="card">
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

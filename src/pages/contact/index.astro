@@ -1,0 +1,74 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Contact" description="Get in touch with Temporary Works Consulting & Design Ltd — independent temporary works engineering across the United Kingdom.">
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h1>Brief us on a project.</h1>
+        <p class="lead">
+          Send drawings, sequencing notes and any ground information you have. We'll come back with
+          an approach, a fee and a timeline — usually within one working day.
+        </p>
+        <dl class="contact">
+          <dt>Email</dt>
+          <dd><a href="mailto:david@temporaryworksconsulting.com">david@temporaryworksconsulting.com</a></dd>
+          <dt>Phone</dt>
+          <dd><a href="tel:+447900984900">+44 7900 984900</a></dd>
+          <dt>Registered office</dt>
+          <dd>To be confirmed — England &amp; Wales</dd>
+          <dt>Company number</dt>
+          <dd>17198188 (England &amp; Wales)</dd>
+        </dl>
+      </div>
+      <form class="card" method="post" action="mailto:david@temporaryworksconsulting.com" enctype="text/plain">
+        <h3>Quick enquiry</h3>
+        <label>
+          <span>Your name</span>
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          <span>Project / location</span>
+          <input type="text" name="project" />
+        </label>
+        <label>
+          <span>What do you need?</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button class="btn btn--primary" type="submit">Send enquiry</button>
+        <p class="note">This opens your email client. Prefer to email directly? <a href="mailto:david@temporaryworksconsulting.com">david@temporaryworksconsulting.com</a></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .contact { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.25rem; margin-top: 1.5rem; }
+  .contact dt { color: var(--c-muted); }
+  .contact dd { margin: 0; }
+  form label { display: grid; gap: 0.35rem; margin-bottom: 1rem; }
+  form span { font-weight: 600; font-size: 0.9rem; }
+  form input, form textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--c-border);
+    border-radius: 6px;
+    font: inherit;
+    font-family: var(--font-sans);
+  }
+  form input:focus, form textarea:focus { outline: 2px solid var(--c-accent); outline-offset: 1px; }
+  .note { font-size: 0.85rem; color: var(--c-muted); margin-top: 0.75rem; }
+  @media (max-width: 820px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
