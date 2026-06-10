@@ -12,6 +12,7 @@ const staticPaths = [
   "/services/international-cvs",
   "/services/graduate-cvs",
   "/services/executive-profiles",
+  "/premium",
   "/pricing",
   "/how-it-works",
   "/about",

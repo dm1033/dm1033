@@ -31,6 +31,28 @@ export default function RefundPage() {
         <li>No-shows and late cancellations are non-refundable.</li>
       </ul>
 
+      <h2>Automated AI Premium Access (digital service)</h2>
+      <ul>
+        <li>
+          <strong>12-month access (£200 one-off):</strong> by purchasing you
+          request immediate access to the digital service. Under consumer
+          regulations, the 14-day cooling-off right is lost once you begin
+          using the service with that consent. If you have not used the
+          service, you may cancel within 14 days for a full refund.
+        </li>
+        <li>
+          <strong>Monthly subscription (£20/month):</strong> cancel anytime via
+          the self-service billing portal (linked on the Premium page) or by
+          email. Access continues until the end of the paid billing period; no
+          further charges are taken. Partial months are not refunded.
+        </li>
+        <li>
+          If the AI service is unavailable for an extended period, we will
+          extend your access or refund the affected period at our reasonable
+          assessment.
+        </li>
+      </ul>
+
       <h2>How to request a refund</h2>
       <p>
         Email <a href={`mailto:${site.email}`} className="underline">{site.email}</a> with

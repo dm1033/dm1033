@@ -38,6 +38,7 @@ Next.js 15 (App Router, fully static output) · TypeScript · Tailwind CSS 4 · 
 | `docs/LAUNCH-PLAN-30-DAYS.md` | Day-by-day launch plan |
 | `docs/INFO-NEEDED.md` | Outstanding decisions and information |
 | `docs/AI-REVIEW-SETUP.md` | AI-powered ATS review: Anthropic API key, costs, compliance posture |
+| `docs/PREMIUM-AUTOMATED-SERVICE.md` | Fully automated paid AI service: £200/12mo or £20/month via Stripe Checkout |
 
 ## Brand name
 Working placeholder: **Construction Career Edge**. Shortlist considered: Construction CV Doctor · Built Environment Careers · Site to Senior · Construction Profile Pro · Civil Engineering Career Coach · The Construction CV Consultant · Contractor Career Coach · Engineering Career Edge. To rename: update `src/lib/site.ts` (`name`, `tagline`) and the logo initials in `Header.tsx`/`Footer.tsx`.

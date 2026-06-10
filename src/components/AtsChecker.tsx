@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { compliance } from "@/lib/site";
 import type { AtsAiReview } from "@/app/api/ats-review/route";
 
@@ -139,10 +139,20 @@ export default function AtsChecker() {
   const [aiConsent, setAiConsent] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+  const [aiUpsell, setAiUpsell] = useState(false);
   const [aiReview, setAiReview] = useState<AtsAiReview | null>(null);
+  const [premium, setPremium] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/premium/status")
+      .then((r) => r.json())
+      .then((d) => setPremium(Boolean(d.active)))
+      .catch(() => {});
+  }, []);
 
   async function runAiReview() {
     setAiError(null);
+    setAiUpsell(false);
     setAiLoading(true);
     setAiReview(null);
     try {
@@ -154,6 +164,7 @@ export default function AtsChecker() {
       const data = await res.json();
       if (!res.ok) {
         setAiError(data.error ?? "The AI review failed. Please try again.");
+        setAiUpsell(Boolean(data.upgrade));
       } else {
         setAiReview(data.review);
       }
@@ -279,6 +290,11 @@ export default function AtsChecker() {
           <div className="rounded-xl border-2 border-navy-200 bg-navy-50 p-6">
             <h3 className="flex items-center gap-2 text-lg font-bold text-navy-900">
               <span aria-hidden>✨</span> Go deeper: AI-powered advisory review
+              {premium && (
+                <span className="rounded-full bg-amber-brand px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-navy-950">
+                  Premium active — unlimited
+                </span>
+              )}
             </h3>
             <p className="mt-2 text-sm text-steel-700">
               The instant check above only matches text patterns. The AI review
@@ -316,6 +332,24 @@ export default function AtsChecker() {
             {aiError && (
               <p className="mt-3 rounded border border-red-300 bg-red-50 p-3 text-sm text-red-700">
                 {aiError}
+                {aiUpsell && (
+                  <>
+                    {" "}
+                    <Link href="/premium" className="font-bold underline">
+                      Get Premium Access →
+                    </Link>
+                  </>
+                )}
+              </p>
+            )}
+            {!premium && (
+              <p className="mt-3 text-center text-xs text-steel-500">
+                Applying for several roles?{" "}
+                <Link href="/premium" className="font-semibold underline hover:text-navy-800">
+                  Premium Access
+                </Link>{" "}
+                adds unlimited reviews, truthful bullet rewrites and tailored
+                cover-letter drafts — £200/year or £20/month.
               </p>
             )}
 
@@ -359,6 +393,38 @@ export default function AtsChecker() {
                   items={aiReview.recommendations}
                   tone="neutral"
                 />
+
+                {aiReview.rewrittenBullets && aiReview.rewrittenBullets.length > 0 && (
+                  <div>
+                    <h4 className="font-bold text-navy-900">
+                      ✨ Premium: your weakest bullets, rewritten truthfully
+                    </h4>
+                    <ul className="mt-2 space-y-3">
+                      {aiReview.rewrittenBullets.map((b) => (
+                        <li key={b.original} className="rounded bg-white p-3 text-sm">
+                          <p className="text-steel-500 line-through">{b.original}</p>
+                          <p className="mt-1.5 font-medium text-navy-900">{b.improved}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {aiReview.coverLetterDraft && (
+                  <div>
+                    <h4 className="font-bold text-navy-900">
+                      ✨ Premium: tailored cover letter draft
+                    </h4>
+                    <p className="mt-1 text-xs text-steel-500">
+                      A starting draft built only from experience evidenced in
+                      your CV — personalise it and check every fact before
+                      sending.
+                    </p>
+                    <pre className="mt-2 whitespace-pre-wrap rounded bg-white p-4 font-sans text-sm leading-relaxed text-steel-700">
+                      {aiReview.coverLetterDraft}
+                    </pre>
+                  </div>
+                )}
 
                 <p className="rounded-lg border-l-4 border-amber-brand bg-amber-brand/10 p-4 text-sm text-steel-700">
                   <strong>Please note:</strong> {compliance.toolDisclaimer} Only

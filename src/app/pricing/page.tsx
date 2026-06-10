@@ -27,6 +27,26 @@ export default function PricingPage() {
           ))}
         </div>
 
+        <div className="mx-auto mt-12 max-w-3xl rounded-xl border-2 border-navy-200 bg-navy-50 p-7">
+          <h2 className="flex flex-wrap items-center gap-2 text-xl font-bold text-navy-900">
+            <span aria-hidden>✨</span> AI Career Tools — Fully Automated Premium Access
+          </h2>
+          <p className="mt-2 text-sm text-steel-700">
+            Self-service, instant and unlimited: AI CV reviews against any job
+            advert, truthful bullet rewrites and tailored cover-letter drafts —
+            available 24/7, activated automatically the moment you pay.
+          </p>
+          <p className="mt-3 font-bold text-navy-900">
+            £200 one-off (12 months) &nbsp;·&nbsp; or £20/month, cancel anytime
+          </p>
+          <a
+            href="/premium"
+            className="mt-4 inline-block rounded bg-amber-brand px-6 py-3 text-sm font-bold text-navy-950 hover:bg-amber-bright"
+          >
+            View Premium Access
+          </a>
+        </div>
+
         <div className="mx-auto mt-12 max-w-3xl space-y-6">
           <div className="rounded-xl border border-steel-200 bg-white p-6">
             <h2 className="font-bold text-navy-900">Also available</h2>

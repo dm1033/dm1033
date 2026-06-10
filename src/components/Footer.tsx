@@ -12,6 +12,7 @@ const serviceLinks = [
 ];
 
 const companyLinks = [
+  { label: "AI Premium Access", href: "/premium" },
   { label: "Pricing", href: "/pricing" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "About David", href: "/about" },
