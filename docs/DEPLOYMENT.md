@@ -32,11 +32,11 @@ With a domain bought at GoDaddy (or anywhere):
 4. Update `url` in `src/lib/site.ts` to the real domain (used for sitemap/SEO), then redeploy.
 
 ## Pre-launch checklist (in code)
-- [ ] `src/lib/site.ts`: real domain in `url`
+- [x] `src/lib/site.ts`: domain set — `https://linkedinconstructioncvprofile.com`
 - [ ] `src/lib/site.ts`: real Stripe Payment Links (see STRIPE-SETUP.md)
 - [ ] `src/lib/site.ts`: real Formspree IDs + Calendly link (see FORMS-AND-BOOKING-SETUP.md)
 - [ ] `src/lib/site.ts`: real prices in `prices`
-- [ ] Credentials wording confirmed (About page / site.ts founder credentials)
+- [x] Credentials wording confirmed: MSc Construction Management · PMI-CP · IEng (ICE)
 - [ ] Legal pages: fill bracketed placeholders, set "last updated" dates, get them reviewed
 - [ ] Replace `ImagePlaceholder` components with real photography (hero, headshot, etc.)
 - [ ] Replace placeholder PDFs in `public/downloads/` with designed versions (optional at launch)

@@ -12,19 +12,17 @@ export const site = {
     "CVs, LinkedIn Profiles and Career Coaching for Construction Professionals",
   positioning:
     "Construction CVs, LinkedIn Profiles and Career Coaching — Built by a Civil Engineer Who Understands the Industry",
-  // REPLACE with the live domain once purchased (no trailing slash).
-  url: "https://www.constructioncareeredge.example",
+  // Live domain (no trailing slash).
+  url: "https://linkedinconstructioncvprofile.com",
   email: "david@dmtecs.com",
   // REPLACE with a business phone number, or leave blank to hide.
   phone: "",
   founder: {
     name: "David Miller",
-    // Credentials and memberships to be verified before publication.
     credentials: [
       "MSc Construction Management",
       "PMI-CP",
-      "IEng / Civil Engineer [confirm exact membership wording]",
-      "Tech IOSH [confirm]",
+      "IEng — Incorporated Engineer, Institution of Civil Engineers (ICE)",
     ],
     yearsExperience: 29,
     linkedin: "https://www.linkedin.com/in/REPLACE_WITH_PROFILE",
@@ -76,7 +74,7 @@ export const compliance = {
   consentWording:
     "I confirm I have permission to share this CV and understand that the review is advisory and does not guarantee interviews, offers or selection.",
   credentialsNote:
-    "Credentials and memberships to be verified before publication.",
+    "Credentials: MSc Construction Management · PMI-CP · IEng (ICE).",
 } as const;
 
 export const nav = [

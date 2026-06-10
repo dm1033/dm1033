@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import FinalCta from "@/components/FinalCta";
 import { Check, ImagePlaceholder, PageHero } from "@/components/ui";
-import { compliance, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About David Miller — 29 Years in Construction",
@@ -28,10 +28,8 @@ export default function AboutPage() {
                 {site.founder.credentials.map((c) => (
                   <Check key={c}>{c}</Check>
                 ))}
+                <Check>29 years&apos; construction experience</Check>
               </ul>
-              <p className="mt-4 text-xs italic text-steel-500">
-                {compliance.credentialsNote}
-              </p>
             </div>
           </div>
 

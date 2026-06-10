@@ -3,13 +3,8 @@
 Items required to take the site from build-complete to launch-ready.
 
 ## Critical (blocks launch)
-1. **Credential wording** — exact, verifiable wording for:
-   - Civil engineering registration/membership: is it IEng? Which institution (ICE? IET? Other)? Current and in good standing?
-   - Tech IOSH — current membership confirmed?
-   - PMI-CP — confirmed.
-   - MSc Construction Management — awarding university (optional to display).
-   The site currently displays "[confirm exact membership wording]" / "[confirm]" markers and a "credentials to be verified" note — these must be resolved before launch. Never publish memberships that can't be evidenced.
-2. **Brand name decision** — "Construction Career Edge" is the working placeholder. Confirm or choose from the shortlist (see README). Then: domain purchase.
+1. ~~**Credential wording**~~ ✅ RESOLVED: IEng (Institution of Civil Engineers), PMI-CP, MSc Construction Management. Tech IOSH removed at David's instruction. Optional: awarding university for the MSc if you want it displayed.
+2. **Brand name decision** — "Construction Career Edge" is the working brand name. ✅ Domain decided: **linkedinconstructioncvprofile.com** (already set in `src/lib/site.ts`). Confirm whether the displayed brand name stays "Construction Career Edge" or should change to match the domain.
 3. **Prices** — real figures for all 8 price points in `src/lib/site.ts` (`prices`).
 4. **Business legal details** — trading name / company number (if any), registered address, jurisdiction for terms (England & Wales assumed).
 5. **Stripe account** — set up by you (identity verification required); then the 6 Payment Links.

@@ -3,7 +3,7 @@
 Goal state by Day 30: website live · Stripe products live · CV review form live · lead magnet live · LinkedIn profile updated · 10 blog drafts created · 30 LinkedIn posts prepared · 100 target prospects listed · first email campaign written · first paid service ready.
 
 ## Week 1 — Foundations (Days 1–7)
-- **Day 1:** Confirm brand name (placeholder: Construction Career Edge) and buy the domain. Confirm credential wording (IEng/membership, Tech IOSH) against certificates.
+- **Day 1:** Buy the domain **linkedinconstructioncvprofile.com** (already configured in the site). Credentials confirmed: MSc Construction Management · PMI-CP · IEng (ICE).
 - **Day 2:** Deploy the site to Vercel (docs/DEPLOYMENT.md). Connect the domain + SSL.
 - **Day 3:** Create Stripe account, 6 products and Payment Links; paste into `src/lib/site.ts`; set real prices (docs/STRIPE-SETUP.md). Run a test-mode payment.
 - **Day 4:** Set up Formspree (3 forms) and Calendly; paste IDs into `site.ts` (docs/FORMS-AND-BOOKING-SETUP.md). Test the upload form end-to-end with a real file.

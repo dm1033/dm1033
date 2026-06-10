@@ -37,10 +37,11 @@ export default function DisclaimerPage() {
 
       <h2>Credentials</h2>
       <p>
-        Founder credentials and professional memberships stated on this site
-        are subject to verification wording where indicated and will be
-        confirmed before publication claims are finalised. No professional body
-        endorsement of this business is claimed.
+        Founder credentials stated on this site: MSc Construction Management,
+        PMI-CP, and IEng (Incorporated Engineer, registered through the
+        Institution of Civil Engineers). These describe the founder&apos;s
+        personal qualifications and registrations only. No professional body
+        endorsement of this business or its services is claimed.
       </p>
     </LegalLayout>
   );

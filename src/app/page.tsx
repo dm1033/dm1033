@@ -194,11 +194,9 @@ export default function HomePage() {
                 <Check>Civil engineering and temporary works background</Check>
                 <Check>MSc Construction Management</Check>
                 <Check>PMI-CP</Check>
+                <Check>IEng — Incorporated Engineer, Institution of Civil Engineers (ICE)</Check>
                 <Check>Project management, safety, HV infrastructure, training and consultancy experience</Check>
               </ul>
-              <p className="mt-5 text-xs italic text-steel-400">
-                {compliance.credentialsNote}
-              </p>
               <div className="mt-7">
                 <ButtonPrimary href="/about">More About David</ButtonPrimary>
               </div>

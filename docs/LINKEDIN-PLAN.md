@@ -3,9 +3,9 @@
 ## 1. David's profile
 
 ### Headline
-> Construction CV, LinkedIn & Career Coach | MSc Construction Management | PMI-CP | 29 Years in Construction, Temporary Works, HV & Infrastructure
+> Construction CV, LinkedIn & Career Coach | MSc Construction Management | PMI-CP | IEng (ICE) | 29 Years in Construction, Temporary Works, HV & Infrastructure
 
-(Adjust credential wording once memberships are verified. Alternative shorter version: "Construction CV & Career Coach | 29 Years in Civils, Temporary Works & HV | Founder, Construction Career Edge")
+(Alternative shorter version: "Construction CV & Career Coach | IEng (ICE) | 29 Years in Civils, Temporary Works & HV | Founder, Construction Career Edge")
 
 ### About section
 > Most construction professionals have valuable experience and poor presentation. After 29 years in civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy, I now help engineers, managers and site professionals fix that.

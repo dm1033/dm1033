@@ -11,7 +11,7 @@ A complete, live-ready Next.js 15 + TypeScript + Tailwind CSS 4 website for the 
 Almost every launch placeholder lives in **`src/lib/site.ts`**:
 - `url` — your live domain
 - `email` / `phone` — business contact
-- `founder.credentials` — confirm exact wording before launch (IEng/membership, Tech IOSH)
+- `founder.credentials` — confirmed: MSc Construction Management · PMI-CP · IEng (ICE)
 - `calendly` — booking link
 - `forms.*` — three Formspree endpoints
 - `stripeLinks.*` — six Stripe Payment Links

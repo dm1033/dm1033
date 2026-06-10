@@ -3,7 +3,9 @@
 > CVs, LinkedIn Profiles and Career Coaching for Construction Professionals
 > *Construction CVs, LinkedIn Profiles and Career Coaching — Built by a Civil Engineer Who Understands the Industry*
 
-A complete, live-ready website + marketing system for the construction CV / LinkedIn / career-coaching business led by David Miller (MSc Construction Management, PMI-CP, 29 years in civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy — credentials to be verified before publication).
+A complete, live-ready website + marketing system for the construction CV / LinkedIn / career-coaching business led by David Miller — MSc Construction Management, PMI-CP, IEng (Institution of Civil Engineers), 29 years in civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy.
+
+**Live domain:** [linkedinconstructioncvprofile.com](https://linkedinconstructioncvprofile.com) (configured in `src/lib/site.ts`).
 
 ## Quick start
 
