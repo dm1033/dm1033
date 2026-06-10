@@ -15,9 +15,11 @@
     "url": "http://local_proxy@127.0.0.1:46599/git/dm1033/dm1033"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1",
     "next": "^15.5.19",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",

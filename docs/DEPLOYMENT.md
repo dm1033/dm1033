@@ -9,7 +9,7 @@ The site is a standard Next.js 15 app that prerenders every page (all routes are
 ## Option 1 — Vercel (recommended)
 1. Sign up at https://vercel.com with your GitHub account.
 2. **Add New → Project** → import this repository.
-3. Framework preset: Next.js (auto-detected). No environment variables needed.
+3. Framework preset: Next.js (auto-detected). Optional env var: `ANTHROPIC_API_KEY` to enable the AI CV review (see docs/AI-REVIEW-SETUP.md) — everything else needs no environment variables.
 4. Deploy. You get `https://your-project.vercel.app` in ~2 minutes.
 5. Every push to the production branch auto-deploys; pull requests get preview URLs.
 
@@ -19,7 +19,7 @@ The site is a standard Next.js 15 app that prerenders every page (all routes are
 3. Deploy. (If you prefer Netlify Forms over Formspree, see the forms guide.)
 
 ## Option 3 — GoDaddy (static hosting)
-GoDaddy shared hosting can't run Next.js itself, but this site can be exported as plain HTML:
+GoDaddy shared hosting can't run Next.js itself. A static export is possible **only if you remove the AI review API route first** (`src/app/api/` — see docs/AI-REVIEW-SETUP.md); server routes can't run on static hosting. Then:
 1. In `next.config.ts` add `output: "export"` and run `npm run build` — static files land in `out/`.
 2. Upload the contents of `out/` to GoDaddy's `public_html` via cPanel File Manager or FTP.
 3. Re-upload after every change. (This is why Vercel/Netlify are recommended — even with a GoDaddy domain, host the site on Vercel and just point the domain at it.)

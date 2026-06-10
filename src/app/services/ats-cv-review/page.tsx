@@ -17,7 +17,7 @@ export default function AtsReviewPage() {
       <PageHero
         eyebrow="ATS-Aware CV Review"
         title="Check How Screening-Ready Your Construction CV Is"
-        intro="Paste your CV text and a job advert below for an instant advisory review: keyword alignment, formatting risks, missing evidence prompts and role alignment suggestions. It runs entirely in your browser — your CV is never uploaded."
+        intro="Paste your CV text and a job advert below for an advisory review: keyword alignment, formatting risks, missing evidence prompts and role alignment suggestions. The instant check runs entirely in your browser; an optional AI-powered deep review (with your consent) reads your CV like an experienced construction reviewer."
       />
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">

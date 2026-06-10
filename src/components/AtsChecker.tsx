@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { compliance } from "@/lib/site";
+import type { AtsAiReview } from "@/app/api/ats-review/route";
 
 /**
  * Advisory, client-side screening-readiness review.
@@ -98,6 +99,36 @@ function analyse(cv: string, advert: string): Result {
   return { matched, missing, matchPct, notes };
 }
 
+function ReviewList({
+  title,
+  items,
+  tone,
+}: {
+  title: string;
+  items: string[];
+  tone: "good" | "warn" | "neutral";
+}) {
+  if (!items.length) return null;
+  const toneCls =
+    tone === "good"
+      ? "bg-green-50 text-green-900"
+      : tone === "warn"
+        ? "bg-amber-brand/10 text-steel-700"
+        : "bg-white text-steel-700";
+  return (
+    <div>
+      <h4 className="font-bold text-navy-900">{title}</h4>
+      <ul className="mt-2 space-y-1.5">
+        {items.map((item) => (
+          <li key={item} className={`rounded p-2.5 text-sm leading-relaxed ${toneCls}`}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 const areaCls =
   "h-56 w-full rounded border border-steel-300 bg-white p-3 text-sm text-steel-800 placeholder-steel-400 focus:border-amber-brand focus:outline-none focus:ring-1 focus:ring-amber-brand";
 
@@ -105,6 +136,33 @@ export default function AtsChecker() {
   const [cv, setCv] = useState("");
   const [advert, setAdvert] = useState("");
   const [result, setResult] = useState<Result | null>(null);
+  const [aiConsent, setAiConsent] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+  const [aiReview, setAiReview] = useState<AtsAiReview | null>(null);
+
+  async function runAiReview() {
+    setAiError(null);
+    setAiLoading(true);
+    setAiReview(null);
+    try {
+      const res = await fetch("/api/ats-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cv, advert, consent: aiConsent }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAiError(data.error ?? "The AI review failed. Please try again.");
+      } else {
+        setAiReview(data.review);
+      }
+    } catch {
+      setAiError("Network error — please try again.");
+    } finally {
+      setAiLoading(false);
+    }
+  }
 
   return (
     <div className="rounded-xl border border-steel-200 bg-white p-6 shadow-sm sm:p-8">
@@ -116,7 +174,7 @@ export default function AtsChecker() {
           <textarea
             id="ats-cv"
             className={areaCls}
-            placeholder="Open your CV, select all, copy, and paste the text here. Nothing is uploaded — the review runs entirely in your browser."
+            placeholder="Open your CV, select all, copy, and paste the text here. The instant check runs entirely in your browser — nothing is sent anywhere unless you choose the AI review."
             value={cv}
             onChange={(e) => setCv(e.target.value)}
           />
@@ -141,10 +199,12 @@ export default function AtsChecker() {
         onClick={() => setResult(analyse(cv, advert))}
         className="mt-6 w-full rounded bg-amber-brand px-6 py-3.5 text-sm font-bold text-navy-950 transition hover:bg-amber-bright disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Run Advisory Screening-Readiness Review
+        Run Instant Screening-Readiness Check
       </button>
       <p className="mt-2 text-center text-xs text-steel-500">
-        Runs locally in your browser. Your CV text is not sent to any server.
+        The instant check runs locally in your browser — your CV text is not
+        sent to any server. The optional AI review below is different and asks
+        for consent first.
       </p>
 
       {result && (
@@ -214,6 +274,100 @@ export default function AtsChecker() {
           <p className="rounded-lg border-l-4 border-amber-brand bg-amber-brand/10 p-4 text-sm text-steel-700">
             <strong>Please note:</strong> {compliance.toolDisclaimer}
           </p>
+
+          {/* AI deep review */}
+          <div className="rounded-xl border-2 border-navy-200 bg-navy-50 p-6">
+            <h3 className="flex items-center gap-2 text-lg font-bold text-navy-900">
+              <span aria-hidden>✨</span> Go deeper: AI-powered advisory review
+            </h3>
+            <p className="mt-2 text-sm text-steel-700">
+              The instant check above only matches text patterns. The AI review
+              reads your CV against the advert like an experienced reviewer:
+              construction-specific keyword judgement, evidence gaps,
+              formatting risks and prioritised recommendations.
+            </p>
+            <p className="mt-2 text-xs text-steel-500">
+              Privacy: unlike the instant check, this sends your pasted text
+              securely to our server, where it is processed by Anthropic&apos;s
+              Claude API to generate the review. We do not store your CV text;
+              see the privacy policy for details. It remains advisory — no
+              pass/fail verdicts and no guaranteed outcomes.
+            </p>
+            <label className="mt-4 flex items-start gap-2 text-sm text-steel-700">
+              <input
+                type="checkbox"
+                checked={aiConsent}
+                onChange={(e) => setAiConsent(e.target.checked)}
+                className="mt-0.5 h-4 w-4 accent-amber-brand"
+              />
+              <span>
+                I consent to my pasted CV and advert text being processed by
+                the AI service to generate this advisory review.
+              </span>
+            </label>
+            <button
+              type="button"
+              disabled={!aiConsent || aiLoading}
+              onClick={runAiReview}
+              className="mt-4 w-full rounded bg-navy-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-navy-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {aiLoading ? "Reviewing — this takes up to a minute…" : "Run AI Advisory Review"}
+            </button>
+            {aiError && (
+              <p className="mt-3 rounded border border-red-300 bg-red-50 p-3 text-sm text-red-700">
+                {aiError}
+              </p>
+            )}
+
+            {aiReview && (
+              <div className="mt-6 space-y-5 border-t border-navy-200 pt-6">
+                <div className="flex flex-wrap items-center gap-5">
+                  <div>
+                    <p className="text-sm font-semibold text-steel-600">
+                      Advisory alignment estimate
+                    </p>
+                    <p className="text-4xl font-extrabold text-navy-900">
+                      {Math.round(aiReview.alignmentScore)}/100
+                    </p>
+                  </div>
+                  <p className="min-w-40 flex-1 text-sm leading-relaxed text-steel-700">
+                    {aiReview.summary}
+                  </p>
+                </div>
+
+                <ReviewList title="✓ Strengths" items={aiReview.strengths} tone="good" />
+                <div className="grid gap-5 md:grid-cols-2">
+                  <ReviewList
+                    title="Advert terms evidenced"
+                    items={aiReview.presentKeywords}
+                    tone="good"
+                  />
+                  <ReviewList
+                    title="Advert terms not found (only add if truthful)"
+                    items={aiReview.missingKeywords}
+                    tone="warn"
+                  />
+                </div>
+                <ReviewList title="Evidence gaps" items={aiReview.evidenceGaps} tone="warn" />
+                <ReviewList
+                  title="Formatting risks"
+                  items={aiReview.formattingRisks}
+                  tone="warn"
+                />
+                <ReviewList
+                  title="Recommended next steps"
+                  items={aiReview.recommendations}
+                  tone="neutral"
+                />
+
+                <p className="rounded-lg border-l-4 border-amber-brand bg-amber-brand/10 p-4 text-sm text-steel-700">
+                  <strong>Please note:</strong> {compliance.toolDisclaimer} Only
+                  ever add experience you genuinely have — truthfulness is what
+                  survives an interview.
+                </p>
+              </div>
+            )}
+          </div>
 
           <div className="rounded-xl bg-navy-900 p-6 text-center">
             <p className="font-bold text-white">Want a human expert review instead?</p>

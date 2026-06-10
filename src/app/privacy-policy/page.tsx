@@ -35,6 +35,13 @@ export default function PrivacyPage() {
         <li><strong>[Formspree / form provider]</strong> — receives form submissions and uploaded CVs and forwards them to us by email.</li>
         <li><strong>[Calendly / booking provider]</strong> — call scheduling.</li>
         <li><strong>[Hosting provider — e.g. Vercel/Netlify]</strong> — serves this website.</li>
+        <li>
+          <strong>Anthropic</strong> — if you use the optional AI-powered CV
+          review and give consent, the CV and advert text you paste is
+          processed by Anthropic&apos;s Claude API to generate the review. We
+          do not store this text, and API inputs are not used by Anthropic to
+          train models (see Anthropic&apos;s commercial privacy documentation).
+        </li>
         <li><strong>[Email provider]</strong> — email correspondence and delivery of documents.</li>
       </ul>
       <p>We do not sell personal data and do not share your CV with any third party without your consent.</p>
