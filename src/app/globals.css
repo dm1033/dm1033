@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette: navy, white, steel grey, safety amber */
+  --color-navy-50: #f0f4fa;
+  --color-navy-100: #dce5f2;
+  --color-navy-200: #b9cbe4;
+  --color-navy-300: #8aa7cd;
+  --color-navy-400: #5a80b1;
+  --color-navy-500: #3a6195;
+  --color-navy-600: #2c4b77;
+  --color-navy-700: #233c60;
+  --color-navy-800: #182a45;
+  --color-navy-900: #0e1c30;
+  --color-navy-950: #081222;
+
+  --color-steel-50: #f6f7f9;
+  --color-steel-100: #ebedf1;
+  --color-steel-200: #d3d8e0;
+  --color-steel-300: #adb6c4;
+  --color-steel-400: #808da2;
+  --color-steel-500: #607087;
+  --color-steel-600: #4c5a70;
+  --color-steel-700: #3e495b;
+  --color-steel-800: #363f4d;
+  --color-steel-900: #303642;
+
+  --color-amber-brand: #f5a300;
+  --color-amber-bright: #ffb81c;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Subtle blueprint grid background for hero/feature sections */
+.bg-blueprint {
+  background-color: var(--color-navy-900);
+  background-image:
+    linear-gradient(rgba(138, 167, 205, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138, 167, 205, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-blueprint-light {
+  background-color: var(--color-steel-50);
+  background-image:
+    linear-gradient(rgba(44, 75, 119, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 75, 119, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-steel-800 antialiased;
+}

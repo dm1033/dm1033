@@ -1,0 +1,31 @@
+{
+  "name": "construction-career-edge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Construction Career Edge — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "pdfs": "node scripts/generate-placeholder-pdfs.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:46599/git/dm1033/dm1033"
+  },
+  "dependencies": {
+    "next": "^15.5.19",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "typescript": "5.9"
+  }
+}
