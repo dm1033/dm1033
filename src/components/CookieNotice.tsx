@@ -14,6 +14,8 @@ export default function CookieNotice() {
 
   const decide = (value: "accepted" | "essential") => {
     localStorage.setItem(STORAGE_KEY, value);
+    // Let the Analytics component react without a page reload.
+    window.dispatchEvent(new CustomEvent("cce-consent", { detail: value }));
     setVisible(false);
   };
 

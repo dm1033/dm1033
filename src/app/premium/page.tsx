@@ -119,6 +119,12 @@ export default async function PremiumPage({
               >
                 Already subscribed? Manage or cancel your plan
               </a>
+              <Link
+                href="/premium/restore"
+                className="mt-1.5 block text-center text-xs font-medium text-steel-500 underline hover:text-navy-800"
+              >
+                New device? Restore access with your code
+              </Link>
             </div>
 
             <p className="text-xs text-steel-500">

@@ -59,10 +59,6 @@ export default function PricingPage() {
                 <strong>Graduate / Junior Engineer Pack</strong> —{" "}
                 {prices.graduatePack} (enquire via the upload form)
               </li>
-              <li>
-                <strong>Combined CV + LinkedIn packages</strong> — ask for
-                combined pricing before ordering
-              </li>
             </ul>
           </div>
           <DisclaimerBox>

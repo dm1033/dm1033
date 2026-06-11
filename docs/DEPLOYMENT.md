@@ -42,9 +42,7 @@ With a domain bought at GoDaddy (or anywhere):
 - [ ] Replace placeholder PDFs in `public/downloads/` with designed versions (optional at launch)
 
 ## Analytics
-Two good options:
-- **Plausible / Fathom** (paid, cookie-free, GDPR-simple): add their one-line script to `src/app/layout.tsx`; no consent banner changes needed.
-- **Google Analytics 4** (free): only load it after the user clicks "Accept" on the cookie banner. The banner already stores the choice in `localStorage` under `cce-cookie-consent` — gate the GA script on that value. Update the Cookie Policy page with the cookies used.
+**Google Analytics 4 is built in and consent-gated.** Set the `NEXT_PUBLIC_GA_ID` env var (G-XXXXXXXXXX from analytics.google.com) and redeploy — GA loads only after a visitor clicks "Accept" on the cookie banner ("Essential only" visitors are never tracked; IP anonymisation is on; the cookie policy already documents it). Leave the var unset to run with no analytics. Prefer cookie-free analytics? Swap in Plausible/Fathom's script in `src/components/Analytics.tsx`.
 
 ## Google Search Console + sitemap
 1. https://search.google.com/search-console → **Add property** → Domain → verify via the DNS TXT record (added in GoDaddy DNS).

@@ -49,6 +49,7 @@ export const stripeLinks = {
   applicationPack: "https://buy.stripe.com/REPLACE_WITH_PAYMENT_LINK",
   coachingCall: "https://buy.stripe.com/REPLACE_WITH_PAYMENT_LINK",
   executiveProfile: "https://buy.stripe.com/REPLACE_WITH_PAYMENT_LINK",
+  cvLinkedinBundle: "https://buy.stripe.com/REPLACE_WITH_PAYMENT_LINK",
 } as const;
 
 /** Placeholder prices — edit freely; "£—" renders as "price on enquiry". */
@@ -61,6 +62,7 @@ export const prices = {
   executiveProfile: "£[insert]",
   internationalPack: "£[insert]",
   graduatePack: "£[insert]",
+  cvLinkedinBundle: "£[insert]",
 } as const;
 
 /** Compliance copy used across the site — keep wording consistent. */

@@ -32,6 +32,62 @@ export const posts: Post[] = [
     date: "2026-06-01",
     readMins: 9,
   },
+  {
+    slug: "construction-cv-keywords",
+    title: "Best Keywords for Construction CVs (Without Keyword Stuffing)",
+    description:
+      "The keyword themes recruiters search for by construction role — and how to use them honestly, naturally and effectively.",
+    date: "2026-06-11",
+    readMins: 7,
+  },
+  {
+    slug: "construction-cover-letter",
+    title: "How to Write a Construction Cover Letter That Gets Read",
+    description:
+      "A short, evidence-led cover letter structure for construction roles — what to include, what to cut, and a worked outline.",
+    date: "2026-06-11",
+    readMins: 7,
+  },
+  {
+    slug: "middle-east-construction-cv",
+    title: "Middle East Construction CV: How Gulf Employers Read CVs",
+    description:
+      "CV conventions for UAE, Saudi and Qatar construction roles — length, project detail, photos, visa status and mobilisation.",
+    date: "2026-06-11",
+    readMins: 8,
+  },
+  {
+    slug: "linkedin-for-civil-engineers",
+    title: "LinkedIn for Civil Engineers: A Profile Recruiters Find",
+    description:
+      "Headline, About and skills for civil engineers — how construction recruiters actually search LinkedIn and how to appear.",
+    date: "2026-06-11",
+    readMins: 8,
+  },
+  {
+    slug: "move-into-temporary-works",
+    title: "How to Move into Temporary Works Coordination",
+    description:
+      "Training, appointments and the evidence trail: a realistic route into temporary works coordination for engineers and supervisors.",
+    date: "2026-06-11",
+    readMins: 8,
+  },
+  {
+    slug: "explain-career-gaps",
+    title: "How to Explain Career Gaps on a Construction CV",
+    description:
+      "Honest, effective ways to handle career gaps — redundancy, contracting gaps, injury, family and travel — without losing trust.",
+    date: "2026-06-11",
+    readMins: 6,
+  },
+  {
+    slug: "graduate-site-engineer-cv",
+    title: "Graduate Site Engineer CV: Your First Construction CV",
+    description:
+      "No site experience yet? How graduates evidence projects, placements and skills on a first construction CV that gets shortlisted.",
+    date: "2026-06-11",
+    readMins: 7,
+  },
 ];
 
 /** Planned article titles (full 50-title SEO plan in docs/BLOG-SEO-PLAN.md). */
@@ -39,13 +95,13 @@ export const plannedTitles: string[] = [
   "Civil Engineer CV Example: Structure That Works in 2026",
   "Site Manager CV: What Recruiters Actually Look For",
   "Temporary Works CV: Evidencing TWC and TWS Experience",
-  "LinkedIn for Civil Engineers: A Profile Recruiters Find",
-  "Middle East Construction CV: How Gulf Employers Read CVs",
-  "How to Explain Career Gaps on a Construction CV",
-  "Best Keywords for Construction CVs (Without Stuffing)",
-  "How to Write a Construction Cover Letter That Gets Read",
-  "Graduate Site Engineer CV: Your First Construction CV",
-  "How to Show Project Achievements on a Construction CV",
   "Singapore Construction Jobs: CV Conventions That Matter",
-  "How to Move into Temporary Works Coordination",
+  "Quantity Surveyor CV: Evidencing Commercial Delivery",
+  "Planning Engineer / P6 Planner CV Guide",
+  "Do Construction Job Portals Really Reject CVs Automatically?",
+  "PDF or Word? The Right File Format for Construction Applications",
+  "Breaking into Data Centre Construction",
+  "Moving into HV and Energy Infrastructure Roles",
+  "How to Position Your CV for Chartership (ICE/CIOB)",
+  "Construction Graduate Schemes: How Screening Works",
 ];

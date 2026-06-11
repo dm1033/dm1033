@@ -62,8 +62,11 @@ export async function POST(req: Request) {
       expires = new Date(exp).toISOString().slice(0, 10);
     }
 
-    const res = NextResponse.json({ ok: true, plan, expires });
-    res.cookies.set(PREMIUM_COOKIE, signPremiumToken(token), {
+    const signed = signPremiumToken(token);
+    // `code` doubles as the customer's access code for other devices —
+    // shown once on the activation page with a "keep it private" warning.
+    const res = NextResponse.json({ ok: true, plan, expires, code: signed });
+    res.cookies.set(PREMIUM_COOKIE, signed, {
       httpOnly: true,
       secure: true,
       sameSite: "lax",

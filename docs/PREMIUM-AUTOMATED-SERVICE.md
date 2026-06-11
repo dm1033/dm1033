@@ -31,7 +31,7 @@ A self-service paid product that runs with **zero manual work**: customers pay v
 ## Operational notes
 
 - **Cost per premium review**: one Claude Opus call (~3–8K input + 2–4K output tokens) — roughly £0.10–£0.30. At £20/month a heavy user running 60 reviews still leaves healthy margin; the 12-month plan assumes typical job-search bursts. Set a spend limit in the Anthropic Console as a backstop.
-- **Access is per-browser** (cookie). The activation and premium pages tell customers to email you for a device transfer — the manual fix is: ask for their Stripe receipt, find the Checkout session ID (`cs_…`) in the Stripe Dashboard, and send them to `/premium/activate?session_id=cs_…` on the new device (one-off plans), or have them re-activate from any Stripe-emailed link. If transfers become frequent, that's the trigger to add accounts (Supabase + magic links).
+- **Device transfer is self-service.** The activation page shows the customer a private **access code**; pasting it at `/premium/restore` activates any other device — no contact with you needed. Fallback for lost codes: find their Checkout session ID (`cs_…`) in the Stripe Dashboard and send them to `/premium/activate?session_id=cs_…`. If even that becomes frequent, that's the trigger to add accounts (Supabase + magic links).
 - **Refund/cancellation terms** are already in the refund policy (immediate-access cooling-off waiver for the one-off; cancel-anytime for monthly). Have them included in the legal review.
 - **VAT**: digital services may have VAT implications depending on your registration status — confirm with your accountant; Stripe Tax can automate it later.
 - **Revenue visibility**: everything shows in the Stripe Dashboard (payments, subscriptions, MRR). No separate admin needed.
@@ -46,5 +46,6 @@ A self-service paid product that runs with **zero manual work**: customers pay v
 | `src/app/api/stripe/activate/route.ts` | Verifies payment, issues access cookie |
 | `src/app/api/stripe/portal/route.ts` | Self-service subscription management |
 | `src/app/api/premium/status/route.ts` | Lets the UI show premium state |
+| `src/app/premium/restore/page.tsx` + `/api/premium/restore` + `/api/premium/code` | Self-service device transfer via access code |
 | `src/lib/premium.ts` | Token signing/verification |
 | `src/app/api/ats-review/route.ts` | Premium gate + premium output schema |

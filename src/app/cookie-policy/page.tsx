@@ -20,9 +20,12 @@ export default function CookiePage() {
       <h3>Analytics (only with consent)</h3>
       <ul>
         <li>
-          [If analytics is added — e.g. Plausible (cookie-free) or Google
-          Analytics — list the cookies, purpose and retention here. No
-          analytics is active until configured.]
+          <strong>Google Analytics 4</strong> (if enabled on this deployment)
+          loads only after you click &quot;Accept&quot; on the cookie banner —
+          never on &quot;Essential only&quot;. It sets <code>_ga</code> and{" "}
+          <code>_ga_*</code> cookies (up to 2 years) to measure anonymous,
+          aggregated site usage with IP anonymisation enabled. We do not use
+          it for advertising.
         </li>
       </ul>
       <h3>Third-party services</h3>

@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { compliance } from "@/lib/site";
+import { compliance, site } from "@/lib/site";
 import type { AtsAiReview } from "@/app/api/ats-review/route";
+
+const LEAD_KEY = "cce-lead";
 
 /**
  * Advisory, client-side screening-readiness review.
@@ -142,19 +144,55 @@ export default function AtsChecker() {
   const [aiUpsell, setAiUpsell] = useState(false);
   const [aiReview, setAiReview] = useState<AtsAiReview | null>(null);
   const [premium, setPremium] = useState(false);
+  const [leadName, setLeadName] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadSaved, setLeadSaved] = useState(false);
 
   useEffect(() => {
     fetch("/api/premium/status")
       .then((r) => r.json())
       .then((d) => setPremium(Boolean(d.active)))
       .catch(() => {});
+    try {
+      const stored = localStorage.getItem(LEAD_KEY);
+      if (stored) {
+        const lead = JSON.parse(stored) as { name?: string; email?: string };
+        setLeadName(lead.name ?? "");
+        setLeadEmail(lead.email ?? "");
+        setLeadSaved(Boolean(lead.email));
+      }
+    } catch {
+      /* ignore corrupt storage */
+    }
   }, []);
+
+  const emailOk = /.+@.+\..+/.test(leadEmail);
+
+  function captureLead() {
+    if (leadSaved) return;
+    localStorage.setItem(LEAD_KEY, JSON.stringify({ name: leadName, email: leadEmail }));
+    setLeadSaved(true);
+    // Fire-and-forget to the form processor so free AI users join the
+    // email funnel. Skipped silently until Formspree is connected.
+    if (!site.forms.checklist.includes("REPLACE")) {
+      const fd = new FormData();
+      fd.set("name", leadName);
+      fd.set("email", leadEmail);
+      fd.set("source", "Free AI CV review");
+      fetch(site.forms.checklist, {
+        method: "POST",
+        body: fd,
+        headers: { Accept: "application/json" },
+      }).catch(() => {});
+    }
+  }
 
   async function runAiReview() {
     setAiError(null);
     setAiUpsell(false);
     setAiLoading(true);
     setAiReview(null);
+    if (!premium) captureLead();
     try {
       const res = await fetch("/api/ats-review", {
         method: "POST",
@@ -285,8 +323,11 @@ export default function AtsChecker() {
           <p className="rounded-lg border-l-4 border-amber-brand bg-amber-brand/10 p-4 text-sm text-steel-700">
             <strong>Please note:</strong> {compliance.toolDisclaimer}
           </p>
+        </div>
+      )}
 
-          {/* AI deep review */}
+      {/* AI deep review — always visible; usable once both texts are pasted */}
+      <div className="mt-8 space-y-6 border-t border-steel-200 pt-8">
           <div className="rounded-xl border-2 border-navy-200 bg-navy-50 p-6">
             <h3 className="flex items-center gap-2 text-lg font-bold text-navy-900">
               <span aria-hidden>✨</span> Go deeper: AI-powered advisory review
@@ -309,6 +350,27 @@ export default function AtsChecker() {
               see the privacy policy for details. It remains advisory — no
               pass/fail verdicts and no guaranteed outcomes.
             </p>
+            {!premium && (
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <input
+                  type="text"
+                  value={leadName}
+                  onChange={(e) => setLeadName(e.target.value)}
+                  placeholder="First name"
+                  aria-label="First name"
+                  className="rounded border border-steel-300 px-3 py-2.5 text-sm focus:border-amber-brand focus:outline-none"
+                />
+                <input
+                  type="email"
+                  required
+                  value={leadEmail}
+                  onChange={(e) => setLeadEmail(e.target.value)}
+                  placeholder="Email (required for free reviews)"
+                  aria-label="Email address"
+                  className="rounded border border-steel-300 px-3 py-2.5 text-sm focus:border-amber-brand focus:outline-none"
+                />
+              </div>
+            )}
             <label className="mt-4 flex items-start gap-2 text-sm text-steel-700">
               <input
                 type="checkbox"
@@ -318,12 +380,17 @@ export default function AtsChecker() {
               />
               <span>
                 I consent to my pasted CV and advert text being processed by
-                the AI service to generate this advisory review.
+                the AI service to generate this advisory review
+                {!premium &&
+                  ", and to receiving the free review plus occasional construction career tips by email (unsubscribe anytime)"}
+                .
               </span>
             </label>
             <button
               type="button"
-              disabled={!aiConsent || aiLoading}
+              disabled={
+                !cv.trim() || !advert.trim() || !aiConsent || aiLoading || (!premium && !emailOk)
+              }
               onClick={runAiReview}
               className="mt-4 w-full rounded bg-navy-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-navy-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
@@ -448,8 +515,7 @@ export default function AtsChecker() {
               Get a Professional CV Review
             </Link>
           </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

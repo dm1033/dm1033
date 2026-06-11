@@ -198,6 +198,19 @@ export const pricingTiers: PricingTier[] = [
     stripeLink: stripeLinks.linkedin,
   },
   {
+    name: "CV + LinkedIn Bundle",
+    price: prices.cvLinkedinBundle,
+    description: "The full rewrite and LinkedIn optimisation together — aligned documents, one process.",
+    features: [
+      "Everything in Professional CV Rewrite",
+      "Everything in LinkedIn Optimisation",
+      "CV and LinkedIn fully aligned (titles, dates, claims)",
+      "One combined questionnaire and revision round",
+      "Priority over single-service orders",
+    ],
+    stripeLink: stripeLinks.cvLinkedinBundle,
+  },
+  {
     name: "Job Application Pack",
     price: prices.applicationPack,
     description: "Everything you need for one specific application.",

@@ -23,7 +23,8 @@ The `/services/ats-cv-review` page has two tiers:
 ## Cost and scaling notes
 
 - Each review is one Claude Opus 4.8 call (roughly 3–8K input + 1–2K output tokens → a few cents per review). Watch usage in the Anthropic Console and set a spend limit there.
-- The in-memory rate limiter resets per serverless instance. If the tool gets popular, move limiting to Upstash Redis / Vercel KV, or gate the AI review behind the email-capture form (which also feeds the lead funnel).
+- **Free reviews are email-gated**: non-premium visitors must enter name + email (with consent wording) before running an AI review. The lead is posted to your Formspree checklist form automatically once Formspree is connected — every free review feeds the email funnel (Sequence A in docs/EMAIL-FUNNELS.md).
+- The in-memory rate limiter resets per serverless instance. If the tool gets popular, move limiting to Upstash Redis / Vercel KV.
 - Model and prompt live in `src/app/api/ats-review/route.ts`.
 
 ## Deployment impact

@@ -4,7 +4,7 @@ Each entry: **Target keyword** · **Search intent** · **Meta description** (≤
 
 CTAs reference these pages: `/upload-cv`, `/services/cv-writing`, `/services/linkedin-optimisation`, `/services/career-coaching`, `/services/ats-cv-review`, `/services/international-cvs`, `/services/graduate-cvs`, `/services/executive-profiles`, `/free-cv-checklist`, `/book-a-call`.
 
-Three articles are already live: `ats-aware-construction-cv`, `construction-cv-mistakes`, `site-engineer-to-project-manager`.
+Ten articles are already live (marked *(LIVE)* below) — see `src/lib/blog.ts` for slugs.
 
 ---
 
@@ -25,7 +25,7 @@ Three articles are already live: `ats-aware-construction-cv`, `construction-cv-m
    - Meta: Two pages, three, more? CV length rules for construction professionals at every level, with what to cut first.
    - CTA: Free CV review enquiry → `/upload-cv`
 
-4. **Best Keywords for Construction CVs (Without Keyword Stuffing)**
+4. **Best Keywords for Construction CVs (Without Keyword Stuffing)** *(LIVE)*
    - Keyword: construction CV keywords · Intent: informational
    - Meta: The keyword themes recruiters search for by construction role — and how to use them honestly without stuffing.
    - CTA: Download Construction Keywords by Role → `/free-cv-checklist`
@@ -45,12 +45,12 @@ Three articles are already live: `ats-aware-construction-cv`, `construction-cv-m
    - Meta: Turn "responsible for" into evidence: how to present construction project achievements with scale, standards and outcomes.
    - CTA: Project Achievement Worksheet → `/free-cv-checklist`
 
-8. **How to Explain Career Gaps on a Construction CV**
+8. **How to Explain Career Gaps on a Construction CV** *(LIVE)*
    - Keyword: explain career gaps CV · Intent: informational
    - Meta: Honest, effective ways to handle career gaps on a construction CV — redundancy, contracting gaps, injury, family and travel.
    - CTA: Book a career call → `/book-a-call`
 
-9. **How to Write a Construction Cover Letter That Gets Read**
+9. **How to Write a Construction Cover Letter That Gets Read** *(LIVE)*
    - Keyword: construction cover letter · Intent: informational
    - Meta: A short, evidence-led construction cover letter structure — what to include, what to cut, with examples.
    - CTA: Job Application Pack → `/services/cv-writing`
@@ -129,7 +129,7 @@ Three articles are already live: `ats-aware-construction-cv`, `construction-cv-m
     - Meta: The experience, evidence and CV positioning that supports a real step from site engineering into project management.
     - CTA: Career coaching → `/services/career-coaching`
 
-24. **How to Move into Temporary Works Coordination**
+24. **How to Move into Temporary Works Coordination** *(LIVE)*
     - Keyword: how to become temporary works coordinator · Intent: informational
     - Meta: Training, appointments and the evidence trail: a realistic route into temporary works coordination for engineers and supervisors.
     - CTA: Career coaching call → `/book-a-call`
@@ -193,7 +193,7 @@ Three articles are already live: `ats-aware-construction-cv`, `construction-cv-m
 
 ## LinkedIn
 
-36. **LinkedIn for Civil Engineers: A Profile Recruiters Find**
+36. **LinkedIn for Civil Engineers: A Profile Recruiters Find** *(LIVE)*
     - Keyword: LinkedIn civil engineer · Intent: informational
     - Meta: Headline, About and skills for civil engineers — how construction recruiters actually search LinkedIn and how to appear.
     - CTA: LinkedIn optimisation → `/services/linkedin-optimisation`
@@ -220,7 +220,7 @@ Three articles are already live: `ats-aware-construction-cv`, `construction-cv-m
 
 ## International
 
-41. **Middle East Construction CV: How Gulf Employers Read CVs**
+41. **Middle East Construction CV: How Gulf Employers Read CVs** *(LIVE)*
     - Keyword: Middle East construction CV · Intent: informational
     - Meta: CV conventions for UAE, Saudi and Qatar construction roles — length, projects, photos, visa status and mobilisation.
     - CTA: International CV Pack → `/services/international-cvs`
@@ -247,7 +247,7 @@ Three articles are already live: `ats-aware-construction-cv`, `construction-cv-m
 
 ## Graduate & early career
 
-46. **Graduate Site Engineer CV: Your First Construction CV**
+46. **Graduate Site Engineer CV: Your First Construction CV** *(LIVE)*
     - Keyword: graduate site engineer CV · Intent: informational
     - Meta: No site experience yet? How graduates evidence projects, placements and skills on a first construction CV.
     - CTA: Graduate pack → `/services/graduate-cvs`

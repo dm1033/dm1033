@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieNotice from "@/components/CookieNotice";
+import Analytics from "@/components/Analytics";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <CookieNotice />
+        <Analytics />
       </body>
     </html>
   );
