@@ -75,7 +75,7 @@ Edit `standalone/template.html` (readable version), then rebuild:
 python3 - <<'EOF'
 import base64
 tpl = open("standalone/template.html").read()
-for key in ["logo","hero","robot","ats","linkedin","cvdocs","coach","tablet","portfolio","site","pmi"]:
+for key in ["logo","hero","robot","ats","linkedin","cvdocs","coach","tablet","portfolio","site","pmi","twlogo","villa"]:
     b64 = base64.b64encode(open(f"/tmp/imgs/{key}.jpg","rb").read()).decode()
     tpl = tpl.replace("{{IMG:%s}}" % key, f"data:image/jpeg;base64,{b64}")
 open("standalone/index.html","w").write(tpl)
