@@ -1568,7 +1568,7 @@
             }
           ],
           "topic": "Inspections — statutory and management",
-          "learningNote": "Memorise the statutory rhythm: scaffolds — before use, then every 7 days and after alteration or adverse weather; excavations — start of every shift, and after events affecting stability; lifting equipment — thorough examination certificates current.",
+          "learningNote": "Memorise the statutory rhythm: scaffolds — before use, then every 7 days and after alteration or adverse weather; excavations — start of every shift, and after events affecting stability; lifting equipment — thorough examination certificates current. Inspection findings must be recorded and the written report given to the person it was carried out for within 24 hours; keep reports on site while work continues and retain them afterwards.",
           "cppSection": "inspections",
           "cppText": {
             "best": "Inspection schedule: scaffold before first use, every 7 days and after alteration/adverse weather (recorded); excavations at start of each shift and after rain/events; lifting accessories and plant thorough-examination certificates checked on arrival; weekly recorded site manager inspection; daily supervisor pre-start checks; actions tracked to closure.",
@@ -2707,6 +2707,58 @@
       ],
       "topic": "Occupiers' liability and site security out of hours",
       "learningNote": "Duties to people on your site do not stop at lawful visitors — they extend to trespassers, and expressly to children, who must be anticipated to be inquisitive. Secure the obvious attractions: remove or board scaffold access, immobilise plant, lock away substances, light the boundary, and inspect anything that may have been interfered with before it is used again."
+    },
+    {
+      "type": "decision",
+      "id": "ev-wah-2m-myth",
+      "isEvent": true,
+      "prompt": "EVENT: You find blockwork being laid from a 1.8 m high working platform with no guardrails. The gang foreman waves you off: 'Work at height rules only kick in above two metres — this is under, so we're fine.'",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stop the work: work at height means any place where a person could fall a distance liable to cause injury — there is no two-metre threshold. Have compliant guardrails and toe boards fitted before the platform is used again, and correct the misconception at the next briefing.",
+          "quality": "best",
+          "impact": {
+            "safety": 9,
+            "legal": 6
+          },
+          "feedback": "Correct. The two-metre rule disappeared with the Work at Height Regulations — the duty applies wherever a fall could cause injury, and a 1.8 m fall onto blocks can easily be fatal. Platforms need proper edge protection: top rail, no large unprotected gaps, and a toe board."
+        },
+        {
+          "id": "b",
+          "text": "Let them finish this lift but ask for guardrails before the next one.",
+          "quality": "poor",
+          "impact": {
+            "safety": 1,
+            "incidentLikelihood": 8
+          },
+          "feedback": "The exposure is now, not next lift. Tolerating an unguarded platform for 'just one lift' is how falls happen — and it tells the gang the standard is negotiable."
+        },
+        {
+          "id": "c",
+          "text": "Issue harnesses to the gang so they can carry on while guardrails are sourced.",
+          "quality": "partial",
+          "impact": {
+            "safety": 3,
+            "legal": 2
+          },
+          "feedback": "Personal fall protection is below collective protection in the hierarchy — and on a low platform with no designed anchors, harnesses are largely theatre. Guardrails are the right control; work waits for them."
+        },
+        {
+          "id": "d",
+          "text": "Agree with the foreman — under two metres is low-risk by definition.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": -3,
+            "legal": -3,
+            "incidentLikelihood": 12
+          },
+          "feedback": "The two-metre threshold is a myth. Low falls kill and maim regularly — the law asks whether a fall is liable to cause injury, not how far it is.",
+          "criticalFailure": "Permitted unguarded working platform based on the 'two-metre rule' myth"
+        }
+      ],
+      "topic": "Work at height — definition and edge protection standards",
+      "learningNote": "Work at height is any work where a person could fall a distance liable to cause personal injury — there is no minimum height threshold. Follow the hierarchy: avoid, then prevent falls collectively (guardrails around 950 mm with no gap over 470 mm, plus toe boards), then personal prevention, then mitigation — with personal fall-arrest as the last resort, never the first fix."
     }
   ],
   "modelAnswerNotes": [

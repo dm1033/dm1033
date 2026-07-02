@@ -47,9 +47,23 @@ Status key: ✅ covered by game content · 🔶 partially covered · ⬜ not yet
 | 12 | Vibration | ⏳ | 🔶 Task-rotation references; dedicated content planned |
 | 13 | Manual handling | ⏳ | 🔶 Referenced in risk prioritisation; dedicated content planned |
 
-## GE700C–F — General safety · High risk activities · Environment · Specialist activities
+## GE700D — High risk activities
+
+| Ch | Chapter title | Source received | Game coverage |
+|---|---|---|---|
+| 01 | Work at Height Regulations 2005 | ✅ (chunk 1) | ✅ WAH hierarchy decision (S1 Phase 10), scaffold inspection regimes; verify detail against extraction |
+| 02 | Working at height | ⏳ | ✅ Decking/leading edge, MEWP rescue event (S1) |
+| 03 | Common access equipment | ⏳ | 🔶 Ladder/tower references; MEWPs covered |
+| 04 | Scaffolding | ⏳ | ✅ Scaffold design/handover decision (S1), tie-removal event, TW register items |
+| 05 | Fall arrest and suspension equipment | ⏳ | 🔶 Harness-as-last-resort and rescue plan content |
+| 06 | Excavations | ⏳ | ✅ Excavation support TW items, shift inspections, flooding events (S1, S3) |
+| 07 | Underground and overhead services | ⏳ | ✅ Permit-to-dig, CAT & genny, service strike events (S1, S3) |
+| 08 | Confined spaces | ⏳ | ✅ Chamber entry permit and classification content (S3) |
+| 09 | Dangerous substances | ⏳ | 🔶 Fuel storage, gas cage placement; DSEAR-style content planned |
+
+## GE700C / E / F — General safety · Environment · Specialist activities
 
 Source volumes not yet received. Game already carries substantial original coverage of
-these themes (work at height, scaffolds, MEWPs, excavations, lifting, temporary works,
-demolition, asbestos, confined spaces, buried services, street works, fire, environment).
+these themes (traffic management, housekeeping, fire, lifting operations, plant,
+temporary works, demolition, street works, waste, water pollution, spill response).
 Mapping tables will be added as volumes arrive.
