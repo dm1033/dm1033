@@ -1,0 +1,2544 @@
+{
+  "id": "s3-utilities-roadworks",
+  "title": "Scenario 3 — Utilities & Roadworks",
+  "subtitle": "400 m of new water main along a suburban high street: open-cut trenching, buried services, live traffic, confined space chamber work and highway reinstatement.",
+  "brief": {
+    "client": "Midshire Water (utility company, working under street works permits from the highway authority)",
+    "location": "Suburban high street with shops, residential side roads, a school crossing and a public car park used for the site compound",
+    "duration": "16 weeks",
+    "value": "£1.1m",
+    "description": [
+      "You are the Site Manager for 400 m of new 315 mm water main laid by open-cut trenching to 2.1 m deep along a busy suburban high street, plus connections into a deep existing chamber.",
+      "The works involve trench boxes, congested buried services (gas, HV electricity, telecoms), temporary traffic management with a lane closure and portable signals, pedestrian diversions past occupied shops, spoil handling, dewatering and reinstatement to highway standards.",
+      "A section near the school crossing must be completed at night to an agreed window, and every metre of highway you occupy is controlled by street works permits and notices.",
+      "You must plan the street works, set up a safe linear site, control the high-risk activities and hand the highway back in a condition the authority will accept."
+    ],
+    "constraints": [
+      "Live traffic in the remaining lane throughout, controlled by portable signals",
+      "Shops must keep pedestrian access and deliveries during trading hours",
+      "School crossing within the works length — night working agreed for that section",
+      "Street works permit conditions set the dates, hours and length of highway you may occupy",
+      "Compound limited to one corner of the public car park",
+      "Known congested services: low and medium pressure gas, HV cable crossing, telecoms ducts"
+    ],
+    "keyRisks": [
+      "Striking buried services — gas mains and an HV cable crossing",
+      "Trench collapse at 2.1 m and entry into unsupported excavation",
+      "Traffic incursion into the works and plant/pedestrian conflict",
+      "Confined space entry for the deep chamber connection",
+      "Lifting and lowering pipes with the excavator near people in and around the trench",
+      "Spoil surcharge at the trench edge, flooding and dewatering discharge",
+      "Public interface — shoppers, residents, children near the school crossing"
+    ]
+  },
+  "cppProjectDescription": "Installation of 400 m of new 315 mm water main by open-cut trenching to 2.1 m along a suburban high street, including trench box support, connections into a deep existing chamber (confined space), temporary traffic management with lane closure and portable signals, pedestrian diversions past shops, dewatering, spoil management and reinstatement to highway standards. Duration 16 weeks; night working for the section at the school crossing. Works carried out under street works permits and noticing to the highway authority.",
+  "eventDraw": 3,
+  "phases": [
+    {
+      "id": "p1",
+      "number": 1,
+      "title": "Project Brief",
+      "intro": "Understand what you are taking on before a single cone goes out. Street works add a second rulebook: the highway authority controls when and where you may work.",
+      "steps": [
+        {
+          "type": "info",
+          "id": "p1-info",
+          "title": "Your project",
+          "body": [
+            "You are the Site Manager for a 16-week, £1.1m water main renewal along a trading high street. The road stays live, the shops stay open, and the school stays in session.",
+            "Unlike a fenced construction site, your workplace is a moving strip of highway. The public are an arm's length away for the whole job, and the ground below you is congested with gas, electricity and telecoms.",
+            "Every decision you make will affect safety, legal compliance, programme, cost, quality, the environment, client confidence, workforce morale, enforcement risk and the likelihood of an accident."
+          ],
+          "keyPoints": [
+            "Street works permits and notices control your occupation of the highway — dates, hours and length",
+            "The killers on this job are service strikes, trench collapse and live traffic — plan for those first",
+            "Keeping traffic and shoppers moving never justifies working in an unsupported trench or digging blind"
+          ]
+        },
+        {
+          "type": "decision",
+          "id": "p1-d1",
+          "prompt": "The programme shows you occupying the highway from Monday, but the street works permit for the first section has not yet been granted. The contracts manager says 'get the cones out — the permit will catch up'. What do you do?",
+          "context": "The compound corner of the car park has been licensed to you separately and is available now.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Do not occupy the highway until the permit is confirmed with its conditions. Mobilise the compound, complete service record reviews and TM checks meanwhile, and chase the authority for the permit decision.",
+              "quality": "best",
+              "impact": {
+                "legal": 10,
+                "planning": 8,
+                "programme": 3
+              },
+              "feedback": "Correct. Occupying the highway without a granted permit is an offence and the fastest way to lose the authority's trust. The off-highway preparation you can lawfully do is exactly how you protect the programme."
+            },
+            {
+              "id": "b",
+              "text": "Book the TM crew and plant for Monday anyway and assume the permit will land over the weekend.",
+              "quality": "partial",
+              "impact": {
+                "planning": 3,
+                "programme": 2,
+                "cost": 4
+              },
+              "feedback": "Optimistic booking without a fallback burns money and pressures you into starting unlawfully. Confirm the permit first, then commit resources."
+            },
+            {
+              "id": "c",
+              "text": "Put out the advance signs and the taper only — you're not actually digging, so the permit doesn't apply yet.",
+              "quality": "poor",
+              "impact": {
+                "legal": 1,
+                "enforcementRisk": 8
+              },
+              "feedback": "Signing and coning is occupation of the highway. The permit governs the whole street works activity, not just the excavation."
+            },
+            {
+              "id": "d",
+              "text": "Start trenching Monday as programmed — the authority rarely inspects in the first week.",
+              "quality": "unsafe",
+              "impact": {
+                "legal": 0,
+                "safety": -3,
+                "enforcementRisk": 18,
+                "incidentLikelihood": 8
+              },
+              "feedback": "Unlawful occupation, no agreed TM conditions, and a coordination system deliberately bypassed. Authorities issue fixed penalties, stop works and remember who did this at every future permit application.",
+              "criticalFailure": "Occupied the highway and broke ground without a street works permit"
+            }
+          ],
+          "topic": "NRSWA — street works permits and noticing",
+          "learningNote": "Street works legislation requires works on the highway to be noticed or permitted before they start, with conditions covering dates, hours, TM and length of occupation. Coordinating with the highway authority is a planning activity, not paperwork after the event."
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "number": 2,
+      "title": "Pre-Construction Planning",
+      "intro": "Establish who holds which duties and confirm the people doing the work are competent for street works, excavations and confined spaces.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p2-d1",
+          "prompt": "Midshire Water asks you to confirm the CDM 2015 duty holder arrangements for the project. Which is correct?",
+          "context": "There is a groundworks contractor, a traffic management contractor and a reinstatement contractor, a design team, and around 18 people at peak over 16 weeks.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Midshire Water is the client and appoints a principal designer and principal contractor in writing; the project is notifiable so an F10 is submitted; the highway authority is a key stakeholder but not a CDM duty holder.",
+              "quality": "best",
+              "impact": {
+                "legal": 10,
+                "planning": 6
+              },
+              "feedback": "Correct. More than one contractor means the client must appoint a PD and PC in writing. Over 30 working days with 20+ workers simultaneously, or 500 person-days, triggers F10 notification — a 16-week utilities project usually exceeds 500 person-days. The authority controls the highway, but it holds no CDM duty."
+            },
+            {
+              "id": "b",
+              "text": "Utility works on the highway fall under street works law instead, so CDM 2015 does not apply.",
+              "quality": "poor",
+              "impact": {
+                "legal": 0,
+                "enforcementRisk": 8
+              },
+              "feedback": "Incorrect. Street works legislation and CDM apply in parallel. Laying a main is construction work; the permit regime adds duties, it doesn't replace them."
+            },
+            {
+              "id": "c",
+              "text": "The highway authority becomes the client because the works are on its road.",
+              "quality": "poor",
+              "impact": {
+                "legal": 1,
+                "planning": 1
+              },
+              "feedback": "Incorrect. The client is the organisation for whom the project is carried out — the water company. The authority grants permission to occupy its asset."
+            },
+            {
+              "id": "d",
+              "text": "Skip the written appointments — the framework contract implies who does what.",
+              "quality": "unsafe",
+              "impact": {
+                "legal": 0,
+                "safety": -3,
+                "enforcementRisk": 12
+              },
+              "feedback": "Unsafe. Without explicit appointments, nobody legally plans, manages and coordinates a construction phase full of fatal risks. Framework assumptions collapse the first time two contractors clash in the trench.",
+              "criticalFailure": "No formal CDM duty holder appointments on a multi-contractor project"
+            }
+          ],
+          "topic": "CDM 2015 — duty holders on utility projects",
+          "learningNote": "CDM 2015 applies to street works exactly as it does to a building site. The utility client appoints the principal designer and principal contractor in writing; F10 notification depends on duration and person-days, not on the type of work.",
+          "cppSection": "dutyHolders",
+          "cppText": {
+            "best": "Client: Midshire Water. Principal Designer and Principal Contractor appointed in writing; F10 notified to HSE and displayed at the compound. Groundworks, TM and reinstatement contractors briefed on their CDM duties. Highway authority engaged as permit-granting stakeholder with named coordination contact.",
+            "partial": "Duty holders identified but written appointment evidence incomplete.",
+            "poor": "Duty holder allocation unclear — assumed to sit under street works arrangements.",
+            "unsafe": "No formal CDM appointments before works commenced — non-compliant."
+          }
+        },
+        {
+          "type": "decision",
+          "id": "p2-d2",
+          "prompt": "How do you satisfy yourself that the workforce is competent for this project?",
+          "context": "The work needs streetworks-qualified operatives and supervisors, trained TM installers, excavator operators, and a small team for the confined space chamber connection.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Check trade-specific evidence before start: street works qualifications for operatives and supervisors, TM training for the signing/guarding crew, plant competence cards, confined space training with rescue for the chamber team, and quality of each contractor's RAMS.",
+              "quality": "best",
+              "impact": {
+                "legal": 8,
+                "safety": 8,
+                "quality": 4
+              },
+              "feedback": "Correct. Street works law requires qualified operatives and supervisors on the works; confined space entry and rescue need specific training; and RAMS quality shows whether the organisation behind the cards is capable."
+            },
+            {
+              "id": "b",
+              "text": "Check everyone holds a general site safety card — that covers a job of this size.",
+              "quality": "partial",
+              "impact": {
+                "legal": 3,
+                "safety": 3
+              },
+              "feedback": "A general card proves basic awareness, not street works qualification, confined space competence or plant tickets. Competence checks must match the risk of the task."
+            },
+            {
+              "id": "c",
+              "text": "The subcontractors signed a contract clause confirming their people are competent — that discharges your duty.",
+              "quality": "poor",
+              "impact": {
+                "legal": 1,
+                "enforcementRisk": 5
+              },
+              "feedback": "You cannot contract out the duty to take reasonable steps. A clause is a promise; competence checking is verification."
+            },
+            {
+              "id": "d",
+              "text": "Let the gangs start and pull tickets only if someone looks unsure on the tools.",
+              "quality": "unsafe",
+              "impact": {
+                "legal": 0,
+                "safety": -4,
+                "incidentLikelihood": 10
+              },
+              "feedback": "Unsafe. By the time incompetence 'looks unsure' next to a gas main or inside a chamber, the exposure has already happened.",
+              "criticalFailure": "Workforce deployed on high-risk utility work without competence verification"
+            }
+          ],
+          "topic": "Competence — street works, plant and confined spaces",
+          "learningNote": "Match the check to the risk: street works qualifications for those executing and supervising works in the highway, specific training for TM installation, plant categories for the machines on site, and confined space entry and rescue training before anyone plans to enter the chamber.",
+          "cppSection": "trainingCompetence",
+          "cppText": {
+            "best": "Competence verified before start: streetworks-qualified operatives and supervisors on all highway works; TM crew trained for signing, lighting and guarding; plant operator cards checked; chamber team trained in confined space entry, gas detection and rescue; RAMS quality reviewed as part of contractor assessment. Records held at the compound; induction mandatory.",
+            "partial": "Core cards checked; confined space and TM training evidence to be completed before those activities.",
+            "poor": "Competence assumed from contract clauses — verification not done.",
+            "unsafe": "No competence verification for high-risk activities."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "number": 3,
+      "title": "Construction Phase Plan",
+      "intro": "Your CPP must reflect a moving linear site: the hazards travel along the street with you, and the arrangements must work at every chainage.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p3-d1",
+          "prompt": "The CPP is drafted, but the service strike emergency plan and the TM drawings for the first section are unfinished. Midshire Water wants the start date held. Can the construction phase begin?",
+          "options": [
+            {
+              "id": "a",
+              "text": "No. Before anyone works in the highway, the plan must cover the initial works so far as reasonably practicable — including welfare, the service strike and trench emergency arrangements, and the agreed TM layout. Finish those, then start.",
+              "quality": "best",
+              "impact": {
+                "legal": 10,
+                "safety": 8,
+                "planning": 6,
+                "clientConfidence": -3
+              },
+              "feedback": "Correct. On this job the emergency arrangements and TM are not appendices — they are the controls for the first hour of work. A short, explained delay protects the client from something far worse."
+            },
+            {
+              "id": "b",
+              "text": "Start with the compound set-up and off-highway preparation only, and complete the outstanding sections before the first excavation.",
+              "quality": "partial",
+              "impact": {
+                "legal": 5,
+                "planning": 4,
+                "programme": 3
+              },
+              "feedback": "Workable only if the plan genuinely covers what is being done — but welfare and emergency arrangements are needed from the first day of any construction work, including compound set-up."
+            },
+            {
+              "id": "c",
+              "text": "Start on time — the CPP can be finished during week one while the gang breaks ground.",
+              "quality": "poor",
+              "impact": {
+                "legal": 1,
+                "enforcementRisk": 10
+              },
+              "feedback": "The construction phase must not start until a suitable plan is in place. Week one on this project includes trenching next to gas — the highest-risk period, not a warm-up."
+            },
+            {
+              "id": "d",
+              "text": "Issue the company's generic streetworks CPP template unedited and start Monday.",
+              "quality": "unsafe",
+              "impact": {
+                "legal": 0,
+                "safety": -4,
+                "enforcementRisk": 14
+              },
+              "feedback": "A template that doesn't name this street's gas main, HV crossing, school or TM layout controls nothing. Paper compliance with real hazards is how service strikes happen.",
+              "criticalFailure": "Construction phase started under a generic plan with no site-specific emergency or TM arrangements"
+            }
+          ],
+          "topic": "CDM 2015 — construction phase plan for street works",
+          "learningNote": "The CPP must be in place before the construction phase begins and must be proportionate and site-specific. For street works that means the service records, the TM arrangements and the emergency plan for strikes and collapse are in the plan before the first cut, and the plan moves with the works.",
+          "cppSection": "siteRules",
+          "cppText": {
+            "best": "Site rules issued before start: induction mandatory; permit to dig before any break of ground; no entry to any unsupported excavation; no one in the trench during lifting or box handling; high-visibility clothing to the standard required for highway works at all times; TM not altered except by trained TM operatives; plant keys controlled; no work outside permitted hours or length.",
+            "partial": "Interim site rules issued; full set completed in week one.",
+            "poor": "Site rules incomplete at start of works.",
+            "unsafe": "No site rules in place — generic plan issued unedited."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p4",
+      "number": 4,
+      "title": "Site Set-Up",
+      "intro": "Lay out the street works site. The shops and footway are at the top, the coned working lane holds the trench run, live traffic passes in the remaining lane, and your compound sits in the car park corner. Think segregation: shoppers, traffic, plant and the open trench.",
+      "steps": [
+        {
+          "type": "siteSetup",
+          "id": "p4-setup",
+          "prompt": "Place the site set-up items. Shop frontages and the footway run along the top; the trench run and chamber sit in the coned working lane; live traffic uses the far lane past the school crossing; the compound occupies the car park corner. Place every required item where it is safest and most practical.",
+          "grid": {
+            "cols": 12,
+            "rows": 9
+          },
+          "zones": [
+            {
+              "id": "shops",
+              "label": "Shop frontages",
+              "x1": 0,
+              "y1": 0,
+              "x2": 11,
+              "y2": 0,
+              "color": "bg-slate-500/50",
+              "blocked": true
+            },
+            {
+              "id": "footway",
+              "label": "Footway / pedestrian diversion",
+              "x1": 0,
+              "y1": 1,
+              "x2": 11,
+              "y2": 1,
+              "color": "bg-amber-200/20"
+            },
+            {
+              "id": "trench",
+              "label": "Trench / excavation run",
+              "x1": 0,
+              "y1": 2,
+              "x2": 7,
+              "y2": 2,
+              "color": "bg-orange-500/25"
+            },
+            {
+              "id": "chamber",
+              "label": "Deep chamber connection",
+              "x1": 8,
+              "y1": 2,
+              "x2": 9,
+              "y2": 2,
+              "color": "bg-red-500/25"
+            },
+            {
+              "id": "gully",
+              "label": "Roadside drain / gully",
+              "x1": 10,
+              "y1": 2,
+              "x2": 11,
+              "y2": 2,
+              "color": "bg-cyan-500/30"
+            },
+            {
+              "id": "works-lane",
+              "label": "Coned working lane",
+              "x1": 0,
+              "y1": 3,
+              "x2": 11,
+              "y2": 3,
+              "color": "bg-emerald-500/15"
+            },
+            {
+              "id": "live-lane-west",
+              "label": "Live traffic lane (west)",
+              "x1": 0,
+              "y1": 4,
+              "x2": 7,
+              "y2": 4,
+              "color": "bg-zinc-600/60",
+              "blocked": true
+            },
+            {
+              "id": "school-crossing",
+              "label": "School crossing zone",
+              "x1": 8,
+              "y1": 4,
+              "x2": 9,
+              "y2": 4,
+              "color": "bg-yellow-400/25"
+            },
+            {
+              "id": "live-lane-east",
+              "label": "Live traffic lane (east)",
+              "x1": 10,
+              "y1": 4,
+              "x2": 11,
+              "y2": 4,
+              "color": "bg-zinc-600/60",
+              "blocked": true
+            },
+            {
+              "id": "compound",
+              "label": "Site compound (car park corner)",
+              "x1": 0,
+              "y1": 5,
+              "x2": 4,
+              "y2": 8,
+              "color": "bg-emerald-500/10"
+            },
+            {
+              "id": "laydown",
+              "label": "Pipe laydown area",
+              "x1": 5,
+              "y1": 5,
+              "x2": 7,
+              "y2": 8,
+              "color": "bg-indigo-500/20"
+            },
+            {
+              "id": "car-park",
+              "label": "Public car park (in use)",
+              "x1": 8,
+              "y1": 5,
+              "x2": 11,
+              "y2": 8,
+              "color": "bg-slate-600/40",
+              "blocked": true
+            }
+          ],
+          "rules": [
+            {
+              "itemId": "hoarding",
+              "required": true,
+              "goodZones": [
+                "compound",
+                "works-lane"
+              ],
+              "badZones": [
+                "footway"
+              ],
+              "placementNote": "Continuous fencing/barrier between the works and the public — around the compound and along the working lane. Fencing dumped on the footway blocks the pedestrian diversion."
+            },
+            {
+              "itemId": "gate-vehicle",
+              "required": false,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [
+                "footway",
+                "school-crossing"
+              ],
+              "placementNote": "Controlled vehicle access into the compound from the car park side, never through the footway or the crossing."
+            },
+            {
+              "itemId": "signage",
+              "required": true,
+              "goodZones": [
+                "works-lane",
+                "footway",
+                "compound"
+              ],
+              "badZones": [
+                "trench"
+              ],
+              "placementNote": "Advance warning and information signing on the approaches and at the diversion — signs standing in the excavation protect nobody."
+            },
+            {
+              "itemId": "lighting",
+              "required": true,
+              "goodZones": [
+                "works-lane",
+                "footway",
+                "compound"
+              ],
+              "badZones": [],
+              "placementNote": "Lighting to the works, barriers and pedestrian diversion — essential for the night working section and dark winter afternoons."
+            },
+            {
+              "itemId": "security",
+              "required": false,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [],
+              "placementNote": "Compound security — plant, fuel and materials in a public car park attract attention overnight."
+            },
+            {
+              "itemId": "pedestrian-route",
+              "required": true,
+              "goodZones": [
+                "footway"
+              ],
+              "badZones": [
+                "works-lane",
+                "trench"
+              ],
+              "placementNote": "Barriered, ramped pedestrian diversion along the footway past the shops — never share the working lane with plant or route people beside the open trench."
+            },
+            {
+              "itemId": "vehicle-route",
+              "required": false,
+              "goodZones": [
+                "works-lane",
+                "compound"
+              ],
+              "badZones": [
+                "footway"
+              ],
+              "placementNote": "Plant and delivery movements stay within the coned working lane and compound, marshalled at pinch points."
+            },
+            {
+              "itemId": "traffic-management",
+              "required": true,
+              "goodZones": [
+                "works-lane",
+                "school-crossing"
+              ],
+              "badZones": [
+                "trench"
+              ],
+              "placementNote": "Signing, lighting and guarding to the agreed layout: taper, safety zone, portable signals, and specific protection at the school crossing."
+            },
+            {
+              "itemId": "welfare",
+              "required": true,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [
+                "works-lane",
+                "footway"
+              ],
+              "placementNote": "Welfare in the compound, a short walk from the works — not in the live working lane."
+            },
+            {
+              "itemId": "toilets",
+              "required": true,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [
+                "footway"
+              ],
+              "placementNote": "Toilets and washing with the welfare cabin — shop facilities are not compliant provision."
+            },
+            {
+              "itemId": "office",
+              "required": false,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [],
+              "placementNote": "Site office and induction point in the compound, where the permits and service drawings live."
+            },
+            {
+              "itemId": "first-aid",
+              "required": true,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [],
+              "placementNote": "First aid point at the compound, signed, with arrangements to reach an injured person anywhere along the 400 m."
+            },
+            {
+              "itemId": "fire-point",
+              "required": false,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [
+                "trench"
+              ],
+              "placementNote": "Fire point at the compound near the fuel store and generators."
+            },
+            {
+              "itemId": "muster-point",
+              "required": false,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [
+                "works-lane",
+                "trench"
+              ],
+              "placementNote": "Muster in the compound, upwind options briefed in case of a gas escape on the main run."
+            },
+            {
+              "itemId": "spill-kit",
+              "required": true,
+              "goodZones": [
+                "compound",
+                "works-lane"
+              ],
+              "badZones": [],
+              "placementNote": "Spill kits at the refuelling point and with the pump/dewatering set-up — spills happen where the plant is, not where the store is."
+            },
+            {
+              "itemId": "skips",
+              "required": false,
+              "goodZones": [
+                "compound",
+                "laydown"
+              ],
+              "badZones": [
+                "footway",
+                "gully"
+              ],
+              "placementNote": "Skips in the compound or laydown, clear of the footway and the gully."
+            },
+            {
+              "itemId": "material-storage",
+              "required": true,
+              "goodZones": [
+                "laydown",
+                "compound"
+              ],
+              "badZones": [
+                "footway",
+                "gully"
+              ],
+              "placementNote": "Pipes stored in the laydown area, chocked against rolling — never stacked on the footway or over the gully."
+            },
+            {
+              "itemId": "fuel-storage",
+              "required": true,
+              "goodZones": [
+                "compound"
+              ],
+              "badZones": [
+                "gully",
+                "footway",
+                "laydown"
+              ],
+              "placementNote": "Bunded fuel storage in the secure compound, as far as the site allows from the roadside gully."
+            },
+            {
+              "itemId": "plant-parking",
+              "required": true,
+              "goodZones": [
+                "compound",
+                "laydown"
+              ],
+              "badZones": [
+                "footway",
+                "school-crossing"
+              ],
+              "placementNote": "Plant parked overnight in the compound or laydown with keys removed — never left in the working lane or near the crossing."
+            },
+            {
+              "itemId": "excavation-zone",
+              "required": true,
+              "goodZones": [
+                "trench",
+                "chamber"
+              ],
+              "badZones": [
+                "footway"
+              ],
+              "placementNote": "The excavation stays inside the guarded working lane — the trench run and the chamber dig."
+            },
+            {
+              "itemId": "exclusion-zone",
+              "required": true,
+              "goodZones": [
+                "chamber",
+                "works-lane"
+              ],
+              "badZones": [],
+              "placementNote": "Exclusion zone around the excavator's slew radius and the chamber entry — nobody inside it during lifting or box handling."
+            },
+            {
+              "itemId": "drain-protection",
+              "required": true,
+              "goodZones": [
+                "gully"
+              ],
+              "badZones": [],
+              "placementNote": "Protect the roadside gully from silt, spills and dewatering discharge — it drains to a watercourse, not a treatment works."
+            },
+            {
+              "itemId": "public-protection",
+              "required": true,
+              "goodZones": [
+                "footway",
+                "school-crossing"
+              ],
+              "badZones": [],
+              "placementNote": "Continuous pedestrian barriers, trench covers/footbridges at crossing points, and dedicated protection where the school crossing meets the works."
+            },
+            {
+              "itemId": "noise-barrier",
+              "required": false,
+              "goodZones": [
+                "works-lane",
+                "footway"
+              ],
+              "badZones": [],
+              "placementNote": "Noise screening/monitoring for the night working section near homes and the school."
+            }
+          ],
+          "topic": "Street works site set-up and segregation",
+          "learningNote": "A linear street works site is a set of moving corridors: pedestrians on a protected diverted footway, traffic behind the taper and safety zone, plant and the trench inside the guarded working lane, and everything static — welfare, fuel, pipes, parking — off the highway in the compound. Fuel and silt stay away from the gully; barriers stay continuous."
+        },
+        {
+          "type": "decision",
+          "id": "p4-d1",
+          "prompt": "How do you set up and run the temporary traffic management for the lane closure?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Install to the agreed signing, lighting and guarding layout by trained TM operatives working in the approved sequence, keep a safety zone between traffic and the workforce that nobody works in, use the portable signals as agreed, and check the layout by drive-through and walk-through at set intervals and after weather or interference.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "legal": 8,
+                "planning": 5
+              },
+              "feedback": "Correct. TM is engineering control for the highest-energy hazard on site — live traffic. The layout, the setting-out sequence, the safety zone discipline and the routine checks are all part of the control, not optional extras."
+            },
+            {
+              "id": "b",
+              "text": "Put out cones and signs from the van as the gang sees fit each morning — they've done plenty of roadworks.",
+              "quality": "poor",
+              "impact": {
+                "safety": 2,
+                "legal": 1,
+                "incidentLikelihood": 8
+              },
+              "feedback": "Improvised layouts drift: tapers too short, signs missing, no safety zone. The layout was designed and agreed for a reason, and setting out is itself a high-risk task with a defined sequence."
+            },
+            {
+              "id": "c",
+              "text": "Use the safety zone as a materials and welfare strip — it's wasted space otherwise.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 15,
+                "enforcementRisk": 8
+              },
+              "feedback": "The safety zone exists to absorb the errant vehicle. Putting people or materials in it converts your protection margin into a target.",
+              "criticalFailure": "Safety zone occupied by people and materials"
+            },
+            {
+              "id": "d",
+              "text": "Install the full layout but skip the routine checks — once it's out, it's out.",
+              "quality": "partial",
+              "impact": {
+                "safety": 4,
+                "legal": 3
+              },
+              "feedback": "Layouts degrade: cones get clipped, signs blow over, residents move barriers. Without drive-through and walk-through checks you won't know until something finds the gap."
+            }
+          ],
+          "topic": "Temporary traffic management — signing, lighting and guarding",
+          "learningNote": "Treat TM like temporary works: an agreed design, trained people installing in a safe sequence (signs first, from the far side of the works, protected), a safety zone that is never occupied, and recorded checks after setting out, during the shift and after weather, darkness or interference.",
+          "cppSection": "trafficManagement",
+          "cppText": {
+            "best": "TM installed to the agreed signing, lighting and guarding layout by trained operatives; taper and safety zone maintained and never used for work or storage; portable signals operated to the permit conditions with manual control available at peak times; pedestrian diversion barriered, lit and ramped past shops; drive-through/walk-through checks at start, mid and end of shift and after weather or interference, recorded; school crossing given dedicated protection and timing arrangements.",
+            "partial": "TM layout installed as designed; routine checking regime to be formalised.",
+            "poor": "TM improvised daily by the gang without reference to the agreed layout.",
+            "unsafe": "Safety zone compromised — used for people/materials."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p5",
+      "number": 5,
+      "title": "Welfare and Access",
+      "intro": "A linear site still owes its people proper welfare, and it owes the emergency services a way in. Plan both before the first shift.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p5-d1",
+          "prompt": "The gang will be working up to 400 m from the compound as the trench progresses. What welfare provision do you make?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Full welfare at the compound from day one — toilets, washing with warm water, drinking water, heated rest room and drying space — sized for the peak workforce, with breaks planned so the walk or shuttle to welfare is genuinely usable from every chainage.",
+              "quality": "best",
+              "impact": {
+                "legal": 8,
+                "morale": 8,
+                "planning": 4
+              },
+              "feedback": "Correct. Welfare must be provided from the first day and must be realistically accessible. On a linear site that means planning the distance, not just parking a cabin."
+            },
+            {
+              "id": "b",
+              "text": "Agree with two shops along the route that operatives can use their toilets and buy hot drinks.",
+              "quality": "poor",
+              "impact": {
+                "legal": 1,
+                "morale": -3,
+                "enforcementRisk": 8
+              },
+              "feedback": "Facilities you don't control are not compliant provision — they close, they refuse muddy boots, and they offer no washing, drying or rest space."
+            },
+            {
+              "id": "c",
+              "text": "A single chemical toilet towed along behind the works, nothing else.",
+              "quality": "poor",
+              "impact": {
+                "legal": 2,
+                "morale": -4,
+                "enforcementRisk": 5
+              },
+              "feedback": "Inadequate. Washing with warm water, drinking water, rest and drying facilities are all required — mobile works don't dilute the standard."
+            },
+            {
+              "id": "d",
+              "text": "Delay the start until a second welfare unit can be sourced for the far end of the run.",
+              "quality": "partial",
+              "impact": {
+                "legal": 6,
+                "programme": -2,
+                "cost": 4,
+                "clientConfidence": -3
+              },
+              "feedback": "Compliant but heavy-handed — one well-placed compound with planned breaks and transport meets the duty on a 400 m run. Know what 'suitable and sufficient' looks like before you spend the programme."
+            }
+          ],
+          "topic": "Welfare on linear / mobile sites",
+          "learningNote": "Welfare duties apply in full to street works: toilets, washing with warm water, drinking water, rest and drying facilities from day one. On linear sites the test is real accessibility — plan break patterns, distances and transport so the provision is actually used.",
+          "cppSection": "welfare",
+          "cppText": {
+            "best": "Welfare at the compound from day one: toilets, washing with warm water, drinking water, heated rest room with means to warm food, drying room. Sized for peak workforce of 18. Break patterns and shuttle arrangements ensure access from all chainages, including the night shift. Cleaned and maintained daily.",
+            "partial": "Compound welfare in place; access arrangements from far chainages to be confirmed.",
+            "poor": "Welfare relies on informal arrangements with local premises.",
+            "unsafe": "No compliant welfare at start of works."
+          }
+        },
+        {
+          "type": "decision",
+          "id": "p5-d2",
+          "prompt": "Set the emergency arrangements for this project before work starts.",
+          "options": [
+            {
+              "id": "a",
+              "text": "A plan covering service strikes (gas and HV emergency numbers, evacuation distances, no re-entry), trench collapse (no-one enters to dig a casualty out by hand — plant and the rescue plan do it), chamber rescue arrangements, first aid cover on every shift including nights, emergency vehicle access through the TM, and location referencing so a 999 call can find the right chainage.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "planning": 5
+              },
+              "feedback": "Correct. The foreseeable emergencies here — strike, collapse, confined space, traffic incursion — each need a rehearsed response, and the ambulance needs a way through your own signals."
+            },
+            {
+              "id": "b",
+              "text": "First aid kit in each van and 999 as the plan — the hospital is only ten minutes away.",
+              "quality": "partial",
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
+              "feedback": "999 does not dig a casualty out of a collapse, isolate an HV cable or ventilate a chamber. Emergency arrangements are what happens in the minutes before help arrives — and your TM can delay that help if you haven't planned access."
+            },
+            {
+              "id": "c",
+              "text": "Adopt the groundworks contractor's generic emergency procedure — it mentions excavations.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "legal": 1
+              },
+              "feedback": "A generic procedure won't hold this street's gas emergency number, the school's contact, the signal head locations or the chamber rescue kit. Site-specific or it isn't a plan."
+            },
+            {
+              "id": "d",
+              "text": "Write the confined space rescue plan when the chamber work gets close — it's weeks away.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 8,
+                "planning": 1
+              },
+              "feedback": "Rescue equipment and trained people take time to procure and rehearse. Plans written the night before an entry are the ones that fail during one.",
+              "criticalFailure": "Confined space work planned without rescue arrangements in place"
+            }
+          ],
+          "topic": "Emergency planning — strikes, collapse and rescue",
+          "learningNote": "Plan for the emergencies this site can produce: gas strike (evacuate, no ignition sources, gas emergency number, cordon), HV strike (stay clear, treat as live, DNO), trench collapse (never dig by hand over a casualty without support in place), chamber rescue (equipment and trained people at the entry), and emergency service access through your own traffic management.",
+          "cppSection": "emergencyArrangements",
+          "cppText": {
+            "best": "Emergency plan covers gas and HV service strikes with utility emergency numbers and evacuation distances, trench collapse response, confined space rescue at the chamber (tripod, harness, gas monitor, trained top man — no reliance on 999 for retrieval), first aid on every shift including nights, emergency access route through the TM agreed with the signals settings, and chainage/location referencing displayed for 999 calls. Muster at the compound with an upwind alternative briefed.",
+            "partial": "Basic emergency plan in place; chamber rescue and emergency access arrangements to be completed before those phases.",
+            "poor": "Generic emergency procedure adopted without site-specific detail.",
+            "unsafe": "High-risk activities planned with no rescue arrangements."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p6",
+      "number": 6,
+      "title": "Hazard Identification",
+      "intro": "Walk the 400 m on paper. Which hazards get your management attention first, and where can fire and gas hurt people you can't see?",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p6-d1",
+          "prompt": "Which set of hazards should be treated as this project's principal risks?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Buried service strikes (gas mains and the HV crossing), trench collapse and entry to unsupported excavation, live traffic incursion and plant/pedestrian conflict, confined space atmosphere in the chamber, and lifting pipes over and into the trench.",
+              "quality": "best",
+              "impact": {
+                "safety": 8,
+                "planning": 8
+              },
+              "feedback": "Correct. These are the credible fatal risks on a deep urban trench job, and each needs specific planning, exclusion rules and supervision — not generic controls."
+            },
+            {
+              "id": "b",
+              "text": "Manual handling, slips on spoil, and abrasive wheel use — the most frequent injury causes on utility gangs.",
+              "quality": "partial",
+              "impact": {
+                "safety": 4,
+                "planning": 3
+              },
+              "feedback": "Manage these too, but frequency is not severity. Your planning priority goes to the hazards that bury, electrocute, gas or crush."
+            },
+            {
+              "id": "c",
+              "text": "Whatever hazards the groundworks contractor lists — the trench is their workplace.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "planning": 1
+              },
+              "feedback": "The principal contractor plans, manages and coordinates the whole phase — including the traffic, public and utility interfaces no single contractor owns."
+            },
+            {
+              "id": "d",
+              "text": "Focus on the public complaints risks — noise, mud and parking — since this is a high street.",
+              "quality": "poor",
+              "impact": {
+                "safety": 0,
+                "planning": 2,
+                "clientConfidence": 2
+              },
+              "feedback": "Community impact matters and is worth planning, but it must never displace the fatal-risk planning that keeps your own people alive."
+            }
+          ],
+          "topic": "Risk assessment — principal risks on utility works",
+          "learningNote": "Prioritise by severity and credibility: service strikes, collapse, traffic, confined spaces and lifting are the utility-sector killers. Spoil placement, dewatering and public protection then feed directly off those controls.",
+          "cppSection": "riskAssessmentSummary",
+          "cppText": {
+            "best": "Principal risks: gas and HV service strikes; trench collapse / entry to unsupported excavation; live traffic incursion and plant-pedestrian conflict; confined space atmosphere in the deep chamber; lifting pipes over the open trench; spoil surcharge at the trench edge. Each carries specific RAMS, permits, exclusion rules and named supervision. Frequent-injury risks (manual handling, slips, cutting operations) controlled through task design, housekeeping and briefing.",
+            "partial": "Main risks identified; traffic and utility interface risks need further coordination.",
+            "poor": "Risk identification delegated to individual contractors.",
+            "unsafe": "No structured hazard identification for the project."
+          },
+          "riskEntry": {
+            "hazard": "Buried service strike / trench collapse / traffic incursion",
+            "control": "Permit to dig with located services, progressive trench support, agreed TM with maintained safety zone, PC-coordinated RAMS and supervision"
+          }
+        },
+        {
+          "type": "decision",
+          "id": "p6-d2",
+          "prompt": "The pipe is PE, jointed by fusion using heater plates and generators in the street — sometimes within metres of the gas main. Fuel is stored at the compound. What is your fire and ignition control approach?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A site fire plan: fusion and any hot work controlled by permit with ignition checks and gas monitoring near the gas main, generators and fuel managed at the compound with extinguishers and separation, no smoking or naked flames on the run, escape and muster arrangements briefed, and the gas emergency procedure linked to the fire plan.",
+              "quality": "best",
+              "impact": {
+                "safety": 8,
+                "legal": 5,
+                "planning": 4
+              },
+              "feedback": "Correct. On this job the fire plan and the gas strike plan are two halves of one system — controlled ignition sources are what stand between a nicked gas service and an ignition."
+            },
+            {
+              "id": "b",
+              "text": "Extinguishers on each vehicle and a no-smoking rule.",
+              "quality": "partial",
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
+              "feedback": "Necessary but nowhere near sufficient. The plan must control when and where ignition sources operate — especially fusion equipment near located gas plant."
+            },
+            {
+              "id": "c",
+              "text": "Fusion isn't welding, so no ignition controls are needed — just do it away from the trench when convenient.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 6
+              },
+              "feedback": "Heater plates run at over 200°C and generators spark. Near a gas main, 'not technically welding' is not a control measure."
+            },
+            {
+              "id": "d",
+              "text": "Ban all fusion in the street and pre-fabricate every string in the compound regardless of length.",
+              "quality": "poor",
+              "impact": {
+                "safety": 3,
+                "programme": -3,
+                "cost": 6
+              },
+              "feedback": "Pre-fabrication helps where practical, but 400 m of main needs in-trench connections regardless. An unworkable ban breeds uncontrolled workarounds — a permit system you can actually run is safer."
+            }
+          ],
+          "topic": "Fire and ignition control near gas plant",
+          "learningNote": "Think fuel, ignition, people: control every ignition source (fusion kit, generators, cutting, smoking) with permits and gas monitoring where gas plant is nearby, keep fuel bunded and separated at the compound, and make the fire response and gas escape response one briefed system.",
+          "cppSection": "firePlan",
+          "cppText": {
+            "best": "Fire plan: fusion jointing and hot work under permit with ignition control and gas monitoring within the exclusion distance of gas plant; generators and fuel at the compound — bunded, separated, extinguishers at the fire point; no smoking on the working lane; escape routes from the trench maintained (ladders at intervals); muster at compound with upwind alternative; gas escape procedure integrated with fire response and briefed at induction.",
+            "partial": "Extinguishers and basic rules in place; permit control of fusion near gas plant to be implemented.",
+            "poor": "Ignition sources uncontrolled along the working lane.",
+            "unsafe": "Hot work/fusion carried out near gas plant with no ignition controls."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p7",
+      "number": 7,
+      "title": "RAMS Review",
+      "intro": "Method statements for trenching live or die on the details: support sequence, service avoidance, and who is allowed where.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p7-d1",
+          "prompt": "The groundworks contractor submits their RAMS for the main trench run. It describes 'excavation with suitable support as required' but doesn't state the trench box installation sequence, the service crossing controls or when operatives may enter. The gang is ready to start. Do you accept it?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Reject it with specific comments: require the dig-and-support sequence for the boxes, the rule that no one enters ahead of installed support, the controls at each service crossing, ladder access positions, and the plant/person exclusion rules — before any break of ground.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "temporaryWorks": 6,
+                "legal": 5,
+                "programme": -2
+              },
+              "feedback": "Correct. 'Support as required' is the phrase found in collapse investigations. If the RAMS can't tell you the sequence and the entry rule, it can't brief the gang."
+            },
+            {
+              "id": "b",
+              "text": "Accept it and cover the gaps verbally at the first toolbox talk.",
+              "quality": "partial",
+              "impact": {
+                "safety": 3,
+                "temporaryWorks": 2
+              },
+              "feedback": "Verbal patches evaporate with the first crew change. The controlling document must carry the controls."
+            },
+            {
+              "id": "c",
+              "text": "Accept it — this contractor lays mains every week and their insurance is current.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "legal": 1,
+                "incidentLikelihood": 6
+              },
+              "feedback": "Experience without a defined method is exactly how experienced people die in trenches. Insurance pays out after the funeral."
+            },
+            {
+              "id": "d",
+              "text": "Let them start the shallow first 50 m while the RAMS is improved for the deeper sections.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "temporaryWorks": 1,
+                "incidentLikelihood": 12,
+                "programme": 2
+              },
+              "feedback": "Ground doesn't read programmes. Even 'shallow' sections of this run pass live services, and starting work under a rejected method normalises exactly the behaviour that kills.",
+              "criticalFailure": "Trenching started under inadequate RAMS"
+            }
+          ],
+          "topic": "RAMS review — excavation and trench support",
+          "learningNote": "Test trenching RAMS against: what support, installed in what sequence, from where? When exactly may a person enter? What happens at each service crossing? Where are the ladders? If you can't picture the work hour by hour from the document, reject it."
+        }
+      ]
+    },
+    {
+      "id": "p8",
+      "number": 8,
+      "title": "Temporary Works Register",
+      "intro": "Trench boxes, road plates, shaft support, thrust blocks — this job is temporary works from end to end. Appoint the coordinator, then set the right control level for each item.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p8-d1",
+          "prompt": "How is temporary works managed on this project?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Appoint a trained Temporary Works Coordinator in writing, keep a live TW register for the moving works, confirm each trench box use sits within its tabulated data (and get design where it doesn't), and enforce hold points — no trench entry before support sign-off, no traffic on road plates before permit to load.",
+              "quality": "best",
+              "impact": {
+                "temporaryWorks": 10,
+                "legal": 5,
+                "planning": 4
+              },
+              "feedback": "Correct. On a linear job the register must move with the works — every re-set of a trench box in changed ground or next to the gas main is a fresh check, and the hold points are what keep people out of unproven excavations."
+            },
+            {
+              "id": "b",
+              "text": "The groundworks foreman decides support day by day — he can read the ground better than a register can.",
+              "quality": "poor",
+              "impact": {
+                "temporaryWorks": 2,
+                "incidentLikelihood": 8
+              },
+              "feedback": "Ground-reading matters, but without a register, design limits and hold points, one optimistic morning is all it takes. The register is how the foreman's judgement gets checked, not replaced."
+            },
+            {
+              "id": "c",
+              "text": "Trench boxes are proprietary kit, so nothing here counts as temporary works.",
+              "quality": "poor",
+              "impact": {
+                "temporaryWorks": 1,
+                "legal": 1
+              },
+              "feedback": "Proprietary equipment used within its tabulated data is still temporary works — it goes on the register with its limits, checks and inspections. And this project also has bespoke items: the chamber shaft, the gas main support, the thrust blocks."
+            },
+            {
+              "id": "d",
+              "text": "Run the register but drop the hold points — stopping the gang for sign-offs will wreck the nightly reopening deadlines.",
+              "quality": "unsafe",
+              "impact": {
+                "temporaryWorks": 0,
+                "incidentLikelihood": 12,
+                "programme": 2
+              },
+              "feedback": "A register without hold points is a diary of what you were going to check. The hold point before trench entry and before loading road plates is the control.",
+              "criticalFailure": "Temporary works hold points removed under programme pressure"
+            }
+          ],
+          "topic": "Temporary works — coordination on linear works",
+          "learningNote": "The TWC keeps the register live as the trench moves: box configurations checked against tabulated data for the actual depth, soil and surcharge; bespoke design where conditions fall outside it (deep chamber, alongside the gas main); and hold points at entry and loading that nobody bypasses.",
+          "cppSection": "temporaryWorks",
+          "cppText": {
+            "best": "Temporary Works Coordinator appointed in writing. Live TW register covers trench boxes, chamber shaft support, road plates, pedestrian trench crossings, thrust blocks, the gas main crossing support and the dewatering arrangement. Proprietary equipment verified against tabulated data for actual ground and surcharge; bespoke design with independent check for the chamber shaft and gas main sections. Hold points: no trench entry before support sign-off; permit to load before trafficking road plates.",
+            "partial": "TW register established; verification of box configurations against tabulated data to be completed section by section.",
+            "poor": "Temporary works managed informally by the groundworks foreman.",
+            "unsafe": "Hold points removed — excavations entered and plates trafficked without sign-off."
+          }
+        },
+        {
+          "type": "twRegister",
+          "id": "p8-tw",
+          "prompt": "Work through the temporary works items identified for this project. For each, decide the controls that apply.",
+          "items": [
+            {
+              "id": "tw3-trench-box",
+              "name": "Trench boxes to main run (2.1 m deep)",
+              "description": "Proprietary trench boxes installed by dig-and-push along the main run, used within the supplier's tabulated data for depth, soil type and surcharge.",
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWS"
+              },
+              "explanation": "Used within tabulated data this is a standard solution, but each set-up must be checked against the actual ground, depth and surcharge, inspected each shift, and no one enters until the supervisor signs the support off — that's the hold point."
+            },
+            {
+              "id": "tw3-chamber-shaft",
+              "name": "Chamber connection shaft support (3.4 m deep)",
+              "description": "Support to the deep excavation around the existing chamber, in mixed ground with the chamber wall as one face.",
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
+              "explanation": "Deeper than the boxes' data, irregular geometry and an existing structure as one face — this is outside any standard solution. Bespoke design with an independent check, and a hold point before entry."
+            },
+            {
+              "id": "tw3-gas-main-support",
+              "name": "Excavation support alongside medium pressure gas main",
+              "description": "Special support and controls where the trench runs immediately alongside and beneath the exposed gas main, including support to the exposed main itself.",
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
+              "explanation": "An exposed, unsupported gas main is both a collapse and an explosion risk. The support to the excavation and to the main itself needs bespoke design, independent checking, utility company agreement, and a hold point before the main is undermined."
+            },
+            {
+              "id": "tw3-road-plates",
+              "name": "Road plates over open trench",
+              "description": "Steel road plates spanning the trench at side roads and driveways so traffic can cross overnight.",
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
+              "explanation": "Plates used within their rated span and bedded/secured per the standard details are a standard solution — but they carry the public's vehicles, so each installation is checked, and a permit to load is issued before traffic runs over them."
+            },
+            {
+              "id": "tw3-ped-bridge",
+              "name": "Pedestrian trench crossings / footbridges",
+              "description": "Proprietary footbridge units with handrails where the diverted footway and shop accesses cross the open trench.",
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWS"
+              },
+              "explanation": "Proprietary units within their data, but they carry the public — including pushchairs and wheelchairs — so each placement is checked for bearing, fixing and edge protection before it opens, and inspected daily."
+            },
+            {
+              "id": "tw3-thrust-block",
+              "name": "Temporary thrust restraint for pressure testing",
+              "description": "Temporary thrust/anchor blocks restraining the main's end caps and bends during hydrostatic pressure testing.",
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
+              "explanation": "Test pressures generate large thrust forces; a failed restraint launches fittings. Calculated, independently checked design and a hold point before the test — nobody in the trench near restrained ends while pressure is on."
+            },
+            {
+              "id": "tw3-spoil",
+              "name": "Spoil placement control at trench edge",
+              "description": "Managed rule for spoil heaps: minimum stand-off from the trench edge, heap height limits, contaminated spoil segregated on the lined area.",
+              "correct": {
+                "register": true,
+                "design": "none",
+                "catCheck": "cat0",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "TWS"
+              },
+              "explanation": "Not an engineered structure, but spoil surcharge changes the loading the boxes were checked against — so the stand-off rule is registered, briefed and inspected every shift rather than left to habit."
+            },
+            {
+              "id": "tw3-dewatering",
+              "name": "Dewatering pump and settlement arrangement",
+              "description": "Sump pumps in the trench discharging through a settlement tank before controlled discharge, hoses routed clear of the footway.",
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat0",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "contractor"
+              },
+              "explanation": "A standard arrangement, but it belongs on the register: uncontrolled dewatering can draw fines out of the ground and undermine the trench sides and highway, so the set-up and discharge are checked daily."
+            },
+            {
+              "id": "tw3-signals-power",
+              "name": "Portable signals power supply",
+              "description": "Battery/generator power arrangement for the portable traffic signals at each end of the works.",
+              "correct": {
+                "register": false,
+                "design": "none",
+                "catCheck": "cat0",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "contractor"
+              },
+              "explanation": "Not a structural temporary work — nothing is supported or retained. It is managed under the TM and electrical arrangements with daily checks, not on the TW register. Registers stay credible by holding what belongs on them."
+            }
+          ],
+          "topic": "Temporary works register — utility works",
+          "learningNote": "Everything that supports ground, carries load or restrains force goes on the register: boxes, shafts, plates, bridges, thrust blocks. Proprietary kit within tabulated data is a standard solution with checks; anything outside the data — deeper, odd geometry, next to the gas main — needs bespoke design with an independent check and a hold point."
+        }
+      ]
+    },
+    {
+      "id": "p9",
+      "number": 9,
+      "title": "Permits and Inspections",
+      "intro": "Permits gate the tasks that can kill in one mistake; inspections prove the trench, the boxes and the TM are still what you signed off yesterday.",
+      "steps": [
+        {
+          "type": "permits",
+          "id": "p9-permits",
+          "prompt": "Select the permit systems this project genuinely needs. Over-permitting buries supervisors in paperwork; under-permitting leaves lethal tasks uncontrolled.",
+          "options": [
+            {
+              "id": "permit-to-dig",
+              "name": "Permit to dig / break ground"
+            },
+            {
+              "id": "confined-space",
+              "name": "Confined space entry permit"
+            },
+            {
+              "id": "street-works-occupation",
+              "name": "Road / lane occupation (street works permit compliance)"
+            },
+            {
+              "id": "permit-to-load",
+              "name": "Permit to load (road plates / temporary works)"
+            },
+            {
+              "id": "electrical-isolation",
+              "name": "Electrical isolation / HV proximity permit"
+            },
+            {
+              "id": "hot-works",
+              "name": "Hot works / fusion jointing permit"
+            },
+            {
+              "id": "roof-access",
+              "name": "Roof / leading edge access permit"
+            },
+            {
+              "id": "demolition-permit",
+              "name": "Demolition permit"
+            }
+          ],
+          "required": [
+            "permit-to-dig",
+            "confined-space",
+            "street-works-occupation",
+            "permit-to-load",
+            "electrical-isolation",
+            "hot-works"
+          ],
+          "explanation": "Every break of ground needs a permit to dig with located services; the chamber entry needs a confined space permit; occupation of each highway section is controlled against the street works permit conditions; road plates and other TW need a permit to load before traffic or plant runs over them; work near the HV crossing needs isolation/proximity control agreed with the network operator; and fusion jointing near gas plant is a controlled ignition source. There is no roofwork and no demolition in this scope — those permits would be paperwork without purpose.",
+          "topic": "Permit to work systems for street works",
+          "learningNote": "A permit is a formal pre-task check that the controls exist right now — located services, tested atmosphere, signed-off support — with a defined scope, duration and sign-back. Use permits where a single missed control is likely to be fatal, and keep the system lean enough to run properly on a moving site.",
+          "cppSection": "permits"
+        },
+        {
+          "type": "decision",
+          "id": "p9-d1",
+          "prompt": "Set the inspection regime for the project.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Excavations and their support inspected by a competent person at the start of every shift and after rain, flooding, strikes or nearby loading; TM checked by drive-through and walk-through at set times and after weather or interference; road plates and footbridges checked daily; lifting accessories and gas detectors checked with in-date thorough examinations and calibration; weekly recorded manager's inspection over the whole run.",
+              "quality": "best",
+              "impact": {
+                "legal": 8,
+                "safety": 8,
+                "quality": 4
+              },
+              "feedback": "Correct. The statutory shift-start excavation inspection and post-event checks are the legal floor; TM, plates and detector checks are how a moving site catches deterioration before the public or the gang do."
+            },
+            {
+              "id": "b",
+              "text": "Inspect the excavation weekly — it's the same trench, just longer each time.",
+              "quality": "poor",
+              "impact": {
+                "legal": 1,
+                "safety": 1,
+                "enforcementRisk": 8
+              },
+              "feedback": "Far outside the statutory frequency. Every shift start, and after anything that could affect stability — a trench that moved 30 m since Monday is not 'the same trench'."
+            },
+            {
+              "id": "c",
+              "text": "Statutory excavation inspections only — TM and equipment checks are the subcontractors' business.",
+              "quality": "partial",
+              "impact": {
+                "legal": 4,
+                "safety": 3
+              },
+              "feedback": "Contractors check their own kit, but the PC must monitor the site as a whole. The TM layout and the public crossings are interfaces that fall between contractors unless you own them."
+            },
+            {
+              "id": "d",
+              "text": "The gangs will report anything that looks wrong — they're in the trench all day.",
+              "quality": "unsafe",
+              "impact": {
+                "legal": 0,
+                "safety": 0,
+                "incidentLikelihood": 10
+              },
+              "feedback": "Reactive reporting finds the defect after it drops someone. Ground gives little visible warning before it lets go.",
+              "criticalFailure": "No planned inspection regime for excavations and TM"
+            }
+          ],
+          "topic": "Inspections — excavations, TM and equipment",
+          "learningNote": "Memorise the rhythm: excavations — start of every shift by a competent person, and after any event affecting stability; TM — after setting out, during the shift and after weather/interference, recorded; road plates and public crossings daily; gas detectors bump-tested and calibrated; lifting gear thoroughly examined and in date.",
+          "cppSection": "inspections",
+          "cppText": {
+            "best": "Inspection schedule: excavation and support inspected at the start of each shift and after rain, flooding, strikes or adjacent loading (recorded); TM drive-through/walk-through at start, mid and end of shift and after weather or interference; road plates and pedestrian footbridges checked daily and after trafficking; gas detectors bump-tested daily and calibrated to schedule; lifting accessories and excavator thorough-examination certificates verified; weekly recorded site manager inspection of the full run; actions tracked to closure.",
+            "partial": "Statutory excavation inspections in place; TM and equipment checking to be formalised.",
+            "poor": "Inspections limited to excavation only — TM and public interfaces unmonitored.",
+            "unsafe": "No planned inspection regime."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "number": 10,
+      "title": "High-Risk Activities",
+      "intro": "The chamber, the services and the lifts — control the work that can kill in a second.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p10-d1",
+          "prompt": "The connection into the existing 4 m deep chamber is due. How do you control the entry?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Treat it as a confined space: assess whether entry can be avoided, classify the space and specify the controls, test the atmosphere before entry and monitor continuously, ventilate, use a permit with a trained top man at the entry, escape sets and a rehearsed rescue plan with retrieval equipment rigged before anyone goes down.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "legal": 8,
+                "planning": 4
+              },
+              "feedback": "Correct. First ask whether the connection can be made without entry. If not: classified space, tested and monitored atmosphere, permit, top man, and rescue that works without waiting for the fire service."
+            },
+            {
+              "id": "b",
+              "text": "Lower a gas detector on a string first — if it doesn't alarm, the team can work normally with the lid off for ventilation.",
+              "quality": "partial",
+              "impact": {
+                "safety": 4,
+                "legal": 2
+              },
+              "feedback": "Pre-entry testing is necessary but not sufficient: atmospheres change during work, especially when disturbing sediment and cutting into a live system. Continuous monitoring, a top man and rescue arrangements are still required."
+            },
+            {
+              "id": "c",
+              "text": "It's a water chamber, not a sewer — no gas risk, so send the fitter down with a harness on 'just in case'.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 18,
+                "legal": -3
+              },
+              "feedback": "Oxygen depletion, ground gas and vapours occur in clean-water chambers too. An unattached harness with no top man, no tested atmosphere and no retrieval gear is a recovery aid, not a rescue plan.",
+              "criticalFailure": "Confined space entered without atmosphere testing or rescue arrangements"
+            },
+            {
+              "id": "d",
+              "text": "Let the most experienced operative make the entry alone during the quiet night shift so the chamber isn't blocked during the day.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 10
+              },
+              "feedback": "Lone entry at night removes the top man, the rescue team and the supervision — experience does not metabolise a bad atmosphere."
+            }
+          ],
+          "topic": "Confined spaces — chamber entry",
+          "learningNote": "The Confined Spaces Regulations hierarchy: avoid entry if the work can be done from outside; if entry is unavoidable, work to a safe system — classification, atmosphere testing before and during, ventilation, permit, trained top man, communications, escape sets where specified, and rescue arrangements in place before entry that do not rely on the emergency services.",
+          "cppSection": "highRiskActivities",
+          "cppText": {
+            "best": "High-risk activities: confined space chamber entry avoided where possible; where required — classified, permit-controlled, atmosphere tested and continuously monitored, ventilated, trained top man, escape sets and rigged retrieval with rehearsed rescue plan. Trench entry only behind signed-off support. Safe digging around located services; no mechanical excavation within exclusion distances. Lifting under lift plans with exclusion zones; quick hitch checks enforced.",
+            "partial": "Chamber entry controls defined; rescue rehearsal to be completed before entry.",
+            "poor": "Chamber entry planned as routine work without classification.",
+            "unsafe": "Confined space entry without tested atmosphere or rescue arrangements."
+          }
+        },
+        {
+          "type": "decision",
+          "id": "p10-d2",
+          "prompt": "The service plans show an HV cable crossing the trench line, position 'approximate'. The gang has a permit to dig for the section. How do they proceed at the crossing?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Locate with CAT and genny from both sides, hand-dig trial holes with insulated tools to positively expose and identify the cable, agree protection and any isolation with the network operator, then dig mechanically no closer than the agreed exclusion distance with the cable supported and protected — treated as live throughout.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "planning": 4
+              },
+              "feedback": "Correct. Plans give you a search area, the locator gives you a signal, and only trial holes give you the truth. HV stays 'live until proven otherwise' even after the operator quotes an isolation."
+            },
+            {
+              "id": "b",
+              "text": "Scan with the CAT, mark the strongest signal, and take the excavator carefully across the marked line watching the teeth.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 18
+              },
+              "feedback": "A locator signal is not a position — depth and lateral error are routine, and HV strikes kill operators and anyone touching the machine. Mechanical excavation over an unproven HV cable is the classic fatal shortcut.",
+              "criticalFailure": "Mechanical excavation over unproven HV cable"
+            },
+            {
+              "id": "c",
+              "text": "The cable is drawn well below your dig depth on the plan, so no special measures — just brief the operator to stop if he sees marker tape.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 10
+              },
+              "feedback": "Recorded depths are unreliable — roads get regraded and cables rise and dip. Marker tape is frequently missing, and by the time the operator sees it the bucket is already there."
+            },
+            {
+              "id": "d",
+              "text": "Hand-dig the entire 20 m either side of the drawn position to be certain.",
+              "quality": "partial",
+              "impact": {
+                "safety": 5,
+                "programme": -3,
+                "cost": 6
+              },
+              "feedback": "Safe but unfocused — locating and trial holes narrow the hand-dig zone to where it's needed. Safe digging practice is targeted, not exhausting."
+            }
+          ],
+          "topic": "Buried services — safe digging near HV",
+          "learningNote": "The safe digging sequence: obtain plans, locate and mark with CAT and genny, permit to dig, trial holes by hand with insulated tools to positively identify, then controlled digging respecting exclusion distances — with services supported and protected once exposed, and everything treated as live until the owner proves otherwise.",
+          "riskEntry": {
+            "hazard": "HV cable crossing the trench line — position approximate",
+            "control": "Located, trial-holed and positively identified; network operator agreement; exclusion distance for mechanical digging; cable supported, protected and treated as live"
+          }
+        },
+        {
+          "type": "decision",
+          "id": "p10-d3",
+          "prompt": "Pipes are lifted from the laydown area and lowered into the trench by the excavator. Mid-morning you see a chain sling wrapped around a pipe, an operative steadying it from inside the trench, and the quick hitch pin check missing from the daily record. What is the standard you enforce?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Stop the lift. Lifting is planned by a competent person using certified accessories and proper pipe lifting attachments, tag lines control the load from outside the trench, nobody is in the trench or under the load while it travels, and the quick hitch engagement and pin check is verified and recorded before lifting each day.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "temporaryWorks": 3
+              },
+              "feedback": "Correct. An excavator lifting is a lifting operation under LOLER — plan, certified gear, exclusion below the load. Detached quick hitch buckets and dropped pipes kill people standing exactly where that operative was."
+            },
+            {
+              "id": "b",
+              "text": "Let this lift finish since the pipe is nearly landed, then have a word with the gang at break.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 8
+              },
+              "feedback": "The riskiest seconds are the landing, with the man in the trench under a suspended load. 'After this one' is how supervisors describe the lift that dropped."
+            },
+            {
+              "id": "c",
+              "text": "Ban the excavator from lifting and bring in a lorry loader for every pipe.",
+              "quality": "partial",
+              "impact": {
+                "safety": 4,
+                "cost": 5,
+                "programme": -2
+              },
+              "feedback": "Excavators may lift when rated, examined and planned for it — that's what the machine is there for. Swapping plant doesn't fix the real failures: the sling, the man in the trench and the missing hitch check."
+            },
+            {
+              "id": "d",
+              "text": "Accept it — utility gangs have always guided pipes in by hand, and the hitch was checked when the machine was hired.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 15
+              },
+              "feedback": "Normalised deviation. Quick hitch failures happen between hire checks, and 'always done it' is the phrase in the incident report after the pipe swings or drops.",
+              "criticalFailure": "Operative under suspended load with unverified quick hitch"
+            }
+          ],
+          "topic": "Lifting operations and the people–plant interface",
+          "learningNote": "Excavator lifting comes under LOLER: planned lifts, rated machine, certified accessories, thorough examinations in date. Control the interface: exclusion zone in the slew radius, tag lines from outside the trench, nobody below a suspended load, and a recorded daily quick hitch engagement check — most hitch failures are latch/pin errors on the day, not manufacturing faults."
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "number": 11,
+      "title": "Environmental Management",
+      "intro": "Everything you pump, spill or stockpile on this street is a few metres from a gully that feeds a watercourse. Control it before it moves.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p11-d1",
+          "prompt": "Set the environmental controls for the project — the trench needs dewatering, spoil is stockpiled and hauled off, plant refuels near the works, and part of the run smells of hydrocarbons from an old garage site.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dewater through a settlement tank with the discharge point and consent agreed before pumping — never silty water straight to the gully; protect the gullies; test and segregate the suspect hydrocarbon spoil on a lined area with covered haulage and duty-of-care paperwork; refuel with drip trays and spill kits away from gullies; agree working hours and keep residents and shops informed.",
+              "quality": "best",
+              "impact": {
+                "environment": 10,
+                "legal": 6,
+                "planning": 3
+              },
+              "feedback": "Correct. Silt is a pollutant, dewatering needs a lawful discharge route, and contaminated spoil handled as clean waste is both an offence and a health exposure. Neighbour goodwill on a high street is programme protection."
+            },
+            {
+              "id": "b",
+              "text": "Pump the trench water to the gully through a filter sock and deal with the smelly spoil by mixing it through the clean stockpile so no single load fails.",
+              "quality": "unsafe",
+              "impact": {
+                "environment": 0,
+                "legal": -3,
+                "enforcementRisk": 16
+              },
+              "feedback": "A sock does not treat silty water, and deliberately diluting contaminated spoil to disguise it is a waste offence, not a workaround.",
+              "criticalFailure": "Silty dewatering discharge to gully and deliberate dilution of contaminated spoil"
+            },
+            {
+              "id": "c",
+              "text": "Sort the waste paperwork and discharge arrangements at the end of the job when quantities are known.",
+              "quality": "poor",
+              "impact": {
+                "environment": 1,
+                "enforcementRisk": 8
+              },
+              "feedback": "Duty of care and discharge consents apply from the first load and the first pump-out, not retrospectively. Trenching is the highest-pollution-risk stage of the whole project."
+            },
+            {
+              "id": "d",
+              "text": "Tanker all trench water and all spoil off site to licensed facilities, whatever it costs.",
+              "quality": "partial",
+              "impact": {
+                "environment": 6,
+                "cost": 8,
+                "programme": -2
+              },
+              "feedback": "Lawful and safe, but settlement and testing would show most of it can be managed locally at a fraction of the cost — proportionate control beats blanket disposal."
+            }
+          ],
+          "topic": "Environmental controls — dewatering, silt, spoil and spills",
+          "learningNote": "Know where every gully leads before you pump anything. Dewatering goes through settlement to an agreed, consented discharge point; suspect spoil gets tested and segregated before it's classified and hauled under duty-of-care paperwork; refuelling gets drip trays, spill kits and distance from drains; and the community gets told what's happening before they smell or hear it.",
+          "cppSection": "environmentalControls",
+          "cppText": {
+            "best": "Environmental controls: dewatering via settlement tank to agreed consented discharge point — no direct discharge to gullies; gully protection along the working lane; suspect spoil tested, segregated on lined area, hauled covered by licensed carriers with waste documentation retained; refuelling with drip trays and spill kits away from gullies; noise and working hours per permit conditions; resident and shop communication with complaints log.",
+            "partial": "Basic silt and waste controls in place; discharge consent and spoil testing to be confirmed.",
+            "poor": "Environmental controls deferred until quantities known.",
+            "unsafe": "Silty water discharged to gully; contaminated spoil diluted into clean stockpile."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "number": 12,
+      "title": "Incident / Challenge Events",
+      "intro": "The street will test you. Respond to what it throws at you — your judgement under pressure is what's being assessed.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p12-e1",
+          "isEvent": true,
+          "prompt": "EVENT: The banksman shouts up — there's a strong smell of gas in the trench near the exposed low pressure main. No visible damage, no alarm on the detector yet.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Get everyone out and upwind, kill ignition sources including plant and fusion kit, cordon the area and move the public back, call the gas emergency number, and do not re-enter or investigate until the gas network confirms it's safe. Then review whether the works damaged the main and report as required.",
+              "quality": "best",
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "programme": -2
+              },
+              "feedback": "Correct. Smell beats the detector — trust it. Evacuate, remove ignition, cordon wide (including shoppers and traffic), call it in, and stay out. If the works caused a gas escape, that's a reportable dangerous occurrence."
+            },
+            {
+              "id": "b",
+              "text": "Send one operative back down with the detector to find the source so you can give the gas board a precise location.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 18
+              },
+              "feedback": "You've just sent someone into a potentially explosive atmosphere in a trench with limited escape. The gas network locates leaks — that's their emergency service.",
+              "criticalFailure": "Operative sent into suspected gas atmosphere to investigate"
+            },
+            {
+              "id": "c",
+              "text": "Ventilate the trench with the compressor airline for ten minutes and carry on if the smell fades.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 12
+              },
+              "feedback": "You may be moving a flammable mixture around rather than removing the leak — and compressed air kit is itself an ignition risk. The escape is still escaping."
+            },
+            {
+              "id": "d",
+              "text": "Stop work in that bay but keep the rest of the run going — the smell is localised.",
+              "quality": "partial",
+              "impact": {
+                "safety": 4,
+                "programme": 2
+              },
+              "feedback": "Gas travels along the trench and through ground and ducts. The cordon and stand-down must reflect where gas could reach, not where the nose first caught it — and the emergency call still goes in immediately."
+            }
+          ],
+          "topic": "Gas escape response",
+          "learningNote": "Gas smell in an excavation: evacuate and cordon (people, public, traffic), eliminate ignition sources, call the gas emergency line, no re-entry until the network operator declares it safe. A gas escape caused by the works is a RIDDOR dangerous occurrence — report it, then fix the system that let it happen."
+        },
+        {
+          "type": "decision",
+          "id": "p12-e2",
+          "isEvent": true,
+          "prompt": "EVENT: A resident, furious about access, has dragged two barriers and a run of cones aside to drive out of his driveway — leaving a gap in the guarding two metres from the open trench, with school pick-up in an hour.",
+          "options": [
+            {
+              "id": "a",
+              "text": "Reinstate the guarding immediately, then deal with the cause: visit the resident, agree a managed access arrangement (plated crossing or escorted exits at set times), brief the gang and TM crew to check that frontage, and add driveway accesses to the TM checks and the resident communications.",
+              "quality": "best",
+              "impact": {
+                "safety": 8,
+                "planning": 5,
+                "clientConfidence": 4
+              },
+              "feedback": "Correct. Make the physical protection whole first, then remove the reason it keeps being breached. Residents defeated your guarding once; they'll do it nightly unless access is genuinely solved."
+            },
+            {
+              "id": "b",
+              "text": "Put the barriers back and report the resident to the police for interfering with street works.",
+              "quality": "partial",
+              "impact": {
+                "safety": 5,
+                "clientConfidence": -3
+              },
+              "feedback": "Reinstating is right, and interference can be an offence — but leading with enforcement against a resident you've boxed in escalates the conflict and doesn't fix the access problem that caused it."
+            },
+            {
+              "id": "c",
+              "text": "Leave the gap until tonight — he'll only move them again when he comes home.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 16
+              },
+              "feedback": "An unguarded gap next to a 2.1 m trench, an hour before children walk past. This is precisely the scenario trench guarding exists to prevent.",
+              "criticalFailure": "Gap in trench guarding left open on the public footway"
+            },
+            {
+              "id": "d",
+              "text": "Wedge the barriers so they can't be moved and post a warning notice on his door.",
+              "quality": "poor",
+              "impact": {
+                "safety": 3,
+                "clientConfidence": -4
+              },
+              "feedback": "You've now trapped a resident's vehicle and guaranteed a nastier confrontation — and determined people defeat wedged barriers. Solve access, don't harden the standoff."
+            }
+          ],
+          "topic": "TM interference and third-party access",
+          "learningNote": "Treat every interference with guarding as a system warning, not just a breach: reinstate immediately, find out why it happened, and design the reason away — plated accesses, escorted movements, timed arrangements. Communication with frontagers before you close their access prevents most of these events."
+        }
+      ]
+    },
+    {
+      "id": "p13",
+      "number": 13,
+      "title": "Progress Review",
+      "intro": "Mid-project: the authority, the client and the community all want things faster. Hold the standards while you hold the relationships.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p13-d1",
+          "prompt": "The highway authority asks you to give the lane back for the weekend street market — two days early. The trench in that section is laid but not backfilled and compacted. The agent suggests 'whip the TM off Friday night, cone just the trench line'. Your response?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Re-plan properly: resource the backfill and interim reinstatement to finish that section Friday, or plate and secure the trench under a permit to load with reduced but compliant guarding — and agree the revised occupation with the authority. The lane goes back only when it's safe to trade on.",
+              "quality": "best",
+              "impact": {
+                "programme": 8,
+                "safety": 8,
+                "clientConfidence": 5
+              },
+              "feedback": "Correct. There are two safe ways to give the lane back — finish it or plate it under TW control — and one unsafe way. Handled well, the market weekend becomes the moment the authority starts trusting you."
+            },
+            {
+              "id": "b",
+              "text": "Agree, and remove the full TM as asked — a line of cones on the trench will do for two days.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 16,
+                "enforcementRisk": 10,
+                "programme": 3
+              },
+              "feedback": "Market crowds, an open or soft trench line, and cones instead of guarding. This is how pedestrians and unbraced excavations meet.",
+              "criticalFailure": "TM and guarding stripped from unfinished excavation for a public event"
+            },
+            {
+              "id": "c",
+              "text": "Refuse flatly — the permit says Sunday and the authority can wait for its own dates.",
+              "quality": "poor",
+              "impact": {
+                "programme": 1,
+                "clientConfidence": -6
+              },
+              "feedback": "You're entitled to your dates, but a blunt refusal wastes an opportunity and sours the relationship that every future permit variation depends on. Engage with a safe option."
+            },
+            {
+              "id": "d",
+              "text": "Work the gang through Friday night unplanned to backfill it somehow before Saturday morning.",
+              "quality": "partial",
+              "impact": {
+                "programme": 4,
+                "safety": 2,
+                "morale": -4,
+                "quality": 1,
+                "cost": 4
+              },
+              "feedback": "Rushed, fatigued, unplanned night work produces poor compaction you'll be digging up again — and tired people around plant in the dark. Plan the acceleration or plate the trench."
+            }
+          ],
+          "topic": "Programme pressure — early handback",
+          "learningNote": "When pressed to give road space back early: accelerate with a plan, or bridge the gap with engineered temporary works (plates under permit to load, compliant guarding) — never by de-controlling. The permit conditions can be varied by agreement; safety standards can't."
+        },
+        {
+          "type": "decision",
+          "id": "p13-d2",
+          "prompt": "The section past the school crossing must be done at night over four shifts. How do you set this night working up?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Brief the night gang on the specific layout, hazards and emergency arrangements before their first shift; letter-drop residents and the school with dates and contact numbers; light the works and diversion without glare to drivers or bedrooms; fit noise controls and respect the agreed hours; manage fatigue on the shift pattern; and leave the crossing clean, guarded and fully reinstated or plated before each school morning.",
+              "quality": "best",
+              "impact": {
+                "safety": 8,
+                "planning": 6,
+                "morale": 3,
+                "clientConfidence": 4
+              },
+              "feedback": "Correct. Night works succeed on communication in both directions: a properly briefed gang working in good light, and a community that knew it was coming — with the crossing handed back safe before the first child arrives."
+            },
+            {
+              "id": "b",
+              "text": "Same day-shift arrangements, just later — add a tower light and crack on.",
+              "quality": "partial",
+              "impact": {
+                "safety": 3,
+                "planning": 2
+              },
+              "feedback": "Night changes the risk profile: visibility, fatigue, lone-ness, drunk drivers, and no passing supervision. One light and daytime paperwork doesn't cover it — and nobody told the school."
+            },
+            {
+              "id": "c",
+              "text": "Keep the night works quiet from residents — advance notice just generates advance complaints.",
+              "quality": "poor",
+              "impact": {
+                "planning": 1,
+                "clientConfidence": -6,
+                "morale": -2
+              },
+              "feedback": "They'll find out at 11pm through the bedroom window, and the complaints will land on the authority that grants your permits. Communication is a permit condition on most night works anyway."
+            },
+            {
+              "id": "d",
+              "text": "Run the night shifts with the day gang doing overtime — they know the job better than a new crew would.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "morale": -5,
+                "incidentLikelihood": 8
+              },
+              "feedback": "Twelve dark hours after eight daylight ones puts exhausted people next to live traffic and an open trench. Familiarity doesn't survive fatigue."
+            }
+          ],
+          "topic": "Night working and community communication",
+          "learningNote": "Night working needs its own plan: task lighting without glare, briefed emergency arrangements, fatigue-managed shift patterns, noise controls, and proactive communication with residents, the school and the authority. Handing back the school crossing safe before each morning is a hard hold point, not an aspiration.",
+          "cppSection": "communication",
+          "cppText": {
+            "best": "Communication arrangements: induction for all including night gang; daily pre-start briefings at the works; task-specific RAMS briefings before each new activity; letter drops and notice boards for residents and shops with 24-hour contact number; school and crossing patrol liaison for the night working section; highway authority coordination meetings; complaints log reviewed weekly; F10 and permits displayed at the compound.",
+            "partial": "Workforce briefing in place; resident and school communication to be formalised before night works.",
+            "poor": "Communication reactive — community learns of works when they start.",
+            "unsafe": "Night works commenced with no briefing or community notification."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p14",
+      "number": 14,
+      "title": "Handover",
+      "intro": "A street works job isn't finished when the water flows — it's finished when the highway authority accepts the road back and the records protect the next person who digs here.",
+      "steps": [
+        {
+          "type": "decision",
+          "id": "p14-d1",
+          "prompt": "The main is commissioned. What does a proper close-out require?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Complete permanent reinstatement to the highway standards with compaction and material records, register completion with the authority so the guarantee period starts, remove TM in the planned reverse sequence, and provide as-laid records — line, depth, materials, chamber details and residual risks — to the client and for the health and safety file.",
+              "quality": "best",
+              "impact": {
+                "quality": 10,
+                "legal": 6,
+                "planning": 4
+              },
+              "feedback": "Correct. Reinstatement is a specified, guaranteed product with a defects liability on you — and the as-laid records are what stop the next contractor's CAT survey being a work of fiction over your main."
+            },
+            {
+              "id": "b",
+              "text": "Interim reinstatement everywhere, take the TM away, and programme the permanent surfacing 'when a gang is free'.",
+              "quality": "partial",
+              "impact": {
+                "quality": 4,
+                "legal": 3,
+                "cost": 3
+              },
+              "feedback": "Interim reinstatement is legitimate — but it has a time limit, it must be registered and maintained, and 'when a gang is free' is how interim patches fail, trip pedestrians and draw authority defect notices."
+            },
+            {
+              "id": "c",
+              "text": "Backfill with whatever spoil is left, blacktop the top and move on — the authority only measures the surface.",
+              "quality": "unsafe",
+              "impact": {
+                "quality": 0,
+                "legal": -3,
+                "enforcementRisk": 14
+              },
+              "feedback": "Unspecified backfill and no compaction control gives you settlement over a live main under a live road — coring will find it, the authority will fail it, and you'll dig it all up again at your cost.",
+              "criticalFailure": "Reinstatement carried out with uncontrolled materials and no compaction records"
+            },
+            {
+              "id": "d",
+              "text": "Hand the as-laid records over 'in due course' once the surveyor writes them up next month.",
+              "quality": "poor",
+              "impact": {
+                "quality": 3,
+                "legal": 2,
+                "clientConfidence": -4
+              },
+              "feedback": "Records assembled after demobilisation are incomplete records. Capture depths, materials and positions as each section closes — the file is built progressively or it's built wrong."
+            }
+          ],
+          "topic": "Reinstatement and handover",
+          "learningNote": "Reinstatement to highway standards is a specified product: materials, layers, compaction, testing, with registration to the authority and a guarantee period. Handover also means the safety information: as-laid line and depth, materials, chamber details and residual risks into the health and safety file — the protection for whoever digs this street next.",
+          "cppSection": "handover",
+          "cppText": {
+            "best": "Handover: permanent reinstatement to highway standards with material and compaction records; completion registered with the highway authority and guarantee period tracked; TM removed in the planned reverse sequence; as-laid records (line, depth, materials, chambers, residual risks) provided to the client and Principal Designer for the health and safety file; compound reinstated and car park returned; defects contact arrangements in place.",
+            "partial": "Interim reinstatement registered with programme for permanent works; records partially assembled.",
+            "poor": "Reinstatement complete but records and registration outstanding.",
+            "unsafe": "Reinstatement uncontrolled — no material or compaction records."
+          }
+        }
+      ]
+    },
+    {
+      "id": "p15",
+      "number": 15,
+      "title": "Final Score and Feedback",
+      "intro": "Works complete, road handed back. Review your performance across every discipline.",
+      "steps": [
+        {
+          "type": "info",
+          "id": "p15-info",
+          "title": "Road handed back",
+          "body": [
+            "The new main is live, the reinstatement is registered and the high street is trading normally over your trench line.",
+            "Your decisions through 16 weeks of street works planning, buried services, trench support, confined space work, traffic management and reinstatement have been assessed across legal compliance, safety control, planning, temporary works, environment, programme and quality.",
+            "Continue to your score report, Construction Phase Plan, registers and trackers — and see how your street works site set-up compared with the model answer."
+          ],
+          "keyPoints": [
+            "Review your missed items report — those are your revision topics",
+            "Download your CPP, TW register and permit selections for tutor discussion",
+            "Try the scenario again and beat your grade"
+          ]
+        }
+      ]
+    }
+  ],
+  "eventPool": [
+    {
+      "type": "decision",
+      "id": "ev3-hv-strike",
+      "isEvent": true,
+      "prompt": "EVENT: A loud bang and flash from the trench — the excavator has clipped the HV cable outside the trial-holed section. The operator is unhurt and still in the cab. The bucket is near the cable.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Keep everyone well clear, tell the operator to stay in the cab unless fire forces him out (and then to jump clear without touching machine and ground together), cordon the area, contact the network operator's emergency line, treat the cable as live, report the dangerous occurrence, and investigate why digging happened outside the proven section.",
+          "quality": "best",
+          "impact": {
+            "safety": 10,
+            "legal": 6,
+            "programme": -2
+          },
+          "feedback": "Correct. The ground and machine may be energised — the cab is the safest place until the network operator makes it dead. A struck HV cable is a RIDDOR dangerous occurrence, and the real finding is why the permit-to-dig boundary was crossed."
+        },
+        {
+          "id": "b",
+          "text": "Have the operator carefully lift the bucket away from the cable and track back before anything else.",
+          "quality": "poor",
+          "impact": {
+            "safety": 1,
+            "incidentLikelihood": 10
+          },
+          "feedback": "Moving the machine risks re-striking or dragging the damaged cable and re-arcing. Nothing moves until the cable is confirmed dead."
+        },
+        {
+          "id": "c",
+          "text": "The flash was the fuse going — it's dead now. Get a photo for the report and carry on in the next bay.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 18,
+            "legal": -3
+          },
+          "feedback": "HV networks re-energise automatically — 'it tripped' can mean 'it's about to try again'. Working adjacent to a damaged HV cable that hasn't been made dead is a fatality risk, and not reporting is an offence.",
+          "criticalFailure": "Work continued adjacent to damaged HV cable without confirmation it was dead"
+        },
+        {
+          "id": "d",
+          "text": "Get the operator out of the cab immediately and away — machines can catch fire after a strike.",
+          "quality": "partial",
+          "impact": {
+            "safety": 4
+          },
+          "feedback": "Right instinct about fire, wrong default: with no fire, the cab is safer than stepping onto potentially energised ground. Evacuating the cab is the exception with its own technique, not the first move."
+        }
+      ],
+      "topic": "HV cable strike response",
+      "learningNote": "On an HV strike: people clear, operator stays in the cab unless fire (then jump clear, feet together, never touching machine and ground at once), cordon, network operator emergency line, treat as live until formally made dead. Report the dangerous occurrence, then investigate the permit and locating failure that let the bucket get there."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-box-lift",
+      "isEvent": true,
+      "prompt": "EVENT: You arrive at the head of the trench as the excavator starts to lift a trench box forward to the next bay — with an operative still in the trench between the box and the face, finishing bedding.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stop the lift immediately, get the operative out via the ladder before anything moves, then reset the rule with the whole gang: nobody in the trench while boxes are lifted, moved or extracted, positive head-count and confirmation between banksman and operator before every box move.",
+          "quality": "best",
+          "impact": {
+            "safety": 10,
+            "temporaryWorks": 4,
+            "legal": 4
+          },
+          "feedback": "Correct. A suspended box over a person in a trench combines a dropped-load hazard with an unsupported face. Stop, extract the person, then fix the communication failure that let the lift start."
+        },
+        {
+          "id": "b",
+          "text": "Let the operator finish repositioning slowly while the operative stands still against the completed pipework.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 18
+          },
+          "feedback": "There is nowhere safe to stand in a trench under a suspended trench box beside a face the box no longer supports. 'Slowly' does not change the physics.",
+          "criticalFailure": "Trench box moved with operative still in the excavation"
+        },
+        {
+          "id": "c",
+          "text": "Stop the lift and give the banksman a written warning on the spot.",
+          "quality": "partial",
+          "impact": {
+            "safety": 5,
+            "morale": -4
+          },
+          "feedback": "Stopping is right, but instant blame before investigation misses the system question — was there ever an agreed exclusion-and-headcount procedure for box moves, and did the RAMS state it?"
+        },
+        {
+          "id": "d",
+          "text": "Say nothing this time — the operative was well clear of the lifting chains and the gang is behind programme.",
+          "quality": "poor",
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 12
+          },
+          "feedback": "What you walk past is the new standard. Next time the operative will be under the box, and everyone will remember the manager who watched."
+        }
+      ],
+      "topic": "Trench box handling — people–plant exclusion",
+      "learningNote": "Trench boxes are moved with the excavation empty of people: agreed sequence, positive communication between banksman and operator, head-count before every lift, and ladder access positioned so getting out is always quick. The moment support moves, the trench is unsupported — treat every box move like a fresh excavation."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-child-crossing",
+      "isEvent": true,
+      "prompt": "EVENT: At 3:20pm a parent reports that a child squeezed through a gap where two pedestrian barriers meet near the school crossing and was steps from the trench edge before being grabbed.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Make the guarding continuous now — interlocked barriers, no gaps a child fits through — then treat it as a near miss: walk the whole pedestrian route at child height, brief the gang and TM crew, add a guarding check before school opening and closing times, and tell the school and the parent what you've changed.",
+          "quality": "best",
+          "impact": {
+            "safety": 10,
+            "planning": 5,
+            "clientConfidence": 4
+          },
+          "feedback": "Correct. Fix the gap, then fix the class of failure — every joint and pinch point along 400 m, checked at the times children are actually there. Closing the loop with the school turns a frightening moment into visible competence."
+        },
+        {
+          "id": "b",
+          "text": "Close the gap and thank the parent — kids will be kids, no harm done.",
+          "quality": "poor",
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 8
+          },
+          "feedback": "You fixed one gap out of dozens of barrier joints on a moving site. Without a systematic check, the same event repeats at the next joint — perhaps without the grab."
+        },
+        {
+          "id": "c",
+          "text": "Station an operative at the crossing as a permanent guard instead of changing the barriers.",
+          "quality": "partial",
+          "impact": {
+            "safety": 4,
+            "cost": 4
+          },
+          "feedback": "A person at school times can be part of the answer, but people look away and go on breaks — physical continuity of guarding is the control; supervision supplements it."
+        },
+        {
+          "id": "d",
+          "text": "Ask the school to keep children on the other side of the road until the job is finished.",
+          "quality": "poor",
+          "impact": {
+            "safety": 1,
+            "clientConfidence": -4
+          },
+          "feedback": "You can't delegate your guarding duty to teachers and parents, and rerouting children across a live road may add risk rather than remove it. Your barriers must work regardless of anyone else's behaviour."
+        }
+      ],
+      "topic": "Public protection — children at street works",
+      "learningNote": "Children are foreseeably drawn to street works, and the law and every authority expect guarding that a child cannot defeat: continuous, interlocked, gap-free barriers with trench covers where needed. Near misses with children get the full treatment — systematic fix, timed checks, school liaison — because the next one may not be a near miss."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-signals-fail",
+      "isEvent": true,
+      "prompt": "EVENT: The portable signals fail at 8am — both heads dark, traffic backing up in both directions, horns going. The foreman offers to 'wave traffic through' while an operative reboots the controller.",
+      "options": [
+        {
+          "id": "a",
+          "text": "No hand-waving of live traffic. Get the trained TM operatives to implement the agreed fallback (manual signal control or stop/go boards by qualified people, positioned safely), call the TM contractor for repair/replacement, pause works that depend on the signals protection, and inform the highway authority if the failure persists.",
+          "quality": "best",
+          "impact": {
+            "safety": 10,
+            "legal": 5,
+            "planning": 4
+          },
+          "feedback": "Correct. Directing live traffic is a trained task with proper equipment and positions — an improvising foreman in the carriageway is a casualty waiting for a distracted driver. The fallback should have been in the TM plan before the signals ever went out."
+        },
+        {
+          "id": "b",
+          "text": "Let the foreman marshal the traffic — he's got a high-vis vest and twenty years on the roads.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 15
+          },
+          "feedback": "Untrained traffic direction in a live carriageway, in rush hour, with frustrated drivers. Vests don't stop cars, and his twenty years were spent behind guarding, not in front of it.",
+          "criticalFailure": "Untrained person directing live traffic in the carriageway"
+        },
+        {
+          "id": "c",
+          "text": "Open both directions to free flow until the signals are fixed — the works are coned off anyway.",
+          "quality": "poor",
+          "impact": {
+            "safety": 1,
+            "incidentLikelihood": 10
+          },
+          "feedback": "Two-way traffic through a single lane with no priority control produces head-on conflicts beside your workforce. The cones guard the trench, not the oncoming traffic."
+        },
+        {
+          "id": "d",
+          "text": "Stop all work and close the road completely until an engineer arrives, whenever that is.",
+          "quality": "partial",
+          "impact": {
+            "safety": 5,
+            "clientConfidence": -5,
+            "programme": -3
+          },
+          "feedback": "Safe for your gang, but an unplanned full closure of a high street without authority agreement causes chaos and may breach your permit. The planned fallback exists so you don't have to choose between unsafe and shut."
+        }
+      ],
+      "topic": "TM equipment failure — fallback arrangements",
+      "learningNote": "Every signals installation needs a planned fallback: qualified manual control or stop/go operation, safe operator positions, and a repair call-out route. Only trained TM operatives control live traffic. If the fallback can't be sustained, the works that rely on that protection stop, and the authority is told."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-trench-flood",
+      "isEvent": true,
+      "prompt": "EVENT: After overnight storms, 40 m of trench is flooded to knee depth and one trench box has visibly dropped at a corner where the bedding has washed out. The gang wants to pump out and get back in — pipes are due at 9am.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Nobody enters. Pump down with discharge through the settlement tank, then have the competent person inspect the trench, the boxes and their bearing before any re-entry — resetting or re-bedding the dropped box from above with the TWS involved. The pipes wait for the inspection, not the other way round.",
+          "quality": "best",
+          "impact": {
+            "safety": 10,
+            "temporaryWorks": 6,
+            "legal": 4,
+            "programme": -2
+          },
+          "feedback": "Correct. Flooding is precisely the 'event affecting stability' that triggers a fresh inspection — washed-out bedding means the box may no longer be supported by what it was checked against. Silty pump-out water still goes through settlement."
+        },
+        {
+          "id": "b",
+          "text": "Pump fast and send the gang in behind the falling water level to save the morning.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 16,
+            "programme": 3
+          },
+          "feedback": "Softened, undermined ground and a dropped box, with people back in before anyone competent has looked at it. Saturated trenches collapse after the water leaves, not just while it's there.",
+          "criticalFailure": "Re-entry to flooded excavation before post-event inspection"
+        },
+        {
+          "id": "c",
+          "text": "Pump out to the gully directly — it's only rainwater, and the settlement tank will take all day.",
+          "quality": "poor",
+          "impact": {
+            "environment": 1,
+            "enforcementRisk": 8
+          },
+          "feedback": "It went in as rainwater; it's coming out as silt-laden trench water. Straight to the gully is a pollution incident on top of your flood."
+        },
+        {
+          "id": "d",
+          "text": "Abandon the flooded section for 48 hours and open a new dig further along instead.",
+          "quality": "partial",
+          "impact": {
+            "safety": 4,
+            "programme": -3,
+            "planning": 2
+          },
+          "feedback": "Cautious, but it leaves a compromised, water-filled excavation unassessed on a public street and doubles your open trench. Inspect, make safe and recover the section — that's what the post-event inspection is for."
+        }
+      ],
+      "topic": "Excavations — flooding and post-event inspection",
+      "learningNote": "After flooding, rain, a strike or adjacent loading: no entry until a competent person has inspected the excavation and its support. Washed-out bedding changes what the boxes are standing on. Pump-out water is silty water — it goes through settlement, never straight to the gully."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-spoil-edge",
+      "isEvent": true,
+      "prompt": "EVENT: A new gang started this morning at the far end of the run. On your walk you find their spoil heaped hard against the trench edge, high side toward the excavation, with the boxes below carrying load they weren't checked for.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stop work in that bay, get everyone out of the trench, move the spoil back to the required stand-off with the machine, have the support re-inspected before re-entry, and then fix the cause — the new gang never had the spoil rule briefed; induct them properly and check the other bays they've worked.",
+          "quality": "best",
+          "impact": {
+            "safety": 10,
+            "temporaryWorks": 5,
+            "planning": 3
+          },
+          "feedback": "Correct. Spoil surcharge at the edge loads the ground and the boxes beyond what was checked and can push the face in below. Clear it, re-inspect, then close the induction gap that caused it — and assume they've done it everywhere they've worked."
+        },
+        {
+          "id": "b",
+          "text": "Have them take the top off the heap so it looks better, and mention stand-off at Friday's toolbox talk.",
+          "quality": "poor",
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 8
+          },
+          "feedback": "Cosmetic trimming leaves surcharge at the edge for four more days. The load is the problem, not the silhouette."
+        },
+        {
+          "id": "c",
+          "text": "It's their trench and their necks — the groundworks contractor's supervisor can sort it when he's next down there.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 14
+          },
+          "feedback": "The PC coordinates and monitors the whole site. Walking past a loaded trench edge with people below it is an abdication that an investigation would quote back to you.",
+          "criticalFailure": "Spoil surcharge against trench edge left uncorrected with operatives below"
+        },
+        {
+          "id": "d",
+          "text": "Order all spoil off site immediately — muck-away every load from now on, no stockpiling at all.",
+          "quality": "partial",
+          "impact": {
+            "safety": 5,
+            "cost": 6,
+            "environment": 2
+          },
+          "feedback": "It removes the hazard but at heavy cost and lorry movements the street doesn't need. The stand-off rule works — the failure was briefing, not the concept of a stockpile."
+        }
+      ],
+      "topic": "Spoil management — surcharge at the excavation edge",
+      "learningNote": "Spoil, materials and plant are kept back from the excavation edge — the stand-off in your RAMS and TW checks exists because surcharge loads the face and the support. New gangs are where rules quietly die: brief them before their first shift and inspect their first day's work."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-notice-discrepancy",
+      "isEvent": true,
+      "prompt": "EVENT: A highway authority street works inspector visits and finds your works 60 m beyond the extent noticed on the current permit — the trench progressed faster than the paperwork. He's writing it up now.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Acknowledge it, cooperate fully, and regularise immediately — vary the permit for the actual extent, hold the head of the works within the permitted length until it's granted, and fix the process: whoever plans the week ahead now checks progress against permitted extent daily.",
+          "quality": "best",
+          "impact": {
+            "legal": 8,
+            "planning": 6,
+            "clientConfidence": 3
+          },
+          "feedback": "Correct. Take the finding, stop compounding it, and repair the coordination the noticing system exists for — it protects other works, bus routes and emergency plans. Handled openly, one defect notice needn't poison the relationship."
+        },
+        {
+          "id": "b",
+          "text": "Argue the toss — the trench line was always going here, so the paperwork is a technicality the inspector should waive.",
+          "quality": "poor",
+          "impact": {
+            "legal": 1,
+            "enforcementRisk": 8,
+            "clientConfidence": -4
+          },
+          "feedback": "The permit extent is the legal basis of your occupation, not a technicality. Arguing with the inspector converts a fixable defect into a hostile file."
+        },
+        {
+          "id": "c",
+          "text": "Keep digging while the variation goes in — stopping the gang costs money and the paperwork will catch up in a day or two.",
+          "quality": "unsafe",
+          "impact": {
+            "legal": 0,
+            "enforcementRisk": 16,
+            "programme": 2
+          },
+          "feedback": "Knowingly continuing outside your permitted extent after being formally told is deliberate unlawful occupation — fixed penalties, potential stop notice, and a client watching its own permit record being damaged.",
+          "criticalFailure": "Continued street works beyond permitted extent after inspector's finding"
+        },
+        {
+          "id": "d",
+          "text": "Pay whatever penalty arrives and treat it as a cost of keeping the programme.",
+          "quality": "partial",
+          "impact": {
+            "legal": 3,
+            "cost": 4
+          },
+          "feedback": "Accepting the sanction without fixing the planning process guarantees the next one — and authorities score utilities and contractors on these records when granting future permits."
+        }
+      ],
+      "topic": "Street works permits — noticing compliance",
+      "learningNote": "The permitted extent, dates and hours are legal limits on your occupation of the highway. Track works progress against the permit daily, vary in advance rather than apologise afterwards, and treat the authority's inspectors as the client for the road — because for the highway, they are."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-diesel-spill",
+      "isEvent": true,
+      "prompt": "EVENT: During refuelling of the excavator in the working lane, the nozzle jams open and several litres of diesel spread across the road surface, running toward the gully five metres away.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stop the transfer and make the container safe, get the spill kit down now — absorbents damming the flow ahead of the gully and the gully sealed with its cover/mat — contain and absorb the rest, dispose of used absorbents as hazardous waste, report it per the environmental plan, and fix refuelling: drip trays, a second person, and refuel positions away from gullies.",
+          "quality": "best",
+          "impact": {
+            "environment": 10,
+            "legal": 4,
+            "safety": 3
+          },
+          "feedback": "Correct. The order is source, pathway, then clean-up: stop the flow, cut the route to the gully, absorb, dispose properly, report, and change the refuelling arrangement that made a jammed nozzle into a near-pollution."
+        },
+        {
+          "id": "b",
+          "text": "Hose the diesel down the gully quickly before it spreads onto the traffic lane and becomes a skid risk.",
+          "quality": "unsafe",
+          "impact": {
+            "environment": 0,
+            "legal": -3,
+            "enforcementRisk": 15
+          },
+          "feedback": "You've just converted a contained spill into a pollution offence in a watercourse. Skid risk is managed with absorbent and signing, never by washing hydrocarbons into surface water drainage.",
+          "criticalFailure": "Fuel spill washed into surface water gully"
+        },
+        {
+          "id": "c",
+          "text": "Throw sand from the reinstatement stockpile over it and get on with the refuel — diesel evaporates.",
+          "quality": "poor",
+          "impact": {
+            "environment": 2,
+            "enforcementRisk": 6
+          },
+          "feedback": "Sand slows it but the gully is still open, the contaminated sand still needs proper disposal, and diesel doesn't meaningfully evaporate — it migrates. And the refuelling set-up that caused this is unchanged."
+        },
+        {
+          "id": "d",
+          "text": "Contain it with the spill kit, then quietly bag the absorbents into the general waste skip to avoid the hazardous waste cost.",
+          "quality": "partial",
+          "impact": {
+            "environment": 5,
+            "legal": 1,
+            "enforcementRisk": 5
+          },
+          "feedback": "Good containment, wrong ending — fuel-soaked absorbents are hazardous waste and misdescribing them into general waste is an offence that turns a well-handled spill into a paperwork prosecution."
+        }
+      ],
+      "topic": "Fuel spill response and refuelling controls",
+      "learningNote": "Spill response order: stop the source, block the pathway (dam ahead of the gully, seal the gully), absorb and contain, dispose of contaminated material as hazardous waste, report and record, then fix the arrangement — drip trays, supervised refuelling, and distance from drainage as the default."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-forged-record",
+      "isEvent": true,
+      "prompt": "EVENT: Ahead of the client's audit you discover the weekend's excavation inspection sheets were all completed this morning — backdated and signed by a supervisor who wasn't on site. He says he was 'just tidying the paperwork up'.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Quarantine the false sheets, record the truth — the weekend inspections were missed — carry out a fresh competent inspection before any re-entry, investigate how the gap and the falsification happened, deal with the supervisor's conduct, and report it up the line.",
+          "quality": "best",
+          "impact": {
+            "legal": 10,
+            "safety": 6,
+            "quality": 4
+          },
+          "feedback": "Correct. Statutory inspection records are legal documents. An honest gap is a management failure you can fix; a forged record is a criminal act that also destroys any defence the company had. The trench is unproven until genuinely inspected."
+        },
+        {
+          "id": "b",
+          "text": "Shred the backdated sheets and start a clean register from today's inspection.",
+          "quality": "poor",
+          "impact": {
+            "legal": 2,
+            "quality": 1,
+            "enforcementRisk": 6
+          },
+          "feedback": "Destroying the evidence compounds the problem — the record should show what actually happened, including the missed inspections and how they were corrected. Concealment reads as cover-up to any investigator."
+        },
+        {
+          "id": "c",
+          "text": "Keep the tidied records for the audit — the trench was probably fine all weekend and the client never checks dates.",
+          "quality": "unsafe",
+          "impact": {
+            "legal": -5,
+            "safety": -3,
+            "enforcementRisk": 20
+          },
+          "feedback": "Making false entries in statutory registers and using forged documents are criminal offences in their own right — unlimited fines and potential imprisonment, as prosecutions following fatalities have shown. 'Probably fine' is not an inspection.",
+          "criticalFailure": "Retained falsified statutory inspection records"
+        },
+        {
+          "id": "d",
+          "text": "Accept the paperwork this once, but re-inspect the trench today before anyone goes back in.",
+          "quality": "partial",
+          "impact": {
+            "legal": 3,
+            "safety": 4
+          },
+          "feedback": "The re-inspection is right — but accepting the false record leaves forged statutory documents in your system and tells the supervisor the practice is tolerated."
+        }
+      ],
+      "topic": "Statutory records — honesty, falsification and legal status",
+      "learningNote": "Inspection registers, permits and RAMS sign-offs are legal documents. Falsifying, forging or making false entries in them is a criminal offence separate from any underlying safety breach — people have gone to prison for altering records after incidents. If a control was missed, record that it was missed, fix it, and fix the system."
+    },
+    {
+      "type": "decision",
+      "id": "ev3-lepto",
+      "isEvent": true,
+      "prompt": "EVENT: A groundworker who spent last week in the flooded trench and around the drainage chamber calls in with a heavy 'flu' — fever, headache, muscle pain. His mate mentions rats around the spoil heap and that the man had a cut hand taped up with insulation tape.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Advise him to see a doctor today and to say he works in drainage/groundwork with possible rat contamination (leptospirosis risk), record it as a possible work-related illness, review controls — cover cuts with proper waterproof dressings, gloves, washing before eating/smoking, baiting the rat problem — and brief the workforce.",
+          "quality": "best",
+          "impact": {
+            "safety": 8,
+            "legal": 6,
+            "morale": 4
+          },
+          "feedback": "Correct. Leptospirosis (Weil's disease) starts like flu and can be fatal if untreated — early treatment depends on the doctor knowing about the occupational exposure. Occupational ill-health needs the same investigate-and-control response as an injury."
+        },
+        {
+          "id": "b",
+          "text": "Tell him to rest up and come back when he feels better — flu goes round every winter.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "legal": 0,
+            "incidentLikelihood": 10
+          },
+          "feedback": "Flu-like symptoms after contact with rat-contaminated water and ground, with broken skin, is the classic leptospirosis presentation. Untreated it can cause organ failure. The occupational link is exactly what a GP needs to hear to test for it.",
+          "criticalFailure": "Dismissed possible occupational disease as ordinary illness"
+        },
+        {
+          "id": "c",
+          "text": "Send the whole gang for blood tests and stop all trench work until results come back.",
+          "quality": "partial",
+          "impact": {
+            "safety": 4,
+            "programme": -4,
+            "cost": 6
+          },
+          "feedback": "Caution is better than dismissal, but a blanket shutdown isn't proportionate — the urgent actions are the sick worker's medical disclosure and fixing the exposure controls for everyone else."
+        },
+        {
+          "id": "d",
+          "text": "Issue a memo reminding everyone to wear gloves.",
+          "quality": "poor",
+          "impact": {
+            "safety": 1,
+            "legal": 1
+          },
+          "feedback": "A memo doesn't help the man who is already ill, doesn't address the rat infestation or hygiene facilities, and gloves alone don't cover the cut-skin and hand-to-mouth routes."
+        }
+      ],
+      "topic": "Occupational health — leptospirosis and contaminated ground",
+      "learningNote": "Ill health kills far more construction workers than accidents do, and much of it starts invisibly. For wet ground, drainage and watercourse work: control rodents, cover cuts with waterproof dressings, provide washing before eating and drinking, and make sure workers tell their doctor what they do — early diagnosis of diseases like leptospirosis depends on it. Treat suspected occupational disease like any incident: record, investigate, improve controls."
+    }
+  ],
+  "modelAnswerNotes": [
+    "No occupation of the highway until street works permits are confirmed; off-highway mobilisation used to protect the programme, and works tracked daily against permitted extent, dates and hours.",
+    "CDM duty holders appointed in writing by the utility client; F10 notified; street works law and CDM run in parallel — neither replaces the other.",
+    "Competence matched to risk: streetworks-qualified operatives and supervisors, trained TM crew, plant tickets, and confined space entry and rescue training verified before those activities.",
+    "Site set-up: compound and everything static in the car park corner; barriered pedestrian diversion on the footway; trench and plant inside the guarded working lane; safety zone never occupied; fuel and silt kept away from the gully; dedicated protection at the school crossing.",
+    "TM treated like temporary works: agreed layout, trained installers, safe set-out/removal sequence, and recorded drive-through/walk-through checks with a planned fallback for signals failure.",
+    "Permit to dig with located services on every break of ground; trial holes and positive identification before any mechanical digging near gas or the HV crossing; everything treated as live until proven otherwise.",
+    "TW register live and moving with the works: trench boxes verified against tabulated data per set-up (standard solution, checked); chamber shaft, gas main support and thrust blocks bespoke with independent checks; hold points at trench entry and permit to load for road plates.",
+    "Permits: dig, confined space, lane occupation, load, electrical isolation/HV proximity, and fusion/hot works — no more, no fewer.",
+    "Excavations inspected at every shift start and after rain, flooding or strikes; chamber entry only under a permit with tested atmosphere, top man and rehearsed retrieval-based rescue.",
+    "Lifting under LOLER: planned lifts, certified accessories, tag lines from outside the trench, nobody in the trench during pipe lowering or box moves, daily recorded quick hitch checks.",
+    "Environment: dewatering through settlement to a consented discharge, gully protection, contaminated spoil tested and segregated with duty-of-care records, spill response drilled, proactive resident and school communication.",
+    "Handover: permanent reinstatement to highway standards with compaction records, completion registered so the guarantee runs, and as-laid depths, materials and residual risks delivered into the health and safety file."
+  ]
+}

@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+}
+
+/* RAG status colours used across dashboards */
+.rag-green { @apply bg-emerald-500; }
+.rag-amber { @apply bg-amber-500; }
+.rag-red { @apply bg-red-500; }
+
+/* Print styles: only the printable report area is emitted */
+@media print {
+  body { background: white !important; color: #111 !important; }
+  .no-print { display: none !important; }
+  .print-area {
+    display: block !important;
+    position: static !important;
+    background: white !important;
+    color: #111 !important;
+  }
+  .print-area * { color: #111 !important; background: transparent !important; border-color: #999 !important; }
+  .print-area h1, .print-area h2, .print-area h3 { color: #000 !important; }
+}

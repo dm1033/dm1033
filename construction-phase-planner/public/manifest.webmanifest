@@ -1,0 +1,18 @@
+{
+  "name": "Construction Phase Planner — SMSTS Safety Challenge",
+  "short_name": "SafeSite Planner",
+  "description": "SMSTS-aligned construction planning and safety training game. Does not replace formal CITB training, assessment or certification.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
