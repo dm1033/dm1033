@@ -63,28 +63,44 @@
               "id": "a",
               "text": "Request the pre-construction information immediately and review it before developing the construction phase plan.",
               "quality": "best",
-              "impact": { "legal": 10, "planning": 8, "programme": 4 },
+              "impact": {
+                "legal": 10,
+                "planning": 8,
+                "programme": 4
+              },
               "feedback": "Correct. The client must provide pre-construction information, and the principal contractor needs it to plan the construction phase properly. Chasing it early protects both safety and programme."
             },
             {
               "id": "b",
               "text": "Start planning from the drawings you already have and pick up the PCI later.",
               "quality": "partial",
-              "impact": { "legal": 3, "planning": 4, "programme": 2 },
+              "impact": {
+                "legal": 3,
+                "planning": 4,
+                "programme": 2
+              },
               "feedback": "You can begin some logistics thinking, but planning without the PCI risks missing known hazards such as buried services, asbestos surveys or site restrictions."
             },
             {
               "id": "c",
               "text": "Assume a site of this size doesn't need formal pre-construction information.",
               "quality": "poor",
-              "impact": { "legal": 0, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 0,
+                "enforcementRisk": 8
+              },
               "feedback": "Incorrect. Pre-construction information is required on every project — it is proportionate, not optional."
             },
             {
               "id": "d",
               "text": "Mobilise now and deal with paperwork once the site is running.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": -5, "enforcementRisk": 15, "incidentLikelihood": 10 },
+              "impact": {
+                "legal": 0,
+                "safety": -5,
+                "enforcementRisk": 15,
+                "incidentLikelihood": 10
+              },
               "feedback": "Unsafe. Mobilising without the project's known hazard information means your team starts work blind. This is how buried services get struck and asbestos gets disturbed.",
               "criticalFailure": "Mobilised without reviewing pre-construction information"
             }
@@ -110,28 +126,41 @@
               "id": "a",
               "text": "Client appoints a principal designer and a principal contractor in writing; the project is notifiable so an F10 is submitted; designers and contractors hold their own duties.",
               "quality": "best",
-              "impact": { "legal": 10, "planning": 6 },
+              "impact": {
+                "legal": 10,
+                "planning": 6
+              },
               "feedback": "Correct. With more than one contractor, the client must appoint a principal designer and principal contractor in writing. Over 30 working days with 20+ workers simultaneously (or 500 person-days) makes the project notifiable to HSE via F10."
             },
             {
               "id": "b",
               "text": "The principal contractor takes on all CDM duties including the client's once the contract is signed.",
               "quality": "poor",
-              "impact": { "legal": 2, "enforcementRisk": 6 },
+              "impact": {
+                "legal": 2,
+                "enforcementRisk": 6
+              },
               "feedback": "Incorrect. Client duties cannot be transferred by contract. Each duty holder retains their own legal responsibilities."
             },
             {
               "id": "c",
               "text": "No appointments are needed because the project is under £2m.",
               "quality": "poor",
-              "impact": { "legal": 0, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 0,
+                "enforcementRisk": 8
+              },
               "feedback": "Incorrect. CDM duty holder appointments depend on the number of contractors and project characteristics, not project value."
             },
             {
               "id": "d",
               "text": "Appointments can wait until the frame starts — groundworks can proceed meanwhile.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": -3, "enforcementRisk": 12 },
+              "impact": {
+                "legal": 0,
+                "safety": -3,
+                "enforcementRisk": 12
+              },
               "feedback": "Unsafe. Without a principal contractor formally appointed, no one legally controls the construction phase — coordination fails exactly when the highest-risk early works happen.",
               "criticalFailure": "Construction started without CDM duty holders formally appointed"
             }
@@ -155,28 +184,43 @@
               "id": "a",
               "text": "Assess organisational capability and individual competence: relevant experience, training records, resources, RAMS quality, and membership/qualification evidence appropriate to the trade.",
               "quality": "best",
-              "impact": { "legal": 8, "safety": 6, "quality": 5 },
+              "impact": {
+                "legal": 8,
+                "safety": 6,
+                "quality": 5
+              },
               "feedback": "Correct. CDM requires those appointing contractors to take reasonable steps to ensure skills, knowledge, experience and organisational capability."
             },
             {
               "id": "b",
               "text": "Accept the cheapest quote if they hold any recognised accreditation logo.",
               "quality": "poor",
-              "impact": { "legal": 2, "quality": 1, "cost": -5 },
+              "impact": {
+                "legal": 2,
+                "quality": 1,
+                "cost": -5
+              },
               "feedback": "Accreditation alone is a starting point, not a competence assessment for this specific scope of work."
             },
             {
               "id": "c",
               "text": "Use the firms the client suggests without further checks — the client knows them.",
               "quality": "poor",
-              "impact": { "legal": 1, "enforcementRisk": 5 },
+              "impact": {
+                "legal": 1,
+                "enforcementRisk": 5
+              },
               "feedback": "The duty to check capability sits with the appointer. A client recommendation does not discharge it."
             },
             {
               "id": "d",
               "text": "Skip checks — they're specialists, they know what they're doing.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": -4, "incidentLikelihood": 8 },
+              "impact": {
+                "legal": 0,
+                "safety": -4,
+                "incidentLikelihood": 8
+              },
               "feedback": "Unsafe. Unverified 'specialists' are a recurring factor in scaffold and steel erection failures.",
               "criticalFailure": "High-risk trade contractors appointed without competence checks"
             }
@@ -208,28 +252,44 @@
               "id": "a",
               "text": "No. Complete the plan so far as reasonably practicable for the initial works, including welfare, emergency and traffic arrangements, before anyone starts on site.",
               "quality": "best",
-              "impact": { "legal": 10, "safety": 8, "planning": 8, "clientConfidence": -3 },
+              "impact": {
+                "legal": 10,
+                "safety": 8,
+                "planning": 8,
+                "clientConfidence": -3
+              },
               "feedback": "Correct. The construction phase must not begin until a suitable CPP is in place and welfare is provided. Explain this to the client — a short pause now prevents enforcement and injury later."
             },
             {
               "id": "b",
               "text": "Start with low-risk activities only and finish the plan in week one.",
               "quality": "partial",
-              "impact": { "legal": 4, "planning": 4, "programme": 3 },
+              "impact": {
+                "legal": 4,
+                "planning": 4,
+                "programme": 3
+              },
               "feedback": "A phased plan is acceptable only if the plan genuinely covers the works being done — but emergency and welfare arrangements are needed from day one, so they cannot wait."
             },
             {
               "id": "c",
               "text": "Start on time — a CPP is only needed for notifiable projects.",
               "quality": "poor",
-              "impact": { "legal": 0, "enforcementRisk": 10 },
+              "impact": {
+                "legal": 0,
+                "enforcementRisk": 10
+              },
               "feedback": "Incorrect. A construction phase plan is required for every construction project, however small."
             },
             {
               "id": "d",
               "text": "Start on time and backdate the plan if anyone asks.",
               "quality": "unsafe",
-              "impact": { "legal": -5, "safety": -5, "enforcementRisk": 20 },
+              "impact": {
+                "legal": -5,
+                "safety": -5,
+                "enforcementRisk": 20
+              },
               "feedback": "Never falsify safety documents. This is a serious legal breach that destroys any defence you might have had.",
               "criticalFailure": "Considered falsifying the construction phase plan"
             }
@@ -253,28 +313,42 @@
               "id": "a",
               "text": "A proportionate plan focused on this site's real risks — public interface, steel erection, lifting, work at height — reviewed and updated as the project develops.",
               "quality": "best",
-              "impact": { "planning": 10, "legal": 6, "quality": 4 },
+              "impact": {
+                "planning": 10,
+                "legal": 6,
+                "quality": 4
+              },
               "feedback": "Correct. A CPP is a working management tool. It should reflect the actual site, name real people, and change when the project changes."
             },
             {
               "id": "b",
               "text": "The company's standard 120-page template, issued as-is to save time.",
               "quality": "poor",
-              "impact": { "planning": 2, "legal": 2 },
+              "impact": {
+                "planning": 2,
+                "legal": 2
+              },
               "feedback": "Generic bulk hides the few pages that matter. Inspectors and courts see straight through unedited templates — and so do your supervisors."
             },
             {
               "id": "c",
               "text": "A one-page plan — this is only a small extension.",
               "quality": "partial",
-              "impact": { "planning": 4, "legal": 3 },
+              "impact": {
+                "planning": 4,
+                "legal": 3
+              },
               "feedback": "Proportionate does not mean minimal. Steel erection, lifting and a live public interface demand a substantive plan."
             },
             {
               "id": "d",
               "text": "Copy the CPP from your last project — it was a similar building.",
               "quality": "poor",
-              "impact": { "planning": 1, "legal": 1, "enforcementRisk": 5 },
+              "impact": {
+                "planning": 1,
+                "legal": 1,
+                "enforcementRisk": 5
+              },
               "feedback": "Every site is different. A copied plan will miss this project's specific hazards, such as the occupied neighbouring building."
             }
           ],
@@ -293,45 +367,399 @@
           "type": "siteSetup",
           "id": "p4-setup",
           "prompt": "Place the site set-up items on the plan. The public road and footpath run along the top; the occupied office building is to the right; the new extension footprint is in the centre. Place every required item where it is safest and most practical.",
-          "grid": { "cols": 12, "rows": 9 },
+          "grid": {
+            "cols": 12,
+            "rows": 9
+          },
           "zones": [
-            { "id": "road", "label": "Public road", "x1": 0, "y1": 0, "x2": 11, "y2": 0, "color": "bg-zinc-600/60", "blocked": true },
-            { "id": "footpath", "label": "Public footpath", "x1": 0, "y1": 1, "x2": 11, "y2": 1, "color": "bg-amber-200/20" },
-            { "id": "boundary", "label": "Site boundary line", "x1": 0, "y1": 2, "x2": 11, "y2": 2, "color": "bg-orange-500/15" },
-            { "id": "entrance", "label": "Site entrance", "x1": 4, "y1": 2, "x2": 6, "y2": 2, "color": "bg-sky-500/25" },
-            { "id": "existing-building", "label": "Occupied office building", "x1": 8, "y1": 3, "x2": 11, "y2": 6, "color": "bg-slate-500/50", "blocked": true },
-            { "id": "new-build", "label": "Extension footprint", "x1": 4, "y1": 3, "x2": 7, "y2": 6, "color": "bg-indigo-500/20" },
-            { "id": "yard-west", "label": "Site yard (west)", "x1": 0, "y1": 3, "x2": 3, "y2": 8, "color": "bg-emerald-500/10" },
-            { "id": "yard-south", "label": "Site yard (south)", "x1": 4, "y1": 7, "x2": 11, "y2": 8, "color": "bg-emerald-500/10" },
-            { "id": "drain", "label": "Surface water drain", "x1": 0, "y1": 8, "x2": 1, "y2": 8, "color": "bg-cyan-500/30" }
+            {
+              "id": "road",
+              "label": "Public road",
+              "x1": 0,
+              "y1": 0,
+              "x2": 11,
+              "y2": 0,
+              "color": "bg-zinc-600/60",
+              "blocked": true
+            },
+            {
+              "id": "footpath",
+              "label": "Public footpath",
+              "x1": 0,
+              "y1": 1,
+              "x2": 11,
+              "y2": 1,
+              "color": "bg-amber-200/20"
+            },
+            {
+              "id": "boundary",
+              "label": "Site boundary line",
+              "x1": 0,
+              "y1": 2,
+              "x2": 11,
+              "y2": 2,
+              "color": "bg-orange-500/15"
+            },
+            {
+              "id": "entrance",
+              "label": "Site entrance",
+              "x1": 4,
+              "y1": 2,
+              "x2": 6,
+              "y2": 2,
+              "color": "bg-sky-500/25"
+            },
+            {
+              "id": "existing-building",
+              "label": "Occupied office building",
+              "x1": 8,
+              "y1": 3,
+              "x2": 11,
+              "y2": 6,
+              "color": "bg-slate-500/50",
+              "blocked": true
+            },
+            {
+              "id": "new-build",
+              "label": "Extension footprint",
+              "x1": 4,
+              "y1": 3,
+              "x2": 7,
+              "y2": 6,
+              "color": "bg-indigo-500/20"
+            },
+            {
+              "id": "yard-west",
+              "label": "Site yard (west)",
+              "x1": 0,
+              "y1": 3,
+              "x2": 3,
+              "y2": 8,
+              "color": "bg-emerald-500/10"
+            },
+            {
+              "id": "yard-south",
+              "label": "Site yard (south)",
+              "x1": 4,
+              "y1": 7,
+              "x2": 11,
+              "y2": 8,
+              "color": "bg-emerald-500/10"
+            },
+            {
+              "id": "drain",
+              "label": "Surface water drain",
+              "x1": 0,
+              "y1": 8,
+              "x2": 1,
+              "y2": 8,
+              "color": "bg-cyan-500/30"
+            }
           ],
           "rules": [
-            { "itemId": "hoarding", "required": true, "goodZones": ["boundary"], "badZones": ["new-build", "road"], "placementNote": "Solid hoarding along the public boundary separates the public from the works." },
-            { "itemId": "gate-vehicle", "required": true, "goodZones": ["entrance"], "badZones": ["footpath", "new-build"], "placementNote": "Vehicle gate at the designated entrance, with visibility of the footpath crossing." },
-            { "itemId": "gate-pedestrian", "required": true, "goodZones": ["entrance", "boundary"], "badZones": ["new-build"], "placementNote": "Separate pedestrian gate so people never enter through the vehicle gate." },
-            { "itemId": "signage", "required": true, "goodZones": ["entrance", "boundary"], "badZones": ["new-build"], "placementNote": "Statutory signage and site rules at the entrance where everyone sees them." },
-            { "itemId": "security", "required": false, "goodZones": ["entrance"], "badZones": [], "placementNote": "Access control at the entrance stops unauthorised entry." },
-            { "itemId": "lighting", "required": false, "goodZones": ["entrance", "yard-west", "yard-south"], "badZones": [], "placementNote": "Lighting to entrance and circulation routes." },
-            { "itemId": "pedestrian-route", "required": true, "goodZones": ["yard-west"], "badZones": ["road", "new-build"], "placementNote": "Segregated pedestrian route from the gate to welfare and the work area." },
-            { "itemId": "vehicle-route", "required": true, "goodZones": ["entrance", "yard-south"], "badZones": ["footpath", "new-build"], "placementNote": "One-way delivery route to laydown, kept clear of the pedestrian route." },
-            { "itemId": "traffic-management", "required": true, "goodZones": ["entrance", "footpath"], "badZones": ["new-build"], "placementNote": "Traffic management (banksman point, barriers, crossing) where vehicles cross the public footpath." },
-            { "itemId": "welfare", "required": true, "goodZones": ["yard-west"], "badZones": ["new-build", "drain", "footpath"], "placementNote": "Welfare near the entrance, on the pedestrian route, away from the works." },
-            { "itemId": "toilets", "required": true, "goodZones": ["yard-west"], "badZones": ["new-build", "footpath"], "placementNote": "Toilets and washing adjacent to the welfare cabin." },
-            { "itemId": "office", "required": true, "goodZones": ["yard-west"], "badZones": ["new-build"], "placementNote": "Site office and induction room near the entrance." },
-            { "itemId": "first-aid", "required": true, "goodZones": ["yard-west"], "badZones": ["new-build"], "placementNote": "First aid point in/next to welfare, clearly signed." },
-            { "itemId": "fire-point", "required": true, "goodZones": ["yard-west", "yard-south"], "badZones": ["drain"], "placementNote": "Fire point on the escape route with alarm, extinguishers and signage." },
-            { "itemId": "muster-point", "required": true, "goodZones": ["yard-west"], "badZones": ["new-build", "road", "existing-building"], "placementNote": "Muster point in open space, away from the building and the crane zone." },
-            { "itemId": "skips", "required": true, "goodZones": ["yard-south"], "badZones": ["footpath", "drain", "new-build"], "placementNote": "Skips on firm ground on the vehicle route, clear of the public boundary." },
-            { "itemId": "material-storage", "required": true, "goodZones": ["yard-south"], "badZones": ["footpath", "new-build", "drain"], "placementNote": "Laydown on the delivery route, not blocking access or escape." },
-            { "itemId": "fuel-storage", "required": true, "goodZones": ["yard-south"], "badZones": ["drain", "footpath", "new-build", "existing-building"], "placementNote": "Bunded fuel storage well away from drains, boundaries and ignition sources." },
-            { "itemId": "spill-kit", "required": true, "goodZones": ["yard-south"], "badZones": [], "placementNote": "Spill kit beside fuel storage and refuelling point." },
-            { "itemId": "drain-protection", "required": true, "goodZones": ["drain"], "badZones": [], "placementNote": "Protect the surface water drain from silt and spills." },
-            { "itemId": "plant-parking", "required": true, "goodZones": ["yard-south"], "badZones": ["footpath", "new-build"], "placementNote": "Plant parked on firm level ground, keys controlled." },
-            { "itemId": "scaffold-zone", "required": true, "goodZones": ["new-build"], "badZones": ["road"], "placementNote": "Scaffold around the extension footprint." },
-            { "itemId": "crane-zone", "required": true, "goodZones": ["new-build", "yard-south"], "badZones": ["road", "footpath", "existing-building"], "placementNote": "Crane position with radius clear of the public and the occupied building." },
-            { "itemId": "excavation-zone", "required": true, "goodZones": ["new-build"], "badZones": ["footpath"], "placementNote": "Pad foundation excavations within the protected work area." },
-            { "itemId": "exclusion-zone", "required": true, "goodZones": ["new-build", "yard-south"], "badZones": [], "placementNote": "Exclusion zone under lifting and steel erection operations." },
-            { "itemId": "public-protection", "required": true, "goodZones": ["footpath", "boundary"], "badZones": [], "placementNote": "Protection (fan/gantry/barriers) where the scaffold and lifting interface with the footpath." }
+            {
+              "itemId": "hoarding",
+              "required": true,
+              "goodZones": [
+                "boundary"
+              ],
+              "badZones": [
+                "new-build",
+                "road"
+              ],
+              "placementNote": "Solid hoarding along the public boundary separates the public from the works."
+            },
+            {
+              "itemId": "gate-vehicle",
+              "required": true,
+              "goodZones": [
+                "entrance"
+              ],
+              "badZones": [
+                "footpath",
+                "new-build"
+              ],
+              "placementNote": "Vehicle gate at the designated entrance, with visibility of the footpath crossing."
+            },
+            {
+              "itemId": "gate-pedestrian",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "boundary"
+              ],
+              "badZones": [
+                "new-build"
+              ],
+              "placementNote": "Separate pedestrian gate so people never enter through the vehicle gate."
+            },
+            {
+              "itemId": "signage",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "boundary"
+              ],
+              "badZones": [
+                "new-build"
+              ],
+              "placementNote": "Statutory signage and site rules at the entrance where everyone sees them."
+            },
+            {
+              "itemId": "security",
+              "required": false,
+              "goodZones": [
+                "entrance"
+              ],
+              "badZones": [],
+              "placementNote": "Access control at the entrance stops unauthorised entry."
+            },
+            {
+              "itemId": "lighting",
+              "required": false,
+              "goodZones": [
+                "entrance",
+                "yard-west",
+                "yard-south"
+              ],
+              "badZones": [],
+              "placementNote": "Lighting to entrance and circulation routes."
+            },
+            {
+              "itemId": "pedestrian-route",
+              "required": true,
+              "goodZones": [
+                "yard-west"
+              ],
+              "badZones": [
+                "road",
+                "new-build"
+              ],
+              "placementNote": "Segregated pedestrian route from the gate to welfare and the work area."
+            },
+            {
+              "itemId": "vehicle-route",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "yard-south"
+              ],
+              "badZones": [
+                "footpath",
+                "new-build"
+              ],
+              "placementNote": "One-way delivery route to laydown, kept clear of the pedestrian route."
+            },
+            {
+              "itemId": "traffic-management",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "footpath"
+              ],
+              "badZones": [
+                "new-build"
+              ],
+              "placementNote": "Traffic management (banksman point, barriers, crossing) where vehicles cross the public footpath."
+            },
+            {
+              "itemId": "welfare",
+              "required": true,
+              "goodZones": [
+                "yard-west"
+              ],
+              "badZones": [
+                "new-build",
+                "drain",
+                "footpath"
+              ],
+              "placementNote": "Welfare near the entrance, on the pedestrian route, away from the works."
+            },
+            {
+              "itemId": "toilets",
+              "required": true,
+              "goodZones": [
+                "yard-west"
+              ],
+              "badZones": [
+                "new-build",
+                "footpath"
+              ],
+              "placementNote": "Toilets and washing adjacent to the welfare cabin."
+            },
+            {
+              "itemId": "office",
+              "required": true,
+              "goodZones": [
+                "yard-west"
+              ],
+              "badZones": [
+                "new-build"
+              ],
+              "placementNote": "Site office and induction room near the entrance."
+            },
+            {
+              "itemId": "first-aid",
+              "required": true,
+              "goodZones": [
+                "yard-west"
+              ],
+              "badZones": [
+                "new-build"
+              ],
+              "placementNote": "First aid point in/next to welfare, clearly signed."
+            },
+            {
+              "itemId": "fire-point",
+              "required": true,
+              "goodZones": [
+                "yard-west",
+                "yard-south"
+              ],
+              "badZones": [
+                "drain"
+              ],
+              "placementNote": "Fire point on the escape route with alarm, extinguishers and signage."
+            },
+            {
+              "itemId": "muster-point",
+              "required": true,
+              "goodZones": [
+                "yard-west"
+              ],
+              "badZones": [
+                "new-build",
+                "road",
+                "existing-building"
+              ],
+              "placementNote": "Muster point in open space, away from the building and the crane zone."
+            },
+            {
+              "itemId": "skips",
+              "required": true,
+              "goodZones": [
+                "yard-south"
+              ],
+              "badZones": [
+                "footpath",
+                "drain",
+                "new-build"
+              ],
+              "placementNote": "Skips on firm ground on the vehicle route, clear of the public boundary."
+            },
+            {
+              "itemId": "material-storage",
+              "required": true,
+              "goodZones": [
+                "yard-south"
+              ],
+              "badZones": [
+                "footpath",
+                "new-build",
+                "drain"
+              ],
+              "placementNote": "Laydown on the delivery route, not blocking access or escape."
+            },
+            {
+              "itemId": "fuel-storage",
+              "required": true,
+              "goodZones": [
+                "yard-south"
+              ],
+              "badZones": [
+                "drain",
+                "footpath",
+                "new-build",
+                "existing-building"
+              ],
+              "placementNote": "Bunded fuel storage well away from drains, boundaries and ignition sources."
+            },
+            {
+              "itemId": "spill-kit",
+              "required": true,
+              "goodZones": [
+                "yard-south"
+              ],
+              "badZones": [],
+              "placementNote": "Spill kit beside fuel storage and refuelling point."
+            },
+            {
+              "itemId": "drain-protection",
+              "required": true,
+              "goodZones": [
+                "drain"
+              ],
+              "badZones": [],
+              "placementNote": "Protect the surface water drain from silt and spills."
+            },
+            {
+              "itemId": "plant-parking",
+              "required": true,
+              "goodZones": [
+                "yard-south"
+              ],
+              "badZones": [
+                "footpath",
+                "new-build"
+              ],
+              "placementNote": "Plant parked on firm level ground, keys controlled."
+            },
+            {
+              "itemId": "scaffold-zone",
+              "required": true,
+              "goodZones": [
+                "new-build"
+              ],
+              "badZones": [
+                "road"
+              ],
+              "placementNote": "Scaffold around the extension footprint."
+            },
+            {
+              "itemId": "crane-zone",
+              "required": true,
+              "goodZones": [
+                "new-build",
+                "yard-south"
+              ],
+              "badZones": [
+                "road",
+                "footpath",
+                "existing-building"
+              ],
+              "placementNote": "Crane position with radius clear of the public and the occupied building."
+            },
+            {
+              "itemId": "excavation-zone",
+              "required": true,
+              "goodZones": [
+                "new-build"
+              ],
+              "badZones": [
+                "footpath"
+              ],
+              "placementNote": "Pad foundation excavations within the protected work area."
+            },
+            {
+              "itemId": "exclusion-zone",
+              "required": true,
+              "goodZones": [
+                "new-build",
+                "yard-south"
+              ],
+              "badZones": [],
+              "placementNote": "Exclusion zone under lifting and steel erection operations."
+            },
+            {
+              "itemId": "public-protection",
+              "required": true,
+              "goodZones": [
+                "footpath",
+                "boundary"
+              ],
+              "badZones": [],
+              "placementNote": "Protection (fan/gantry/barriers) where the scaffold and lifting interface with the footpath."
+            }
           ],
           "topic": "Site set-up and logistics",
           "learningNote": "A good site set-up separates the public from the works, separates vehicles from pedestrians, puts welfare where people enter, keeps fuel away from drains, and gives every high-risk activity its own controlled zone."
@@ -345,28 +773,42 @@
               "id": "a",
               "text": "Scheduled deliveries, a trained traffic marshal controlling the crossing, physical barriers, good visibility, warning signage for the public, and a one-way route inside site.",
               "quality": "best",
-              "impact": { "safety": 10, "planning": 8, "legal": 5 },
+              "impact": {
+                "safety": 10,
+                "planning": 8,
+                "legal": 5
+              },
               "feedback": "Correct. The vehicle/pedestrian interface at the boundary is one of this site's highest risks — it needs positive control, not just signs."
             },
             {
               "id": "b",
               "text": "Warning signs on the footpath and a mirror at the gate.",
               "quality": "partial",
-              "impact": { "safety": 4, "planning": 3 },
+              "impact": {
+                "safety": 4,
+                "planning": 3
+              },
               "feedback": "Signs alone don't control the risk. Members of the public — including children and people with impaired sight or hearing — cannot be relied on to react."
             },
             {
               "id": "c",
               "text": "Tell drivers to take care and sound the horn when crossing the footpath.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "Relying on driver vigilance at a public interface is not a control measure."
             },
             {
               "id": "d",
               "text": "Let vehicles queue on the public road until the gate is free.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 10, "enforcementRisk": 8 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 10,
+                "enforcementRisk": 8
+              },
               "feedback": "Queuing on the live road creates a new hazard for road users and the public and will attract enforcement attention.",
               "criticalFailure": "Uncontrolled vehicle/public interface at site entrance"
             }
@@ -398,28 +840,46 @@
               "id": "a",
               "text": "Provide compliant interim welfare from day one — serviced units or agreed suitable facilities — otherwise no start.",
               "quality": "best",
-              "impact": { "legal": 8, "safety": 4, "morale": 8, "programme": -2 },
+              "impact": {
+                "legal": 8,
+                "safety": 4,
+                "morale": 8,
+                "programme": -2
+              },
               "feedback": "Correct. Toilets, washing with warm water, drinking water, rest facilities and drying space are required from the first day of the construction phase, not from week two."
             },
             {
               "id": "b",
               "text": "Start work; operatives can use the café across the road until day three.",
               "quality": "poor",
-              "impact": { "legal": 1, "morale": -5, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 1,
+                "morale": -5,
+                "enforcementRisk": 8
+              },
               "feedback": "Public facilities you don't control are not compliant welfare provision. This is one of the most common HSE enforcement topics on small sites."
             },
             {
               "id": "c",
               "text": "Start work and hire a single chemical toilet with no washing facilities.",
               "quality": "poor",
-              "impact": { "legal": 2, "morale": -3, "enforcementRisk": 5 },
+              "impact": {
+                "legal": 2,
+                "morale": -3,
+                "enforcementRisk": 5
+              },
               "feedback": "Inadequate. Washing facilities with warm water, soap and drying are required, along with rest facilities and drinking water."
             },
             {
               "id": "d",
               "text": "Delay all work until day three without exploring interim options.",
               "quality": "partial",
-              "impact": { "legal": 6, "programme": 0, "clientConfidence": -5, "cost": 5 },
+              "impact": {
+                "legal": 6,
+                "programme": 0,
+                "clientConfidence": -5,
+                "cost": 5
+              },
               "feedback": "Safe but unimaginative — compliant interim welfare could have protected both people and programme."
             }
           ],
@@ -442,28 +902,42 @@
               "id": "a",
               "text": "Everyone is inducted before first entry, signs in and out daily, competency cards checked, visitors escorted, and the public excluded by secure hoarding and locked gates.",
               "quality": "best",
-              "impact": { "safety": 8, "legal": 6, "planning": 4 },
+              "impact": {
+                "safety": 8,
+                "legal": 6,
+                "planning": 4
+              },
               "feedback": "Correct. Access control is the foundation of site security and emergency roll-call — you must know who is on site at all times."
             },
             {
               "id": "b",
               "text": "Induct workers in their first tea break once they've started work.",
               "quality": "poor",
-              "impact": { "safety": 2, "legal": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 2,
+                "legal": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "Induction must come before exposure to site hazards, not after."
             },
             {
               "id": "c",
               "text": "Signing in for contractors only; the client's staff may walk through as it's their premises.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "The construction site is under your control, not the client's. Client staff on site without induction and escort are unprotected visitors."
             },
             {
               "id": "d",
               "text": "Keep the gate open during working hours for delivery efficiency.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 12 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 12
+              },
               "feedback": "An open, unattended gate next to a public footpath invites unauthorised access, including children.",
               "criticalFailure": "Site left open to unauthorised access"
             }
@@ -487,28 +961,42 @@
               "id": "a",
               "text": "Needs-assessed first aid cover with named first aiders on every shift, signed first aid point, emergency plan covering fire/rescue/serious injury, muster point, and arrangements briefed at induction.",
               "quality": "best",
-              "impact": { "safety": 8, "legal": 6, "planning": 4 },
+              "impact": {
+                "safety": 8,
+                "legal": 6,
+                "planning": 4
+              },
               "feedback": "Correct. Emergency arrangements must exist before the emergency — including rescue from height and contact with the neighbouring building's fire marshal."
             },
             {
               "id": "b",
               "text": "A first aid box in the office and 999 as the plan.",
               "quality": "partial",
-              "impact": { "safety": 3, "legal": 2 },
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
               "feedback": "A first aid box is not first aid provision. You need assessed cover, trained people and a plan for foreseeable emergencies including rescue from height."
             },
             {
               "id": "c",
               "text": "The steel erectors have their own first aider, so the site is covered when they're in.",
               "quality": "poor",
-              "impact": { "safety": 1, "legal": 1 },
+              "impact": {
+                "safety": 1,
+                "legal": 1
+              },
               "feedback": "Cover must exist for everyone on site at all times, not only when one subcontractor is present."
             },
             {
               "id": "d",
               "text": "Deal with emergency planning after the frame is up — that's when the risk starts.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "legal": 0, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 0,
+                "legal": 0,
+                "incidentLikelihood": 8
+              },
               "feedback": "Excavation, deliveries and site set-up all carry serious injury potential. Emergency arrangements are a day-one requirement.",
               "criticalFailure": "No emergency arrangements during early works"
             }
@@ -540,28 +1028,41 @@
               "id": "a",
               "text": "Work at height and steel erection, lifting near the public and the occupied building, vehicle/pedestrian interfaces, excavation collapse and buried services, temporary frame instability.",
               "quality": "best",
-              "impact": { "safety": 8, "planning": 8 },
+              "impact": {
+                "safety": 8,
+                "planning": 8
+              },
               "feedback": "Correct. These are the credible fatal-injury risks on this project, and each needs specific planning, not generic controls."
             },
             {
               "id": "b",
               "text": "Slips and trips, manual handling, dust — the most frequent causes of injury.",
               "quality": "partial",
-              "impact": { "safety": 4, "planning": 3 },
+              "impact": {
+                "safety": 4,
+                "planning": 3
+              },
               "feedback": "These matter and must be managed, but frequency isn't severity — your planning priority goes to the risks that kill."
             },
             {
               "id": "c",
               "text": "Whatever the subcontractors identify in their own RAMS — they own the risk.",
               "quality": "poor",
-              "impact": { "safety": 1, "planning": 1, "legal": 0 },
+              "impact": {
+                "safety": 1,
+                "planning": 1,
+                "legal": 0
+              },
               "feedback": "The principal contractor must plan, manage and coordinate the whole construction phase, including interfaces no single subcontractor sees."
             },
             {
               "id": "d",
               "text": "COSHH and noise — the ones with specific regulations.",
               "quality": "poor",
-              "impact": { "safety": 1, "planning": 1 },
+              "impact": {
+                "safety": 1,
+                "planning": 1
+              },
               "feedback": "Health risks are important, but this misses the immediate fatal risks that dominate this project."
             }
           ],
@@ -588,28 +1089,42 @@
               "id": "a",
               "text": "Site fire plan: hot work permits with fire watch, separation of combustible storage, controlled ignition sources, fire points, alarm, maintained escape routes, coordination with the occupied building's fire arrangements.",
               "quality": "best",
-              "impact": { "safety": 8, "legal": 5, "planning": 5 },
+              "impact": {
+                "safety": 8,
+                "legal": 5,
+                "planning": 5
+              },
               "feedback": "Correct. Fire on a site attached to an occupied building threatens people you can't see. The fire plan must cover both."
             },
             {
               "id": "b",
               "text": "Extinguishers at the fire point and no-smoking signs.",
               "quality": "partial",
-              "impact": { "safety": 3, "legal": 2 },
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
               "feedback": "Equipment without a plan. Fire safety is about preventing ignition, controlling fuel, and ensuring escape — extinguishers are the last line."
             },
             {
               "id": "c",
               "text": "Ban all hot works and require cold techniques regardless of practicality.",
               "quality": "partial",
-              "impact": { "safety": 4, "programme": -3, "cost": 5 },
+              "impact": {
+                "safety": 4,
+                "programme": -3,
+                "cost": 5
+              },
               "feedback": "Eliminating hot works where practical is good hierarchy thinking, but a blanket ban you can't sustain breeds unofficial workarounds — worse than a controlled permit system."
             },
             {
               "id": "d",
               "text": "Leave fire arrangements to each subcontractor doing hot works.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 10 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 10
+              },
               "feedback": "Uncoordinated hot works next to an occupied building is a serious fire risk. The PC owns the site fire plan.",
               "criticalFailure": "No coordinated fire plan next to occupied building"
             }
@@ -641,7 +1156,13 @@
               "id": "a",
               "text": "Allow scaffold erection to start to protect the programme.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "temporaryWorks": 0, "programme": 3, "incidentLikelihood": 15, "clientConfidence": 3 },
+              "impact": {
+                "safety": 0,
+                "temporaryWorks": 0,
+                "programme": 3,
+                "incidentLikelihood": 15,
+                "clientConfidence": 3
+              },
               "feedback": "Unsafe. Erecting scaffold without confirmed design/configuration information has caused collapses onto workers and the public.",
               "criticalFailure": "Scaffold erection allowed without design and handover controls"
             },
@@ -649,21 +1170,34 @@
               "id": "b",
               "text": "Allow work to start but inspect later.",
               "quality": "poor",
-              "impact": { "safety": 1, "temporaryWorks": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "temporaryWorks": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "Inspection after the event cannot retrofit a missing design or competence check. The risk is taken during erection."
             },
             {
               "id": "c",
               "text": "Stop and confirm design/standard solution suitability, RAMS, competence, inspection and handover arrangements before work proceeds.",
               "quality": "best",
-              "impact": { "safety": 10, "temporaryWorks": 10, "legal": 6, "programme": -2, "clientConfidence": -3 },
+              "impact": {
+                "safety": 10,
+                "temporaryWorks": 10,
+                "legal": 6,
+                "programme": -2,
+                "clientConfidence": -3
+              },
               "feedback": "Correct. Work should not proceed until the required information, competence, RAMS, inspection and handover controls are confirmed. Programme pressure must not override safe planning."
             },
             {
               "id": "d",
               "text": "Ask the operatives if they are happy to continue.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "Workers' views matter, but they cannot substitute for design information and management controls — and they may feel pressured to say yes."
             }
           ],
@@ -686,28 +1220,44 @@
               "id": "a",
               "text": "Reject it with specific comments and require a site-specific revision covering erection sequence, temporary stability, lifting plan interface and the occupied building, before steel starts.",
               "quality": "best",
-              "impact": { "safety": 8, "temporaryWorks": 6, "legal": 5, "quality": 4 },
+              "impact": {
+                "safety": 8,
+                "temporaryWorks": 6,
+                "legal": 5,
+                "quality": 4
+              },
               "feedback": "Correct. A method statement that doesn't describe this site cannot brief the workforce or control the risk. Review is a real gate, not a filing exercise."
             },
             {
               "id": "b",
               "text": "Accept it but attach your own conditions in an email.",
               "quality": "partial",
-              "impact": { "safety": 3, "temporaryWorks": 2 },
+              "impact": {
+                "safety": 3,
+                "temporaryWorks": 2
+              },
               "feedback": "Conditions in an email rarely reach the operatives doing the work. The controlling document itself must be right."
             },
             {
               "id": "c",
               "text": "Accept it — the steel contractor is competent and their insurance covers them.",
               "quality": "poor",
-              "impact": { "safety": 1, "legal": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 1,
+                "legal": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "Insurance pays after people are hurt. RAMS review exists to prevent the event."
             },
             {
               "id": "d",
               "text": "Rewrite it yourself tonight so the programme holds.",
               "quality": "poor",
-              "impact": { "safety": 2, "legal": 1, "programme": 2 },
+              "impact": {
+                "safety": 2,
+                "legal": 1,
+                "programme": 2
+              },
               "feedback": "The contractor must own their method — a method statement written by someone else's site manager won't match how their gang actually works."
             }
           ],
@@ -731,28 +1281,41 @@
               "id": "a",
               "text": "Appoint a trained Temporary Works Coordinator (TWC) in writing, maintain a TW register, set design/check categories per item, and enforce permits to load/strike at hold points.",
               "quality": "best",
-              "impact": { "temporaryWorks": 10, "legal": 5, "planning": 4 },
+              "impact": {
+                "temporaryWorks": 10,
+                "legal": 5,
+                "planning": 4
+              },
               "feedback": "Correct. A named, competent TWC operating a register with hold points is the recognised way to manage temporary works risk."
             },
             {
               "id": "b",
               "text": "The site manager keeps an informal list of temporary works in the diary.",
               "quality": "poor",
-              "impact": { "temporaryWorks": 2, "planning": 1 },
+              "impact": {
+                "temporaryWorks": 2,
+                "planning": 1
+              },
               "feedback": "Without formal control and hold points, items get loaded before checks — the classic route to collapse."
             },
             {
               "id": "c",
               "text": "Each subcontractor manages their own temporary works independently.",
               "quality": "poor",
-              "impact": { "temporaryWorks": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "temporaryWorks": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "Temporary works interact — scaffold ties, crane mats and excavations affect each other. Coordination must sit above the individual trades."
             },
             {
               "id": "d",
               "text": "This project is too small to need temporary works procedures.",
               "quality": "unsafe",
-              "impact": { "temporaryWorks": 0, "incidentLikelihood": 10 },
+              "impact": {
+                "temporaryWorks": 0,
+                "incidentLikelihood": 10
+              },
               "feedback": "This project includes scaffold, excavations, crane mats and a steel frame that must be stabilised during erection — all temporary works.",
               "criticalFailure": "No temporary works management arrangements"
             }
@@ -776,56 +1339,120 @@
               "id": "tw-scaffold",
               "name": "Perimeter access scaffold",
               "description": "Two-storey independent tied scaffold around the extension, with loading bay and pavement interface.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "The loading bay and public interface take this beyond a basic standard configuration — it needs a design, an independent check appropriate to its category, handover before use, and statutory inspections."
             },
             {
               "id": "tw-excavation",
               "name": "Pad foundation excavations (2.4 m deep)",
               "description": "Isolated pad excavations for steel bases, plant operating adjacent.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "At 2.4 m with plant surcharge nearby, support or safe battering must be designed, inspected at the start of each shift and after events, with entry controlled."
             },
             {
               "id": "tw-crane-mat",
               "name": "Mobile crane outrigger mats / working platform",
               "description": "Platform and mats for the 100 t mobile crane erecting steel.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Crane standing areas need assessed bearing capacity and designed mats/platform, verified before the crane arrives — a hold point before lifting starts."
             },
             {
               "id": "tw-frame-stability",
               "name": "Steel frame temporary stability",
               "description": "Partially-erected frame stability (temporary bracing, bolt completion, erection sequence).",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat2", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "The erection sequence and temporary bracing must come from the designer/fabricator, with hold points before releasing the crane from each stability-critical piece."
             },
             {
               "id": "tw-edge-protection",
               "name": "Edge protection to first floor decking",
               "description": "Proprietary edge protection to leading edges and perimeter of metal decking.",
-              "correct": { "register": true, "design": "standard-solution", "catCheck": "cat0", "rams": true, "inspection": true, "holdPoint": false, "responsible": "contractor" },
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat0",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "contractor"
+              },
               "explanation": "Proprietary systems installed to the manufacturer's instructions are a standard solution, but they still go on the register and get inspected."
             },
             {
               "id": "tw-hoarding",
               "name": "Public boundary hoarding",
               "description": "2.4 m timber hoarding along the footpath, gates within.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": false, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "TWC"
+              },
               "explanation": "Hoardings adjacent to the public must resist wind and crowd loads — they need design and periodic inspection, especially after high winds."
             },
             {
               "id": "tw-welfare-base",
               "name": "Welfare cabin bases",
               "description": "Standard level base for single-storey cabins on firm ground.",
-              "correct": { "register": true, "design": "standard-solution", "catCheck": "cat0", "rams": false, "inspection": true, "holdPoint": false, "responsible": "contractor" },
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat0",
+                "rams": false,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "contractor"
+              },
               "explanation": "Simple, low-consequence temporary works can use standard solutions — but they still get registered and checked before use."
             },
             {
               "id": "tw-loading-bay",
               "name": "Scaffold loading bay / material hoist base",
               "description": "Loading platform on the scaffold for palletised materials.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Loading bays carry concentrated loads and change the scaffold's design case — designed, checked, signed off before loading, with safe working load displayed."
             }
           ],
@@ -845,16 +1472,47 @@
           "id": "p9-permits",
           "prompt": "Select the permit systems this project genuinely needs. Over-permitting buries supervisors in paperwork; under-permitting leaves lethal tasks uncontrolled.",
           "options": [
-            { "id": "hot-works", "name": "Hot works permit" },
-            { "id": "permit-to-dig", "name": "Permit to dig / break ground" },
-            { "id": "permit-to-load", "name": "Permit to load (temporary works)" },
-            { "id": "lifting-permit", "name": "Crane / lifting operation permit" },
-            { "id": "confined-space", "name": "Confined space entry permit" },
-            { "id": "electrical-isolation", "name": "Electrical isolation permit" },
-            { "id": "roof-access", "name": "Roof / leading edge access permit" },
-            { "id": "demolition-permit", "name": "Demolition permit" }
+            {
+              "id": "hot-works",
+              "name": "Hot works permit"
+            },
+            {
+              "id": "permit-to-dig",
+              "name": "Permit to dig / break ground"
+            },
+            {
+              "id": "permit-to-load",
+              "name": "Permit to load (temporary works)"
+            },
+            {
+              "id": "lifting-permit",
+              "name": "Crane / lifting operation permit"
+            },
+            {
+              "id": "confined-space",
+              "name": "Confined space entry permit"
+            },
+            {
+              "id": "electrical-isolation",
+              "name": "Electrical isolation permit"
+            },
+            {
+              "id": "roof-access",
+              "name": "Roof / leading edge access permit"
+            },
+            {
+              "id": "demolition-permit",
+              "name": "Demolition permit"
+            }
           ],
-          "required": ["hot-works", "permit-to-dig", "permit-to-load", "lifting-permit", "electrical-isolation", "roof-access"],
+          "required": [
+            "hot-works",
+            "permit-to-dig",
+            "permit-to-load",
+            "lifting-permit",
+            "electrical-isolation",
+            "roof-access"
+          ],
           "explanation": "Hot works (welding), breaking ground (buried services), loading temporary works, crane lifts, isolation of the existing building's services at the interface, and leading-edge work all need permit control here. There is no demolition and no confined space work in this scope — adding those permits would be paperwork without purpose.",
           "topic": "Permit to work systems",
           "learningNote": "A permit is a formal check that controls are in place immediately before a high-risk task, with a defined start, duration, and sign-back. Use them where a missed control is likely to be fatal — and keep the system small enough to be run properly.",
@@ -869,28 +1527,42 @@
               "id": "a",
               "text": "Statutory inspections (scaffold 7-day and after alteration/weather; excavations each shift start and after events; lifting equipment thorough examinations in date) plus weekly recorded manager's inspection and daily supervisor checks.",
               "quality": "best",
-              "impact": { "legal": 8, "safety": 6, "quality": 4 },
+              "impact": {
+                "legal": 8,
+                "safety": 6,
+                "quality": 4
+              },
               "feedback": "Correct. Statutory inspections are the legal floor; layered daily/weekly checks are how you actually catch deterioration early."
             },
             {
               "id": "b",
               "text": "Rely on each subcontractor to inspect their own equipment and areas.",
               "quality": "partial",
-              "impact": { "legal": 3, "safety": 2 },
+              "impact": {
+                "legal": 3,
+                "safety": 2
+              },
               "feedback": "Contractors inspect their own kit, but the PC must monitor the site as a whole — interfaces and shared areas fall between contractors."
             },
             {
               "id": "c",
               "text": "A thorough monthly inspection by the visiting safety advisor.",
               "quality": "poor",
-              "impact": { "legal": 2, "safety": 1 },
+              "impact": {
+                "legal": 2,
+                "safety": 1
+              },
               "feedback": "Monthly is far outside statutory frequencies for scaffolds and excavations, and conditions change daily."
             },
             {
               "id": "d",
               "text": "Inspect reactively when something looks wrong.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": 0, "incidentLikelihood": 8 },
+              "impact": {
+                "legal": 0,
+                "safety": 0,
+                "incidentLikelihood": 8
+              },
               "feedback": "Reactive inspection finds defects after they've hurt someone.",
               "criticalFailure": "No planned inspection regime"
             }
@@ -922,28 +1594,41 @@
               "id": "a",
               "text": "Apply the hierarchy: maximise work at ground level, use collective protection first (nets/airbags under leading edges, edge protection), MEWPs for access, harnesses only as last-line backup with a rescue plan.",
               "quality": "best",
-              "impact": { "safety": 10, "legal": 6, "planning": 4 },
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "planning": 4
+              },
               "feedback": "Correct. Collective measures protect everyone without relying on individual behaviour; personal fall arrest is the last resort and demands a rescue plan."
             },
             {
               "id": "b",
               "text": "Issue everyone harnesses and lanyards and brief them to clip on.",
               "quality": "partial",
-              "impact": { "safety": 4, "legal": 2 },
+              "impact": {
+                "safety": 4,
+                "legal": 2
+              },
               "feedback": "Jumping straight to personal protection inverts the hierarchy — and a harness without an anchor strategy and rescue plan is theatre."
             },
             {
               "id": "c",
               "text": "Let the decking gang use their usual method — they do this every week.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "Their 'usual method' is unknown until you've reviewed it against the hierarchy for this building."
             },
             {
               "id": "d",
               "text": "Ladders and mobile towers are enough for a two-storey building.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "Leading-edge decking work from ladders is not a recognised safe method at any height."
             }
           ],
@@ -966,28 +1651,41 @@
               "id": "a",
               "text": "Lift plan by an appointed person, crane and accessory thorough-examination certificates, competent crane supervisor and slinger/signaller, verified standing area, exclusion zone, and agreed limits near the occupied building and footpath.",
               "quality": "best",
-              "impact": { "safety": 10, "legal": 6, "temporaryWorks": 4 },
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "temporaryWorks": 4
+              },
               "feedback": "Correct. Every lifting operation must be planned by a competent appointed person, supervised, and carried out safely — with the public interface designed out of the lift radius."
             },
             {
               "id": "b",
               "text": "The crane hire company sorts all that — it's a contract lift.",
               "quality": "partial",
-              "impact": { "safety": 4, "legal": 3 },
+              "impact": {
+                "safety": 4,
+                "legal": 3
+              },
               "feedback": "A genuine contract lift moves duties to the crane contractor, but you must confirm that's what was bought, coordinate the site interface, exclusion zones and ground conditions — those never transfer."
             },
             {
               "id": "c",
               "text": "The crane operator is experienced — he'll assess it on arrival.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "Lift planning on the morning, by the operator alone, is how cranes end up overturned or overloaded."
             },
             {
               "id": "d",
               "text": "Proceed but keep lifts small if the wind picks up.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 12 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 12
+              },
               "feedback": "Improvised wind rules are not a lift plan. Wind limits come from the crane and load characteristics, set in advance.",
               "criticalFailure": "Lifting operations without a lift plan"
             }
@@ -1004,14 +1702,21 @@
               "id": "a",
               "text": "Treat drawings as a starting point only: CAT and genny scan the area, trial holes/safe digging near any anomalies, permit to dig, and brief the excavator operator on the exclusion rules around any located services.",
               "quality": "best",
-              "impact": { "safety": 8, "legal": 5, "planning": 4 },
+              "impact": {
+                "safety": 8,
+                "legal": 5,
+                "planning": 4
+              },
               "feedback": "Correct. Utility plans are routinely incomplete or inaccurate. Locate, mark, dig trial holes, and control with a permit."
             },
             {
               "id": "b",
               "text": "Proceed with the excavator — the drawings say the area is clear.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 12 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 12
+              },
               "feedback": "Striking an unrecorded cable or main is one of construction's most common serious incidents — drawings alone are never sufficient.",
               "criticalFailure": "Excavation without service location survey"
             },
@@ -1019,14 +1724,21 @@
               "id": "c",
               "text": "Scan with the CAT only if the operator feels something unusual while digging.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "By the time the operator 'feels' a service, it's usually been struck."
             },
             {
               "id": "d",
               "text": "Hand-dig everything to be completely safe, doubling the groundworks duration.",
               "quality": "partial",
-              "impact": { "safety": 5, "programme": -4, "cost": 8 },
+              "impact": {
+                "safety": 5,
+                "programme": -4,
+                "cost": 8
+              },
               "feedback": "Hand-digging everywhere is disproportionate when scanning and trial holes can target the risk — safe digging practice near located services is the balanced answer."
             }
           ],
@@ -1050,28 +1762,41 @@
               "id": "a",
               "text": "Segregated waste streams with licensed carriers and transfer notes, bunded fuel with spill kits and trained users, drain protection, dust suppression, agreed working hours and neighbour communication.",
               "quality": "best",
-              "impact": { "environment": 10, "legal": 5, "planning": 3 },
+              "impact": {
+                "environment": 10,
+                "legal": 5,
+                "planning": 3
+              },
               "feedback": "Correct. Waste duty of care, pollution prevention and nuisance control are all legal duties — and neighbour goodwill protects your programme."
             },
             {
               "id": "b",
               "text": "One mixed skip and a promise to sort waste at the transfer station.",
               "quality": "partial",
-              "impact": { "environment": 4, "cost": 3 },
+              "impact": {
+                "environment": 4,
+                "cost": 3
+              },
               "feedback": "Legal if the carrier is licensed and documented, but wasteful and costly — and it does nothing for dust, water or noise."
             },
             {
               "id": "c",
               "text": "Environmental controls can wait until the envelope stage when the messy trades arrive.",
               "quality": "poor",
-              "impact": { "environment": 1, "enforcementRisk": 6 },
+              "impact": {
+                "environment": 1,
+                "enforcementRisk": 6
+              },
               "feedback": "Groundworks is the highest-pollution-risk stage: silt, fuel and spoil. Controls are needed first, not last."
             },
             {
               "id": "d",
               "text": "Wash out the concrete wagons into the drainage gully — it's only cement.",
               "quality": "unsafe",
-              "impact": { "environment": 0, "enforcementRisk": 15 },
+              "impact": {
+                "environment": 0,
+                "enforcementRisk": 15
+              },
               "feedback": "Concrete washout is highly alkaline and toxic to watercourses. Discharging it to a surface water drain is a pollution offence.",
               "criticalFailure": "Concrete washout discharged to surface water drain"
             }
@@ -1095,28 +1820,42 @@
               "id": "a",
               "text": "Eliminate/reduce cutting by design and ordering, on-tool extraction or water suppression, RPE with face-fit testing as backup, task rotation for vibration, and health surveillance where exposure warrants.",
               "quality": "best",
-              "impact": { "safety": 6, "environment": 4, "legal": 5 },
+              "impact": {
+                "safety": 6,
+                "environment": 4,
+                "legal": 5
+              },
               "feedback": "Correct. Silica dust, noise and vibration cause far more ill-health than accidents cause injury — control at source first, protect the person second, monitor health where required."
             },
             {
               "id": "b",
               "text": "Issue FFP3 masks to everyone in the area.",
               "quality": "partial",
-              "impact": { "safety": 3, "legal": 2 },
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
               "feedback": "RPE without source control, face-fit testing and clean-shaven policy delivers a fraction of its rated protection."
             },
             {
               "id": "c",
               "text": "Dust is short-term on this job — no specific controls needed.",
               "quality": "poor",
-              "impact": { "safety": 0, "legal": 0, "enforcementRisk": 6 },
+              "impact": {
+                "safety": 0,
+                "legal": 0,
+                "enforcementRisk": 6
+              },
               "feedback": "There is no safe level of respirable crystalline silica. Short tasks still cause cumulative disease."
             },
             {
               "id": "d",
               "text": "Do all cutting at 7am before others arrive so fewer people are exposed.",
               "quality": "poor",
-              "impact": { "safety": 1, "morale": -3 },
+              "impact": {
+                "safety": 1,
+                "morale": -3
+              },
               "feedback": "This concentrates unprotected exposure on the cutters and creates a noise nuisance — it controls nothing at source."
             }
           ],
@@ -1141,28 +1880,40 @@
               "id": "a",
               "text": "Escort them out safely, stop deliveries until the gate is controlled, investigate how it happened, fix the control (gate discipline/marshal), and brief the workforce.",
               "quality": "best",
-              "impact": { "safety": 8, "legal": 4, "planning": 3 },
+              "impact": {
+                "safety": 8,
+                "legal": 4,
+                "planning": 3
+              },
               "feedback": "Correct. Treat unauthorised access as a near miss: make safe, then fix the system failure that allowed it — not just this instance."
             },
             {
               "id": "b",
               "text": "Escort them out and remind the gate operative to be careful.",
               "quality": "partial",
-              "impact": { "safety": 3 },
+              "impact": {
+                "safety": 3
+              },
               "feedback": "You removed the person but not the cause. 'Be careful' is not a corrective action."
             },
             {
               "id": "c",
               "text": "Put up an extra 'No unauthorised access' sign at the gate.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 4 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 4
+              },
               "feedback": "The person walked past existing signs. Physical control failed; signage won't fix it."
             },
             {
               "id": "d",
               "text": "No harm done — carry on, it was a one-off.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 10 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 10
+              },
               "feedback": "Children follow the same route the pushchair did. Unauthorised access next to excavations and lifting is a fatality pathway.",
               "criticalFailure": "Ignored unauthorised public access onto site"
             }
@@ -1180,21 +1931,31 @@
               "id": "a",
               "text": "Stop him. Direct washout to the designated lined washout area, protect the drain, and deal with the delay through the concrete supplier.",
               "quality": "best",
-              "impact": { "environment": 8, "legal": 4, "programme": -1 },
+              "impact": {
+                "environment": 8,
+                "legal": 4,
+                "programme": -1
+              },
               "feedback": "Correct. A washout near a surface water drain is a pollution incident waiting one rain shower. The designated facility exists exactly for this."
             },
             {
               "id": "b",
               "text": "Allow it but tell him to put a plastic sheet down first.",
               "quality": "poor",
-              "impact": { "environment": 2, "enforcementRisk": 5 },
+              "impact": {
+                "environment": 2,
+                "enforcementRisk": 5
+              },
               "feedback": "A sheet under a washout near a drain is token protection — alkaline water flows off sheets."
             },
             {
               "id": "c",
               "text": "Allow it this once given the programme pressure; note it in the diary.",
               "quality": "unsafe",
-              "impact": { "environment": 0, "enforcementRisk": 12 },
+              "impact": {
+                "environment": 0,
+                "enforcementRisk": 12
+              },
               "feedback": "Documenting a pollution risk you allowed makes it worse, not better. Pollution offences carry serious penalties.",
               "criticalFailure": "Permitted concrete washout near surface water drain"
             },
@@ -1202,7 +1963,10 @@
               "id": "d",
               "text": "Send the wagon back full and accept the wasted load.",
               "quality": "partial",
-              "impact": { "environment": 5, "cost": 5 },
+              "impact": {
+                "environment": 5,
+                "cost": 5
+              },
               "feedback": "Environmentally safe, but the designated washout was the planned, cheaper answer. Know your own site facilities."
             }
           ],
@@ -1226,28 +1990,45 @@
               "id": "a",
               "text": "Re-plan properly: assess what can genuinely compress (procurement, sequencing, additional supervised resource), model the fatigue and interface risks, and give the client a recovery plan you can supervise safely.",
               "quality": "best",
-              "impact": { "programme": 10, "planning": 6, "safety": 5, "clientConfidence": 5 },
+              "impact": {
+                "programme": 10,
+                "planning": 6,
+                "safety": 5,
+                "clientConfidence": 5
+              },
               "feedback": "Correct. Real programme recovery comes from re-planning, not exhaustion. Overlapping trades under a live frame multiplies interface risk unless it's engineered."
             },
             {
               "id": "b",
               "text": "Agree to the 7-day weeks — the gangs want the overtime anyway.",
               "quality": "poor",
-              "impact": { "programme": 4, "safety": 1, "morale": 3, "incidentLikelihood": 8 },
+              "impact": {
+                "programme": 4,
+                "safety": 1,
+                "morale": 3,
+                "incidentLikelihood": 8
+              },
               "feedback": "Fatigue degrades exactly the vigilance that steel erection and lifting depend on. Willing workers don't make it safe."
             },
             {
               "id": "c",
               "text": "Refuse outright — the programme is the client's problem.",
               "quality": "poor",
-              "impact": { "programme": 1, "clientConfidence": -10 },
+              "impact": {
+                "programme": 1,
+                "clientConfidence": -10
+              },
               "feedback": "Programme is your problem too. Refusing to engage costs the relationship and misses genuinely safe recovery options."
             },
             {
               "id": "d",
               "text": "Quietly drop the decking nets to speed the cycle — the gangs have harnesses.",
               "quality": "unsafe",
-              "impact": { "programme": 3, "safety": -5, "incidentLikelihood": 15 },
+              "impact": {
+                "programme": 3,
+                "safety": -5,
+                "incidentLikelihood": 15
+              },
               "feedback": "Removing collective protection to buy programme is exactly the trade the law and your own plan forbid.",
               "criticalFailure": "Removed collective fall protection under programme pressure"
             }
@@ -1264,28 +2045,41 @@
               "id": "a",
               "text": "Immediate clearance of the fire point, task the supervisors with named actions and deadlines, raise it at the daily briefing, and add housekeeping to the subcontractor progress meetings until it holds.",
               "quality": "best",
-              "impact": { "safety": 8, "quality": 4, "planning": 3 },
+              "impact": {
+                "safety": 8,
+                "quality": 4,
+                "planning": 3
+              },
               "feedback": "Correct. Fix the immediate danger, then assign ownership and follow up through your management routines — standards are set by what you walk past."
             },
             {
               "id": "b",
               "text": "Send an all-site email about housekeeping standards.",
               "quality": "poor",
-              "impact": { "safety": 1 },
+              "impact": {
+                "safety": 1
+              },
               "feedback": "Emails don't move plasterboard. Named actions and follow-up do."
             },
             {
               "id": "c",
               "text": "Hire two labourers to clean up after the trades permanently.",
               "quality": "partial",
-              "impact": { "safety": 4, "cost": 5, "quality": 2 },
+              "impact": {
+                "safety": 4,
+                "cost": 5,
+                "quality": 2
+              },
               "feedback": "It helps, but it also teaches the trades that mess is someone else's job — pair it with accountability."
             },
             {
               "id": "d",
               "text": "Note it for the next monthly report; it's cosmetic.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 8
+              },
               "feedback": "A blocked fire point is not cosmetic. Slips and trips are the biggest cause of injury, and blocked escape kills in fires.",
               "criticalFailure": "Blocked fire point left unaddressed"
             }
@@ -1302,28 +2096,42 @@
               "id": "a",
               "text": "Consult, don't broadcast: short focused toolbox talks tied to current work, act visibly on raised concerns and near misses, involve gangs in method reviews, and feed back what changed because they spoke up.",
               "quality": "best",
-              "impact": { "safety": 6, "morale": 10, "quality": 3 },
+              "impact": {
+                "safety": 6,
+                "morale": 10,
+                "quality": 3
+              },
               "feedback": "Correct. Consultation is a legal duty and your best sensor network — people report what they see acted on."
             },
             {
               "id": "b",
               "text": "A monthly mass briefing covering all safety topics in one session.",
               "quality": "poor",
-              "impact": { "safety": 1, "morale": -2 },
+              "impact": {
+                "safety": 1,
+                "morale": -2
+              },
               "feedback": "One long generic session is retention-free. Short, current, task-linked talks work."
             },
             {
               "id": "c",
               "text": "A reward scheme paying a bonus for zero reported incidents each month.",
               "quality": "poor",
-              "impact": { "safety": 0, "morale": 2, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 0,
+                "morale": 2,
+                "incidentLikelihood": 6
+              },
               "feedback": "Rewarding zero reports suppresses reporting, not incidents. You lose your early warnings."
             },
             {
               "id": "d",
               "text": "Discipline anyone seen breaking a rule — fear keeps standards up.",
               "quality": "poor",
-              "impact": { "safety": 1, "morale": -10 },
+              "impact": {
+                "safety": 1,
+                "morale": -10
+              },
               "feedback": "Fear stops reporting and honest conversation. Fair, consistent responses distinguish violations from system failures."
             }
           ],
@@ -1347,28 +2155,43 @@
               "id": "a",
               "text": "Provide the principal designer with health and safety file information (as-builts, residual risks, maintenance access, materials), complete commissioning and O&M documentation, close out snags, and plan safe demobilisation of the site set-up.",
               "quality": "best",
-              "impact": { "quality": 10, "legal": 6, "planning": 4 },
+              "impact": {
+                "quality": 10,
+                "legal": 6,
+                "planning": 4
+              },
               "feedback": "Correct. The health and safety file protects everyone who maintains, cleans, refurbishes or demolishes this building for decades — it's a legal deliverable, not a courtesy."
             },
             {
               "id": "b",
               "text": "Hand over the keys and send the paperwork on as it gets assembled over the following months.",
               "quality": "poor",
-              "impact": { "quality": 3, "legal": 2, "clientConfidence": -5 },
+              "impact": {
+                "quality": 3,
+                "legal": 2,
+                "clientConfidence": -5
+              },
               "feedback": "Information assembled after the team disperses is incomplete information. Collect it progressively; deliver it at handover."
             },
             {
               "id": "c",
               "text": "The file is the principal designer's job — nothing for you to do.",
               "quality": "poor",
-              "impact": { "quality": 2, "legal": 1 },
+              "impact": {
+                "quality": 2,
+                "legal": 1
+              },
               "feedback": "The PD compiles the file, but the principal contractor must provide the information — the file is only as good as what you feed it."
             },
             {
               "id": "d",
               "text": "Prioritise the finishes the client will see; documentation follows if there's time.",
               "quality": "poor",
-              "impact": { "quality": 3, "clientConfidence": 3, "legal": 1 },
+              "impact": {
+                "quality": 3,
+                "clientConfidence": 3,
+                "legal": 1
+              },
               "feedback": "Cosmetics over content: the residual-risk information is what prevents the next contractor's accident."
             }
           ],
@@ -1419,21 +2242,31 @@
           "id": "a",
           "text": "Stop the dig, treat the duct as live, evacuate and cordon the excavation, and confirm with utility companies/CAT survey before any further work in that area.",
           "quality": "best",
-          "impact": { "safety": 10, "legal": 5, "programme": -2 },
+          "impact": {
+            "safety": 10,
+            "legal": 5,
+            "programme": -2
+          },
           "feedback": "Correct. Unknown services are treated as live until positively identified. A 'plastic duct' can carry HV cables."
         },
         {
           "id": "b",
           "text": "Carefully expose the duct by hand to see what's inside before deciding.",
           "quality": "poor",
-          "impact": { "safety": 2, "incidentLikelihood": 6 },
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 6
+          },
           "feedback": "Hand exposure of an unidentified duct without isolation confirmation still risks cable strike through the duct wall."
         },
         {
           "id": "c",
           "text": "It's plastic and undamaged — log it and keep digging clear of it.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "incidentLikelihood": 12 },
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 12
+          },
           "feedback": "Unidentified means uncontrolled. The next bucket may find the same duct where it isn't visible.",
           "criticalFailure": "Continued excavation after striking unknown service"
         },
@@ -1441,7 +2274,10 @@
           "id": "d",
           "text": "Switch that gang to another excavation and decide tomorrow.",
           "quality": "partial",
-          "impact": { "safety": 4, "programme": 1 },
+          "impact": {
+            "safety": 4,
+            "programme": 1
+          },
           "feedback": "Relocating work is fine, but the discovery still needs immediate reporting, cordoning and identification — other excavations may hold the same unknown run."
         }
       ],
@@ -1458,14 +2294,23 @@
           "id": "a",
           "text": "Prohibit entry, re-inspect the excavation and its support before any decision, pump out only once stability is confirmed, and rebook the pour if needed.",
           "quality": "best",
-          "impact": { "safety": 8, "temporaryWorks": 6, "legal": 4, "programme": -2 },
+          "impact": {
+            "safety": 8,
+            "temporaryWorks": 6,
+            "legal": 4,
+            "programme": -2
+          },
           "feedback": "Correct. Excavations must be inspected after any event likely to affect stability — rain and slumping are exactly that. The pour waits for the ground."
         },
         {
           "id": "b",
           "text": "Pump it out fast and pour on time — concrete will stabilise the base anyway.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "incidentLikelihood": 12, "programme": 3 },
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 12,
+            "programme": 3
+          },
           "feedback": "Sending anyone into a slumping, waterlogged excavation to prep and pour is a burial risk. Concrete does not fix unstable sides.",
           "criticalFailure": "Workers exposed to unstable excavation after weather event"
         },
@@ -1473,14 +2318,21 @@
           "id": "c",
           "text": "Pump out and pour, but tell the gang to work from the edges only.",
           "quality": "poor",
-          "impact": { "safety": 2, "incidentLikelihood": 8 },
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 8
+          },
           "feedback": "Edge loading on slumping sides makes collapse more likely, and 'stay out of the hole' rarely survives contact with a stuck pump line."
         },
         {
           "id": "d",
           "text": "Cancel today's pour and all excavation work for 48 hours as a blanket precaution.",
           "quality": "partial",
-          "impact": { "safety": 5, "programme": -4, "cost": 5 },
+          "impact": {
+            "safety": 5,
+            "programme": -4,
+            "cost": 5
+          },
           "feedback": "Safe but unmeasured — a competent post-event inspection could return stable excavations to work sooner."
         }
       ],
@@ -1497,28 +2349,41 @@
           "id": "a",
           "text": "Quarantine the machine until the current thorough examination certificate and daily check records are produced, and verify the operator's competence card at the same time.",
           "quality": "best",
-          "impact": { "legal": 8, "safety": 6 },
+          "impact": {
+            "legal": 8,
+            "safety": 6
+          },
           "feedback": "Correct. Lifting equipment needs a current thorough examination — no certificate, no use. Arrival is also the moment to verify the operator, not after an incident."
         },
         {
           "id": "b",
           "text": "Let it work today; ask the hire desk to email the certificate this week.",
           "quality": "poor",
-          "impact": { "legal": 2, "incidentLikelihood": 6 },
+          "impact": {
+            "legal": 2,
+            "incidentLikelihood": 6
+          },
           "feedback": "If the examination has lapsed, today is exactly when the defect it would have found gets someone hurt."
         },
         {
           "id": "c",
           "text": "Walk around it yourself — if it looks sound, put it to work.",
           "quality": "poor",
-          "impact": { "legal": 1, "safety": 1 },
+          "impact": {
+            "legal": 1,
+            "safety": 1
+          },
           "feedback": "A visual walk-around cannot substitute for a thorough examination of lifting-critical components."
         },
         {
           "id": "d",
           "text": "Reject the machine and terminate the hire contract on the spot.",
           "quality": "partial",
-          "impact": { "legal": 5, "cost": 4, "programme": -2 },
+          "impact": {
+            "legal": 5,
+            "cost": 4,
+            "programme": -2
+          },
           "feedback": "You've removed the risk, but a phone call usually produces the certificate within the hour — quarantine first, escalate if it doesn't appear."
         }
       ],
@@ -1535,21 +2400,32 @@
           "id": "a",
           "text": "Stop the task, listen to the fogging issue, provide suitable anti-fog/alternative eyewear, and make clear the task doesn't run without eye protection — then follow up that the fix works.",
           "quality": "best",
-          "impact": { "safety": 6, "morale": 5, "legal": 4 },
+          "impact": {
+            "safety": 6,
+            "morale": 5,
+            "legal": 4
+          },
           "feedback": "Correct. Most PPE refusal is a usability problem wearing a defiance mask. Fix the kit, hold the standard."
         },
         {
           "id": "b",
           "text": "Send him home immediately for a disciplinary.",
           "quality": "poor",
-          "impact": { "safety": 2, "morale": -8 },
+          "impact": {
+            "safety": 2,
+            "morale": -8
+          },
           "feedback": "Escalation without investigation loses the workforce and doesn't fix the fogging that the next worker will also face."
         },
         {
           "id": "c",
           "text": "Let him work without them — he's signed a waiver accepting the risk.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "legal": -3, "incidentLikelihood": 8 },
+          "impact": {
+            "safety": 0,
+            "legal": -3,
+            "incidentLikelihood": 8
+          },
           "feedback": "Waivers have no legal effect on your duty. Flying concrete fragments don't respect experience.",
           "criticalFailure": "Allowed high-risk task without required PPE"
         },
@@ -1557,7 +2433,10 @@
           "id": "d",
           "text": "Move him to a different task and let someone else break out.",
           "quality": "partial",
-          "impact": { "safety": 3, "morale": 1 },
+          "impact": {
+            "safety": 3,
+            "morale": 1
+          },
           "feedback": "You've protected him but dodged the standard — the fogging problem and the precedent both remain."
         }
       ],
@@ -1574,14 +2453,22 @@
           "id": "a",
           "text": "Clear and prohibit use of the affected scaffold immediately, get the scaffold contractor to reinstate/re-engineer the ties, require a recorded inspection before reuse, and investigate the control failure with the cladding contractor.",
           "quality": "best",
-          "impact": { "safety": 10, "temporaryWorks": 8, "legal": 4 },
+          "impact": {
+            "safety": 10,
+            "temporaryWorks": 8,
+            "legal": 4
+          },
           "feedback": "Correct. Ties are structural. Unauthorised alteration voids the handover — the scaffold is unproven until reinspected."
         },
         {
           "id": "b",
           "text": "Ask the cladders to put the ties back the way they found them.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "temporaryWorks": 1, "incidentLikelihood": 10 },
+          "impact": {
+            "safety": 0,
+            "temporaryWorks": 1,
+            "incidentLikelihood": 10
+          },
           "feedback": "Cladders are not scaffolders. Structural reinstatement by the wrong trade compounds the failure.",
           "criticalFailure": "Unauthorised scaffold alteration handled without competent reinstatement"
         },
@@ -1589,14 +2476,21 @@
           "id": "c",
           "text": "Log it for the scaffold contractor's weekly visit on Friday.",
           "quality": "poor",
-          "impact": { "safety": 1, "incidentLikelihood": 8 },
+          "impact": {
+            "safety": 1,
+            "incidentLikelihood": 8
+          },
           "feedback": "Four more days of loading on a compromised scaffold is four days of collapse exposure."
         },
         {
           "id": "d",
           "text": "Ban the cladding contractor from site permanently.",
           "quality": "partial",
-          "impact": { "safety": 4, "programme": -3, "morale": -3 },
+          "impact": {
+            "safety": 4,
+            "programme": -3,
+            "morale": -3
+          },
           "feedback": "Accountability matters, but the immediate structural risk and the systemic fix (how do trades request adaptations?) matter more."
         }
       ],
@@ -1613,14 +2507,22 @@
           "id": "a",
           "text": "Stop work in the area at once, seal and sign the area, withdraw and decontaminate as a precaution, and get the material sampled by a competent surveyor before any further disturbance.",
           "quality": "best",
-          "impact": { "safety": 10, "legal": 6, "programme": -2 },
+          "impact": {
+            "safety": 10,
+            "legal": 6,
+            "programme": -2
+          },
           "feedback": "Correct. Suspect it, stop, seal, sample. Insulation board is a licensed-work material if confirmed — disturbance without controls exposes everyone nearby."
         },
         {
           "id": "b",
           "text": "Double-bag the debris carefully and carry on — the survey said this wall was clear.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "legal": -3, "incidentLikelihood": 12 },
+          "impact": {
+            "safety": 0,
+            "legal": -3,
+            "incidentLikelihood": 12
+          },
           "feedback": "The find proves the survey wrong for this location. Continuing spreads fibres through the occupied building's shared spaces.",
           "criticalFailure": "Continued work after discovering suspect asbestos material"
         },
@@ -1628,14 +2530,20 @@
           "id": "c",
           "text": "Ask the joiner to take a photo and email it to the asbestos surveyor for an opinion.",
           "quality": "poor",
-          "impact": { "safety": 2, "incidentLikelihood": 5 },
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 5
+          },
           "feedback": "Asbestos cannot be identified from photographs. The area stays live-risk while emails circulate."
         },
         {
           "id": "d",
           "text": "Stop that task but let adjacent trades continue in the same room to save the day's programme.",
           "quality": "poor",
-          "impact": { "safety": 2, "incidentLikelihood": 6 },
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 6
+          },
           "feedback": "Fibre release doesn't respect task boundaries — the exclusion applies to the area, not the task."
         }
       ],
@@ -1652,14 +2560,21 @@
           "id": "a",
           "text": "Ensure the injured person is cared for, preserve the scene, investigate properly, and report the specified injury under RIDDOR — then act on the investigation findings.",
           "quality": "best",
-          "impact": { "legal": 10, "safety": 6, "morale": 4 },
+          "impact": {
+            "legal": 10,
+            "safety": 6,
+            "morale": 4
+          },
           "feedback": "Correct. A fracture (other than fingers/thumbs/toes) is a specified injury and must be reported. The investigation matters more than the statistic."
         },
         {
           "id": "b",
           "text": "Report it only if HSE happens to ask about the absence.",
           "quality": "unsafe",
-          "impact": { "legal": -5, "enforcementRisk": 15 },
+          "impact": {
+            "legal": -5,
+            "enforcementRisk": 15
+          },
           "feedback": "Failing to report a specified injury is an offence in itself, separate from the accident.",
           "criticalFailure": "Failed to report a RIDDOR specified injury"
         },
@@ -1667,14 +2582,21 @@
           "id": "c",
           "text": "Let the subcontractor decide — it's their employee and their RIDDOR duty.",
           "quality": "partial",
-          "impact": { "legal": 4, "safety": 2 },
+          "impact": {
+            "legal": 4,
+            "safety": 2
+          },
           "feedback": "The reporting duty sits with the injured person's employer, but as PC you must ensure it happens, investigate the site causes, and act on them."
         },
         {
           "id": "d",
           "text": "Record it internally and quietly retrain everyone on ladders next week.",
           "quality": "poor",
-          "impact": { "legal": 2, "safety": 2, "enforcementRisk": 8 },
+          "impact": {
+            "legal": 2,
+            "safety": 2,
+            "enforcementRisk": 8
+          },
           "feedback": "Training without reporting hides the event from the system designed to prevent the next one — and it's non-compliant."
         }
       ],
@@ -1691,21 +2613,29 @@
           "id": "a",
           "text": "Forbid climbing down, keep them calm and secured in the basket, implement the rescue plan — trained ground rescue/auxiliary lowering or the second MEWP — and quarantine the machine afterwards for investigation.",
           "quality": "best",
-          "impact": { "safety": 10, "planning": 4 },
+          "impact": {
+            "safety": 10,
+            "planning": 4
+          },
           "feedback": "Correct. This is why the rescue plan exists. Climbing a boom has killed people the fault never would have."
         },
         {
           "id": "b",
           "text": "Call the fire service and wait — that's what they're for.",
           "quality": "partial",
-          "impact": { "safety": 5 },
+          "impact": {
+            "safety": 5
+          },
           "feedback": "The fire service is a backstop, not a plan — response times leave people stranded and pressure builds to self-rescue. Your own rescue arrangements come first."
         },
         {
           "id": "c",
           "text": "Let the experienced fitter climb down to get help while the other waits.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "incidentLikelihood": 12 },
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 12
+          },
           "feedback": "Unsecured boom climbing at 9 m is a fall from height waiting to happen — and he's abandoned his colleague.",
           "criticalFailure": "Permitted boom climb-down instead of rescue plan"
         },
@@ -1713,12 +2643,70 @@
           "id": "d",
           "text": "Have the telehandler raise a pallet cage alongside so they can step across.",
           "quality": "poor",
-          "impact": { "safety": 1, "incidentLikelihood": 10 },
+          "impact": {
+            "safety": 1,
+            "incidentLikelihood": 10
+          },
           "feedback": "An improvised, non-integrated platform transfer at height replaces one emergency with a worse one."
         }
       ],
       "topic": "MEWPs — rescue planning",
       "learningNote": "Every MEWP operation needs a rescue plan before work starts: trained people on the ground familiar with auxiliary/emergency lowering, and a means of rescue that doesn't rely on the stranded machine. Practise it."
+    },
+    {
+      "type": "decision",
+      "id": "ev-child-trespass",
+      "isEvent": true,
+      "prompt": "EVENT: On Monday morning the police tell you teenagers were seen climbing the hoarding on Saturday night. You find a trainer print halfway up the scaffold and an access ladder left in place over the weekend.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Treat it as a serious near miss: have the scaffold inspected for interference before anyone works from it, remove or board ladder access out of hours, upgrade lighting and security, immobilise plant and secure hazards, and record and brief the findings.",
+          "quality": "best",
+          "impact": {
+            "safety": 8,
+            "legal": 6,
+            "planning": 3
+          },
+          "feedback": "Correct. The site owes duties even to people who enter without permission — and the law expressly expects you to anticipate that children and young people are inquisitive and may trespass. The scaffold is also unproven until inspected after possible interference."
+        },
+        {
+          "id": "b",
+          "text": "Remove the ladder access out of hours and carry on — problem solved.",
+          "quality": "partial",
+          "impact": {
+            "safety": 4,
+            "legal": 2
+          },
+          "feedback": "Removing out-of-hours ladder access is a key control, but you've skipped the post-interference scaffold inspection and the wider security review — plant, materials and excavations are still reachable."
+        },
+        {
+          "id": "c",
+          "text": "Add 'No trespassing — parents will be liable' signs along the hoarding.",
+          "quality": "poor",
+          "impact": {
+            "safety": 1,
+            "legal": 1,
+            "incidentLikelihood": 5
+          },
+          "feedback": "Signs do not discharge the duty and the liability claim on the sign is wrong. Physical security, not warnings, is what protects children who ignore signs."
+        },
+        {
+          "id": "d",
+          "text": "Log the police call and take no further action — trespassers enter at their own risk.",
+          "quality": "unsafe",
+          "impact": {
+            "safety": 0,
+            "legal": -3,
+            "incidentLikelihood": 12,
+            "enforcementRisk": 8
+          },
+          "feedback": "This is the classic misconception. Occupiers owe duties to unauthorised entrants too, and courts expect extra precautions where child trespass is foreseeable — which it now demonstrably is.",
+          "criticalFailure": "Ignored foreseeable child trespass risk after a known incursion"
+        }
+      ],
+      "topic": "Occupiers' liability and site security out of hours",
+      "learningNote": "Duties to people on your site do not stop at lawful visitors — they extend to trespassers, and expressly to children, who must be anticipated to be inquisitive. Secure the obvious attractions: remove or board scaffold access, immobilise plant, lock away substances, light the boundary, and inspect anything that may have been interfered with before it is used again."
     }
   ],
   "modelAnswerNotes": [

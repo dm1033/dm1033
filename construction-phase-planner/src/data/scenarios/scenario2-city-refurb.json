@@ -65,28 +65,45 @@
               "id": "a",
               "text": "Hold all intrusive work. Get the client to commission a refurbishment and demolition asbestos survey for every area to be disturbed, and a structural appraisal to inform the demolition and propping design, before any strip starts.",
               "quality": "best",
-              "impact": { "legal": 10, "safety": 8, "planning": 6 },
+              "impact": {
+                "legal": 10,
+                "safety": 8,
+                "planning": 6
+              },
               "feedback": "Correct. A refurbishment and demolition survey is required before any work that disturbs the fabric of a pre-2000 building, and partial demolition cannot be planned without knowing the structure. Two surveys now prevent exposure, collapse and months of delay later."
             },
             {
               "id": "b",
               "text": "Commission the asbestos survey, but let the structural appraisal wait — the soft strip is only fixtures and fittings.",
               "quality": "partial",
-              "impact": { "legal": 4, "safety": 3, "planning": 2 },
+              "impact": {
+                "legal": 4,
+                "safety": 3,
+                "planning": 2
+              },
               "feedback": "Half right. But strip-out gangs remove partitions, ceilings and screeds that can be doing structural work in an altered 1960s building — and the propping design programme starts with the appraisal, not after the strip."
             },
             {
               "id": "c",
               "text": "Use the landlord's existing management asbestos survey — it's recent and covers the whole building.",
               "quality": "poor",
-              "impact": { "legal": 1, "safety": 1, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 1,
+                "safety": 1,
+                "enforcementRisk": 8
+              },
               "feedback": "A management survey only assesses materials in normal occupation. It does not look inside voids, risers, screeds and ducts — exactly where the strip gangs are going."
             },
             {
               "id": "d",
               "text": "Start the strip now and run the surveys a floor ahead of the gangs to protect the programme.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": -5, "enforcementRisk": 18, "incidentLikelihood": 15 },
+              "impact": {
+                "legal": 0,
+                "safety": -5,
+                "enforcementRisk": 18,
+                "incidentLikelihood": 15
+              },
               "feedback": "Unsafe. Stripping a 1960s building without a refurbishment and demolition survey is one of the most common causes of mass asbestos exposure — and of prosecutions.",
               "criticalFailure": "Soft strip planned to start without a refurbishment and demolition asbestos survey"
             }
@@ -112,28 +129,42 @@
               "id": "a",
               "text": "Client appoints a principal designer and principal contractor in writing; the project is notifiable so an F10 is submitted and displayed; the demolition is planned in writing by competent people before it starts; every designer — including the temporary works designer — holds designer duties.",
               "quality": "best",
-              "impact": { "legal": 10, "planning": 6 },
+              "impact": {
+                "legal": 10,
+                "planning": 6
+              },
               "feedback": "Correct. With more than one contractor the client must make both appointments in writing, the duration and numbers make it notifiable, and demolition or dismantling must be planned and carried out under a written arrangement by competent people."
             },
             {
               "id": "b",
               "text": "The demolition contractor takes over as principal contractor for the demolition period, then hands back.",
               "quality": "poor",
-              "impact": { "legal": 2, "planning": 1, "enforcementRisk": 6 },
+              "impact": {
+                "legal": 2,
+                "planning": 1,
+                "enforcementRisk": 6
+              },
               "feedback": "There is one principal contractor controlling the construction phase. Splitting control mid-project at the highest-risk stage is exactly when coordination fails."
             },
             {
               "id": "c",
               "text": "No F10 is needed — refurbishment doesn't count as construction work.",
               "quality": "poor",
-              "impact": { "legal": 0, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 0,
+                "enforcementRisk": 8
+              },
               "feedback": "Incorrect. Refurbishment, strip-out and demolition are all construction work under CDM, and this project comfortably exceeds the notification thresholds."
             },
             {
               "id": "d",
               "text": "Start the soft strip while the appointments are being finalised — it's low risk.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": -3, "enforcementRisk": 14 },
+              "impact": {
+                "legal": 0,
+                "safety": -3,
+                "enforcementRisk": 14
+              },
               "feedback": "Unsafe. Soft strip in a 1960s building with occupied neighbours is not low risk, and without an appointed principal contractor no one legally controls the phase.",
               "criticalFailure": "Strip-out started without CDM duty holders formally appointed"
             }
@@ -157,28 +188,45 @@
               "id": "a",
               "text": "Verify the asbestos contractor holds a current HSE licence for licensable work, and assess both firms' relevant experience, training records, supervision, RAMS quality and capability for this building — including the demolition contractor's ability to work to an engineered sequence next to retained structure.",
               "quality": "best",
-              "impact": { "legal": 8, "safety": 8, "quality": 4 },
+              "impact": {
+                "legal": 8,
+                "safety": 8,
+                "quality": 4
+              },
               "feedback": "Correct. Licensable asbestos work may only be done by a licensed contractor, and demolition beside retained structure and occupied neighbours demands demonstrated capability, not just a trade name."
             },
             {
               "id": "b",
               "text": "Take the cheapest quotes — both trades are heavily regulated, so anyone trading must be competent.",
               "quality": "poor",
-              "impact": { "legal": 1, "quality": 1, "cost": -5, "incidentLikelihood": 6 },
+              "impact": {
+                "legal": 1,
+                "quality": 1,
+                "cost": -5,
+                "incidentLikelihood": 6
+              },
               "feedback": "Regulation sets a floor, not a guarantee. The cheapest demolition price is often bought by cutting the engineering, the sequence or the supervision."
             },
             {
               "id": "c",
               "text": "Accept accreditation logos on the tender letterheads as sufficient evidence.",
               "quality": "poor",
-              "impact": { "legal": 2, "quality": 1 },
+              "impact": {
+                "legal": 2,
+                "quality": 1
+              },
               "feedback": "Accreditation is a starting point. It doesn't tell you whether this firm can prop, sequence and drop this annexe next to this retained wall."
             },
             {
               "id": "d",
               "text": "Let the strip-out contractor remove the asbestos insulation board as they go — their operatives have asbestos awareness training.",
               "quality": "unsafe",
-              "impact": { "legal": -5, "safety": -5, "enforcementRisk": 20, "incidentLikelihood": 15 },
+              "impact": {
+                "legal": -5,
+                "safety": -5,
+                "enforcementRisk": 20,
+                "incidentLikelihood": 15
+              },
               "feedback": "Unsafe and unlawful. Asbestos awareness training does not permit anyone to remove insulation board — that is licensable work for an HSE-licensed contractor under controlled conditions.",
               "criticalFailure": "Licensable asbestos removal assigned to an unlicensed contractor"
             }
@@ -210,28 +258,45 @@
               "id": "a",
               "text": "No. Complete the plan so far as reasonably practicable for the works being done — welfare, emergency and fire arrangements, public protection and the asbestos sequence — before anyone starts, and develop the demolition detail before that stage.",
               "quality": "best",
-              "impact": { "legal": 10, "safety": 8, "planning": 8, "clientConfidence": -3 },
+              "impact": {
+                "legal": 10,
+                "safety": 8,
+                "planning": 8,
+                "clientConfidence": -3
+              },
               "feedback": "Correct. The construction phase must not start until a suitable plan is in place for the work being carried out. The demolition sections can mature later — the day-one arrangements cannot."
             },
             {
               "id": "b",
               "text": "Start on the 1st with strip crews limited to erecting the hoarding and welfare, and finish the plan in week one.",
               "quality": "partial",
-              "impact": { "legal": 4, "planning": 4, "programme": 3 },
+              "impact": {
+                "legal": 4,
+                "planning": 4,
+                "programme": 3
+              },
               "feedback": "Defensible only if the plan genuinely covers the enabling works being done — and welfare, fire and emergency arrangements are still needed from the first day, not the fifth."
             },
             {
               "id": "c",
               "text": "Issue the company's standard refurbishment template plan unedited so there's 'a plan in place' for day one.",
               "quality": "poor",
-              "impact": { "legal": 2, "planning": 1, "enforcementRisk": 6 },
+              "impact": {
+                "legal": 2,
+                "planning": 1,
+                "enforcementRisk": 6
+              },
               "feedback": "A plan that doesn't mention this building's asbestos, propping, gantry or neighbours won't control any of them. Inspectors read the first three pages and know."
             },
             {
               "id": "d",
               "text": "Start on the 1st and date the completed plan back to the start if anyone asks.",
               "quality": "unsafe",
-              "impact": { "legal": -5, "safety": -5, "enforcementRisk": 20 },
+              "impact": {
+                "legal": -5,
+                "safety": -5,
+                "enforcementRisk": 20
+              },
               "feedback": "Never falsify safety documents. It is a serious breach that destroys your credibility and any legal defence.",
               "criticalFailure": "Considered backdating the construction phase plan"
             }
@@ -258,43 +323,382 @@
           "type": "siteSetup",
           "id": "p4-setup",
           "prompt": "Place the site set-up items. The high street and footpath run along the top — the gantry protects the footpath in front of the building. The building fills the centre with occupied neighbours either side. The rear annexe (to be demolished), the small yard, the service lane and a surface water drain are at the back. Place every required item where it is safest and most practical.",
-          "grid": { "cols": 12, "rows": 9 },
+          "grid": {
+            "cols": 12,
+            "rows": 9
+          },
           "zones": [
-            { "id": "road", "label": "High street (live road)", "x1": 0, "y1": 0, "x2": 11, "y2": 0, "color": "bg-zinc-600/60", "blocked": true },
-            { "id": "footpath", "label": "Public footpath", "x1": 0, "y1": 1, "x2": 11, "y2": 1, "color": "bg-amber-200/20" },
-            { "id": "gantry", "label": "Pavement gantry / licence zone", "x1": 1, "y1": 1, "x2": 10, "y2": 1, "color": "bg-sky-500/25" },
-            { "id": "neighbour-shop", "label": "Occupied shop (west)", "x1": 0, "y1": 2, "x2": 0, "y2": 7, "color": "bg-slate-500/50", "blocked": true },
-            { "id": "neighbour-office", "label": "Occupied offices (east)", "x1": 11, "y1": 2, "x2": 11, "y2": 7, "color": "bg-slate-500/50", "blocked": true },
-            { "id": "building", "label": "Retained building (work area)", "x1": 1, "y1": 2, "x2": 10, "y2": 5, "color": "bg-indigo-500/20" },
-            { "id": "annexe", "label": "Rear annexe (demolition)", "x1": 1, "y1": 6, "x2": 4, "y2": 7, "color": "bg-rose-500/20" },
-            { "id": "yard", "label": "Rear yard (laydown)", "x1": 5, "y1": 6, "x2": 10, "y2": 7, "color": "bg-emerald-500/10" },
-            { "id": "lane", "label": "Rear service lane (shared)", "x1": 0, "y1": 8, "x2": 11, "y2": 8, "color": "bg-zinc-500/30" },
-            { "id": "entrance", "label": "Site gate off the lane", "x1": 5, "y1": 8, "x2": 7, "y2": 8, "color": "bg-sky-500/25" },
-            { "id": "drain", "label": "Surface water drain", "x1": 9, "y1": 8, "x2": 10, "y2": 8, "color": "bg-cyan-500/30" }
+            {
+              "id": "road",
+              "label": "High street (live road)",
+              "x1": 0,
+              "y1": 0,
+              "x2": 11,
+              "y2": 0,
+              "color": "bg-zinc-600/60",
+              "blocked": true
+            },
+            {
+              "id": "footpath",
+              "label": "Public footpath",
+              "x1": 0,
+              "y1": 1,
+              "x2": 11,
+              "y2": 1,
+              "color": "bg-amber-200/20"
+            },
+            {
+              "id": "gantry",
+              "label": "Pavement gantry / licence zone",
+              "x1": 1,
+              "y1": 1,
+              "x2": 10,
+              "y2": 1,
+              "color": "bg-sky-500/25"
+            },
+            {
+              "id": "neighbour-shop",
+              "label": "Occupied shop (west)",
+              "x1": 0,
+              "y1": 2,
+              "x2": 0,
+              "y2": 7,
+              "color": "bg-slate-500/50",
+              "blocked": true
+            },
+            {
+              "id": "neighbour-office",
+              "label": "Occupied offices (east)",
+              "x1": 11,
+              "y1": 2,
+              "x2": 11,
+              "y2": 7,
+              "color": "bg-slate-500/50",
+              "blocked": true
+            },
+            {
+              "id": "building",
+              "label": "Retained building (work area)",
+              "x1": 1,
+              "y1": 2,
+              "x2": 10,
+              "y2": 5,
+              "color": "bg-indigo-500/20"
+            },
+            {
+              "id": "annexe",
+              "label": "Rear annexe (demolition)",
+              "x1": 1,
+              "y1": 6,
+              "x2": 4,
+              "y2": 7,
+              "color": "bg-rose-500/20"
+            },
+            {
+              "id": "yard",
+              "label": "Rear yard (laydown)",
+              "x1": 5,
+              "y1": 6,
+              "x2": 10,
+              "y2": 7,
+              "color": "bg-emerald-500/10"
+            },
+            {
+              "id": "lane",
+              "label": "Rear service lane (shared)",
+              "x1": 0,
+              "y1": 8,
+              "x2": 11,
+              "y2": 8,
+              "color": "bg-zinc-500/30"
+            },
+            {
+              "id": "entrance",
+              "label": "Site gate off the lane",
+              "x1": 5,
+              "y1": 8,
+              "x2": 7,
+              "y2": 8,
+              "color": "bg-sky-500/25"
+            },
+            {
+              "id": "drain",
+              "label": "Surface water drain",
+              "x1": 9,
+              "y1": 8,
+              "x2": 10,
+              "y2": 8,
+              "color": "bg-cyan-500/30"
+            }
           ],
           "rules": [
-            { "itemId": "hoarding", "required": true, "goodZones": ["footpath", "lane"], "badZones": ["road", "building"], "placementNote": "Hoarding on the licensed pavement strip and across the rear yard boundary keeps the public and lane users out of the works." },
-            { "itemId": "gate-vehicle", "required": true, "goodZones": ["entrance"], "badZones": ["footpath", "road", "gantry"], "placementNote": "The only vehicle gate is off the rear service lane — never through the high-street frontage." },
-            { "itemId": "gate-pedestrian", "required": true, "goodZones": ["entrance", "lane"], "badZones": ["road", "gantry"], "placementNote": "A separate pedestrian gate off the lane so operatives never enter with vehicles." },
-            { "itemId": "signage", "required": true, "goodZones": ["entrance", "footpath"], "badZones": ["building"], "placementNote": "Statutory signage at the gate, plus public information on the hoarding and gantry." },
-            { "itemId": "pedestrian-route", "required": true, "goodZones": ["yard", "lane"], "badZones": ["road", "annexe"], "placementNote": "A marked route from the gate to welfare and the building entrance, clear of the demolition zone and vehicle standing area." },
-            { "itemId": "vehicle-route", "required": false, "goodZones": ["lane", "yard"], "badZones": ["footpath", "gantry", "annexe"], "placementNote": "Deliveries come along the lane into the yard, marshalled — never over the footpath." },
-            { "itemId": "traffic-management", "required": true, "goodZones": ["entrance", "lane"], "badZones": ["building"], "placementNote": "A marshal controls the shared lane at the gate — the neighbours' vehicles and pedestrians use it too." },
-            { "itemId": "welfare", "required": true, "goodZones": ["yard", "building"], "badZones": ["annexe", "footpath", "lane"], "placementNote": "Stacked welfare units in the yard, or an early-established ground-floor welfare area kept clear of strip works — never in the demolition zone or blocking the lane." },
-            { "itemId": "toilets", "required": true, "goodZones": ["yard", "building"], "badZones": ["annexe", "footpath"], "placementNote": "Toilets and washing with the welfare, connected and maintained." },
-            { "itemId": "office", "required": false, "goodZones": ["yard", "building"], "badZones": ["annexe"], "placementNote": "Site office and induction room by the gate route, where everyone passes it." },
-            { "itemId": "first-aid", "required": true, "goodZones": ["yard", "building"], "badZones": ["annexe"], "placementNote": "First aid point at welfare, signed, with trauma provision for demolition works." },
-            { "itemId": "fire-point", "required": true, "goodZones": ["building", "yard", "entrance"], "badZones": ["annexe"], "placementNote": "Fire points at the building exits and stair cores — escape routes through a stripped building must stay protected." },
-            { "itemId": "muster-point", "required": true, "goodZones": ["lane", "yard"], "badZones": ["building", "annexe", "road"], "placementNote": "Muster in the lane or open yard, agreed with the neighbours, clear of the building and the demolition zone." },
-            { "itemId": "skips", "required": true, "goodZones": ["yard"], "badZones": ["footpath", "gantry", "drain", "lane"], "placementNote": "Segregated skips in the yard — a skip in the lane blocks the neighbours' access and the fire brigade." },
-            { "itemId": "material-storage", "required": false, "goodZones": ["yard"], "badZones": ["footpath", "gantry", "annexe"], "placementNote": "Laydown is tiny — just-in-time deliveries, with what must be stored kept in the yard." },
-            { "itemId": "gas-storage", "required": true, "goodZones": ["yard"], "badZones": ["building", "annexe", "footpath"], "placementNote": "Gas bottles for hot works live in a locked external cage in the yard, never inside the stripped building overnight." },
-            { "itemId": "scaffold-zone", "required": true, "goodZones": ["building"], "badZones": ["road"], "placementNote": "Sheeted perimeter scaffold on the retained building, founded through the gantry at the front." },
-            { "itemId": "exclusion-zone", "required": true, "goodZones": ["annexe"], "badZones": [], "placementNote": "A hard exclusion zone around the annexe demolition — nobody inside it while the machine works." },
-            { "itemId": "public-protection", "required": true, "goodZones": ["gantry", "footpath"], "badZones": [], "placementNote": "The gantry and fans protect the footpath from falling material — the single most important protection on this site." },
-            { "itemId": "dust-suppression", "required": true, "goodZones": ["annexe", "yard"], "badZones": [], "placementNote": "Water suppression at the demolition face and the loading point, before dust reaches the neighbours." },
-            { "itemId": "noise-barrier", "required": false, "goodZones": ["annexe", "yard"], "badZones": [], "placementNote": "Acoustic screens and a noise monitor between the demolition and the occupied offices." },
-            { "itemId": "drain-protection", "required": false, "goodZones": ["drain"], "badZones": [], "placementNote": "Protect the lane drain from silt-laden water and washdown." }
+            {
+              "itemId": "hoarding",
+              "required": true,
+              "goodZones": [
+                "footpath",
+                "lane"
+              ],
+              "badZones": [
+                "road",
+                "building"
+              ],
+              "placementNote": "Hoarding on the licensed pavement strip and across the rear yard boundary keeps the public and lane users out of the works."
+            },
+            {
+              "itemId": "gate-vehicle",
+              "required": true,
+              "goodZones": [
+                "entrance"
+              ],
+              "badZones": [
+                "footpath",
+                "road",
+                "gantry"
+              ],
+              "placementNote": "The only vehicle gate is off the rear service lane — never through the high-street frontage."
+            },
+            {
+              "itemId": "gate-pedestrian",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "lane"
+              ],
+              "badZones": [
+                "road",
+                "gantry"
+              ],
+              "placementNote": "A separate pedestrian gate off the lane so operatives never enter with vehicles."
+            },
+            {
+              "itemId": "signage",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "footpath"
+              ],
+              "badZones": [
+                "building"
+              ],
+              "placementNote": "Statutory signage at the gate, plus public information on the hoarding and gantry."
+            },
+            {
+              "itemId": "pedestrian-route",
+              "required": true,
+              "goodZones": [
+                "yard",
+                "lane"
+              ],
+              "badZones": [
+                "road",
+                "annexe"
+              ],
+              "placementNote": "A marked route from the gate to welfare and the building entrance, clear of the demolition zone and vehicle standing area."
+            },
+            {
+              "itemId": "vehicle-route",
+              "required": false,
+              "goodZones": [
+                "lane",
+                "yard"
+              ],
+              "badZones": [
+                "footpath",
+                "gantry",
+                "annexe"
+              ],
+              "placementNote": "Deliveries come along the lane into the yard, marshalled — never over the footpath."
+            },
+            {
+              "itemId": "traffic-management",
+              "required": true,
+              "goodZones": [
+                "entrance",
+                "lane"
+              ],
+              "badZones": [
+                "building"
+              ],
+              "placementNote": "A marshal controls the shared lane at the gate — the neighbours' vehicles and pedestrians use it too."
+            },
+            {
+              "itemId": "welfare",
+              "required": true,
+              "goodZones": [
+                "yard",
+                "building"
+              ],
+              "badZones": [
+                "annexe",
+                "footpath",
+                "lane"
+              ],
+              "placementNote": "Stacked welfare units in the yard, or an early-established ground-floor welfare area kept clear of strip works — never in the demolition zone or blocking the lane."
+            },
+            {
+              "itemId": "toilets",
+              "required": true,
+              "goodZones": [
+                "yard",
+                "building"
+              ],
+              "badZones": [
+                "annexe",
+                "footpath"
+              ],
+              "placementNote": "Toilets and washing with the welfare, connected and maintained."
+            },
+            {
+              "itemId": "office",
+              "required": false,
+              "goodZones": [
+                "yard",
+                "building"
+              ],
+              "badZones": [
+                "annexe"
+              ],
+              "placementNote": "Site office and induction room by the gate route, where everyone passes it."
+            },
+            {
+              "itemId": "first-aid",
+              "required": true,
+              "goodZones": [
+                "yard",
+                "building"
+              ],
+              "badZones": [
+                "annexe"
+              ],
+              "placementNote": "First aid point at welfare, signed, with trauma provision for demolition works."
+            },
+            {
+              "itemId": "fire-point",
+              "required": true,
+              "goodZones": [
+                "building",
+                "yard",
+                "entrance"
+              ],
+              "badZones": [
+                "annexe"
+              ],
+              "placementNote": "Fire points at the building exits and stair cores — escape routes through a stripped building must stay protected."
+            },
+            {
+              "itemId": "muster-point",
+              "required": true,
+              "goodZones": [
+                "lane",
+                "yard"
+              ],
+              "badZones": [
+                "building",
+                "annexe",
+                "road"
+              ],
+              "placementNote": "Muster in the lane or open yard, agreed with the neighbours, clear of the building and the demolition zone."
+            },
+            {
+              "itemId": "skips",
+              "required": true,
+              "goodZones": [
+                "yard"
+              ],
+              "badZones": [
+                "footpath",
+                "gantry",
+                "drain",
+                "lane"
+              ],
+              "placementNote": "Segregated skips in the yard — a skip in the lane blocks the neighbours' access and the fire brigade."
+            },
+            {
+              "itemId": "material-storage",
+              "required": false,
+              "goodZones": [
+                "yard"
+              ],
+              "badZones": [
+                "footpath",
+                "gantry",
+                "annexe"
+              ],
+              "placementNote": "Laydown is tiny — just-in-time deliveries, with what must be stored kept in the yard."
+            },
+            {
+              "itemId": "gas-storage",
+              "required": true,
+              "goodZones": [
+                "yard"
+              ],
+              "badZones": [
+                "building",
+                "annexe",
+                "footpath"
+              ],
+              "placementNote": "Gas bottles for hot works live in a locked external cage in the yard, never inside the stripped building overnight."
+            },
+            {
+              "itemId": "scaffold-zone",
+              "required": true,
+              "goodZones": [
+                "building"
+              ],
+              "badZones": [
+                "road"
+              ],
+              "placementNote": "Sheeted perimeter scaffold on the retained building, founded through the gantry at the front."
+            },
+            {
+              "itemId": "exclusion-zone",
+              "required": true,
+              "goodZones": [
+                "annexe"
+              ],
+              "badZones": [],
+              "placementNote": "A hard exclusion zone around the annexe demolition — nobody inside it while the machine works."
+            },
+            {
+              "itemId": "public-protection",
+              "required": true,
+              "goodZones": [
+                "gantry",
+                "footpath"
+              ],
+              "badZones": [],
+              "placementNote": "The gantry and fans protect the footpath from falling material — the single most important protection on this site."
+            },
+            {
+              "itemId": "dust-suppression",
+              "required": true,
+              "goodZones": [
+                "annexe",
+                "yard"
+              ],
+              "badZones": [],
+              "placementNote": "Water suppression at the demolition face and the loading point, before dust reaches the neighbours."
+            },
+            {
+              "itemId": "noise-barrier",
+              "required": false,
+              "goodZones": [
+                "annexe",
+                "yard"
+              ],
+              "badZones": [],
+              "placementNote": "Acoustic screens and a noise monitor between the demolition and the occupied offices."
+            },
+            {
+              "itemId": "drain-protection",
+              "required": false,
+              "goodZones": [
+                "drain"
+              ],
+              "badZones": [],
+              "placementNote": "Protect the lane drain from silt-laden water and washdown."
+            }
           ],
           "topic": "Constrained city-centre site set-up",
           "learningNote": "On a tight urban site the set-up is mostly about interfaces: gantry and hoarding between the works and the public, a marshalled gate on the shared lane, welfare and storage squeezed into the yard or the building, gas and waste never left where they threaten escape routes or neighbours."
@@ -308,28 +712,43 @@
               "id": "a",
               "text": "Booked delivery slots agreed around the neighbours' needs, a trained marshal controlling every vehicle movement in the lane, no waiting or queuing on the high street, the lane and fire escape discharges kept clear at all times, and reversing eliminated or banksman-controlled.",
               "quality": "best",
-              "impact": { "safety": 10, "planning": 8, "legal": 4 },
+              "impact": {
+                "safety": 10,
+                "planning": 8,
+                "legal": 4
+              },
               "feedback": "Correct. A shared lane with pedestrians, neighbour deliveries and fire escapes is a live traffic interface — it needs positive control and cooperation, not first-come-first-served."
             },
             {
               "id": "b",
               "text": "Put up 'construction traffic' signs in the lane and tell drivers to give way to the neighbours.",
               "quality": "partial",
-              "impact": { "safety": 4, "planning": 3 },
+              "impact": {
+                "safety": 4,
+                "planning": 3
+              },
               "feedback": "Signs don't marshal a 26-tonne grab lorry past a shop's fire escape. The lane needs a person and a booking system, not just signage."
             },
             {
               "id": "c",
               "text": "Take deliveries over the footpath at the front — it's quicker than negotiating the lane.",
               "quality": "poor",
-              "impact": { "safety": 1, "planning": 1, "enforcementRisk": 8 },
+              "impact": {
+                "safety": 1,
+                "planning": 1,
+                "enforcementRisk": 8
+              },
               "feedback": "Craning and barrowing over a live city footpath outside your licence conditions puts the public directly under the work and will bring the authority to your gate."
             },
             {
               "id": "d",
               "text": "Let wagons wait on the high street until the lane is free.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 10, "enforcementRisk": 10 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 10,
+                "enforcementRisk": 10
+              },
               "feedback": "Queuing heavy vehicles on a live high street beside a busy footpath creates a hazard for everyone and invites immediate enforcement.",
               "criticalFailure": "Uncontrolled construction traffic on the live high street"
             }
@@ -361,28 +780,45 @@
               "id": "a",
               "text": "Double-stacked serviced units in the yard, or an early-established welfare area on the building's ground floor — surveyed, cleared and separated from strip works — with toilets, warm washing water, drying, rest and drinking water from the first day.",
               "quality": "best",
-              "impact": { "legal": 8, "planning": 6, "morale": 8 },
+              "impact": {
+                "legal": 8,
+                "planning": 6,
+                "morale": 8
+              },
               "feedback": "Correct. Constrained sites stack units or use the building itself. What never changes is the standard: full welfare from day one, kept clean and clear of dust and strip operations."
             },
             {
               "id": "b",
               "text": "Agree with the client's facilities manager that operatives use the public toilets in the shopping arcade for the first month.",
               "quality": "poor",
-              "impact": { "legal": 1, "morale": -5, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 1,
+                "morale": -5,
+                "enforcementRisk": 8
+              },
               "feedback": "Public facilities you don't control are not compliant provision — and welfare complaints are one of the fastest routes to an inspector's visit on urban sites."
             },
             {
               "id": "c",
               "text": "One chemical toilet in the yard until the strip clears space inside.",
               "quality": "poor",
-              "impact": { "legal": 2, "morale": -3, "enforcementRisk": 5 },
+              "impact": {
+                "legal": 2,
+                "morale": -3,
+                "enforcementRisk": 5
+              },
               "feedback": "Inadequate. Washing with warm water, rest, drying and drinking water are required alongside toilets — dusty strip work makes washing provision more important, not less."
             },
             {
               "id": "d",
               "text": "Delay the start a fortnight until strip-out creates a welfare floor.",
               "quality": "partial",
-              "impact": { "legal": 6, "programme": 0, "clientConfidence": -5, "cost": 5 },
+              "impact": {
+                "legal": 6,
+                "programme": 0,
+                "clientConfidence": -5,
+                "cost": 5
+              },
               "feedback": "Compliant but avoidable — stacked units or an enabling-works clearance of one ground-floor area would have protected programme and people."
             }
           ],
@@ -405,28 +841,42 @@
               "id": "a",
               "text": "An emergency plan covering fire in a partially stripped building, structural collapse, asbestos release, injury on the scaffold or gantry, and a public incident at the frontage — with maintained escape from every occupied floor, needs-assessed first aid on every shift, a muster point agreed with the neighbours, and fire service access via the lane kept clear.",
               "quality": "best",
-              "impact": { "safety": 10, "legal": 6, "planning": 4 },
+              "impact": {
+                "safety": 10,
+                "legal": 6,
+                "planning": 4
+              },
               "feedback": "Correct. In refurbishment the emergencies to plan for are the building's: fire with compromised compartmentation, collapse, and asbestos release. The plan must also work for the people next door."
             },
             {
               "id": "b",
               "text": "First aid box in the office, 999 as the plan, and the building's old fire alarm which is still connected.",
               "quality": "partial",
-              "impact": { "safety": 3, "legal": 2 },
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
               "feedback": "The existing alarm will be progressively stripped and isolated — you need a temporary alarm that survives the strip, plus assessed first aid and a real plan for collapse and asbestos scenarios."
             },
             {
               "id": "c",
               "text": "The demolition contractor's emergency procedures will cover the site during the demolition period.",
               "quality": "poor",
-              "impact": { "safety": 1, "legal": 1 },
+              "impact": {
+                "safety": 1,
+                "legal": 1
+              },
               "feedback": "Their procedures cover their work. Fire, collapse and public incidents involve the whole site and the neighbours — the principal contractor owns that plan."
             },
             {
               "id": "d",
               "text": "Finalise the emergency arrangements once the strip is done and the building is 'a clean shell'.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "legal": 0, "incidentLikelihood": 10 },
+              "impact": {
+                "safety": 0,
+                "legal": 0,
+                "incidentLikelihood": 10
+              },
               "feedback": "The strip period is the highest fire-load, most-confused phase of the whole job — waste, hot works, changing escape routes. That is when the plan is needed most.",
               "criticalFailure": "No emergency arrangements during the strip-out phase"
             }
@@ -458,28 +908,40 @@
               "id": "a",
               "text": "Structural instability during demolition and alteration; asbestos disturbance; fire in the partially stripped building; falling materials onto the footpath and neighbours; scaffold and gantry failure; live and unknown building services.",
               "quality": "best",
-              "impact": { "safety": 8, "planning": 8 },
+              "impact": {
+                "safety": 8,
+                "planning": 8
+              },
               "feedback": "Correct. These are the credible multiple-fatality risks on this project — and several of them threaten people outside your hoarding, which raises the stakes further."
             },
             {
               "id": "b",
               "text": "Slips and trips, manual handling and hand-arm vibration — strip-out's most frequent injuries.",
               "quality": "partial",
-              "impact": { "safety": 4, "planning": 3 },
+              "impact": {
+                "safety": 4,
+                "planning": 3
+              },
               "feedback": "All real and all needing management — but frequency isn't severity. Your planning priority goes to collapse, asbestos, fire and the public."
             },
             {
               "id": "c",
               "text": "Whatever the demolition and strip contractors flag in their own RAMS — they know their trades.",
               "quality": "poor",
-              "impact": { "safety": 1, "planning": 1 },
+              "impact": {
+                "safety": 1,
+                "planning": 1
+              },
               "feedback": "No single contractor sees the interfaces: strip weakening what demolition relies on, hot works near strip waste, demolition vibration on the retained wall. The principal contractor must."
             },
             {
               "id": "d",
               "text": "Dust and noise — they generate the complaints, so they're the priority.",
               "quality": "poor",
-              "impact": { "safety": 1, "environment": 2 },
+              "impact": {
+                "safety": 1,
+                "environment": 2
+              },
               "feedback": "Complaints are the loudest issue, not the most dangerous one. Manage them in parallel — but the fatal risks come first."
             }
           ],
@@ -506,28 +968,41 @@
               "id": "a",
               "text": "A refurbishment fire plan: hot work permits with fire watch and end-of-shift checks, waste removed from floors daily and never stored in stairs or the lane, a temporary alarm maintained through the strip, escape routes and signage reviewed at every change, compartmentation retained as long as practicable, and liaison with the neighbours' fire arrangements.",
               "quality": "best",
-              "impact": { "safety": 10, "legal": 5, "planning": 5 },
+              "impact": {
+                "safety": 10,
+                "legal": 5,
+                "planning": 5
+              },
               "feedback": "Correct. Fires in buildings under refurbishment spread through stripped compartmentation and accumulated waste — the plan attacks fuel, ignition and escape together, and includes the people next door."
             },
             {
               "id": "b",
               "text": "Extinguishers on every floor and a no-smoking policy.",
               "quality": "partial",
-              "impact": { "safety": 3, "legal": 2 },
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
               "feedback": "Equipment without a system. The strip creates a growing fuel load and shrinking compartmentation — extinguishers are the last line, not the plan."
             },
             {
               "id": "c",
               "text": "The building is concrete-framed, so fire risk is low — standard arrangements will do.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "The frame survives; the people don't. Strip waste, timber, packaging and temporary materials burn fiercely regardless of the frame — and smoke doesn't respect party walls."
             },
             {
               "id": "d",
               "text": "Let each contractor manage fire for their own works — they carry their own extinguishers.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 12 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 12
+              },
               "feedback": "Uncoordinated hot works above another trade's waste pile, attached to occupied premises, is how refurbishment fires start. The PC owns the fire plan.",
               "criticalFailure": "No coordinated fire plan for a stripped building attached to occupied premises"
             }
@@ -559,28 +1034,44 @@
               "id": "a",
               "text": "Reject it with specific comments. Require a written demolition plan built on the structural appraisal: sequence drawings, methods and plant, exclusion zones, the flank wall and propping interfaces, services isolation and what happens if unexpected conditions are found — before any demolition starts.",
               "quality": "best",
-              "impact": { "safety": 10, "temporaryWorks": 8, "legal": 6, "programme": -2 },
+              "impact": {
+                "safety": 10,
+                "temporaryWorks": 8,
+                "legal": 6,
+                "programme": -2
+              },
               "feedback": "Correct. Demolition must be planned in writing by competent people, and the plan must be engineered for this structure — a generic method statement cannot control a partial demolition against retained fabric."
             },
             {
               "id": "b",
               "text": "Accept it but attach your requirements as conditions in the acceptance email.",
               "quality": "partial",
-              "impact": { "safety": 3, "temporaryWorks": 2 },
+              "impact": {
+                "safety": 3,
+                "temporaryWorks": 2
+              },
               "feedback": "Conditions in emails don't reach the machine operator. The controlling document — the one briefed to the gang — must itself be right."
             },
             {
               "id": "c",
               "text": "Accept it — they're a specialist demolition firm with full insurance and they've 'done hundreds of these'.",
               "quality": "poor",
-              "impact": { "safety": 1, "legal": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "legal": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "Insurance pays out after the collapse. Review exists to prevent it — and 'hundreds of these' didn't include this annexe against this retained wall."
             },
             {
               "id": "d",
               "text": "Rewrite the RAMS yourself over the weekend to hold the start date.",
               "quality": "poor",
-              "impact": { "safety": 2, "legal": 1, "programme": 2 },
+              "impact": {
+                "safety": 2,
+                "legal": 1,
+                "programme": 2
+              },
               "feedback": "The demolition contractor must own their method — and you are not the demolition engineer. A method statement the gang didn't write and the engineer didn't check controls nothing."
             }
           ],
@@ -603,28 +1094,43 @@
               "id": "a",
               "text": "Reject the sequencing. Strip follows asbestos removal area by area — no strip in any area until its four-stage clearance is complete — with escape routes and the temporary alarm maintained throughout, and waste removed from floors daily.",
               "quality": "best",
-              "impact": { "safety": 10, "planning": 6, "legal": 5, "programme": -2 },
+              "impact": {
+                "safety": 10,
+                "planning": 6,
+                "legal": 5,
+                "programme": -2
+              },
               "feedback": "Correct. The sequence is survey, remove, clear, then strip. Strip gangs working alongside asbestos removal is how enclosures get breached and fibre spreads through a building full of people."
             },
             {
               "id": "b",
               "text": "Accept it but require the strip gangs to stay one floor away from the asbestos enclosures.",
               "quality": "partial",
-              "impact": { "safety": 4, "planning": 3 },
+              "impact": {
+                "safety": 4,
+                "planning": 3
+              },
               "feedback": "Better than nothing, but shared stairs, hoists and services runs still connect the floors — and the plan still depends on nobody making a mistake. Sequence the risk out instead."
             },
             {
               "id": "c",
               "text": "Accept it — the asbestos contractor's enclosures are sealed and under negative pressure, so others can work nearby.",
               "quality": "poor",
-              "impact": { "safety": 2, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 2,
+                "incidentLikelihood": 6
+              },
               "feedback": "Enclosures control the removal area, not the building. Transit routes, bag runs and airlocks all interact with other trades — the fewer people in the building, the safer the work."
             },
             {
               "id": "d",
               "text": "Accept it, and let the strip gangs take down the remaining ceiling grids in cleared areas of the enclosure floor while removal continues behind the polythene.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 15, "enforcementRisk": 12 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 15,
+                "enforcementRisk": 12
+              },
               "feedback": "Unsafe. Mixed trades on a live removal floor puts unprotected workers a torn sheet away from licensed asbestos work.",
               "criticalFailure": "Strip-out permitted alongside live licensed asbestos removal"
             }
@@ -649,28 +1155,43 @@
               "id": "a",
               "text": "Appoint a trained Temporary Works Coordinator in writing with authority to stop work; maintain a register covering propping, flank wall retention, gantry, scaffold and the rest; require design and independent checking at the right category for each item; and enforce hold points — nothing loaded, struck or altered without the TWC's written approval.",
               "quality": "best",
-              "impact": { "temporaryWorks": 10, "legal": 5, "planning": 4 },
+              "impact": {
+                "temporaryWorks": 10,
+                "legal": 5,
+                "planning": 4
+              },
               "feedback": "Correct. On a façade-retention-and-propping job the TWC's hold points are the difference between an engineered structure and a guess. The authority to stop work must be explicit."
             },
             {
               "id": "b",
               "text": "The demolition contractor's engineer looks after the props and wall since they're doing the demolition.",
               "quality": "poor",
-              "impact": { "temporaryWorks": 2, "planning": 1, "incidentLikelihood": 6 },
+              "impact": {
+                "temporaryWorks": 2,
+                "planning": 1,
+                "incidentLikelihood": 6
+              },
               "feedback": "The propping, scaffold, gantry and demolition all interact — coordination must sit above the trades with the principal contractor's TWC, whoever designs the individual schemes."
             },
             {
               "id": "c",
               "text": "Keep a temporary works list in the site diary and review it at the weekly meeting.",
               "quality": "poor",
-              "impact": { "temporaryWorks": 2, "planning": 1 },
+              "impact": {
+                "temporaryWorks": 2,
+                "planning": 1
+              },
               "feedback": "A list without categories, checks and hold points is a memo, not control. Props get loaded and struck between weekly meetings."
             },
             {
               "id": "d",
               "text": "The demolition machine operator decides on the day which props can come out — he can feel how the structure is behaving.",
               "quality": "unsafe",
-              "impact": { "temporaryWorks": 0, "safety": -5, "incidentLikelihood": 18 },
+              "impact": {
+                "temporaryWorks": 0,
+                "safety": -5,
+                "incidentLikelihood": 18
+              },
               "feedback": "Unsafe. Props are removed to a designed, checked sequence under TWC control. 'Feel' is how progressive collapses start.",
               "criticalFailure": "Temporary works alterations left to operative judgement"
             }
@@ -694,70 +1215,150 @@
               "id": "tw-propping",
               "name": "Temporary propping to retained floors",
               "description": "Proprietary props and needles supporting retained floor plates through three storeys while structural openings are formed.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat2", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Multi-storey propping to a retained structure is engineered, independently checked by someone outside the design team, loaded and struck only at TWC hold points, and inspected against the design in place."
             },
             {
               "id": "tw-facade",
               "name": "Flank wall retention scheme",
               "description": "Steel retention structure restraining the retained rear flank wall while the annexe is demolished against it.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat3", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat3",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Retention of a wall the public and workforce stand beside is the highest-consequence item on the register — bespoke design with the most rigorous level of independent check, movement monitoring with trigger levels, and hard hold points before demolition loads it."
             },
             {
               "id": "tw-gantry",
               "name": "Pavement gantry over the public footpath",
               "description": "Protective deck and support structure carrying the scaffold over the footpath, with the public walking beneath all day.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat2", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "The gantry carries scaffold loads, stored materials and impact risk over the public — designed for its real loads including vehicle impact, independently checked, signed off before the footpath reopens beneath it, and inspected regularly and after any strike or storm."
             },
             {
               "id": "tw-scaffold-sheeted",
               "name": "Sheeted perimeter scaffold",
               "description": "Full-height independent scaffold with debris netting and sheeting, founded partly on the gantry.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Sheeting transforms the wind load case — this scaffold needs a bespoke design including the sheeted condition and its gantry support, handover before use, and inspection every 7 days and after alterations or weather."
             },
             {
               "id": "tw-exclusion-structure",
               "name": "Demolition exclusion zone hoarding and crash deck",
               "description": "Physical segregation and protective decking between the annexe demolition and the retained building's access routes.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Structures that protect people from demolition debris must resist the impacts the plan says they'll get — designed, checked, and verified in place before demolition starts behind them."
             },
             {
               "id": "tw-chute",
               "name": "Rubble chute and scaffold support",
               "description": "Proprietary rubble chute fixed to the scaffold, discharging to a covered skip in the yard.",
-              "correct": { "register": true, "design": "standard-solution", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": false, "responsible": "contractor" },
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "contractor"
+              },
               "explanation": "A proprietary chute is a standard solution, but it changes the scaffold's load case — the attachment is checked against the scaffold design, and the chute and its fixings are inspected in use."
             },
             {
               "id": "tw-loading-bay",
               "name": "Scaffold loading bay",
               "description": "Cantilevered loading platform at third-floor level for palletised materials via the lane-side hoist.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "Loading bays carry concentrated loads and alter the scaffold design case — designed, checked, permit to load before first use, safe working load displayed."
             },
             {
               "id": "tw-hoarding-pavement",
               "name": "Hoarding on the pavement licence line",
               "description": "Solid hoarding on the licensed pavement strip and the rear yard boundary, in the public's reach all day.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat1", "rams": true, "inspection": true, "holdPoint": false, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat1",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "TWC"
+              },
               "explanation": "City-centre hoardings take wind funnelled between buildings and crowd loading — designed, checked and inspected periodically and after high winds."
             },
             {
               "id": "tw-backprop-machine",
               "name": "Back-propping for plant on suspended slabs",
               "description": "Back-propping through two levels below where the mini excavator and skid-steer work on retained suspended floors.",
-              "correct": { "register": true, "design": "bespoke", "catCheck": "cat2", "rams": true, "inspection": true, "holdPoint": true, "responsible": "TWC" },
+              "correct": {
+                "register": true,
+                "design": "bespoke",
+                "catCheck": "cat2",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": true,
+                "responsible": "TWC"
+              },
               "explanation": "A 1960s suspended slab was never designed for demolition plant — the loads are assessed, the back-propping designed and independently checked, and the machine does not track onto the slab until the TWC signs the hold point."
             },
             {
               "id": "tw-temp-services",
               "name": "Temporary site services installation",
               "description": "Temporary electrics, lighting and distribution boards routed through the building during strip and refit.",
-              "correct": { "register": true, "design": "standard-solution", "catCheck": "cat0", "rams": true, "inspection": true, "holdPoint": false, "responsible": "contractor" },
+              "correct": {
+                "register": true,
+                "design": "standard-solution",
+                "catCheck": "cat0",
+                "rams": true,
+                "inspection": true,
+                "holdPoint": false,
+                "responsible": "contractor"
+              },
               "explanation": "Standard-solution temporary services still go on the register: installed to recognised standards by competent electricians, protected on escape routes, and inspected and tested on a schedule."
             }
           ],
@@ -777,16 +1378,47 @@
           "id": "p9-permits",
           "prompt": "Select the permit systems this project genuinely needs. Over-permitting buries supervisors in paper; under-permitting leaves lethal tasks uncontrolled.",
           "options": [
-            { "id": "hot-works", "name": "Hot works permit" },
-            { "id": "demolition-permit", "name": "Demolition permit (daily authorisation to the plan)" },
-            { "id": "permit-to-load", "name": "Permit to load / strike (temporary works)" },
-            { "id": "asbestos-clearance", "name": "Asbestos area clearance / re-entry certificate gate" },
-            { "id": "isolation-permit", "name": "Services isolation permit" },
-            { "id": "lifting-permit", "name": "Crane / lifting operation permit" },
-            { "id": "permit-to-dig", "name": "Permit to dig / break ground" },
-            { "id": "confined-space", "name": "Confined space entry permit" }
+            {
+              "id": "hot-works",
+              "name": "Hot works permit"
+            },
+            {
+              "id": "demolition-permit",
+              "name": "Demolition permit (daily authorisation to the plan)"
+            },
+            {
+              "id": "permit-to-load",
+              "name": "Permit to load / strike (temporary works)"
+            },
+            {
+              "id": "asbestos-clearance",
+              "name": "Asbestos area clearance / re-entry certificate gate"
+            },
+            {
+              "id": "isolation-permit",
+              "name": "Services isolation permit"
+            },
+            {
+              "id": "lifting-permit",
+              "name": "Crane / lifting operation permit"
+            },
+            {
+              "id": "permit-to-dig",
+              "name": "Permit to dig / break ground"
+            },
+            {
+              "id": "confined-space",
+              "name": "Confined space entry permit"
+            }
           ],
-          "required": ["hot-works", "demolition-permit", "permit-to-load", "asbestos-clearance", "isolation-permit", "lifting-permit"],
+          "required": [
+            "hot-works",
+            "demolition-permit",
+            "permit-to-load",
+            "asbestos-clearance",
+            "isolation-permit",
+            "lifting-permit"
+          ],
           "explanation": "Hot works in a stripped building, daily demolition authorisation against the plan, loading and striking of propping and the gantry, a hard gate stopping any trade re-entering an asbestos area without its independent clearance certificate, isolation and proving-dead of the building's services, and the crane lifts placing the gantry and retention steels over the footpath all need permit control. There is no ground-breaking in this scope, and no confined space entry — those permits would be paperwork without purpose.",
           "topic": "Permit to work systems for refurbishment and demolition",
           "learningNote": "A permit is a formal, time-bounded check that controls are in place immediately before a high-risk task, with sign-back at the end. On refurbishment, treat asbestos clearance certificates as a permit gate: no certificate, no re-entry — no exceptions for 'a quick look'.",
@@ -801,28 +1433,42 @@
               "id": "a",
               "text": "Scaffold inspected before use, every 7 days and after alteration or bad weather; the gantry and pavement hoarding checked after storms and any impact; movement monitoring on the retained wall and propping read at set frequencies against trigger levels; lifting equipment thorough-examination certificates verified; plus daily supervisor checks and a weekly recorded manager's inspection.",
               "quality": "best",
-              "impact": { "legal": 8, "safety": 6, "temporaryWorks": 5 },
+              "impact": {
+                "legal": 8,
+                "safety": 6,
+                "temporaryWorks": 5
+              },
               "feedback": "Correct. Statutory inspections are the floor. On a retention job the monitoring regime with defined trigger levels — and who acts when they're hit — is what turns instruments into control."
             },
             {
               "id": "b",
               "text": "Each specialist inspects their own works — scaffolder, demolition engineer, asbestos supervisor.",
               "quality": "partial",
-              "impact": { "legal": 3, "safety": 2 },
+              "impact": {
+                "legal": 3,
+                "safety": 2
+              },
               "feedback": "They do inspect their own works — but the interfaces (demolition vibration on the retained wall, chute loads on the scaffold, waste against escape routes) belong to the principal contractor's regime."
             },
             {
               "id": "c",
               "text": "The visiting safety advisor's monthly audit covers inspection requirements.",
               "quality": "poor",
-              "impact": { "legal": 2, "safety": 1 },
+              "impact": {
+                "legal": 2,
+                "safety": 1
+              },
               "feedback": "Monthly is far outside statutory frequencies, and a moving demolition face changes daily. Audits check the system; they are not the system."
             },
             {
               "id": "d",
               "text": "Inspect when something looks wrong — the gangs will report defects.",
               "quality": "unsafe",
-              "impact": { "legal": 0, "safety": 0, "incidentLikelihood": 10 },
+              "impact": {
+                "legal": 0,
+                "safety": 0,
+                "incidentLikelihood": 10
+              },
               "feedback": "Retained walls don't 'look wrong' until they move. Reactive inspection on a retention project is waiting for the crack.",
               "criticalFailure": "No planned inspection or monitoring regime"
             }
@@ -854,28 +1500,41 @@
               "id": "a",
               "text": "No. Enforce the demolition plan: soft strip and salvage complete before the machine starts, nobody inside the exclusion zone during machine demolition, progressive top-down sequence as designed, TWC hold points where the propping and retained wall are affected, and stop-and-refer if the structure behaves unexpectedly.",
               "quality": "best",
-              "impact": { "safety": 10, "temporaryWorks": 6, "legal": 5 },
+              "impact": {
+                "safety": 10,
+                "temporaryWorks": 6,
+                "legal": 5
+              },
               "feedback": "Correct. People and demolition machines don't share a structure. 'A bay apart' assumes the building fails politely — partial collapse doesn't respect bay lines."
             },
             {
               "id": "b",
               "text": "Allow it with a banksman watching the structure and a horn signal to clear out if anything moves.",
               "quality": "poor",
-              "impact": { "safety": 2, "incidentLikelihood": 10 },
+              "impact": {
+                "safety": 2,
+                "incidentLikelihood": 10
+              },
               "feedback": "By the time a banksman sees movement, the collapse has started. Progressive failure in a 1960s structure gives seconds, not minutes."
             },
             {
               "id": "c",
               "text": "Allow it — the gang are experienced and the foreman has run bigger jobs than this.",
               "quality": "poor",
-              "impact": { "safety": 1, "incidentLikelihood": 8 },
+              "impact": {
+                "safety": 1,
+                "incidentLikelihood": 8
+              },
               "feedback": "Experience doesn't change structural behaviour. The exclusion zone exists because nobody can predict exactly how a cut structure lets go."
             },
             {
               "id": "d",
               "text": "Allow it and also let the strip gang keep working on the retained building's ground floor bays adjacent to the annexe — they're behind the party wall.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "incidentLikelihood": 16 },
+              "impact": {
+                "safety": 0,
+                "incidentLikelihood": 16
+              },
               "feedback": "Unsafe twice over: workers inside the demolition structure, and workers against the very wall the demolition is loading. The exclusion zone includes the adjacent bays the plan says it does.",
               "criticalFailure": "Personnel permitted inside the demolition exclusion zone during machine demolition"
             }
@@ -892,28 +1551,43 @@
               "id": "a",
               "text": "The four-stage clearance: no one re-enters until the independent analyst has completed the visual inspection and air testing and issued the certificate of reoccupation for that area — the site rules make the certificate the re-entry permit.",
               "quality": "best",
-              "impact": { "safety": 10, "legal": 8 },
+              "impact": {
+                "safety": 10,
+                "legal": 8
+              },
               "feedback": "Correct. The enclosure comes down after clearance, not before, and the analyst's certificate — independent of the removal contractor — is the only key that reopens the area."
             },
             {
               "id": "b",
               "text": "Accept the removal supervisor's confirmation that the area is clean — the analyst's paperwork can follow.",
               "quality": "poor",
-              "impact": { "safety": 2, "legal": 1, "enforcementRisk": 8 },
+              "impact": {
+                "safety": 2,
+                "legal": 1,
+                "enforcementRisk": 8
+              },
               "feedback": "The removal contractor cannot clear their own work — that independence is the whole point of the four-stage clearance."
             },
             {
               "id": "c",
               "text": "Let the surveyors in wearing FFP3 masks as a precaution while clearance completes.",
               "quality": "poor",
-              "impact": { "safety": 2, "incidentLikelihood": 6 },
+              "impact": {
+                "safety": 2,
+                "incidentLikelihood": 6
+              },
               "feedback": "RPE is not a substitute for clearance. Uncleared areas are controlled asbestos areas — masks don't change who is allowed in."
             },
             {
               "id": "d",
               "text": "Programme rules: the enclosure on floor two comes down tonight so both trades gain a day, and any residue gets picked up in the builder's clean.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "legal": -5, "enforcementRisk": 20, "incidentLikelihood": 15 },
+              "impact": {
+                "safety": 0,
+                "legal": -5,
+                "enforcementRisk": 20,
+                "incidentLikelihood": 15
+              },
               "feedback": "Unsafe and unlawful. Striking an enclosure before clearance releases fibre into a building full of workers, and 'the builder's clean' spreads it further.",
               "criticalFailure": "Asbestos enclosure removal before four-stage clearance"
             }
@@ -938,28 +1612,43 @@
               "id": "a",
               "text": "Segregate at source with hazardous streams separated; verify every carrier's registration and every receiving site's permit; waste transfer notes for all movements and consignment notes for hazardous waste; asbestos in a locked, labelled skip removed by licensed contractor; quantities tracked against the waste plan.",
               "quality": "best",
-              "impact": { "environment": 10, "legal": 6, "planning": 3 },
+              "impact": {
+                "environment": 10,
+                "legal": 6,
+                "planning": 3
+              },
               "feedback": "Correct. The duty of care follows your waste to its final destination — segregation, documented transfers and verified carriers are what stands between you and someone else's fly-tip carrying your paperwork."
             },
             {
               "id": "b",
               "text": "One mixed waste stream to a transfer station that sorts it, with the hazardous items 'flagged to the driver'.",
               "quality": "partial",
-              "impact": { "environment": 4, "cost": 3 },
+              "impact": {
+                "environment": 4,
+                "cost": 3
+              },
               "feedback": "Mixed general waste can lawfully go for sorting — but hazardous waste legally cannot travel mixed and undocumented. Flagging it to a driver is not a consignment note."
             },
             {
               "id": "c",
               "text": "Let each subcontractor remove their own waste under their own arrangements.",
               "quality": "poor",
-              "impact": { "environment": 1, "legal": 1, "enforcementRisk": 6 },
+              "impact": {
+                "environment": 1,
+                "legal": 1,
+                "enforcementRisk": 6
+              },
               "feedback": "Fragmented waste arrangements on a demolition job means no one can evidence the duty of care — and the yard fills with unclaimed piles."
             },
             {
               "id": "d",
               "text": "Bag the fluorescent tubes and small hazardous items and drop them into the general skip — bagged waste is contained waste.",
               "quality": "unsafe",
-              "impact": { "environment": 0, "legal": -3, "enforcementRisk": 14 },
+              "impact": {
+                "environment": 0,
+                "legal": -3,
+                "enforcementRisk": 14
+              },
               "feedback": "Hazardous waste in the general stream is an offence, bagged or not — and mercury from crushed tubes contaminates the whole load.",
               "criticalFailure": "Hazardous waste concealed in the general waste stream"
             }
@@ -983,28 +1672,43 @@
               "id": "a",
               "text": "Agree a noise consent and working hours with the local authority before demolition starts; use best practicable means — munchers and crunching over impact breaking where possible, acoustic screens, plant maintained and shut down when idle; monitor noise and vibration against agreed limits, especially on the party walls; suppress dust with water at the point of cutting and loading; and tell the neighbours what's coming and when.",
               "quality": "best",
-              "impact": { "environment": 10, "planning": 5, "legal": 4 },
+              "impact": {
+                "environment": 10,
+                "planning": 5,
+                "legal": 4
+              },
               "feedback": "Correct. Agreeing consented hours and methods with the authority in advance protects the programme as much as the neighbours — it converts complaint risk into an agreed envelope you can plan within."
             },
             {
               "id": "b",
               "text": "Work standard site hours and respond to complaints if the council raises them.",
               "quality": "partial",
-              "impact": { "environment": 4, "planning": 2 },
+              "impact": {
+                "environment": 4,
+                "planning": 2
+              },
               "feedback": "Reactive nuisance management on a city-centre demolition invites an abatement notice — which stops the noisy works on the council's timetable, not yours."
             },
             {
               "id": "c",
               "text": "Do the breaking at night and weekends when the offices are empty.",
               "quality": "poor",
-              "impact": { "environment": 1, "enforcementRisk": 8, "cost": 5 },
+              "impact": {
+                "environment": 1,
+                "enforcementRisk": 8,
+                "cost": 5
+              },
               "feedback": "City centres have residents, hotels and licensing hours too — night working typically needs its own consent and usually creates a worse nuisance problem than it solves."
             },
             {
               "id": "d",
               "text": "Start the breakers at 7am to get ahead before anyone's at their desks to complain.",
               "quality": "poor",
-              "impact": { "environment": 0, "enforcementRisk": 10, "clientConfidence": -5 },
+              "impact": {
+                "environment": 0,
+                "enforcementRisk": 10,
+                "clientConfidence": -5
+              },
               "feedback": "Out-of-hours noise is exactly what triggers formal action — and the client's name is on the hoarding the complaints mention."
             }
           ],
@@ -1029,28 +1733,43 @@
               "id": "a",
               "text": "Stop demolition in that area immediately, clear and extend the exclusion zone — including assessing whether the footpath or lane needs closing in liaison with the authority — take an immediate monitoring reading, and get the TWC and the retention designer to assess before any restart.",
               "quality": "best",
-              "impact": { "safety": 10, "temporaryWorks": 8, "programme": -2 },
+              "impact": {
+                "safety": 10,
+                "temporaryWorks": 8,
+                "programme": -2
+              },
               "feedback": "Correct. A new crack in retained structure during demolition is a stop-work trigger. The engineer decides what it means; your job is to get people out of the consequence zone and the data to the designer fast."
             },
             {
               "id": "b",
               "text": "Mark the crack ends with dated tell-tales, carry on at reduced pace, and review at tomorrow's scheduled monitoring read.",
               "quality": "poor",
-              "impact": { "safety": 2, "temporaryWorks": 1, "incidentLikelihood": 10 },
+              "impact": {
+                "safety": 2,
+                "temporaryWorks": 1,
+                "incidentLikelihood": 10
+              },
               "feedback": "Tell-tales measure movement over weeks. A wall being actively loaded by demolition can fail before tomorrow's read — the work loading it must stop first."
             },
             {
               "id": "c",
               "text": "Move the machine to the other end of the annexe and keep going — that reduces load near the crack.",
               "quality": "partial",
-              "impact": { "safety": 3, "temporaryWorks": 2 },
+              "impact": {
+                "safety": 3,
+                "temporaryWorks": 2
+              },
               "feedback": "Relocating the work helps, but continuing any demolition on a structure showing unexplained distress, without the designer's assessment, is still guessing at structural behaviour."
             },
             {
               "id": "d",
               "text": "Old buildings crack — note it in the diary and carry on to hold the demolition programme.",
               "quality": "unsafe",
-              "impact": { "safety": 0, "temporaryWorks": 0, "incidentLikelihood": 18 },
+              "impact": {
+                "safety": 0,
+                "temporaryWorks": 0,
+                "incidentLikelihood": 18
+              },
               "feedback": "Unsafe. A fresh crack above retention steel during demolition is the wall telling you the load path has changed. Ignoring it risks a collapse onto the site and possibly the lane.",
               "criticalFailure": "Demolition continued after unexplained cracking in retained structure"
             }
@@ -1068,28 +1787,41 @@
               "id": "a",
               "text": "Welcome them in through induction, accompany them, provide what they ask for — F10, construction phase plan, asbestos survey and removal notifications, clearance certificates, TW register, gantry design and inspection records — answer honestly, and act promptly on anything they raise.",
               "quality": "best",
-              "impact": { "legal": 10, "safety": 4, "clientConfidence": 3 },
+              "impact": {
+                "legal": 10,
+                "safety": 4,
+                "clientConfidence": 3
+              },
               "feedback": "Correct. Inspectors have a right of entry, and a well-run site treats a visit as a free audit. Openness plus prompt action is also how you avoid a follow-up visit becoming enforcement."
             },
             {
               "id": "b",
               "text": "Ask them to wait in the office for forty minutes while supervisors 'get the floors presentable'.",
               "quality": "poor",
-              "impact": { "legal": 2, "enforcementRisk": 8 },
+              "impact": {
+                "legal": 2,
+                "enforcementRisk": 8
+              },
               "feedback": "Obstructing or delaying an inspector reads as concealment — and they've seen the tidy-up sprint before. The site's normal state is what's being inspected."
             },
             {
               "id": "c",
               "text": "Refuse entry until head office and the company solicitor confirm the visit is legitimate.",
               "quality": "poor",
-              "impact": { "legal": 1, "enforcementRisk": 10 },
+              "impact": {
+                "legal": 1,
+                "enforcementRisk": 10
+              },
               "feedback": "Verify identification, certainly — but inspectors don't need an appointment or your solicitor's permission. Obstruction is an offence in itself."
             },
             {
               "id": "d",
               "text": "Radio the floors to pause the dusty cutting and keep the strip gangs out of sight until the inspector leaves.",
               "quality": "unsafe",
-              "impact": { "legal": -5, "enforcementRisk": 20 },
+              "impact": {
+                "legal": -5,
+                "enforcementRisk": 20
+              },
               "feedback": "Concealing work activity from an inspector is deception. If discovered — and it usually is — it converts advice into enforcement and destroys your credibility for the rest of the project.",
               "criticalFailure": "Attempted to conceal site conditions from an HSE inspector"
             }
@@ -1114,28 +1846,45 @@
               "id": "a",
               "text": "Re-plan properly: identify what genuinely compresses — procurement, hoist logistics, extra supervised gangs in separated areas — model the fire, escape-route and trade-stacking risks before agreeing anything, and give the client a recovery programme you can actually supervise.",
               "quality": "best",
-              "impact": { "programme": 10, "planning": 6, "safety": 5, "clientConfidence": 4 },
+              "impact": {
+                "programme": 10,
+                "planning": 6,
+                "safety": 5,
+                "clientConfidence": 4
+              },
               "feedback": "Correct. Recovery comes from logistics and resource, engineered floor by floor — not from stacking trades in a part-stripped building until the fire plan and supervision can't cover them."
             },
             {
               "id": "b",
               "text": "Agree to everything — the trades want the overtime and the client holds the next contract.",
               "quality": "poor",
-              "impact": { "programme": 4, "morale": 3, "incidentLikelihood": 10 },
+              "impact": {
+                "programme": 4,
+                "morale": 3,
+                "incidentLikelihood": 10
+              },
               "feedback": "Uncontrolled trade-stacking plus fatigue in a building with live hot works and changing escape routes is how refurbishment fires and falls happen. Willing workers don't make it supervised."
             },
             {
               "id": "c",
               "text": "Tell the client the overrun was the asbestos contractor's fault and the completion date must simply move.",
               "quality": "poor",
-              "impact": { "programme": 1, "clientConfidence": -10 },
+              "impact": {
+                "programme": 1,
+                "clientConfidence": -10
+              },
               "feedback": "Blame isn't a recovery plan. There are usually safe weeks to be found in logistics and sequencing — refusing to look costs the relationship and the contract."
             },
             {
               "id": "d",
               "text": "Recover time by skipping the remaining area-by-area clearance certificates — the removal is 'basically done' and the analyst is a bottleneck.",
               "quality": "unsafe",
-              "impact": { "programme": 3, "legal": -5, "enforcementRisk": 18, "incidentLikelihood": 12 },
+              "impact": {
+                "programme": 3,
+                "legal": -5,
+                "enforcementRisk": 18,
+                "incidentLikelihood": 12
+              },
               "feedback": "The clearance gate is not a bottleneck, it's the control. Trading it for programme exposes every following trade to whatever the analyst would have found.",
               "criticalFailure": "Proposed bypassing asbestos clearance certificates under programme pressure"
             }
@@ -1152,28 +1901,42 @@
               "id": "a",
               "text": "Get ahead of it: a named site contact on the hoarding, a fortnightly look-ahead note to both neighbours flagging noisy or disruptive works, delivery slots re-planned around the shop's peak trade, a monthly liaison meeting, and every complaint logged, answered and closed out with what changed.",
               "quality": "best",
-              "impact": { "planning": 6, "environment": 5, "clientConfidence": 8 },
+              "impact": {
+                "planning": 6,
+                "environment": 5,
+                "clientConfidence": 8
+              },
               "feedback": "Correct. Neighbour management is risk management: informed neighbours tolerate more, complain less, and phone you instead of the council. On a 34-week city job, that goodwill is programme insurance."
             },
             {
               "id": "b",
               "text": "Apologise when complaints arrive and send a bottle of wine to the office manager.",
               "quality": "partial",
-              "impact": { "clientConfidence": 2, "environment": 1 },
+              "impact": {
+                "clientConfidence": 2,
+                "environment": 1
+              },
               "feedback": "Courtesy helps, but it's reactive — the pattern in the log is a planning failure (deliveries and noise landing at the worst times), and only planning fixes it."
             },
             {
               "id": "c",
               "text": "Refer complainants to the client — it's their building and their neighbours.",
               "quality": "poor",
-              "impact": { "clientConfidence": -6, "environment": 1 },
+              "impact": {
+                "clientConfidence": -6,
+                "environment": 1
+              },
               "feedback": "The principal contractor controls the site causing the disturbance. Passing neighbours to the landlord multiplies the frustration and lands back on you with the client's anger attached."
             },
             {
               "id": "d",
               "text": "Ignore the log — complaints are inevitable on demolition jobs and the works are lawful.",
               "quality": "poor",
-              "impact": { "environment": 0, "enforcementRisk": 8, "clientConfidence": -5 },
+              "impact": {
+                "environment": 0,
+                "enforcementRisk": 8,
+                "clientConfidence": -5
+              },
               "feedback": "Ignored complainants escalate to the council, and a statutory nuisance notice will set your working hours for you."
             }
           ],
@@ -1204,28 +1967,43 @@
               "id": "a",
               "text": "Feed the principal designer the health and safety file information: the updated asbestos register recording every ACM removed and every one retained, clearance certificates and waste consignment records, as-builts of the altered structure and what the propping did, residual risks and maintenance access, O&Ms and commissioning records — and plan the scaffold and gantry strike as controlled temporary works operations.",
               "quality": "best",
-              "impact": { "quality": 10, "legal": 6, "temporaryWorks": 4 },
+              "impact": {
+                "quality": 10,
+                "legal": 6,
+                "temporaryWorks": 4
+              },
               "feedback": "Correct. The updated asbestos register and the structural record are what protect the next twenty years of maintenance and refurbishment in this building — and demobilising the gantry over a live footpath is a temporary works operation, not a tidy-up."
             },
             {
               "id": "b",
               "text": "Hand over the keys at PC and let the paperwork follow over the next couple of months as subcontractors send it in.",
               "quality": "poor",
-              "impact": { "quality": 3, "legal": 2, "clientConfidence": -5 },
+              "impact": {
+                "quality": 3,
+                "legal": 2,
+                "clientConfidence": -5
+              },
               "feedback": "Information chased after the teams demobilise is incomplete information — and an incomplete asbestos register is a trap for the client's next contractor."
             },
             {
               "id": "c",
               "text": "The asbestos records belong to the removal contractor — the client can request them directly if ever needed.",
               "quality": "poor",
-              "impact": { "quality": 2, "legal": 1 },
+              "impact": {
+                "quality": 2,
+                "legal": 1
+              },
               "feedback": "The client's duty to manage asbestos in the building depends on the updated register being in their hands at handover. 'Available on request' is how records get lost."
             },
             {
               "id": "d",
               "text": "Concentrate on the snagging the tenant will see; the file can be assembled from the project server later.",
               "quality": "poor",
-              "impact": { "quality": 3, "clientConfidence": 3, "legal": 1 },
+              "impact": {
+                "quality": 3,
+                "clientConfidence": 3,
+                "legal": 1
+              },
               "feedback": "Cosmetics over content. The residual risk information — what's still in the ceilings and risers — is what prevents the next refurbishment's exposure incident."
             }
           ],
@@ -1276,28 +2054,42 @@
           "id": "a",
           "text": "Stop work in the area at once, get everyone out, seal and sign the area, keep clothing and tools inside, arrange sampling by a competent surveyor, and review whether the survey can be relied on in the equivalent voids elsewhere.",
           "quality": "best",
-          "impact": { "safety": 10, "legal": 6, "programme": -2 },
+          "impact": {
+            "safety": 10,
+            "legal": 6,
+            "programme": -2
+          },
           "feedback": "Correct. Stop, seal, sample. And a find in one 'clear' void puts every similar void in doubt — the survey's reliability is now a live question across the building."
         },
         {
           "id": "b",
           "text": "Move the gang to the floor below and have the suspect area looked at when the asbestos contractor is next on site on Thursday.",
           "quality": "partial",
-          "impact": { "safety": 4, "programme": 1 },
+          "impact": {
+            "safety": 4,
+            "programme": 1
+          },
           "feedback": "Relocating the gang is right, but the area needs sealing and signing now, the find reporting today, and sampling arranged urgently — not when a visit happens to be scheduled."
         },
         {
           "id": "c",
           "text": "Photograph the debris and email the images to the surveyor for an opinion before deciding.",
           "quality": "poor",
-          "impact": { "safety": 2, "incidentLikelihood": 5 },
+          "impact": {
+            "safety": 2,
+            "incidentLikelihood": 5
+          },
           "feedback": "Nobody can identify asbestos from a photograph. While the email thread grows, the void is open and the area uncontrolled."
         },
         {
           "id": "d",
           "text": "Have the operative double-bag the debris — he's had asbestos awareness training — and carry on with the ceiling grid.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "legal": -3, "incidentLikelihood": 14 },
+          "impact": {
+            "safety": 0,
+            "legal": -3,
+            "incidentLikelihood": 14
+          },
           "feedback": "Unsafe. Awareness training teaches recognition and avoidance, not handling — and continuing to pull ceilings under a contaminated void spreads fibre across the floor.",
           "criticalFailure": "Strip continued after discovery of suspect asbestos materials"
         }
@@ -1315,14 +2107,21 @@
           "id": "a",
           "text": "Cordon the footpath below in liaison with the authority as needed, get competent scaffolders to remove or re-secure the loose sheeting from safe positions, and require a recorded scaffold inspection — including ties, given the sheeted wind loads — before the scaffold returns to use.",
           "quality": "best",
-          "impact": { "safety": 10, "temporaryWorks": 6, "legal": 4 },
+          "impact": {
+            "safety": 10,
+            "temporaryWorks": 6,
+            "legal": 4
+          },
           "feedback": "Correct. Torn sheeting means the scaffold took loads outside its normal case and now has debris risk over the public. Exclusion first, competent hands aloft, and an after-weather inspection before anyone works from it."
         },
         {
           "id": "b",
           "text": "Send two labourers up with cable ties to secure the flapping section before the high street gets busy.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "incidentLikelihood": 14 },
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 14
+          },
           "feedback": "Unsafe. Untrained operatives improvising on a wind-damaged scaffold at fifth-floor level is a fall and a dropped-object risk in one — and cable ties don't restore a designed sheeting fixing.",
           "criticalFailure": "Untrained operatives sent to repair storm-damaged scaffold at height"
         },
@@ -1330,14 +2129,22 @@
           "id": "c",
           "text": "The gantry is designed to catch debris — leave the sheeting until the scaffold contractor's routine visit next week.",
           "quality": "poor",
-          "impact": { "safety": 1, "temporaryWorks": 1, "incidentLikelihood": 10 },
+          "impact": {
+            "safety": 1,
+            "temporaryWorks": 1,
+            "incidentLikelihood": 10
+          },
           "feedback": "The gantry protects against falling material, not against a sail of sheeting and fittings coming off the fifth lift in the next gust — and the scaffold's own condition after the storm is unverified."
         },
         {
           "id": "d",
           "text": "Cordon below and strip all the sheeting off the whole elevation so the wind can't catch it again.",
           "quality": "partial",
-          "impact": { "safety": 5, "environment": -2, "cost": 4 },
+          "impact": {
+            "safety": 5,
+            "environment": -2,
+            "cost": 4
+          },
           "feedback": "Cordoning is right, but wholesale unsheeting swaps one problem for dust and debris migration over the neighbours — repair to the design, and check why the fixing detail failed."
         }
       ],
@@ -1354,28 +2161,42 @@
           "id": "a",
           "text": "Clear the exit immediately — before anything else — then tell the neighbour what happened, investigate why the gang staged waste there, change the waste flow so the lane is never a holding area, and brief every shift on the neighbours' escape routes.",
           "quality": "best",
-          "impact": { "safety": 10, "legal": 4, "planning": 3 },
+          "impact": {
+            "safety": 10,
+            "legal": 4,
+            "planning": 3
+          },
           "feedback": "Correct. A blocked fire exit is cleared now, personally if necessary. Then fix the system: the night gang staged waste there because the plan gave them nowhere better — that's yours to solve."
         },
         {
           "id": "b",
           "text": "Radio the waste contractor to prioritise the lane on today's collection round — it'll be gone by mid-morning.",
           "quality": "poor",
-          "impact": { "safety": 1, "incidentLikelihood": 8 },
+          "impact": {
+            "safety": 1,
+            "incidentLikelihood": 8
+          },
           "feedback": "Mid-morning is three hours of a blocked escape route for a building full of office workers. If they evacuate at 9:15, the bags are still there."
         },
         {
           "id": "c",
           "text": "Clear the exit, then say nothing to the neighbour — no harm done and it would worry them unnecessarily.",
           "quality": "partial",
-          "impact": { "safety": 5, "clientConfidence": -2 },
+          "impact": {
+            "safety": 5,
+            "clientConfidence": -2
+          },
           "feedback": "The immediate risk is fixed, but hiding it wastes the trust-building opportunity and leaves their fire warden ignorant of a risk they should be watching for too."
         },
         {
           "id": "d",
           "text": "Leave it — the office rarely uses that exit, the bags are soft, and the collection is booked for Friday.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "legal": -3, "incidentLikelihood": 12 },
+          "impact": {
+            "safety": 0,
+            "legal": -3,
+            "incidentLikelihood": 12
+          },
           "feedback": "Unsafe. Fire exits exist for the five minutes nobody predicts. Blocking a neighbour's escape route with combustible waste for days is indefensible in every sense.",
           "criticalFailure": "Neighbouring premises' fire exit left blocked by site waste"
         }
@@ -1393,28 +2214,43 @@
           "id": "a",
           "text": "Stop the noisy works until 8:00, call the office manager back personally with an apology and what you've done, investigate how the supervisor overrode the agreed hours, re-brief all gangs on the consent conditions, and log the complaint with its close-out.",
           "quality": "best",
-          "impact": { "environment": 8, "legal": 4, "planning": 3 },
+          "impact": {
+            "environment": 8,
+            "legal": 4,
+            "planning": 3
+          },
           "feedback": "Correct. The agreed hours are a condition you operate under, not a guideline. Stop, respond personally, fix the instruction chain that broke — and show the neighbour the system working."
         },
         {
           "id": "b",
           "text": "Apologise and let the gang finish this bay first — stopping mid-bay wastes the set-up time.",
           "quality": "partial",
-          "impact": { "environment": 2, "programme": 1 },
+          "impact": {
+            "environment": 2,
+            "programme": 1
+          },
           "feedback": "Every extra minute is a continuing breach and tells the workforce the hours flex under programme pressure. The bay waits forty minutes; your credibility with the authority doesn't come back as easily."
         },
         {
           "id": "c",
           "text": "Tell the office manager the project is behind and early starts are unavoidable for the next fortnight.",
           "quality": "poor",
-          "impact": { "environment": 0, "enforcementRisk": 8, "clientConfidence": -4 },
+          "impact": {
+            "environment": 0,
+            "enforcementRisk": 8,
+            "clientConfidence": -4
+          },
           "feedback": "Announcing your intention to keep breaching is an invitation for the council to serve notice — after which they set your hours, not you."
         },
         {
           "id": "d",
           "text": "Carry on — the council never checks before 9am and one complaint won't go anywhere.",
           "quality": "unsafe",
-          "impact": { "environment": 0, "enforcementRisk": 15, "clientConfidence": -5 },
+          "impact": {
+            "environment": 0,
+            "enforcementRisk": 15,
+            "clientConfidence": -5
+          },
           "feedback": "Deliberately breaching agreed noise hours is a fast route to formal action that can stop all noisy works on the council's terms — and the complaint log is evidence.",
           "criticalFailure": "Knowingly continued noisy works in breach of agreed hours"
         }
@@ -1432,28 +2268,44 @@
           "id": "a",
           "text": "Stop the cutting immediately, get suppression or on-tool extraction set up and the operative's RPE sorted — face-fit checked — before it restarts, review how a dry-cut task got started at the public interface, check the neighbours and log the complaint with a response, and re-brief the silica controls.",
           "quality": "best",
-          "impact": { "safety": 8, "environment": 6, "legal": 4 },
+          "impact": {
+            "safety": 8,
+            "environment": 6,
+            "legal": 4
+          },
           "feedback": "Correct. This is a health exposure for the operative and a nuisance and reputational incident at the boundary in one. Control at source first, protect the person, then fix the supervision gap that let it start dry."
         },
         {
           "id": "b",
           "text": "Tell the operative to put his mask on properly and finish the few cuts remaining.",
           "quality": "poor",
-          "impact": { "safety": 1, "environment": 1, "incidentLikelihood": 6 },
+          "impact": {
+            "safety": 1,
+            "environment": 1,
+            "incidentLikelihood": 6
+          },
           "feedback": "An unfitted mask over stubble on a dry cut protects almost nothing — and the dust keeps rolling over the gantry onto the public while he finishes."
         },
         {
           "id": "c",
           "text": "Move the cutting task to the rear yard where the public can't see it.",
           "quality": "partial",
-          "impact": { "environment": 2, "safety": 1 },
+          "impact": {
+            "environment": 2,
+            "safety": 1
+          },
           "feedback": "That manages the complaint, not the hazard — the operative is still breathing silica, and the yard is next to the neighbours' windows. Suppression and extraction fix both locations."
         },
         {
           "id": "d",
           "text": "Dust is inevitable on demolition jobs — apologise to the shopper and carry on, the task is nearly done.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "environment": 0, "enforcementRisk": 12, "incidentLikelihood": 8 },
+          "impact": {
+            "safety": 0,
+            "environment": 0,
+            "enforcementRisk": 12,
+            "incidentLikelihood": 8
+          },
           "feedback": "There is no safe exposure to respirable silica, and visible dust crossing your boundary onto the public is precisely what brings inspectors to refurbishment sites.",
           "criticalFailure": "Dry cutting continued without suppression or effective RPE"
         }
@@ -1471,14 +2323,22 @@
           "id": "a",
           "text": "Clear and prohibit access to the affected bays above and below, stop plant movements on that slab, get the TWC and the propping designer to assess and direct reinstatement, verify it before the area reopens, and investigate why the gang could and did alter temporary works without approval.",
           "quality": "best",
-          "impact": { "temporaryWorks": 10, "safety": 8, "legal": 4 },
+          "impact": {
+            "temporaryWorks": 10,
+            "safety": 8,
+            "legal": 4
+          },
           "feedback": "Correct. The layout is a designed structure — one prop out changes the load paths for everything around it, with a machine driving over the top. Exclusion, engineered reinstatement, verification, then fix the control failure."
         },
         {
           "id": "b",
           "text": "Have the gang stand the prop back in its position and re-tighten it, then carry on — it was only out for twenty minutes.",
           "quality": "unsafe",
-          "impact": { "temporaryWorks": 1, "safety": 0, "incidentLikelihood": 14 },
+          "impact": {
+            "temporaryWorks": 1,
+            "safety": 0,
+            "incidentLikelihood": 14
+          },
           "feedback": "Unsafe. A prop re-stood by the gang that shouldn't have touched it, unverified against the design, may be carrying nothing — and the slab was loaded by plant while the layout was broken.",
           "criticalFailure": "Unauthorised propping alteration reinstated without engineering verification"
         },
@@ -1486,14 +2346,20 @@
           "id": "c",
           "text": "Log it for the TWC's weekly temporary works walk-round on Friday and tell the gang not to do it again.",
           "quality": "poor",
-          "impact": { "temporaryWorks": 2, "incidentLikelihood": 10 },
+          "impact": {
+            "temporaryWorks": 2,
+            "incidentLikelihood": 10
+          },
           "feedback": "Four more days of plant on a slab whose propping is in an unknown state. Temporary works alterations are a now problem, not a Friday agenda item."
         },
         {
           "id": "d",
           "text": "Remove the skid-steer from the slab as a precaution and let the gang carry on hand demolition in the area meanwhile.",
           "quality": "partial",
-          "impact": { "temporaryWorks": 4, "safety": 3 },
+          "impact": {
+            "temporaryWorks": 4,
+            "safety": 3
+          },
           "feedback": "Taking the plant load off helps, but people are still working around propping in an unverified state — the exclusion and the engineering assessment come before any work resumes there."
         }
       ],
@@ -1510,28 +2376,42 @@
           "id": "a",
           "text": "Close and divert the footpath section under the gantry immediately, in liaison with the authority as needed; get the TWC and the gantry designer to inspect the impacted leg and connections before anyone passes back under it; record the strike, get the driver's details, and review kerb-line impact protection.",
           "quality": "best",
-          "impact": { "safety": 10, "temporaryWorks": 6, "legal": 4 },
+          "impact": {
+            "safety": 10,
+            "temporaryWorks": 6,
+            "legal": 4
+          },
           "feedback": "Correct. A struck support is unverified structure with the public beneath it — 'looks straight' is not an assessment. Close, inspect to the design, then reopen; and if a strike was possible, the impact protection needs reviewing."
         },
         {
           "id": "b",
           "text": "Walk the gantry deck yourself — if nothing has visibly shifted up top, let the footpath stay open and report it to the scaffold contractor.",
           "quality": "poor",
-          "impact": { "safety": 1, "temporaryWorks": 1, "incidentLikelihood": 10 },
+          "impact": {
+            "safety": 1,
+            "temporaryWorks": 1,
+            "incidentLikelihood": 10
+          },
           "feedback": "Impact damage hides in connections, welds and base details that a deck walk can't see. Every shopper passing underneath is trusting a structure nobody competent has verified since the strike."
         },
         {
           "id": "c",
           "text": "Cone off just the struck leg and let pedestrians keep using the rest of the gantry width while you wait for the inspection.",
           "quality": "partial",
-          "impact": { "safety": 3, "temporaryWorks": 2 },
+          "impact": {
+            "safety": 3,
+            "temporaryWorks": 2
+          },
           "feedback": "Better than nothing, but the gantry is one structure — if the impacted leg has shed load, the deck above the walking route is relying on members now carrying loads they weren't checked for."
         },
         {
           "id": "d",
           "text": "Take the driver's details and carry on — gantries are designed robustly and lorries brush them all the time in town.",
           "quality": "unsafe",
-          "impact": { "safety": 0, "incidentLikelihood": 15 },
+          "impact": {
+            "safety": 0,
+            "incidentLikelihood": 15
+          },
           "feedback": "Unsafe. Normalising strikes on the structure protecting the public is how a later, harder strike finds a weakened gantry. Every impact gets an engineering check — that is the deal that lets you build over a footpath.",
           "criticalFailure": "Public allowed under gantry after vehicle strike without engineering inspection"
         }
@@ -1549,21 +2429,33 @@
           "id": "a",
           "text": "Decline until the paperwork exists: verify his carrier registration on the public register and the receiving site's permit, and only then consider him — meanwhile solve the backlog with your contracted carrier and better collection scheduling.",
           "quality": "best",
-          "impact": { "environment": 8, "legal": 6, "planning": 3 },
+          "impact": {
+            "environment": 8,
+            "legal": 6,
+            "planning": 3
+          },
           "feedback": "Correct. Duty of care means knowing who carries your waste and where it lands. Unverifiable carrier plus cash price usually equals a gateway to fly-tipping — with your transfer note, or none at all, in the load."
         },
         {
           "id": "b",
           "text": "Use him for the inert demolition arisings only — brick and concrete can't really be fly-tipped harmfully.",
           "quality": "poor",
-          "impact": { "environment": 1, "legal": 1, "enforcementRisk": 8 },
+          "impact": {
+            "environment": 1,
+            "legal": 1,
+            "enforcementRisk": 8
+          },
           "feedback": "Inert waste is fly-tipped constantly — in gateways, lay-bys and fields — and the duty of care applies to every load regardless of what it is. Your name traces back with it."
         },
         {
           "id": "c",
           "text": "Take his details and let him do one load today on trust while the office 'sends the registration over'.",
           "quality": "unsafe",
-          "impact": { "environment": 0, "legal": -3, "enforcementRisk": 14 },
+          "impact": {
+            "environment": 0,
+            "legal": -3,
+            "enforcementRisk": 14
+          },
           "feedback": "Once the load leaves, you've transferred waste to an unverified carrier — if it surfaces in a field gateway, the paper trail ends at your site and the offence is yours to answer.",
           "criticalFailure": "Waste transferred to an unverified carrier"
         },
@@ -1571,12 +2463,72 @@
           "id": "d",
           "text": "Solve the backlog by double-stacking and compacting the yard skips until the contracted carrier's next scheduled run.",
           "quality": "partial",
-          "impact": { "environment": 3, "safety": -2 },
+          "impact": {
+            "environment": 3,
+            "safety": -2
+          },
           "feedback": "It keeps the waste legal but builds a fire load and overloading problem in a tiny yard next to occupied premises — the real fix is collection frequency, which is a phone call."
         }
       ],
       "topic": "Waste duty of care — carrier verification",
       "learningNote": "Before any waste leaves site: carrier registration verified (the public register takes two minutes), destination permitted, transfer or consignment note completed and kept. A price that's too good is usually priced without the landfill gate fee — which tells you where the load is really going."
+    },
+    {
+      "type": "decision",
+      "id": "ev2-hse-visit",
+      "isEvent": true,
+      "prompt": "EVENT: An HSE inspector arrives unannounced after a complaint from a neighbouring office. She finds the pavement gantry deck stacked with strip-out waste well beyond its notice-boarded load limit, serves a prohibition notice on use of the gantry loading area, and tells you HSE will be recovering its costs.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stop use of the gantry area immediately, clear the loading under TWC control, cooperate fully with the inspector, investigate why the load limit was breached, brief the workforce, notify your employer, and do not resume until the contravention is remedied and the gantry re-checked.",
+          "quality": "best",
+          "impact": {
+            "legal": 10,
+            "safety": 6,
+            "temporaryWorks": 4,
+            "programme": -2
+          },
+          "feedback": "Correct. A prohibition notice stops the activity immediately because of a risk of serious personal injury — here, to the public below. Comply, remedy, verify, and fix the system that let the overloading happen. Expect a fee-for-intervention invoice: where there is a material breach, HSE recovers its costs from the duty holder."
+        },
+        {
+          "id": "b",
+          "text": "Comply with the letter of the notice but treat it as the inspector being heavy-handed — clear the gantry and change nothing else.",
+          "quality": "partial",
+          "impact": {
+            "legal": 4,
+            "safety": 2,
+            "enforcementRisk": 4
+          },
+          "feedback": "You've avoided the offence but kept the failure. Overloading a public gantry is a structural near miss to the public — the notice is a symptom; the loading discipline and TW supervision are the disease."
+        },
+        {
+          "id": "c",
+          "text": "Lodge an appeal and keep using the gantry at a reduced load while the appeal is heard.",
+          "quality": "poor",
+          "impact": {
+            "legal": 0,
+            "enforcementRisk": 10,
+            "incidentLikelihood": 8
+          },
+          "feedback": "A prohibition notice normally remains in force while any appeal is heard — appealing does not suspend it. Using the gantry meanwhile risks prosecution for contravening the notice."
+        },
+        {
+          "id": "d",
+          "text": "Carry on as normal — head office and the lawyers will deal with the paperwork.",
+          "quality": "unsafe",
+          "impact": {
+            "legal": -5,
+            "safety": -3,
+            "enforcementRisk": 20,
+            "incidentLikelihood": 10
+          },
+          "feedback": "Contravening a prohibition notice is a serious criminal offence in its own right — unlimited fines and potential imprisonment — separate from the underlying breach. And the risk to the public below the gantry is still live.",
+          "criticalFailure": "Continued a prohibited activity in defiance of an enforcement notice"
+        }
+      ],
+      "topic": "Enforcement — improvement and prohibition notices, fee for intervention",
+      "learningNote": "Know the difference: an improvement notice requires a contravention to be fixed within a set time; a prohibition notice stops an activity that risks serious personal injury — usually with immediate effect — until it is remedied. Appeals go to a tribunal, but a prohibition notice normally stays in force meanwhile. Contravening either notice is itself an offence carrying unlimited fines and possible imprisonment, and HSE recovers its costs (fee for intervention) where there is a material breach."
     }
   ],
   "modelAnswerNotes": [
