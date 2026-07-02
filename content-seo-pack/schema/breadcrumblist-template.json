@@ -1,0 +1,26 @@
+{
+  "_comment": "Template — duplicate per page and update name + item URLs to match the page's location in the site hierarchy.",
+
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.temporaryworksconsulting.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://www.temporaryworksconsulting.com/services"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Temporary Works Design",
+      "item": "https://www.temporaryworksconsulting.com/services/temporary-works-design"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "Temporary Works Consulting",
+  "brand": "Temporary Works Consulting & Design",
+  "legalName": "Temporary Works Consulting & Design Ltd",
+  "legalNameUk": "Temporary Works Consulting & Design Ltd",
+  "legalNameUs": "Temporary Works Design & Consulting LLC",
+  "companyNumber": "17198188",
+  "incorporated": "5 May 2026",
+  "foundingDate": "2026-05-05",
+  "jurisdiction": "England and Wales",
+  "usJurisdiction": "Delaware, USA",
+  "registeredOffice": "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom",
+  "director": "David Miller",
+  "url": "https://www.temporaryworksconsulting.com",
+  "lang": "en-GB",
+  "tagline": "Temporary Works Support Without Delay",
+  "description": "Fast, practical Temporary Works Design, checking, RAMS, ITPs, virtual site audits and advisory support for contractors. An incorporated, insured UK consultancy led by David Miller, with a Delaware LLC formation to support international tendering. Remote and project-based, UK and international.",
+  "email": "david@temporaryworksconsulting.com",
+  "phone": "+44 7900 984900",
+  "phoneHref": "+447900984900",
+  "ogImage": "https://www.temporaryworksconsulting.com/assets/img/og-default.jpg",
+  "hasLogo": true,
+  "logo": "/assets/img/logo.png",
+  "insured": true,
+  "person": "David Miller",
+  "ebook": {
+    "title": "Mastering Temporary Works",
+    "subtitle": "3-volume ebook set",
+    "price": "£29.99"
+  },
+  "sisterSites": {
+    "bre470": "https://www.bre470pilingmatdesign.com",
+    "toolbox": "https://www.temporaryworkstoolbox.com",
+    "scaffold": "https://www.visualscaffolddesign.com"
+  },
+  "sisterSiteLabels": {
+    "bre470": "BRE 470 Piling Mat Design Tool",
+    "toolbox": "Temporary Works Toolbox",
+    "scaffold": "Visual Scaffold Design"
+  },
+  "year": 2026
+}

@@ -1,0 +1,37 @@
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/" aria-label="{{ site.brand }} — home">
+      {%- if site.hasLogo %}
+      <img class="brand-logo" src="{{ site.logo }}" width="60" height="60" alt="{{ site.brand }} logo" />
+      {%- else %}
+      <b>{{ site.brand }}</b>
+      <span>Temporary Works Design &amp; advisory support</span>
+      {%- endif %}
+    </a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+
+    <ul class="nav-links" id="nav-links">
+      <li class="has-menu">
+        <button aria-haspopup="true">Services
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <ul class="menu">
+          <li><a href="/services/">All services</a></li>
+          {%- for s in services %}
+          <li><a href="/services/{{ s.slug }}/">{{ s.nav }}</a></li>
+          {%- endfor %}
+          <li><a href="/weekly-support/">Weekly Support</a></li>
+        </ul>
+      </li>
+      <li><a href="/weekly-support/">Weekly Support</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/case-studies/">Case Studies</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/faq/">FAQ</a></li>
+      <li class="nav-cta"><a class="btn btn-primary" href="/contact/">Request a Quote</a></li>
+    </ul>
+  </div>
+</header>

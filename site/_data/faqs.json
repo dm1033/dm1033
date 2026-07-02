@@ -1,0 +1,54 @@
+[
+  {
+    "q": "What is Temporary Works Design?",
+    "a": "Temporary Works Design is the engineering of anything built to support the permanent works or keep a site safe during construction — such as falsework, propping, shoring, excavation support, working platforms and hoardings. The aim is a safe, buildable design matched to the loads, ground and plant on the project."
+  },
+  {
+    "q": "When do I need a Temporary Works Designer?",
+    "a": "Whenever temporary works are not fully covered by a standard manufacturer solution, or where there is risk to people, plant, the permanent works or third parties. Most contractors identify which items need design and checking through a procedure aligned with BS 5975:2024."
+  },
+  {
+    "q": "What is a Temporary Works Register?",
+    "a": "A temporary works register is the controlled list of temporary works items on a project, recording each item's risk category, design and check status, and key approvals. It is a core part of a temporary works control process."
+  },
+  {
+    "q": "What is a design brief?",
+    "a": "A design brief sets out what a temporary works item must do — the loads, constraints, ground, programme and standards that apply. A clear brief drives the design and helps confirm the right check category."
+  },
+  {
+    "q": "What is a CAT 3 check?",
+    "a": "A CAT 3 check is an independent design check by a competent designer who was not involved in the original design and is from a separate organisation. It is used for complex, high-risk or unusual temporary works. The required category depends on the project, complexity and client procedure."
+  },
+  {
+    "q": "What information is needed for a temporary works design?",
+    "a": "Typically the project name and location, relevant drawings, ground information where relevant, plant and loading data, programme dates and the standards or client procedure that apply. The resources page lists what is needed for common design types."
+  },
+  {
+    "q": "Can you provide RAMS and ITPs?",
+    "a": "Yes. Risk assessments and method statements (RAMS), inspection and test plans (ITPs) and supporting construction safety documentation are available alongside design work or as standalone deliverables, subject to project-specific information."
+  },
+  {
+    "q": "Can you support urgent site queries?",
+    "a": "Yes. Short-notice and overflow requests are a regular part of the work. Send the query with the relevant information and a realistic timeline will be confirmed quickly."
+  },
+  {
+    "q": "Can you work remotely?",
+    "a": "Yes. Support is offered remotely and on a project basis, for UK and international contractors. Virtual site audits provide a fast way to get experienced input without waiting for a site visit."
+  },
+  {
+    "q": "Can you support weekly retained arrangements?",
+    "a": "Yes. A weekly support model gives contractors predictable cost and faster response for ongoing temporary works input. See the weekly support page for how the tiers work."
+  },
+  {
+    "q": "Can you help with piling mats and working platforms?",
+    "a": "Yes, with reference to BRE 470 principles, subject to site-specific ground and plant information. A free online BRE 470 Piling Mat Design Tool is also available for quick, indicative sizing."
+  },
+  {
+    "q": "Can you support TG20 / TG30 sheets?",
+    "a": "Support with TG20 compliance sheets and TG30 considerations is available where applicable to the scaffold and project, subject to project-specific information."
+  },
+  {
+    "q": "Do you provide virtual site audits?",
+    "a": "Yes. A virtual site audit is a remote review using photos, video and documents, with an action tracker and follow-up report — useful for fast advice, overflow support and remote projects."
+  }
+]

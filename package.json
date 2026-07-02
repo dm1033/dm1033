@@ -1,0 +1,15 @@
+{
+  "name": "twc-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Eleventy build for Temporary Works Consulting & Design — renders site/ to minified static HTML in _site/ for upload to public_html/.",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "html-minifier-terser": "^7.2.0"
+  }
+}

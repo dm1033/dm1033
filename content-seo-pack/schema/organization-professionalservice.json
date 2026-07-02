@@ -1,0 +1,138 @@
+{
+  "@context": "https://schema.org",
+  "@type": ["ProfessionalService", "EngineeringService"],
+  "name": "Temporary Works Consulting",
+  "alternateName": "Temporary Works Consulting — Temporary Works Designer",
+  "url": "https://www.temporaryworksconsulting.com",
+  "logo": "[LOGO_URL]",
+  "image": "[LOGO_URL]",
+  "description": "Specialist Temporary Works Design, CAT 1/2/3 design checking, BRE 470 piling mat design and BS 5975:2024 consultancy. Led personally by an experienced UK civil engineer and Temporary Works Designer.",
+  "founder": {
+    "@type": "Person",
+    "name": "David",
+    "jobTitle": "Civil Engineer and Temporary Works Designer"
+  },
+  "areaServed": [
+    { "@type": "Country", "name": "United Kingdom" },
+    { "@type": "Place", "name": "International" }
+  ],
+  "knowsAbout": [
+    "Temporary Works Design",
+    "Temporary Works Designer",
+    "Temporary Works Design Check",
+    "CAT 3 Check",
+    "BS 5975:2024",
+    "BRE 470 Working Platform Design",
+    "Piling Mat Design",
+    "Crane Mat Design",
+    "Excavation Support Design",
+    "Sheet Piling",
+    "Soldier Pile Design",
+    "Hoarding Design",
+    "Propping and Shoring",
+    "Falsework and Formwork",
+    "RAMS, ITPs and Method Statements",
+    "BREEAM Construction Phase",
+    "ISO 9001",
+    "ISO 14001",
+    "ISO 45001",
+    "ISO 27001",
+    "ISO 50001"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Temporary Works Consulting Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Temporary Works Design",
+          "url": "https://www.temporaryworksconsulting.com/services/temporary-works-design"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "CAT 1, CAT 2 and CAT 3 Design Checking",
+          "url": "https://www.temporaryworksconsulting.com/services/design-checking"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Crane Mat and Piling Mat Design",
+          "url": "https://www.temporaryworksconsulting.com/services/crane-piling-mat-design"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "BRE 470 Working Platform Design",
+          "url": "https://www.temporaryworksconsulting.com/services/bre470-working-platform-design"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Excavation Support Design",
+          "url": "https://www.temporaryworksconsulting.com/services/excavation-support-design"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Hoarding, Propping and Shoring Design",
+          "url": "https://www.temporaryworksconsulting.com/services/hoarding-propping-shoring-design"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "RAMS, ITPs and Construction Safety Documentation",
+          "url": "https://www.temporaryworksconsulting.com/services/rams-itps-safety-documentation"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "BS 5975:2024 Temporary Works Consultancy",
+          "url": "https://www.temporaryworksconsulting.com/services/bs5975-temporary-works-consultancy"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "BREEAM and ISO Management Systems Support",
+          "url": "https://www.temporaryworksconsulting.com/services/breeam-iso-management-systems"
+        }
+      }
+    ]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "GB",
+    "addressRegion": "[BUSINESS_LOCATION]"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "email": "[CONTACT_EMAIL]",
+      "contactType": "customer service",
+      "areaServed": ["GB", "Worldwide"],
+      "availableLanguage": ["en"]
+    }
+  ],
+  "sameAs": [
+    "[LINKEDIN_URL]",
+    "https://www.bre470pilingmatdesign.com"
+  ]
+}

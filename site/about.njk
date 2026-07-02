@@ -1,0 +1,92 @@
+---
+layout: base.njk
+permalink: /about/
+title: "About"
+seoTitle: "About | Temporary Works Designer & Construction Consultant | UK"
+metaDescription: "Temporary Works Consulting & Design Ltd is led by David Miller — an incorporated, fully insured UK consultancy offering practical temporary works design, checking and advisory support."
+breadcrumbs:
+  - name: "Home"
+    url: "/"
+  - name: "About"
+    url: "/about/"
+---
+<div class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top:0">
+      <a href="/">Home</a><span>/</span>About
+    </nav>
+    <p class="eyebrow">About</p>
+    <h1>Practical Temporary Works support, led personally</h1>
+    <p>Temporary Works Consulting &amp; Design Ltd is led personally by {{ site.director }} — an incorporated, fully insured consultancy combining site engineering, construction management and temporary works experience with a direct, contractor-focused approach.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container feature">
+    <div class="prose">
+      <h2>Background</h2>
+      <p>The work here is grounded in real construction experience — time on site, managing works, and designing and advising on temporary works. That background shapes the approach: designs and advice are practical, buildable and written for the people delivering the project.</p>
+      <p>Support is offered remotely and on a project basis for UK and international contractors, with an emphasis on fast response and clear communication.</p>
+      <h2>Approach</h2>
+      <ul>
+        <li><strong>Practical and buildable</strong> — advice you can act on, not just theory.</li>
+        <li><strong>Clear communication</strong> — stated assumptions, clear design risk, useful comments.</li>
+        <li><strong>Fast response</strong> — set up for short-notice and overflow work.</li>
+        <li><strong>Site-focused</strong> — informed by construction and safety experience.</li>
+      </ul>
+
+      <h2>International capability</h2>
+      <p>Alongside the UK company, a US LLC formation — {{ site.legalNameUs }} ({{ site.usJurisdiction }}) — is in place to make tendering and working outside the UK more straightforward should the opportunity arise. It is currently a formation only, maintained on an ongoing basis. Support is delivered remotely and on a project basis for international clients, subject to project-specific information and the standards specified by each project.</p>
+    </div>
+    <aside class="panel">
+      <h3>Credentials at a glance</h3>
+      <ul>
+        <li><strong>Incorporated</strong> — {{ site.legalNameUk }}</li>
+        <li><strong>Company No.</strong> {{ site.companyNumber }} ({{ site.jurisdiction }})</li>
+        <li><strong>Fully insured</strong> consultancy</li>
+        <li><strong>Led by</strong> {{ site.director }}, Director &amp; Temporary Works Designer</li>
+        <li>Competent, experienced temporary works designer</li>
+        <li><strong>US LLC formation</strong> — {{ site.legalNameUs }} ({{ site.usJurisdiction }})</li>
+        <li>Remote &amp; project-based, UK &amp; international</li>
+      </ul>
+      <hr class="divider" />
+      <p class="muted small">
+        Insurance: professional indemnity &amp; public liability — [confirm insurer &amp; cover limits]<br />
+        Qualifications: [add your confirmed qualifications]<br />
+        Memberships: [add any professional memberships]<br />
+        Experience: [add confirmed years]
+      </p>
+      <p class="muted small">Registered office: {{ site.registeredOffice }}</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <h2>How I can help</h2>
+    <div class="grid grid-3 mt-2">
+      {%- for s in services %}
+        {%- if s.featured %}
+        <a class="card" href="/services/{{ s.slug }}/" style="text-decoration:none">
+          <h3>{{ s.nav }}</h3>
+          <p>{{ s.summary }}</p>
+          <span class="card-link">Learn more</span>
+        </a>
+        {%- endif %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Let's talk about your project</h2>
+      <p>Send a brief or a query, or book a call to discuss how I can support your temporary works.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Book a Call</a>
+      </div>
+    </div>
+  </div>
+</section>

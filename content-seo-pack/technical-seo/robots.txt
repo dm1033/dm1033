@@ -1,0 +1,14 @@
+# robots.txt for temporaryworksconsulting.com
+# Standard "open" policy — let search engines crawl, point them at the sitemap.
+# Do NOT use this file on bre470pilingmatdesign.com — that domain has its own
+# robots file at technical-seo/robots-bre470.txt.
+
+User-agent: *
+Allow: /
+
+# If your CMS exposes admin / draft / search paths, disallow them here, e.g.:
+# Disallow: /admin/
+# Disallow: /wp-admin/
+# Disallow: /?s=
+
+Sitemap: https://www.temporaryworksconsulting.com/sitemap.xml

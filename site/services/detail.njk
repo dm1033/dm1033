@@ -1,0 +1,121 @@
+---
+pagination:
+  data: services
+  size: 1
+  alias: svc
+layout: base.njk
+eleventyExcludeFromCollections: true
+permalink: "/services/{{ svc.slug }}/"
+eleventyComputed:
+  title: "{{ svc.title | safe }}"
+  seoTitle: "{{ svc.seoTitle | safe }}"
+  metaDescription: "{{ svc.metaDescription | safe }}"
+  serviceSchema:
+    name: "{{ svc.title | safe }}"
+    description: "{{ svc.metaDescription | safe }}"
+---
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "{{ site.url }}/services/" },
+    { "@type": "ListItem", "position": 3, "name": {{ svc.nav | dump | safe }}, "item": "{{ site.url }}/services/{{ svc.slug }}/" }
+  ]
+}</script>
+<div class="container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>/</span><a href="/services/">Services</a><span>/</span>{{ svc.nav }}
+  </nav>
+</div>
+
+<div class="page-head">
+  <div class="container">
+    <p class="eyebrow">Temporary Works Service</p>
+    <h1>{{ svc.h1 }}</h1>
+    <p>{{ svc.intro }}</p>
+    <div class="btn-row mt-2">
+      <a class="btn btn-primary" href="/contact/">{{ svc.cta.label }}</a>
+      {%- if svc.cta.type == "call" %}
+      <a class="btn btn-secondary" href="tel:{{ site.phoneHref }}">Book a call</a>
+      {%- else %}
+      <a class="btn btn-secondary" href="tel:{{ site.phoneHref }}">Book a call</a>
+      {%- endif %}
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container feature">
+    <div class="prose">
+      {%- for sec in svc.sections %}
+      <h2>{{ sec.h2 }}</h2>
+      {%- if sec.body %}<p>{{ sec.body }}</p>{% endif %}
+      {%- if sec.list %}
+      <ul>
+        {%- for li in sec.list %}<li>{{ li }}</li>{% endfor %}
+      </ul>
+      {%- endif %}
+      {%- if sec.toolLink %}
+      <p><a class="btn btn-secondary" href="{{ site.sisterSites.bre470 }}">Try the BRE 470 Piling Mat Design Tool</a></p>
+      {%- endif %}
+      {%- endfor %}
+    </div>
+
+    <aside>
+      <div class="panel">
+        <h3>Typical deliverables</h3>
+        <ul>
+          {%- for d in svc.deliverables %}<li>{{ d }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="panel" style="margin-top:1.25rem">
+        <h3>Suitable for</h3>
+        <ul>
+          {%- for c in svc.clients %}<li>{{ c }}</li>{% endfor %}
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <h2>Information needed to start</h2>
+    <p class="muted">Sending these up front means a faster, more accurate response. Anything missing can be confirmed as we go — subject to project-specific information.</p>
+    <ul class="info-list mt-2">
+      {%- for i in svc.info %}<li>{{ i }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <h2>{{ svc.cta.label }}</h2>
+      <p>Send your design brief, Temporary Works Register or current site query. A clear scope and response will follow promptly.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+        <a class="btn btn-ghost" href="mailto:{{ site.email }}">Email David</a>
+        <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Book a Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <h2>Related services</h2>
+    <div class="grid grid-3 mt-2">
+      {%- for s in services %}
+        {%- if s.slug != svc.slug and loop.index <= 4 %}
+        <a class="card" href="/services/{{ s.slug }}/" style="text-decoration:none">
+          <h3>{{ s.nav }}</h3>
+          <p>{{ s.summary }}</p>
+          <span class="card-link">Learn more</span>
+        </a>
+        {%- endif %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>

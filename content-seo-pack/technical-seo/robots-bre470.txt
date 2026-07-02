@@ -1,0 +1,12 @@
+# robots.txt for bre470pilingmatdesign.com
+# Standard "open" policy — let search engines crawl, point them at the bre470 sitemap.
+# Do NOT use the temporaryworksconsulting.com robots.txt on this domain.
+
+User-agent: *
+Allow: /
+
+# If your tool exposes admin / draft / API paths, disallow them here, e.g.:
+# Disallow: /admin/
+# Disallow: /api/
+
+Sitemap: https://www.bre470pilingmatdesign.com/sitemap.xml
