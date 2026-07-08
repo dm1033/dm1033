@@ -1839,6 +1839,66 @@
       "steps": [
         {
           "type": "decision",
+          "id": "p13-d0",
+          "prompt": "The strip-out gang doubling the workforce next week includes several operatives whose first language is not English. Their supervisor says he'll 'translate the gist' of the induction and RAMS briefings. How do you manage communication and engagement?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Plan it properly: translated induction and key rules, visual and demonstration-based briefings, a competent bilingual worker as a briefing buddy, comprehension checked by questions rather than nods, safety-critical signage reviewed, and the gang included in toolbox talks and near-miss reporting.",
+              "quality": "best",
+              "impact": {
+                "safety": 9,
+                "legal": 6,
+                "morale": 6
+              },
+              "feedback": "Correct. Information, instruction and training only count if they are understood. Courts have treated translated-but-unexplained paperwork as documents 'just for show' — comprehension, not distribution, is the duty."
+            },
+            {
+              "id": "b",
+              "text": "Accept the supervisor's offer — he knows his gang and the job.",
+              "quality": "partial",
+              "impact": {
+                "safety": 3,
+                "legal": 2
+              },
+              "feedback": "A bilingual supervisor is a useful part of the answer, but 'translating the gist' of safety-critical information is not a controlled arrangement — and he can't be everywhere during the shift."
+            },
+            {
+              "id": "c",
+              "text": "Give everyone the English RAMS to sign — a signature proves they were briefed.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "legal": -3,
+                "incidentLikelihood": 10
+              },
+              "feedback": "Signatures on documents people couldn't read prove nothing except that the paperwork was prioritised over understanding — a point prosecutions have made explicitly.",
+              "criticalFailure": "Safety-critical briefings issued in a language workers could not understand"
+            },
+            {
+              "id": "d",
+              "text": "Turn the gang away — non-English speakers are too much risk on a demolition job.",
+              "quality": "poor",
+              "impact": {
+                "safety": 1,
+                "morale": -8,
+                "programme": -3
+              },
+              "feedback": "Neither lawful employment practice nor risk management — the hazard is uncontrolled communication, not the workers, and it is entirely controllable."
+            }
+          ],
+          "topic": "Communication with non-English speaking workers",
+          "learningNote": "Site rules, inductions, RAMS briefings and emergency arrangements must be understood by everyone. Use translation of key material, visual/demonstration methods, competent bilingual buddies, and check comprehension actively. Engagement works the same way — include every gang in consultation and near-miss reporting, whatever their first language.",
+          "cppSection": "communication",
+          "cppText": {
+            "best": "Communication for non-English speaking workers: translated induction and key rules; visual and demonstration-based briefings; bilingual briefing buddy; comprehension actively checked; safety-critical signage pictogram-led; all gangs included in toolbox talks and near-miss reporting.",
+            "partial": "Bilingual supervisor relied on for informal translation of briefings.",
+            "poor": "No specific arrangements for workers with limited English.",
+            "unsafe": "Safety-critical documents issued without ensuring they could be understood."
+          }
+        },
+        {
+          "type": "decision",
           "id": "p13-d1",
           "prompt": "The asbestos removal overran and the project is three weeks behind. The client's asset manager wants the lost time recovered before the pre-let fit-out date and suggests 'running the remaining strip, first fix and the external recladding all in parallel, seven days a week'. Your response?",
           "options": [

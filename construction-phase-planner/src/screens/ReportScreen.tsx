@@ -7,10 +7,12 @@ import {
 import { CPP_SECTIONS, DISCLAIMER, TW_FIELDS, type PermitStep, type SiteSetupStep, type TwRegisterStep } from '../types'
 import { SITE_ITEM_MAP } from '../data/siteItems'
 import { twItemScore } from '../engine/scoring'
+import { computeObjectiveCoverage } from '../engine/objectives'
+import { toCsv } from '../engine/reports'
 
 type Tab =
   | 'score' | 'cpp' | 'risk' | 'tw' | 'permits' | 'inspections'
-  | 'environment' | 'incidents' | 'missed' | 'model' | 'tutor-sheet' | 'certificate'
+  | 'environment' | 'incidents' | 'missed' | 'model' | 'objectives' | 'tutor-sheet' | 'certificate'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'score', label: '1 · Score Report' },
@@ -23,8 +25,9 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'incidents', label: '8 · Incident Response Log' },
   { id: 'missed', label: '9 · Missed Items Report' },
   { id: 'model', label: '10 · Model Answer Overlay' },
-  { id: 'tutor-sheet', label: '11 · Tutor Review Sheet' },
-  { id: 'certificate', label: '12 · Certificate' },
+  { id: 'objectives', label: '11 · Learning Objectives' },
+  { id: 'tutor-sheet', label: '12 · Tutor Review Sheet' },
+  { id: 'certificate', label: '13 · Certificate' },
 ]
 
 export default function ReportScreen({ onRestart }: { onRestart: () => void }) {
@@ -48,6 +51,15 @@ export default function ReportScreen({ onRestart }: { onRestart: () => void }) {
   }
 
   const csvActions: Partial<Record<Tab, () => void>> = {
+    objectives: () => {
+      const rows = computeObjectiveCoverage(state, scenario).map((c) => [
+        c.objective.code, c.objective.title,
+        String(c.stepIds.length), String(c.encountered),
+        c.performance === null ? '—' : String(c.performance),
+        c.status.toUpperCase(),
+      ])
+      downloadText('learning-objectives.csv', toCsv(['Code', 'Learning outcome', 'Mapped steps', 'Encountered', 'Performance', 'Status'], rows))
+    },
     tw: () => downloadText('temporary-works-register.csv', twRegisterCsv(state, scenario)),
     permits: () => downloadText('permit-tracker.csv', permitTrackerCsv(state, scenario)),
     inspections: () => downloadText('inspection-tracker.csv', inspectionTrackerCsv(state, scenario)),
@@ -103,6 +115,7 @@ export default function ReportScreen({ onRestart }: { onRestart: () => void }) {
         {tab === 'incidents' && <IncidentsView />}
         {tab === 'missed' && <MissedView report={report} />}
         {tab === 'model' && <ModelAnswerView />}
+        {tab === 'objectives' && <ObjectivesView />}
         {tab === 'tutor-sheet' && <TutorSheetView report={report} />}
         {tab === 'certificate' && <CertificateView report={report} />}
       </div>
@@ -484,6 +497,66 @@ function ModelAnswerView() {
         </ul>
       </Card>
     </div>
+  )
+}
+
+function ObjectivesView() {
+  const { state, scenario } = useGame()
+  if (!scenario) return null
+  const coverage = computeObjectiveCoverage(state, scenario)
+  const statusStyle = {
+    achieved: 'text-emerald-400',
+    partial: 'text-amber-400',
+    revise: 'text-red-400',
+    'not-reached': 'text-slate-500',
+  } as const
+  const statusLabel = {
+    achieved: 'ACHIEVED',
+    partial: 'PARTIALLY ACHIEVED',
+    revise: 'NEEDS REVISION',
+    'not-reached': 'NOT REACHED',
+  } as const
+  const addressed = coverage.filter((c) => c.encountered > 0).length
+  return (
+    <Card title="Learning objective coverage">
+      <p className="text-sm text-slate-400 mb-1">
+        Every completed scenario walks the delegate through gameplay steps mapped to all ten
+        SMSTS-aligned learning outcomes. This report evidences coverage and performance for
+        this run: <b className="text-slate-200">{addressed}/{coverage.length}</b> outcomes addressed.
+      </p>
+      <p className="text-[11px] text-slate-500 mb-4">
+        Outcome wording is original and SMSTS-aligned; this game and report are not endorsed or
+        approved by CITB and do not replace formal training or assessment.
+      </p>
+      <div className="space-y-3">
+        {coverage.map((c) => (
+          <div key={c.objective.id} className="rounded-lg border border-slate-800 p-3">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="font-semibold text-sm">
+                  <span className="text-amber-400 mr-2">{c.objective.code}</span>
+                  {c.objective.title}
+                </div>
+                <div className="text-xs text-slate-400 mt-0.5">{c.objective.description}</div>
+                <div className="text-[10px] text-slate-500 mt-1">
+                  Evidenced by {c.encountered}/{c.stepIds.length} mapped steps this run
+                </div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className={`text-xs font-bold ${statusStyle[c.status]}`}>{statusLabel[c.status]}</div>
+                <div className="text-lg font-bold tabular-nums">{c.performance === null ? '—' : `${c.performance}`}</div>
+              </div>
+            </div>
+            <div className="mt-2 h-1.5 rounded bg-slate-800 overflow-hidden">
+              <div
+                className={`h-full ${c.performance === null ? 'bg-slate-700' : c.performance >= 75 ? 'rag-green' : c.performance >= 50 ? 'rag-amber' : 'rag-red'}`}
+                style={{ width: `${c.performance ?? 0}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </Card>
   )
 }
 

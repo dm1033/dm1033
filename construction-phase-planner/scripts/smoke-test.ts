@@ -87,7 +87,7 @@ async function main() {
 
   // Verify report tabs render
   try {
-    for (const tab of ['1 · Score Report', '2 · Construction Phase Plan', '3 · Risk Assessment Summary', '4 · Temporary Works Register', '5 · Permit Tracker', '6 · Inspection Tracker', '7 · Environmental Checklist', '8 · Incident Response Log', '9 · Missed Items Report', '10 · Model Answer Overlay', '11 · Tutor Review Sheet', '12 · Certificate']) {
+    for (const tab of ['1 · Score Report', '2 · Construction Phase Plan', '3 · Risk Assessment Summary', '4 · Temporary Works Register', '5 · Permit Tracker', '6 · Inspection Tracker', '7 · Environmental Checklist', '8 · Incident Response Log', '9 · Missed Items Report', '10 · Model Answer Overlay', '11 · Learning Objectives', '12 · Tutor Review Sheet', '13 · Certificate']) {
       await page.locator(`button:has-text("${tab}")`).first().click({ timeout: 8000 })
       await page.waitForTimeout(100)
     }

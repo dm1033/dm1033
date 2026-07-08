@@ -5,6 +5,7 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SITE_ITEMS } from '../src/data/siteItems'
 import { CPP_SECTIONS, SCORE_KEYS, METER_KEYS } from '../src/types'
+import { LEARNING_OBJECTIVES, OBJECTIVE_MAP } from '../src/data/objectives'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const SCENARIO_DIR = join(__dirname, '..', 'src', 'data', 'scenarios')
@@ -130,6 +131,29 @@ function validateScenario(file: string, s: any) {
   }
   if ((s.eventPool ?? []).length < s.eventDraw) err(file, `eventDraw (${s.eventDraw}) exceeds pool size (${(s.eventPool ?? []).length})`)
   if ((s.eventPool ?? []).length < 5) err(file, `eventPool should have at least 5 events`)
+
+  // Learning objective coverage: every objective must map to at least one
+  // existing DETERMINISTIC step (never a random pool event) in this scenario.
+  const objMap = OBJECTIVE_MAP[s.id]
+  if (!objMap) {
+    err(file, `no OBJECTIVE_MAP entry for scenario '${s.id}'`)
+  } else {
+    const poolIds = new Set((s.eventPool ?? []).map((e: any) => e.id))
+    for (const objective of LEARNING_OBJECTIVES) {
+      const stepIds = objMap[objective.id] ?? []
+      if (stepIds.length === 0) {
+        err(file, `learning objective ${objective.code} (${objective.id}) has no mapped steps`)
+        continue
+      }
+      for (const id of stepIds) {
+        if (poolIds.has(id)) err(file, `objective ${objective.code} maps to random pool event '${id}' — must be deterministic`)
+        else if (!seenIds.has(id)) err(file, `objective ${objective.code} maps to unknown step '${id}'`)
+      }
+    }
+    for (const key of Object.keys(objMap)) {
+      if (!LEARNING_OBJECTIVES.some((o) => o.id === key)) err(file, `OBJECTIVE_MAP has unknown objective id '${key}'`)
+    }
+  }
 
   if (siteSetups < 1) err(file, 'needs at least one siteSetup step')
   if (twSteps < 1) err(file, 'needs at least one twRegister step')

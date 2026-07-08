@@ -29,10 +29,19 @@ environment, client confidence, workforce morale, enforcement risk and accident 
 - **Randomised incident events** drawn from a per-scenario pool, plus tutor-added questions
 - **Scoring engine**: seven 0–100 disciplines + five project meters, graded
   (90–100 Excellent · 75–89 Good · 60–74 Pass-level · 40–59 Significant gaps · <40 Unsafe planning)
-- **End-of-game outputs (12)**: score report, Construction Phase Plan, risk assessment
+- **Learning objective coverage, enforced and evidenced**: ten SMSTS-aligned learning
+  outcomes are mapped to deterministic gameplay steps in every scenario (enforced by the
+  data validator), and every completed run produces a per-outcome coverage and
+  performance report (screen, PDF and CSV) — the delegate cannot finish a scenario
+  without addressing every outcome
+- **End-of-game outputs (13)**: score report, Construction Phase Plan, risk assessment
   summary, TW register, permit tracker, inspection tracker, environmental checklist,
-  incident response log, missed items report, model answer overlay, tutor review sheet,
-  certificate placeholder — printable to PDF, trackers downloadable as CSV
+  incident response log, missed items report, model answer overlay, learning objectives
+  report, tutor review sheet, certificate placeholder — printable to PDF, trackers
+  downloadable as CSV
+- **Built to sell to training providers**: paperless (no printed workbooks or handouts),
+  fully remote-deliverable in a browser, offline-capable for classrooms, with delegate
+  evidence packs and tutor oversight
 - **Tutor/Admin mode**: pause for discussion, reveal answers, view every delegate choice
   against the best answer, add custom questions and hazards, reset scenario, download logs
 - **Offline-capable** (service worker) · **local storage persistence** · **responsive tablet layout**

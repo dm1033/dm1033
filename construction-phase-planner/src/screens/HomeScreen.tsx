@@ -40,6 +40,9 @@ export default function HomeScreen({ onStart, onTutor }: { onStart: () => void; 
           { icon: '🏗️', title: 'Plan the project', body: 'CDM duty holders, construction phase plan, welfare, RAMS, permits and temporary works — built as you play.' },
           { icon: '⚠️', title: 'Handle the unexpected', body: 'Service strikes, storms, HSE visits, PPE refusals and programme pressure test your judgement.' },
           { icon: '📊', title: 'Get graded like a manager', body: 'Seven scored disciplines, missed-item reports, downloadable CPP, registers, trackers and a tutor review sheet.' },
+          { icon: '🎯', title: 'Every objective, evidenced', body: 'Each scenario walks you through all ten SMSTS-aligned learning outcomes, with a coverage report at the end.' },
+          { icon: '🌱', title: 'Paperless and remote', body: 'No printing, no workbooks to post — play in a browser anywhere, download reports only when you need them.' },
+          { icon: '🎮', title: 'Learning that sticks', body: 'Decisions with consequences beat slides: programme pressure, incidents and trade-offs make the principles memorable.' },
         ].map((c) => (
           <div key={c.title} className="rounded-lg border border-slate-800 bg-slate-900/50 p-4">
             <div className="text-2xl mb-2">{c.icon}</div>

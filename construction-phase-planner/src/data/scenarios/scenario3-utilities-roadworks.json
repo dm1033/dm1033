@@ -1661,6 +1661,65 @@
             "poor": "Environmental controls deferred until quantities known.",
             "unsafe": "Silty water discharged to gully; contaminated spoil diluted into clean stockpile."
           }
+        },
+        {
+          "type": "decision",
+          "id": "p11-d2",
+          "prompt": "The main-lay involves weeks of cut-off saw work on the carriageway, hand-breaking around services, and generators running beside the trench. What is your occupational health plan for the crews?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Control at source and monitor: water suppression or on-tool extraction for cutting, low-vibration tools with managed trigger-time rotation, generator siting and screening for noise, fitted RPE and hearing protection as back-up, washing facilities before eating, and health surveillance (HAVS and hearing) for exposed crews.",
+              "quality": "best",
+              "impact": {
+                "safety": 9,
+                "legal": 6,
+                "morale": 4
+              },
+              "feedback": "Correct. Silica dust, hand-arm vibration and noise are this job's slow injuries — they need the same hierarchy as any other risk: eliminate/reduce at source, protect the person second, and monitor exposure and health where the risk warrants it."
+            },
+            {
+              "id": "b",
+              "text": "Issue FFP3 masks, gloves and ear defenders to everyone on day one and record the issue.",
+              "quality": "partial",
+              "impact": {
+                "safety": 4,
+                "legal": 2
+              },
+              "feedback": "PPE-first inverts the hierarchy: unfitted masks over stubble, gloves that do nothing for vibration dose, and defenders worn intermittently give a fraction of the protection the paperwork claims."
+            },
+            {
+              "id": "c",
+              "text": "Health risks are long-term — deal with them if anyone reports symptoms.",
+              "quality": "unsafe",
+              "impact": {
+                "safety": 0,
+                "legal": -3,
+                "incidentLikelihood": 8
+              },
+              "feedback": "By the time HAVS tingling or hearing loss is reported the damage is permanent. Waiting for symptoms is not a control strategy — it's a claims strategy.",
+              "criticalFailure": "No occupational health controls for known dust, vibration and noise exposure"
+            },
+            {
+              "id": "d",
+              "text": "Rotate the whole gang weekly between tasks so no one does too much of anything.",
+              "quality": "poor",
+              "impact": {
+                "safety": 2,
+                "planning": 1
+              },
+              "feedback": "Unmanaged rotation spreads exposure rather than reducing it — without source controls and trigger-time limits you may simply be giving everyone a dose."
+            }
+          ],
+          "topic": "Occupational health — silica, vibration and noise on street works",
+          "learningNote": "Occupational ill health kills and disables far more construction workers than accidents. Control silica with water or extraction at the point of cutting; manage vibration by tool selection and trigger-time, not just rotation; treat noise with distance, screening and maintenance before protection; and put exposed workers under appropriate health surveillance so damage is caught early.",
+          "cppSection": "riskAssessmentSummary",
+          "cppText": {
+            "best": "Occupational health: silica controlled by water suppression/on-tool extraction; low-vibration tools with trigger-time management; noise controlled by generator siting and screening; fitted RPE and hearing protection as final layer; welfare hygiene before eating; HAVS and audiometric health surveillance for exposed crews.",
+            "partial": "PPE issued for dust, noise and vibration; source controls to be developed.",
+            "poor": "Occupational health managed reactively.",
+            "unsafe": "No occupational health controls despite known exposures."
+          }
         }
       ]
     },
