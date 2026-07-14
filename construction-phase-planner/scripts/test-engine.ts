@@ -97,6 +97,32 @@ check('gated outcome overrides high score',
   gated.outcome.includes('Insufficient evidence of competence'), gated.outcome)
 check('gated run still reports numeric band', gated.bandLabel === 'Outstanding', gated.bandLabel)
 
+// --- delayed consequences ---
+import { DELAYED_CONSEQUENCES, dueConsequences } from '../src/engine/consequences'
+
+{
+  const base = mkState(false)
+  // Critical failure → investigation fires at phase 14, once.
+  const withCrit = { ...mkState(true) }
+  const due14 = dueConsequences(withCrit, 14)
+  check('investigation consequence due at phase 14 after critical failure',
+    due14.some((c) => c.id === 'investigation-opened'))
+  const afterFire = { ...withCrit, firedConsequences: ['investigation-opened'] }
+  check('fired consequence does not fire twice',
+    !dueConsequences(afterFire, 14).some((c) => c.id === 'investigation-opened'))
+  check('no investigation consequence without critical failure',
+    !dueConsequences(base, 14).some((c) => c.id === 'investigation-opened'))
+  // Positive consequence for a clean early game.
+  check('positive consequence fires for clean phases 1–6',
+    dueConsequences(base, 10).some((c) => c.id === 'strong-foundations'))
+  // Meter-triggered consequence.
+  const risky = { ...base, scores: { ...base.scores, meters: { ...base.scores.meters, incidentLikelihood: 60 } } }
+  check('near-miss cluster fires at phase 12 when incident likelihood high',
+    dueConsequences(risky, 12).some((c) => c.id === 'near-miss-cluster'))
+  check('every consequence has a valid phase 2..15',
+    DELAYED_CONSEQUENCES.every((c) => c.firesAtPhase >= 2 && c.firesAtPhase <= 15))
+}
+
 // --- performance bands ---
 check('band 95 = Outstanding', gradeFor(95).label === 'Outstanding')
 check('band 85 = Strong', gradeFor(85).label === 'Strong')

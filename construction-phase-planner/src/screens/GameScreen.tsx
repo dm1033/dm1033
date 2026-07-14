@@ -11,6 +11,7 @@ import TwRegisterForm from '../components/TwRegisterForm'
 import PermitForm from '../components/PermitForm'
 import type { CustomQuestion, DecisionStep, Step } from '../types'
 import { isEventPhase } from '../state/GameContext'
+import { dueConsequences } from '../engine/consequences'
 
 /** Convert a tutor-authored question into a decision step. */
 function customToDecision(q: CustomQuestion): DecisionStep {
@@ -48,6 +49,17 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
   useEffect(() => {
     if (state.completed) onFinished()
   }, [state.completed, onFinished])
+
+  // Delayed consequences: fire any rules due at entry to the current phase.
+  const currentPhaseNumber = scenario?.phases[state.phaseIndex]?.number
+  useEffect(() => {
+    if (!currentPhaseNumber) return
+    for (const c of dueConsequences(state, currentPhaseNumber)) {
+      dispatch({ type: 'FIRE_CONSEQUENCE', consequence: c })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPhaseNumber, state.firedConsequences.length])
+  const [dismissedConsequences, setDismissedConsequences] = useState<string[]>([])
 
   const phase = scenario?.phases[state.phaseIndex]
 
@@ -168,6 +180,36 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
             </button>
           </div>
         )}
+
+        {state.consequenceLog
+          .filter((c) => c.phaseNumber === phase.number && !dismissedConsequences.includes(c.id))
+          .map((c) => (
+            <div
+              key={c.id}
+              role="status"
+              className={`mb-3 rounded-lg border p-4 text-sm flex items-start justify-between gap-3 ${
+                c.severity === 'positive'
+                  ? 'border-emerald-700 bg-emerald-950/40 text-emerald-200'
+                  : c.severity === 'serious'
+                    ? 'border-red-700 bg-red-950/40 text-red-200'
+                    : 'border-amber-700 bg-amber-950/40 text-amber-200'
+              }`}
+            >
+              <div>
+                <div className="font-bold text-xs uppercase tracking-wide mb-1">
+                  {c.severity === 'positive' ? '✅ Project development' : '⏳ Delayed consequence'} — {c.title}
+                </div>
+                <p>{c.message}</p>
+              </div>
+              <button
+                onClick={() => setDismissedConsequences((prev) => [...prev, c.id])}
+                aria-label={`Dismiss notice: ${c.title}`}
+                className="shrink-0 rounded border border-current/40 px-2 py-0.5 text-xs"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
 
         {summaryPhaseIndex !== null && scenario.phases[summaryPhaseIndex] && (
           <div className="mb-4">

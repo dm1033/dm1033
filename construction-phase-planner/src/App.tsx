@@ -19,6 +19,7 @@ export default function App() {
 
   return (
     <div className="min-h-full flex flex-col">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <header className="no-print sticky top-0 z-40 border-b border-slate-800 bg-slate-950/95 backdrop-blur px-4 py-2 flex items-center gap-3">
         <button onClick={() => setScreen('home')} className="flex items-center gap-2 text-left">
           <span className="text-2xl">🚧</span>
@@ -42,7 +43,7 @@ export default function App() {
         </nav>
       </header>
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {screen === 'home' && (
           <HomeScreen
             onStart={() => setScreen('select')}

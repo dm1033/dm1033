@@ -315,6 +315,14 @@ export interface IncidentLogRow {
   response: string
 }
 
+export interface ConsequenceLogRow {
+  id: string
+  phaseNumber: number
+  severity: 'positive' | 'warning' | 'serious'
+  title: string
+  message: string
+}
+
 export interface ScoreState {
   /** Earned points per category. */
   earned: Record<ScoreKey, number>
@@ -350,6 +358,9 @@ export interface GameState {
   riskRegister: RiskRegisterRow[]
   incidentLog: IncidentLogRow[]
   criticalFailures: string[]
+  /** Ids of delayed consequences that have fired (each fires once). */
+  firedConsequences: string[]
+  consequenceLog: ConsequenceLogRow[]
   cpp: Partial<Record<CppSectionId, string[]>>
   /** Ids of eventPool events drawn for this run (stable across reloads). */
   drawnEventIds: string[]

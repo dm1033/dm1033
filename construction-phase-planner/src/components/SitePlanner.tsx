@@ -87,7 +87,8 @@ export default function SitePlanner({ step, reveal, deferFeedback, onSubmit, onC
       <h3 className="text-lg font-semibold leading-snug mb-1">Site Set-Up Planner</h3>
       <p className="text-sm text-slate-400 mb-1">{step.prompt}</p>
       <p className="text-[11px] text-slate-500 mb-4">
-        Select an item, then click a cell to place it (or drag it on). Click a placed item to remove it.
+        Select an item, then click (or focus and press Enter on) a cell to place it — drag-and-drop
+        also works. Click a placed item to remove it.
         Required items placed: <b className={placedRequired === requiredCount ? 'text-emerald-400' : 'text-amber-400'}>{placedRequired}/{requiredCount}</b>
       </p>
 
@@ -105,10 +106,25 @@ export default function SitePlanner({ step, reveal, deferFeedback, onSubmit, onC
                 const placed = placements.find((p) => p.x === x && p.y === y)
                 const blocked = blockedCells.has(`${x},${y}`)
                 const assessment = result && placed ? result.find((r) => r.itemId === placed.itemId) : null
+                const cellLabel = [
+                  topZone ? topZone.label : 'open ground',
+                  placed ? `contains ${SITE_ITEM_MAP[placed.itemId]?.label}` : blocked ? 'no placement allowed' : 'empty',
+                  selected && !blocked && !result ? `press Enter to place ${SITE_ITEM_MAP[selected]?.label}` : '',
+                ].filter(Boolean).join(', ')
                 return (
                   <div
                     key={`${x},${y}`}
+                    role="button"
+                    tabIndex={blocked ? -1 : 0}
+                    aria-label={`Grid ${x + 1},${y + 1}: ${cellLabel}`}
+                    aria-disabled={blocked}
                     onClick={() => handleCellClick(x, y)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        handleCellClick(x, y)
+                      }
+                    }}
                     onDragOver={(e) => { if (!blocked) e.preventDefault() }}
                     onDrop={(e) => {
                       e.preventDefault()

@@ -13,6 +13,39 @@ body {
 .rag-amber { @apply bg-amber-500; }
 .rag-red { @apply bg-red-500; }
 
+/* Accessibility: consistent visible focus indicator for keyboard users */
+:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Accessibility: respect reduced-motion preference globally */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  @apply sr-only;
+}
+.skip-link:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  clip: auto;
+  clip-path: none;
+  overflow: visible;
+  white-space: normal;
+  @apply bg-amber-500 text-slate-950 font-bold rounded-md px-4 py-2;
+}
+
 /* Print styles: only the printable report area is emitted */
 @media print {
   body { background: white !important; color: #111 !important; }

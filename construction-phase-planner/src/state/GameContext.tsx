@@ -7,6 +7,8 @@ import {
   applyDecision, applyPermits, applySiteSetup, applyTwRegister,
   initialScoreState, seededShuffle,
 } from '../engine/scoring'
+import type { DelayedConsequence } from '../engine/consequences'
+import { METER_KEYS } from '../types'
 import { getScenario } from '../data'
 
 const SAVE_KEY = 'cpp-smsts-save-v1'
@@ -26,6 +28,8 @@ export const initialGameState: GameState = {
   riskRegister: [],
   incidentLog: [],
   criticalFailures: [],
+  firedConsequences: [],
+  consequenceLog: [],
   cpp: {},
   drawnEventIds: [],
   delegateName: '',
@@ -48,6 +52,7 @@ type Action =
   | { type: 'SUBMIT_TW'; step: TwRegisterStep; answers: TwAnswerRecord[] }
   | { type: 'SUBMIT_PERMITS'; step: PermitStep; selected: string[] }
   | { type: 'ADVANCE'; scenario: Scenario; extraSteps: number }
+  | { type: 'FIRE_CONSEQUENCE'; consequence: DelayedConsequence }
   | { type: 'FINISH' }
   | { type: 'RESET' }
   | { type: 'LOAD'; state: GameState }
@@ -140,6 +145,25 @@ function reducer(state: GameState, action: Action): GameState {
       }
       return { ...state, completed: true, finishedAt: new Date().toISOString() }
     }
+    case 'FIRE_CONSEQUENCE': {
+      const c = action.consequence
+      if (state.firedConsequences.includes(c.id)) return state
+      const meters = { ...state.scores.meters }
+      for (const key of METER_KEYS) {
+        const v = c.meters[key]
+        if (typeof v === 'number') meters[key] = Math.min(100, Math.max(0, meters[key] + v))
+      }
+      const phaseNumber = c.firesAtPhase
+      return {
+        ...state,
+        scores: { ...state.scores, meters },
+        firedConsequences: [...state.firedConsequences, c.id],
+        consequenceLog: [
+          ...state.consequenceLog,
+          { id: c.id, phaseNumber, severity: c.severity, title: c.title, message: c.message },
+        ],
+      }
+    }
     case 'FINISH':
       return { ...state, completed: true, finishedAt: state.finishedAt ?? new Date().toISOString() }
     case 'RESET':
@@ -206,8 +230,16 @@ function loadSaved<T>(key: string): T | null {
 export function GameProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialGameState, (init) => {
     const saved = loadSaved<GameState>(SAVE_KEY)
-    // Migrate saves written before the mode field existed.
-    return saved ? { ...init, ...saved, mode: saved.mode ?? 'learning' } : init
+    // Migrate saves written before newer fields existed.
+    return saved
+      ? {
+          ...init,
+          ...saved,
+          mode: saved.mode ?? 'learning',
+          firedConsequences: saved.firedConsequences ?? [],
+          consequenceLog: saved.consequenceLog ?? [],
+        }
+      : init
   })
   const [tutor, tutorDispatch] = useReducer(tutorReducer, initialTutorState, (init) => loadSaved<TutorState>(TUTOR_KEY) ?? init)
   const [saveStatus, setSaveStatus] = React.useState<SaveStatus>({ state: 'saved', at: null })

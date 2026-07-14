@@ -20,7 +20,7 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 - ✅ 7-tier decision classification (Excellent → Critical Failure), derived deterministically; rules in docs/SCORING-MODEL.md
 - ✅ Weighted 9-area competency model (30/15/15/10/10/5/5/5/5) with per-area evidence counts
 - ✅ Critical-failure gate: unresolved critical failure prevents a competent result regardless of score (verified by engine tests + screenshot evidence)
-- 🔶 No delayed-consequence engine (meters move immediately only)
+- ✅ Delayed-consequence engine: 7 rules (5 adverse, 2 positive) fire in later phases from earlier decisions/meter build-up, once per run, logged and reported
 - 🔶 No recovery-decision tracking (initial error + recovery quality)
 
 ## Documents built during play
@@ -51,7 +51,8 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 
 ## Accessibility / responsiveness
 - ✅ Desktop + tablet layouts verified by screenshot
-- 🔶 No WCAG 2.2 AA audit yet; colour-only meaning in places (RAG bars carry numbers, but review needed); no reduced-motion option; keyboard/screen-reader pass outstanding
+- ✅ Keyboard-accessible site planner (focusable labelled cells, Enter/Space placement), global focus-visible indicator, reduced-motion support, skip-to-content link, aria-live save status
+- 🔶 Full WCAG 2.2 AA audit still outstanding (contrast measurement, full screen-reader pass)
 
 ## Commercial
 - 🧩 Licence tiers, Stripe payment-link stubs, licence key screen (format-only)

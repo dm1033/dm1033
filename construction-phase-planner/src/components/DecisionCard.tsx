@@ -29,7 +29,7 @@ export default function DecisionCard({ step, reveal, deferFeedback, onAnswer, on
   return (
     <div className={`rounded-xl border p-5 ${step.isEvent ? 'border-red-800 bg-red-950/20' : 'border-slate-800 bg-slate-900/50'}`}>
       {step.isEvent && (
-        <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-3 animate-pulse">
+        <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-3 animate-pulse motion-reduce:animate-none">
           🚨 SITE INCIDENT — respond now
         </div>
       )}

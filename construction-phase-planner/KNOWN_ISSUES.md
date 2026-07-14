@@ -6,7 +6,7 @@ Severity: 🔴 blocks demo credibility · 🟠 material gap vs brief · 🟡 qua
 - 🔴 Numeric grade can currently mask a critical failure (no gate). Brief: "a delegate must not receive a competent result where they have committed an unresolved critical failure."
 - 🟠 4-tier decision classification vs required 7-tier (excellent → critical failure).
 - 🟠 No weighted competency model (9 areas with declared % weights) — current 7 equal-weight categories.
-- 🟠 Consequences are immediate only; no delayed consequences from early poor planning.
+
 - 🟠 No recovery mechanic (recognise-and-recover with both attempts recorded).
 - 🟡 Decision records lack timestamps and attempt counts.
 

@@ -16,8 +16,11 @@ admin, (7) accessibility, (8) polish, (9) commercial.
 | 7 | Savings calculator | Value case needs evidence-based illustration | Editable-input calculator screen, all outputs labelled illustrative | Inputs editable; totals update; no fabricated claims | Additive screen |
 | 8 | CITB demo pack docs | Demo requires script & collateral | `CITB_DEMO_SCRIPT.md`, `CITB_PRESENTATION_NOTES.md`, `CITB_QUESTIONS_AND_ANSWERS.md`, `PRODUCT_VALUE_CASE.md`, `PILOT_PROPOSAL.md` | Docs exist, compliant wording | Docs only |
 
+## Delivered iteration 2 ✅
+- (9) Delayed-consequence engine — src/engine/consequences.ts, 7 rules, fires once per run at phase entry, banner UI + report log + engine tests
+- (15, part) Accessibility hardening — keyboard site planner, focus-visible, reduced motion, skip link, aria-live status; formal WCAG audit remains open
+
 ## Next iterations (priority order)
-9. Delayed-consequence engine: early poor decisions queue events/meter effects that fire in later phases (e.g. skipped welfare → morale event in phase 12; unchecked plant cert → breakdown event).
 10. Recovery mechanic: after poor/unsafe answers, offer a follow-up recovery decision; record initial + recovery classifications.
 11. Decision record enrichment: ISO timestamps, attempt counts, affected persons, documents affected.
 12. Change-control record, action tracker and handover checklist documents.
