@@ -11,11 +11,13 @@ const QUALITY_STYLE: Record<string, { label: string; cls: string }> = {
 interface Props {
   step: DecisionStep
   reveal: boolean
+  /** Assessment mode: record the answer but defer all feedback to the final report. */
+  deferFeedback?: boolean
   onAnswer: (option: DecisionOption) => void
   onContinue: () => void
 }
 
-export default function DecisionCard({ step, reveal, onAnswer, onContinue }: Props) {
+export default function DecisionCard({ step, reveal, deferFeedback, onAnswer, onContinue }: Props) {
   const [chosen, setChosen] = useState<DecisionOption | null>(null)
 
   const choose = (o: DecisionOption) => {
@@ -37,7 +39,7 @@ export default function DecisionCard({ step, reveal, onAnswer, onContinue }: Pro
 
       <div className="mt-4 space-y-2">
         {step.options.map((o, idx) => {
-          const showQuality = chosen !== null || (reveal && o.quality === 'best')
+          const showQuality = !deferFeedback && (chosen !== null || (reveal && o.quality === 'best'))
           const isChosen = chosen?.id === o.id
           const style = QUALITY_STYLE[o.quality]
           return (
@@ -67,7 +69,20 @@ export default function DecisionCard({ step, reveal, onAnswer, onContinue }: Pro
         })}
       </div>
 
-      {chosen && (
+      {chosen && deferFeedback && (
+        <div className="mt-4 space-y-3">
+          <div className="rounded-lg border border-slate-700 bg-slate-900 p-3 text-sm text-slate-300">
+            ✓ Response recorded. Feedback for this decision will appear in your final assessment report.
+          </div>
+          <button
+            onClick={onContinue}
+            className="rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5"
+          >
+            Continue →
+          </button>
+        </div>
+      )}
+      {chosen && !deferFeedback && (
         <div className="mt-4 space-y-3">
           <div className={`rounded-lg border p-3 text-sm ${QUALITY_STYLE[chosen.quality].cls}`}>
             <p className="font-bold text-xs mb-1">{QUALITY_STYLE[chosen.quality].label}</p>

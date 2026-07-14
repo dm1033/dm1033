@@ -6,11 +6,13 @@ import { assessPlacements, type PlacementAssessment } from '../engine/scoring'
 interface Props {
   step: SiteSetupStep
   reveal: boolean
+  /** Assessment mode: record placements but defer the assessment to the final report. */
+  deferFeedback?: boolean
   onSubmit: (placements: PlacementRecord[]) => void
   onContinue: () => void
 }
 
-export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Props) {
+export default function SitePlanner({ step, reveal, deferFeedback, onSubmit, onContinue }: Props) {
   const [placements, setPlacements] = useState<PlacementRecord[]>([])
   const [selected, setSelected] = useState<string | null>(null)
   const [result, setResult] = useState<PlacementAssessment[] | null>(null)
@@ -56,8 +58,12 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
   }
 
   const submit = () => {
-    setResult(assessPlacements(step, placements))
     onSubmit(placements)
+    if (deferFeedback) {
+      onContinue()
+      return
+    }
+    setResult(assessPlacements(step, placements))
   }
 
   const requiredCount = step.rules.filter((r) => r.required).length

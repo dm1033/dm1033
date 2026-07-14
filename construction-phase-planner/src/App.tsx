@@ -6,9 +6,10 @@ import GameScreen from './screens/GameScreen'
 import ReportScreen from './screens/ReportScreen'
 import TutorScreen from './screens/TutorScreen'
 import LicenceScreen from './screens/LicenceScreen'
+import SavingsScreen from './screens/SavingsScreen'
 import { ALIGNMENT_STATEMENT } from './types'
 
-export type ScreenId = 'home' | 'select' | 'game' | 'report' | 'tutor' | 'licence'
+export type ScreenId = 'home' | 'select' | 'game' | 'report' | 'tutor' | 'licence' | 'savings'
 
 export default function App() {
   const { state, tutor } = useGame()
@@ -36,17 +37,25 @@ export default function App() {
           <NavBtn active={screen === 'tutor'} onClick={() => setScreen('tutor')}>
             Tutor Mode {tutor.enabled && <span className="ml-1 inline-block w-2 h-2 rounded-full bg-emerald-400" />}
           </NavBtn>
+          <NavBtn active={screen === 'savings'} onClick={() => setScreen('savings')}>Savings</NavBtn>
           <NavBtn active={screen === 'licence'} onClick={() => setScreen('licence')}>Licensing</NavBtn>
         </nav>
       </header>
 
       <main className="flex-1">
-        {screen === 'home' && <HomeScreen onStart={() => setScreen('select')} onTutor={() => setScreen('tutor')} />}
+        {screen === 'home' && (
+          <HomeScreen
+            onStart={() => setScreen('select')}
+            onTutor={() => setScreen('tutor')}
+            onResume={() => setScreen(state.completed ? 'report' : 'game')}
+          />
+        )}
         {screen === 'select' && <ScenarioSelect onStarted={() => setScreen('game')} />}
         {screen === 'game' && <GameScreen onFinished={() => setScreen('report')} onExit={() => setScreen('home')} />}
         {screen === 'report' && <ReportScreen onRestart={() => setScreen('select')} />}
         {screen === 'tutor' && <TutorScreen onSelectScenario={() => setScreen('select')} onViewReport={() => setScreen('report')} />}
         {screen === 'licence' && <LicenceScreen />}
+        {screen === 'savings' && <SavingsScreen />}
       </main>
 
       <footer className="no-print border-t border-slate-800 px-4 py-3 text-[11px] text-slate-500 leading-snug">

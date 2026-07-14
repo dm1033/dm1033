@@ -1,15 +1,24 @@
 import { useState } from 'react'
 import { SCENARIOS } from '../data'
 import { useGame } from '../state/GameContext'
+import type { GameMode } from '../types'
+
+const MODES: { id: GameMode; label: string; desc: string }[] = [
+  { id: 'learning', label: '📖 Learning Mode', desc: 'Immediate feedback and explanations after every decision.' },
+  { id: 'assessment', label: '📝 Assessment Mode', desc: 'Decisions are recorded silently; feedback and model answers appear only in the final report.' },
+  { id: 'tutor', label: '🎓 Tutor-Led Mode', desc: 'Learning mode plus tutor pause, discussion and selective reveal.' },
+  { id: 'demo', label: '🎬 Demonstration Mode', desc: 'Guided 10–15 minute walkthrough with a docked demo script for presentations.' },
+]
 
 export default function ScenarioSelect({ onStarted }: { onStarted: () => void }) {
   const { state, dispatch } = useGame()
   const [name, setName] = useState(state.delegateName)
   const [chosen, setChosen] = useState<string | null>(null)
+  const [mode, setMode] = useState<GameMode>('learning')
 
   const start = () => {
     if (!chosen) return
-    dispatch({ type: 'START_SCENARIO', scenarioId: chosen, delegateName: name.trim() || 'Delegate' })
+    dispatch({ type: 'START_SCENARIO', scenarioId: chosen, delegateName: name.trim() || 'Delegate', mode })
     onStarted()
   }
 
@@ -54,6 +63,24 @@ export default function ScenarioSelect({ onStarted }: { onStarted: () => void })
             </div>
           </button>
         ))}
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-sm font-bold text-slate-300 mb-2">Choose a mode</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {MODES.map((m) => (
+            <button
+              key={m.id}
+              onClick={() => setMode(m.id)}
+              className={`text-left rounded-lg border p-3 transition-colors ${
+                mode === m.id ? 'border-amber-500 bg-amber-500/10' : 'border-slate-800 bg-slate-900/50 hover:border-slate-600'
+              }`}
+            >
+              <div className="text-sm font-semibold">{m.label}</div>
+              <div className="text-[11px] text-slate-400 mt-1">{m.desc}</div>
+            </button>
+          ))}
+        </div>
       </div>
 
       {state.scenarioId && !state.completed && (

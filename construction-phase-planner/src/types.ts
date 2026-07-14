@@ -53,6 +53,10 @@ export type ScoreImpact = Partial<Record<ScoreKey | MeterKey, number>>
 
 export type OptionQuality = 'best' | 'partial' | 'poor' | 'unsafe'
 
+/** Seven-tier decision classification (see docs/SCORING-MODEL.md). */
+export type Classification =
+  | 'excellent' | 'good' | 'acceptable' | 'weak' | 'poor' | 'unsafe' | 'critical'
+
 export interface DecisionOption {
   id: string
   text: string
@@ -61,6 +65,8 @@ export interface DecisionOption {
   feedback: string
   /** If chosen, recorded as a critical safety failure in the final report. */
   criticalFailure?: string
+  /** Optional explicit 7-tier classification; otherwise derived from quality + attainment. */
+  classification?: Classification
 }
 
 /** A multiple-choice decision (also used for incident/challenge events). */
@@ -324,8 +330,15 @@ export interface CustomQuestion {
   explanation: string
 }
 
+/**
+ * Play modes: learning (immediate feedback), assessment (feedback deferred to the
+ * final report), tutor (learning + tutor console), demo (learning + demo script panel).
+ */
+export type GameMode = 'learning' | 'assessment' | 'tutor' | 'demo'
+
 export interface GameState {
   scenarioId: string | null
+  mode: GameMode
   phaseIndex: number
   stepIndex: number
   completed: boolean
@@ -362,11 +375,12 @@ export interface GradeBand {
 }
 
 export const GRADE_BANDS: GradeBand[] = [
-  { min: 90, label: 'Excellent', summary: 'Strong SMSTS-level planning.' },
-  { min: 75, label: 'Good', summary: 'Safe with minor gaps.' },
-  { min: 60, label: 'Pass-level', summary: 'Improvement required.' },
-  { min: 40, label: 'Significant gaps', summary: 'Key duties and controls were missed.' },
-  { min: 0, label: 'Unsafe planning', summary: 'Restart recommended.' },
+  { min: 90, label: 'Outstanding', summary: 'Anticipates issues, applies the hierarchy of control and evidences decisions.' },
+  { min: 80, label: 'Strong', summary: 'Safe, well-planned management with minor gaps.' },
+  { min: 70, label: 'Competent', summary: 'Sound control of risk; some assurance steps missed.' },
+  { min: 60, label: 'Developing competence', summary: 'Immediate risks controlled, but planning and evidence need development.' },
+  { min: 50, label: 'Significant improvement required', summary: 'Reactive management with material gaps.' },
+  { min: 0, label: 'Insufficient evidence of competence', summary: 'Decisions did not demonstrate safe management of the project.' },
 ]
 
 export const DISCLAIMER =

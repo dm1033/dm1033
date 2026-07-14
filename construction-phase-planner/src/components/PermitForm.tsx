@@ -4,11 +4,13 @@ import type { PermitStep } from '../types'
 interface Props {
   step: PermitStep
   reveal: boolean
+  /** Assessment mode: record selection but defer marking to the final report. */
+  deferFeedback?: boolean
   onSubmit: (selected: string[]) => void
   onContinue: () => void
 }
 
-export default function PermitForm({ step, reveal, onSubmit, onContinue }: Props) {
+export default function PermitForm({ step, reveal, deferFeedback, onSubmit, onContinue }: Props) {
   const [selected, setSelected] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
 
@@ -18,8 +20,12 @@ export default function PermitForm({ step, reveal, onSubmit, onContinue }: Props
   }
 
   const submit = () => {
-    setSubmitted(true)
     onSubmit(selected)
+    if (deferFeedback) {
+      onContinue()
+      return
+    }
+    setSubmitted(true)
   }
 
   return (

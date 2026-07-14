@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import PhaseSummary from '../components/PhaseSummary'
+import DemoPanel from '../components/DemoPanel'
 import { useGame } from '../state/GameContext'
 import Dashboard from '../components/Dashboard'
 import PanelsDrawer from '../components/PanelsDrawer'
@@ -30,8 +32,18 @@ function customToDecision(q: CustomQuestion): DecisionStep {
 }
 
 export default function GameScreen({ onFinished, onExit }: { onFinished: () => void; onExit: () => void }) {
-  const { state, dispatch, scenario, tutor, tutorDispatch } = useGame()
+  const { state, dispatch, scenario, tutor, tutorDispatch, saveStatus } = useGame()
   const entryRef = useRef<{ id: string; done: boolean } | null>(null)
+  // Phase-end feedback: when the phase index advances, show a summary of the phase
+  // just completed (not in assessment mode).
+  const prevPhaseRef = useRef(state.phaseIndex)
+  const [summaryPhaseIndex, setSummaryPhaseIndex] = useState<number | null>(null)
+  useEffect(() => {
+    if (state.phaseIndex > prevPhaseRef.current && state.mode !== 'assessment') {
+      setSummaryPhaseIndex(prevPhaseRef.current)
+    }
+    prevPhaseRef.current = state.phaseIndex
+  }, [state.phaseIndex, state.mode])
 
   useEffect(() => {
     if (state.completed) onFinished()
@@ -62,7 +74,9 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
   const steps: Step[] = isEventPhase(phase.number) ? [...phase.steps, ...extraSteps] : phase.steps
   const step = steps[Math.min(state.stepIndex, steps.length - 1)]
   const advance = () => dispatch({ type: 'ADVANCE', scenario, extraSteps: extraSteps.length })
-  const reveal = tutor.enabled && tutor.revealAnswers
+  const deferFeedback = state.mode === 'assessment'
+  // Tutor reveal never leaks into formal assessment runs.
+  const reveal = tutor.enabled && tutor.revealAnswers && !deferFeedback
 
   // Guard against double-scoring after a reload: a step whose answer was already
   // recorded BEFORE the step was entered renders as completed instead of accepting a
@@ -110,10 +124,36 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
       {/* Main step area */}
       <section className="min-w-0">
         <div className="mb-3">
-          <div className="text-xs text-slate-500">
-            Phase {phase.number} of 15 · Step {Math.min(state.stepIndex + 1, steps.length)} of {steps.length} · {scenario.title}
+          <div className="flex items-center gap-3 text-xs text-slate-500">
+            <span>
+              Phase {phase.number} of 15 · Step {Math.min(state.stepIndex + 1, steps.length)} of {steps.length} · {scenario.title}
+            </span>
+            <span className="ml-auto flex items-center gap-2">
+              <span
+                aria-live="polite"
+                className={saveStatus.state === 'saved' ? 'text-emerald-500' : 'text-red-400 font-bold'}
+                title={saveStatus.at ? `Last saved ${new Date(saveStatus.at).toLocaleTimeString()}` : ''}
+              >
+                {saveStatus.state === 'saved'
+                  ? `● Saved${saveStatus.at ? ' ' + new Date(saveStatus.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}`
+                  : '⚠ Save failed — export a recovery file'}
+              </span>
+              <button
+                onClick={onExit}
+                className="rounded border border-slate-700 px-2 py-0.5 text-slate-300 hover:border-amber-500"
+              >
+                Save & Exit
+              </button>
+            </span>
           </div>
-          <h2 className="text-xl font-bold">{phase.title}</h2>
+          <h2 className="text-xl font-bold">
+            {phase.title}
+            {state.mode === 'assessment' && (
+              <span className="ml-2 align-middle text-[10px] font-bold uppercase tracking-wide rounded bg-sky-900/70 text-sky-300 px-2 py-0.5">
+                Assessment mode — feedback in final report
+              </span>
+            )}
+          </h2>
           {state.stepIndex === 0 && <p className="text-sm text-slate-400 mt-1">{phase.intro}</p>}
         </div>
 
@@ -129,7 +169,16 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
           </div>
         )}
 
-        <div className={tutor.enabled && tutor.paused ? 'pointer-events-none opacity-50' : ''}>
+        {summaryPhaseIndex !== null && scenario.phases[summaryPhaseIndex] && (
+          <div className="mb-4">
+            <PhaseSummary
+              phase={scenario.phases[summaryPhaseIndex]}
+              onContinue={() => setSummaryPhaseIndex(null)}
+            />
+          </div>
+        )}
+
+        <div className={`${tutor.enabled && tutor.paused ? 'pointer-events-none opacity-50' : ''} ${summaryPhaseIndex !== null ? 'hidden' : ''}`}>
           {alreadyDone && (
             <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5">
               <p className="text-sm text-slate-300">✓ This step has already been completed and scored.</p>
@@ -144,6 +193,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               key={step.id}
               step={step}
               reveal={reveal}
+              deferFeedback={deferFeedback}
               onAnswer={(option) => dispatch({ type: 'ANSWER_DECISION', step, option, phaseNumber: phase.number })}
               onContinue={advance}
             />
@@ -153,6 +203,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               key={step.id}
               step={step}
               reveal={reveal}
+              deferFeedback={deferFeedback}
               onSubmit={(placements) => dispatch({ type: 'SUBMIT_SITE_SETUP', step, placements })}
               onContinue={advance}
             />
@@ -162,6 +213,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               key={step.id}
               step={step}
               reveal={reveal}
+              deferFeedback={deferFeedback}
               onSubmit={(answers) => dispatch({ type: 'SUBMIT_TW', step, answers })}
               onContinue={advance}
             />
@@ -171,6 +223,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               key={step.id}
               step={step}
               reveal={reveal}
+              deferFeedback={deferFeedback}
               onSubmit={(selected) => dispatch({ type: 'SUBMIT_PERMITS', step, selected })}
               onContinue={advance}
             />
@@ -187,6 +240,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
           <PanelsDrawer />
         </div>
       </aside>
+      {state.mode === 'demo' && <DemoPanel />}
     </div>
   )
 }

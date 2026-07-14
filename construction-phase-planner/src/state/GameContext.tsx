@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
 import type {
-  CustomQuestion, DecisionOption, DecisionStep, GameState, PermitStep, PlacementRecord,
+  CustomQuestion, DecisionOption, DecisionStep, GameMode, GameState, PermitStep, PlacementRecord,
   Scenario, SiteSetupStep, TutorState, TwAnswerRecord, TwRegisterStep,
 } from '../types'
 import {
@@ -14,6 +14,7 @@ const TUTOR_KEY = 'cpp-smsts-tutor-v1'
 
 export const initialGameState: GameState = {
   scenarioId: null,
+  mode: 'learning',
   phaseIndex: 0,
   stepIndex: 0,
   completed: false,
@@ -41,7 +42,7 @@ export const initialTutorState: TutorState = {
 }
 
 type Action =
-  | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string }
+  | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; mode: GameMode }
   | { type: 'ANSWER_DECISION'; step: DecisionStep; option: DecisionOption; phaseNumber: number }
   | { type: 'SUBMIT_SITE_SETUP'; step: SiteSetupStep; placements: PlacementRecord[] }
   | { type: 'SUBMIT_TW'; step: TwRegisterStep; answers: TwAnswerRecord[] }
@@ -62,6 +63,7 @@ function reducer(state: GameState, action: Action): GameState {
       return {
         ...initialGameState,
         scenarioId: action.scenarioId,
+        mode: action.mode,
         delegateName: action.delegateName,
         drawnEventIds: drawn,
         startedAt: new Date().toISOString(),
@@ -177,12 +179,17 @@ function tutorReducer(state: TutorState, action: TutorAction): TutorState {
   }
 }
 
+export type SaveStatus = { state: 'saved' | 'saving' | 'error'; at: string | null }
+
 interface GameContextValue {
   state: GameState
   dispatch: React.Dispatch<Action>
   tutor: TutorState
   tutorDispatch: React.Dispatch<TutorAction>
   scenario: Scenario | null
+  saveStatus: SaveStatus
+  exportRecovery: () => void
+  importRecovery: (file: File) => Promise<string | null>
 }
 
 const GameContext = createContext<GameContextValue | null>(null)
@@ -197,11 +204,27 @@ function loadSaved<T>(key: string): T | null {
 }
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, initialGameState, (init) => loadSaved<GameState>(SAVE_KEY) ?? init)
+  const [state, dispatch] = useReducer(reducer, initialGameState, (init) => {
+    const saved = loadSaved<GameState>(SAVE_KEY)
+    // Migrate saves written before the mode field existed.
+    return saved ? { ...init, ...saved, mode: saved.mode ?? 'learning' } : init
+  })
   const [tutor, tutorDispatch] = useReducer(tutorReducer, initialTutorState, (init) => loadSaved<TutorState>(TUTOR_KEY) ?? init)
+  const [saveStatus, setSaveStatus] = React.useState<SaveStatus>({ state: 'saved', at: null })
 
   useEffect(() => {
-    try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)) } catch { /* storage full/blocked */ }
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify(state))
+      // Verify the write actually persisted before claiming "saved".
+      const readBack = localStorage.getItem(SAVE_KEY)
+      if (readBack && readBack.length > 0) {
+        setSaveStatus({ state: 'saved', at: new Date().toISOString() })
+      } else {
+        setSaveStatus({ state: 'error', at: new Date().toISOString() })
+      }
+    } catch {
+      setSaveStatus({ state: 'error', at: new Date().toISOString() })
+    }
   }, [state])
   useEffect(() => {
     try { localStorage.setItem(TUTOR_KEY, JSON.stringify(tutor)) } catch { /* storage full/blocked */ }
@@ -209,9 +232,36 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const scenario = useMemo(() => (state.scenarioId ? getScenario(state.scenarioId) : null), [state.scenarioId])
 
+  const exportRecovery = React.useCallback(() => {
+    const payload = JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), game: state, tutor }, null, 2)
+    const blob = new Blob([payload], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `cpp-recovery-${(state.delegateName || 'delegate').replace(/\s+/g, '-')}.json`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }, [state, tutor])
+
+  const importRecovery = React.useCallback(async (file: File): Promise<string | null> => {
+    try {
+      const parsed = JSON.parse(await file.text())
+      if (!parsed?.game || typeof parsed.game !== 'object' || !('phaseIndex' in parsed.game)) {
+        return 'Not a valid recovery file.'
+      }
+      dispatch({ type: 'LOAD', state: { ...initialGameState, ...parsed.game, mode: parsed.game.mode ?? 'learning' } })
+      if (parsed.tutor) tutorDispatch({ type: 'LOAD', state: { ...initialTutorState, ...parsed.tutor } })
+      return null
+    } catch {
+      return 'Could not read the recovery file.'
+    }
+  }, [])
+
   const value = useMemo(
-    () => ({ state, dispatch, tutor, tutorDispatch, scenario }),
-    [state, tutor, scenario],
+    () => ({ state, dispatch, tutor, tutorDispatch, scenario, saveStatus, exportRecovery, importRecovery }),
+    [state, tutor, scenario, saveStatus, exportRecovery, importRecovery],
   )
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>
 }

@@ -9,6 +9,9 @@ import { SITE_ITEM_MAP } from '../data/siteItems'
 import { twItemScore } from '../engine/scoring'
 import { computeObjectiveCoverage } from '../engine/objectives'
 import { toCsv } from '../engine/reports'
+import {
+  classifyRun, computeWeightedResult, CLASSIFICATION_LABELS, CLASSIFICATION_ORDER,
+} from '../engine/assessment'
 
 type Tab =
   | 'score' | 'cpp' | 'risk' | 'tw' | 'permits' | 'inspections'
@@ -135,24 +138,46 @@ function Card({ title, children }: { title?: string; children: React.ReactNode }
 }
 
 function ScoreReportView({ report }: { report: ReturnType<typeof buildScoreReport> }) {
-  const gradeColor = report.overall >= 75 ? 'text-emerald-400' : report.overall >= 60 ? 'text-amber-400' : 'text-red-400'
+  const { state, scenario } = useGame()
+  if (!scenario) return null
+  const weighted = computeWeightedResult(state, scenario)
+  const classified = classifyRun(state, scenario)
+  const distribution = CLASSIFICATION_ORDER.map((c) => ({
+    c,
+    n: classified.filter((d) => d.classification === c).length,
+  }))
+  const outcomeColor = weighted.gated
+    ? 'text-red-400'
+    : weighted.overall >= 70 ? 'text-emerald-400' : weighted.overall >= 50 ? 'text-amber-400' : 'text-red-400'
   return (
     <>
       <Card>
-        <div className="flex flex-wrap items-center gap-6">
-          <div>
-            <div className="text-5xl font-extrabold tabular-nums">{report.overall}<span className="text-xl text-slate-500">/100</span></div>
-            <div className={`text-xl font-bold ${gradeColor}`}>{report.gradeLabel}</div>
-            <div className="text-sm text-slate-400">{report.gradeSummary}</div>
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="min-w-[220px]">
+            <div className="text-5xl font-extrabold tabular-nums">{weighted.overall}<span className="text-xl text-slate-500">/100</span></div>
+            <div className={`text-xl font-bold ${outcomeColor}`}>{weighted.outcome}</div>
+            {weighted.gated && (
+              <div className="mt-2 rounded-md border border-red-800 bg-red-950/40 p-2 text-xs text-red-300">
+                ⚠ The numeric score does not override safety: this run contains{' '}
+                {weighted.criticalFailures.length} unresolved critical failure(s), so a competent
+                result cannot be awarded. Numeric band for reference: {weighted.bandLabel}.
+              </div>
+            )}
+            <div className="mt-3 text-xs text-slate-500">
+              Weighted competency model — see below. Mode: <b className="text-slate-300">{state.mode}</b>
+            </div>
           </div>
-          <div className="flex-1 min-w-[260px] space-y-2">
-            {report.categories.map((c) => (
-              <div key={c.key}>
-                <div className="flex justify-between text-xs"><span>{c.label}</span><span className="tabular-nums">{c.score ?? '—'}/100</span></div>
+          <div className="flex-1 min-w-[280px] space-y-2">
+            {weighted.areas.map((a) => (
+              <div key={a.area.id}>
+                <div className="flex justify-between text-xs">
+                  <span>{a.area.label} <span className="text-slate-600">({a.area.weight}%)</span></span>
+                  <span className="tabular-nums">{a.score ?? '—'}/100</span>
+                </div>
                 <div className="h-2 rounded bg-slate-800 overflow-hidden">
                   <div
-                    className={`h-full ${c.score === null ? 'bg-slate-700' : c.score >= 75 ? 'rag-green' : c.score >= 45 ? 'rag-amber' : 'rag-red'}`}
-                    style={{ width: `${c.score ?? 0}%` }}
+                    className={`h-full ${a.score === null ? 'bg-slate-700' : a.score >= 75 ? 'rag-green' : a.score >= 45 ? 'rag-amber' : 'rag-red'}`}
+                    style={{ width: `${a.score ?? 0}%` }}
                   />
                 </div>
               </div>
@@ -160,8 +185,71 @@ function ScoreReportView({ report }: { report: ReturnType<typeof buildScoreRepor
           </div>
         </div>
         <div className="mt-4 text-xs text-slate-400">
-          <b>Grade bands:</b> 90–100 Excellent — strong SMSTS-level planning · 75–89 Good — safe with minor gaps ·
-          60–74 Pass-level — improvement required · 40–59 Significant gaps · Below 40 Unsafe planning — restart recommended
+          <b>Performance levels:</b> 90–100 Outstanding · 80–89 Strong · 70–79 Competent ·
+          60–69 Developing competence · 50–59 Significant improvement required ·
+          Below 50 Insufficient evidence of competence. An unresolved critical failure prevents a
+          competent result regardless of score. Scoring rules: docs/SCORING-MODEL.md.
+        </div>
+      </Card>
+      <Card title="Decision classification profile">
+        <div className="flex flex-wrap gap-2 mb-3">
+          {distribution.map(({ c, n }) => (
+            <span
+              key={c}
+              className={`rounded-full px-3 py-1 text-xs font-bold border ${
+                n === 0 ? 'border-slate-800 text-slate-600'
+                : c === 'excellent' ? 'border-emerald-700 text-emerald-400'
+                : c === 'good' ? 'border-emerald-800 text-emerald-500'
+                : c === 'acceptable' ? 'border-amber-700 text-amber-400'
+                : c === 'weak' ? 'border-orange-800 text-orange-400'
+                : c === 'poor' ? 'border-orange-700 text-orange-500'
+                : c === 'unsafe' ? 'border-red-700 text-red-400'
+                : 'border-red-600 text-red-300 bg-red-950/40'
+              }`}
+            >
+              {CLASSIFICATION_LABELS[c]}: {n}
+            </span>
+          ))}
+        </div>
+        <div className="max-h-56 overflow-y-auto">
+          <table className="w-full text-xs">
+            <thead className="sticky top-0 bg-slate-900">
+              <tr className="text-left text-slate-500 border-b border-slate-800">
+                <th className="py-1.5 pr-2">Ph.</th><th className="py-1.5 pr-2">Decision</th><th className="py-1.5">Classification</th>
+              </tr>
+            </thead>
+            <tbody>
+              {classified.map((d) => (
+                <tr key={d.stepId} className="border-b border-slate-800/50 align-top">
+                  <td className="py-1.5 pr-2">{d.phaseNumber}</td>
+                  <td className="py-1.5 pr-2 text-slate-400">{d.prompt.replace(/^EVENT:\s*/, '')}</td>
+                  <td className={`py-1.5 font-bold whitespace-nowrap ${
+                    d.classification === 'excellent' || d.classification === 'good' ? 'text-emerald-400'
+                    : d.classification === 'acceptable' ? 'text-amber-400'
+                    : d.classification === 'weak' || d.classification === 'poor' ? 'text-orange-400'
+                    : 'text-red-400'
+                  }`}>
+                    {CLASSIFICATION_LABELS[d.classification]}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+      <Card title="Discipline detail (legacy category view)">
+        <div className="space-y-2">
+          {report.categories.map((c) => (
+            <div key={c.key}>
+              <div className="flex justify-between text-xs"><span>{c.label}</span><span className="tabular-nums">{c.score ?? '—'}/100</span></div>
+              <div className="h-2 rounded bg-slate-800 overflow-hidden">
+                <div
+                  className={`h-full ${c.score === null ? 'bg-slate-700' : c.score >= 75 ? 'rag-green' : c.score >= 45 ? 'rag-amber' : 'rag-red'}`}
+                  style={{ width: `${c.score ?? 0}%` }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </Card>
       {report.missed.criticalFailures.length > 0 && (

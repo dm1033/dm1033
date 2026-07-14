@@ -4,7 +4,7 @@ Ordered by the brief's priority ladder: (1) assessment correctness, (2) broken c
 function, (3) data-loss risk, (4) CITB demo impact, (5) learner usability, (6) trainer
 admin, (7) accessibility, (8) polish, (9) commercial.
 
-## In progress — this iteration
+## Delivered this iteration ✅ (items 1–8)
 | # | Item | Problem | Solution | Acceptance criteria | Risk / rollback |
 |---|------|---------|----------|--------------------|-----------------|
 | 1 | Critical-failure gate + new grade bands | High average can mask a critical failure | Weighted score model computes result; any unresolved critical failure caps outcome at "Insufficient evidence of competence (critical failure)" with the score still shown | Unit-style test: run with critical failure → capped result; E2E passes | Pure additive engine module; revert commit |

@@ -6,21 +6,19 @@ Updated: 2026-07-02 (post-audit, pre-iteration)
 
 | Category | Score | Notes |
 |---|---|---|
-| Learning quality | 82 | Deep judgement-testing content; phase feedback + assessment mode pending |
+| Learning quality | 88 | Phase-end feedback summaries + Learning/Assessment/Tutor/Demo modes |
 | Construction accuracy | 85 | UK-correct; source-verified where chapters received; verification ongoing |
-| Decision assessment | 68 | Transparent but 4-tier; no weighting or critical gate yet |
+| Decision assessment | 88 | 7-tier classification, weighted 9-area model, critical-failure gate — engine-tested |
 | Scenario depth | 85 | 3 scenarios × 15 phases × ~25 steps; delayed consequences pending |
-| Saving & recovery | 60 | Autosave + resume work; no indicator/export/history |
+| Saving & recovery | 78 | Write-verified save indicator, Save & Exit, recovery export/import; revision history pending |
 | Tutor functionality | 65 | Strong single-device tutor console; no cohorts/analytics (backend) |
 | Report quality | 80 | 13 tabs + CSV + objective evidence; print-PDF only |
 | Accessibility | 55 | Responsive + click-to-place; no formal WCAG pass |
 | Technical reliability | 88 | Typecheck/build/E2E×3 green; static app, no infra to fail |
-| CITB demonstration readiness | 60 | Reliable to run, but no scripted demo mode or collateral yet |
-| Commercial readiness | 60 | Tiers/keys placeholder; objective evidence strong; no savings calculator |
+| CITB demonstration readiness | 82 | Demo mode with docked script, full collateral pack in docs/citb/ |
+| Commercial readiness | 72 | Savings calculator live (illustrative); value case + pilot proposal drafted |
 
-**Lowest categories → current iteration focus:** accessibility (tracked), saving
-indicators, demo mode/collateral, decision assessment upgrade (chosen first — priority
-ladder puts assessment correctness above all).
+**Lowest category now: accessibility (55) → next iteration focus**, followed by delayed consequences and recovery mechanic (see backlog items 9–10).
 
 ## Mandatory quality gates
 
@@ -36,7 +34,7 @@ ladder puts assessment correctness above all).
 | Final reports download correctly | ✅ print-PDF + CSV verified |
 | Tutor dashboard works | ✅ single-device scope |
 | Model-answer comparison works | ✅ |
-| Demonstration mode works | ❌ this iteration |
+| Demonstration mode works | ✅ demo mode + script panel |
 | Mobile/tablet usable | ✅ tablet verified; phone secondary |
 | No major accessibility failure | ❌ audit outstanding |
 | No critical security issue | ✅ static app, no secrets, no PII collected |

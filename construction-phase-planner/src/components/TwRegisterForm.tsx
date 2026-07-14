@@ -5,6 +5,8 @@ import { twItemScore } from '../engine/scoring'
 interface Props {
   step: TwRegisterStep
   reveal: boolean
+  /** Assessment mode: record answers but defer marking to the final report. */
+  deferFeedback?: boolean
   onSubmit: (answers: TwAnswerRecord[]) => void
   onContinue: () => void
 }
@@ -49,7 +51,7 @@ function YesNo({ value, onChange, disabled }: { value: boolean | undefined; onCh
   )
 }
 
-export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: Props) {
+export default function TwRegisterForm({ step, reveal, deferFeedback, onSubmit, onContinue }: Props) {
   const [answers, setAnswers] = useState<Record<string, TwAnswerRecord>>({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -66,8 +68,12 @@ export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: P
   const allComplete = step.items.every(complete)
 
   const submit = () => {
-    setSubmitted(true)
     onSubmit(step.items.map((i) => answers[i.id] ?? { itemId: i.id }))
+    if (deferFeedback) {
+      onContinue()
+      return
+    }
+    setSubmitted(true)
   }
 
   return (

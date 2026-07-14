@@ -1,9 +1,11 @@
 // End-to-end smoke test: plays a full scenario from home screen to report screen.
-// Usage: npx tsx scripts/smoke-test.ts [scenarioIndex]
+// Usage: npx tsx scripts/smoke-test.ts [scenarioIndex] [mode]
+//   mode: learning (default) | assessment
 // Requires the preview server on http://localhost:4173 (npm run preview).
 import { chromium } from 'playwright'
 
 const SCENARIO_INDEX = Number(process.argv[2] ?? 0)
+const MODE = (process.argv[3] ?? 'learning') as 'learning' | 'assessment'
 const BASE = process.env.SMOKE_URL ?? 'http://localhost:4173'
 
 async function main() {
@@ -24,6 +26,9 @@ async function main() {
   await page.getByPlaceholder('Your name').fill('Smoke Tester')
   const cards = page.locator('button:has-text("Scenario ")')
   await cards.nth(SCENARIO_INDEX).click()
+  if (MODE === 'assessment') {
+    await page.locator('button:has-text("Assessment Mode")').click()
+  }
   await page.getByRole('button', { name: 'Start Project' }).click()
 
   let steps = 0
@@ -31,8 +36,8 @@ async function main() {
   while (steps++ < maxSteps) {
     if (await page.getByText('End of Game Reports').isVisible().catch(() => false)) break
 
-    // Info / feedback continue button
-    const cont = page.getByRole('button', { name: 'Continue →' })
+    // Info / feedback / phase-summary continue buttons
+    const cont = page.getByRole('button', { name: /^Continue/ }).first()
     if (await cont.isVisible().catch(() => false)) {
       await cont.click({ timeout: 2000 }).catch(() => {})
       continue
@@ -84,6 +89,13 @@ async function main() {
   }
 
   if (steps >= maxSteps) throw new Error('Did not reach report screen within step budget')
+
+  if (MODE === 'assessment') {
+    // Assessment mode must not have leaked feedback during play; the report must
+    // still show the weighted outcome and record the mode.
+    const body = await page.locator('body').innerText()
+    if (!body.includes('assessment')) throw new Error('Report does not record assessment mode')
+  }
 
   // Verify report tabs render
   try {

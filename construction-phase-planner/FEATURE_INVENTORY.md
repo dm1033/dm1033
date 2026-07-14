@@ -17,9 +17,9 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 - ✅ 7 discipline scores (earned/possible normalisation) + 5 project meters
 - ✅ Grade bands; missed-items derivation (permits, TW, inspections, environment, placements)
 - ✅ 10 SMSTS-aligned learning objectives mapped to deterministic steps in every scenario (validator-enforced) with per-outcome RAG + performance
-- 🔶 Decision classification is 4-tier (best/partial/poor/unsafe) — brief requires 7-tier
-- 🔶 No weighted competency model yet (brief specifies 9 areas with % weights)
-- 🔶 Numeric grade not yet gated by unresolved critical failures
+- ✅ 7-tier decision classification (Excellent → Critical Failure), derived deterministically; rules in docs/SCORING-MODEL.md
+- ✅ Weighted 9-area competency model (30/15/15/10/10/5/5/5/5) with per-area evidence counts
+- ✅ Critical-failure gate: unresolved critical failure prevents a competent result regardless of score (verified by engine tests + screenshot evidence)
 - 🔶 No delayed-consequence engine (meters move immediately only)
 - 🔶 No recovery-decision tracking (initial error + recovery quality)
 
@@ -39,13 +39,14 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 ## Modes
 - ✅ Learning-style play (immediate feedback) — current default
 - ✅ Tutor mode: pause, reveal answers, delegate decision table vs best answers, custom questions/hazards, reset, CSV
-- 🔶 No formal Assessment Mode (feedback withheld until completion)
-- 🔶 No scripted Demonstration Mode
+- ✅ Assessment Mode: feedback and model answers deferred to the final report; tutor reveal disabled; E2E-tested
+- ✅ Demonstration Mode: docked 13-beat presenter script panel + docs/citb/CITB_DEMO_SCRIPT.md
 
 ## Persistence
 - ✅ Autosave to localStorage after every decision (reducer-level)
 - ✅ Resume session on reload; new-scenario overwrite warning
-- 🔶 No save-status indicator, manual save/exit, recovery-file export, revision history
+- ✅ Save-status indicator (write-verified), Save & Exit, recovery-file export/import
+- 🔶 No revision history / duplicate-session protection
 - 🔶 No server-side persistence (platform track: SiteSafe/Supabase)
 
 ## Accessibility / responsiveness
@@ -55,10 +56,11 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 ## Commercial
 - 🧩 Licence tiers, Stripe payment-link stubs, licence key screen (format-only)
 - ✅ Objective-coverage evidence report (provider-facing value)
-- 🔶 No savings calculator yet
+- ✅ Savings calculator (editable inputs, all outputs labelled illustrative)
 - 🧩 Tutor access code is a client constant (`TUTOR`)
 
 ## Quality infrastructure
 - ✅ Scenario JSON validator (structural + objective-coverage gates)
 - ✅ Playwright E2E playthroughs ×3 scenarios; screenshots script
-- 🔶 No unit tests for scoring engine; no CI workflow in repo
+- ✅ Engine test suite (classification, weighting, gate, bands) via scripts/test-engine.ts
+- 🔶 No CI workflow in repo
