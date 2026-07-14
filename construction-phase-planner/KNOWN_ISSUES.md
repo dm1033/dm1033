@@ -3,20 +3,17 @@
 Severity: 🔴 blocks demo credibility · 🟠 material gap vs brief · 🟡 quality/polish · ⚪ by design/roadmap
 
 ## Assessment correctness
-- 🔴 Numeric grade can currently mask a critical failure (no gate). Brief: "a delegate must not receive a competent result where they have committed an unresolved critical failure."
-- 🟠 4-tier decision classification vs required 7-tier (excellent → critical failure).
-- 🟠 No weighted competency model (9 areas with declared % weights) — current 7 equal-weight categories.
-
+- ✅ RESOLVED (iter. 1): critical-failure gate, 7-tier classification, weighted 9-area model.
+- ✅ RESOLVED (iter. 2): delayed-consequence engine.
 - 🟠 No recovery mechanic (recognise-and-recover with both attempts recorded).
 - 🟡 Decision records lack timestamps and attempt counts.
 
 ## Modes
-- 🟠 No Assessment Mode (feedback currently always immediate — unsuitable for formal assessment).
-- 🟠 No Demonstration Mode (scripted 10–15 min CITB walkthrough).
+- ✅ RESOLVED (iter. 1): Learning / Assessment / Tutor-Led / Demonstration modes all live.
 
 ## Persistence
-- 🟠 No save-status indicator; a delegate cannot tell work is saved (brief: never claim saved unless tested).
-- 🟠 No recovery-file export/import; no revision history; no duplicate-session protection.
+- ✅ RESOLVED (iter. 1): write-verified save indicator, Save & Exit, recovery export/import.
+- 🟡 No revision history; no duplicate-session protection.
 - ⚪ No server persistence / multi-device resume (platform track — SiteSafe/Supabase convergence).
 
 ## Tutor & admin
