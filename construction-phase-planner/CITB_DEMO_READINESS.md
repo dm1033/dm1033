@@ -1,6 +1,6 @@
 # CITB Demo Readiness Report
 
-Updated: 2026-07-02 (post-audit, pre-iteration)
+Updated: 2026-07-02 (post iteration 1 — assessment engine, modes, recovery, demo pack)
 
 ## Product scorecard (0–100, honest self-assessment)
 
@@ -25,11 +25,11 @@ Updated: 2026-07-02 (post-audit, pre-iteration)
 | Gate | Status |
 |---|---|
 | All three scenarios playable | ✅ verified E2E |
-| Decisions receive transparent scores | ✅ (upgrading to weighted 7-tier this iteration) |
+| Decisions receive transparent scores | ✅ weighted 7-tier model live |
 | Good/bad decisions create consequences | 🔶 immediate only |
-| Critical-failure logic works | 🔶 captured & reported; result gate this iteration |
+| Critical-failure logic works | ✅ gate live and engine-tested |
 | Partial credit works | ✅ |
-| Delegate progress autosaves | ✅ (indicator this iteration) |
+| Delegate progress autosaves | ✅ with write-verified indicator |
 | Sessions resumable | ✅ verified |
 | Final reports download correctly | ✅ print-PDF + CSV verified |
 | Tutor dashboard works | ✅ single-device scope |
