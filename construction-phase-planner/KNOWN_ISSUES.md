@@ -5,7 +5,7 @@ Severity: 🔴 blocks demo credibility · 🟠 material gap vs brief · 🟡 qua
 ## Assessment correctness
 - ✅ RESOLVED (iter. 1): critical-failure gate, 7-tier classification, weighted 9-area model.
 - ✅ RESOLVED (iter. 2): delayed-consequence engine.
-- 🟠 No recovery mechanic (recognise-and-recover with both attempts recorded).
+- ✅ RESOLVED (iter. 3): recovery mechanic with both attempts recorded.
 - 🟡 Decision records lack timestamps and attempt counts.
 
 ## Modes

@@ -36,6 +36,13 @@ async function main() {
   while (steps++ < maxSteps) {
     if (await page.getByText('End of Game Reports').isVisible().catch(() => false)) break
 
+    // Recovery panel after a poor/unsafe first answer: take the first recovery option
+    const recBtn = page.locator('[data-testid="recovery-panel"] button').first()
+    if (await recBtn.isVisible().catch(() => false)) {
+      await recBtn.click({ timeout: 2000 }).catch(() => {})
+      continue
+    }
+
     // Info / feedback / phase-summary continue buttons
     const cont = page.getByRole('button', { name: /^Continue/ }).first()
     if (await cont.isVisible().catch(() => false)) {

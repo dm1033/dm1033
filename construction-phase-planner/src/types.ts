@@ -278,6 +278,9 @@ export interface DecisionRecord {
   chosenOptionId: string
   quality: OptionQuality
   wasEvent: boolean
+  /** Recovery attempt after a poor/unsafe first answer (learning modes only). */
+  recoveryOptionId?: string
+  recoveryQuality?: OptionQuality
 }
 
 export interface PlacementRecord {

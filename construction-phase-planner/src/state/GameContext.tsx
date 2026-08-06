@@ -48,6 +48,7 @@ export const initialTutorState: TutorState = {
 type Action =
   | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; mode: GameMode }
   | { type: 'ANSWER_DECISION'; step: DecisionStep; option: DecisionOption; phaseNumber: number }
+  | { type: 'RECOVER_DECISION'; step: DecisionStep; option: DecisionOption }
   | { type: 'SUBMIT_SITE_SETUP'; step: SiteSetupStep; placements: PlacementRecord[] }
   | { type: 'SUBMIT_TW'; step: TwRegisterStep; answers: TwAnswerRecord[] }
   | { type: 'SUBMIT_PERMITS'; step: PermitStep; selected: string[] }
@@ -115,6 +116,32 @@ function reducer(state: GameState, action: Action): GameState {
           ]
         : state.incidentLog
       return { ...state, scores, decisions, criticalFailures, cpp, riskRegister, incidentLog }
+    }
+    case 'RECOVER_DECISION': {
+      // Recovery after a poor/unsafe answer: the first answer keeps its assessment
+      // score (integrity of the record); a sound recovery claws back half of the
+      // recovery option's meter effects — you can steady the project, not the exam.
+      const { step, option } = action
+      let idx = -1
+      for (let i = state.decisions.length - 1; i >= 0; i--) {
+        const d = state.decisions[i]
+        if (d.stepId === step.id && d.recoveryOptionId === undefined) { idx = i; break }
+      }
+      if (idx === -1) return state
+      const decisions = state.decisions.map((d, i) =>
+        i === idx ? { ...d, recoveryOptionId: option.id, recoveryQuality: option.quality } : d,
+      )
+      const meters = { ...state.scores.meters }
+      if (option.quality === 'best' || option.quality === 'partial') {
+        for (const key of METER_KEYS) {
+          const v = option.impact[key]
+          if (typeof v === 'number') {
+            const half = Math.round(v / 2)
+            meters[key] = Math.min(100, Math.max(0, meters[key] + half))
+          }
+        }
+      }
+      return { ...state, decisions, scores: { ...state.scores, meters } }
     }
     case 'SUBMIT_SITE_SETUP': {
       const { scores } = applySiteSetup(state.scores, action.step, action.placements)

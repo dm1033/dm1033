@@ -1,7 +1,7 @@
 // Weighted competency assessment: 7-tier decision classification, nine weighted
 // competency areas, and the critical-failure gate. Rules are documented in
 // docs/SCORING-MODEL.md — keep that file in step with any change here.
-import type { Classification, DecisionOption, DecisionStep, GameState, Scenario, Step } from '../types'
+import type { Classification, DecisionOption, DecisionStep, GameState, OptionQuality, Scenario, Step } from '../types'
 import { SCORE_KEYS } from '../types'
 import { decisionPossible, gradeFor } from './scoring'
 import { stepPerformance, stepById } from './performance'
@@ -54,6 +54,7 @@ export interface ClassifiedDecision {
   topic: string
   classification: Classification
   wasEvent: boolean
+  recoveryQuality?: OptionQuality
 }
 
 export function classifyRun(state: GameState, scenario: Scenario): ClassifiedDecision[] {
@@ -75,6 +76,7 @@ export function classifyRun(state: GameState, scenario: Scenario): ClassifiedDec
       topic: rec.topic,
       classification,
       wasEvent: rec.wasEvent,
+      recoveryQuality: rec.recoveryQuality,
     }
   })
 }

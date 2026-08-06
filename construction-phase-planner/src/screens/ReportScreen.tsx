@@ -230,6 +230,15 @@ function ScoreReportView({ report }: { report: ReturnType<typeof buildScoreRepor
                     : 'text-red-400'
                   }`}>
                     {CLASSIFICATION_LABELS[d.classification]}
+                    {d.recoveryQuality && (
+                      <span className={`block text-[10px] font-semibold ${
+                        d.recoveryQuality === 'best' || d.recoveryQuality === 'partial'
+                          ? 'text-emerald-500'
+                          : 'text-red-400'
+                      }`}>
+                        recovery: {d.recoveryQuality === 'best' ? 'sound' : d.recoveryQuality === 'partial' ? 'partial' : 'failed'}
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}

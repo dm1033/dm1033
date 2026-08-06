@@ -14,17 +14,30 @@ interface Props {
   /** Assessment mode: record the answer but defer all feedback to the final report. */
   deferFeedback?: boolean
   onAnswer: (option: DecisionOption) => void
+  /** Recovery attempt after a poor/unsafe first answer (learning modes only). */
+  onRecover?: (option: DecisionOption) => void
   onContinue: () => void
 }
 
-export default function DecisionCard({ step, reveal, deferFeedback, onAnswer, onContinue }: Props) {
+export default function DecisionCard({ step, reveal, deferFeedback, onAnswer, onRecover, onContinue }: Props) {
   const [chosen, setChosen] = useState<DecisionOption | null>(null)
+  const [recovery, setRecovery] = useState<DecisionOption | null>(null)
 
   const choose = (o: DecisionOption) => {
     if (chosen) return
     setChosen(o)
     onAnswer(o)
   }
+
+  const chooseRecovery = (o: DecisionOption) => {
+    if (recovery) return
+    setRecovery(o)
+    onRecover?.(o)
+  }
+
+  const needsRecovery =
+    !deferFeedback && !!onRecover && !!chosen &&
+    (chosen.quality === 'poor' || chosen.quality === 'unsafe')
 
   return (
     <div className={`rounded-xl border p-5 ${step.isEvent ? 'border-red-800 bg-red-950/20' : 'border-slate-800 bg-slate-900/50'}`}>
@@ -88,16 +101,55 @@ export default function DecisionCard({ step, reveal, deferFeedback, onAnswer, on
             <p className="font-bold text-xs mb-1">{QUALITY_STYLE[chosen.quality].label}</p>
             <p>{chosen.feedback}</p>
           </div>
-          <div className="rounded-lg border border-sky-900 bg-sky-950/30 p-3 text-sm text-sky-200">
-            <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note — {step.topic}</p>
-            <p>{step.learningNote}</p>
-          </div>
-          <button
-            onClick={onContinue}
-            className="rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5"
-          >
-            Continue →
-          </button>
+
+          {needsRecovery && !recovery && (
+            <div data-testid="recovery-panel" className="rounded-lg border border-amber-700 bg-amber-950/30 p-3">
+              <p className="font-bold text-sm text-amber-300 mb-1">🛟 Recovery opportunity</p>
+              <p className="text-sm text-amber-100/80 mb-3">
+                The situation is live and your first call has made it worse. A competent manager
+                recognises the error and acts — what do you do now? (Your first answer still
+                counts towards your assessment; a sound recovery limits the damage on site.)
+              </p>
+              <div className="space-y-2">
+                {step.options.filter((o) => o.id !== chosen.id).map((o) => (
+                  <button
+                    key={o.id}
+                    onClick={() => chooseRecovery(o)}
+                    className="w-full text-left rounded-lg border border-slate-700 bg-slate-900 hover:border-amber-500 px-4 py-2.5 text-sm"
+                  >
+                    {o.text}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {recovery && (
+            <div className={`rounded-lg border p-3 text-sm ${QUALITY_STYLE[recovery.quality].cls}`}>
+              <p className="font-bold text-xs mb-1">RECOVERY — {QUALITY_STYLE[recovery.quality].label}</p>
+              <p>{recovery.feedback}</p>
+              <p className="mt-1 text-[11px] opacity-80">
+                {recovery.quality === 'best' || recovery.quality === 'partial'
+                  ? 'Damage on site partially contained. Both your initial answer and your recovery are recorded in the assessment report.'
+                  : 'The recovery made nothing better. Both attempts are recorded in the assessment report.'}
+              </p>
+            </div>
+          )}
+
+          {(!needsRecovery || recovery) && (
+            <>
+              <div className="rounded-lg border border-sky-900 bg-sky-950/30 p-3 text-sm text-sky-200">
+                <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note — {step.topic}</p>
+                <p>{step.learningNote}</p>
+              </div>
+              <button
+                onClick={onContinue}
+                className="rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5"
+              >
+                Continue →
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>

@@ -1,12 +1,12 @@
 # CITB Demo Readiness Report
 
-Updated: 2026-07-02 (post iteration 2 — delayed consequences + accessibility hardening)
+Updated: 2026-07-02 (post iteration 3 — recovery mechanic + engagement layer)
 
 ## Product scorecard (0–100, honest self-assessment)
 
 | Category | Score | Notes |
 |---|---|---|
-| Learning quality | 88 | Phase-end feedback summaries + Learning/Assessment/Tutor/Demo modes |
+| Learning quality | 90 | Phase-end feedback summaries + Learning/Assessment/Tutor/Demo modes |
 | Construction accuracy | 85 | UK-correct; source-verified where chapters received; verification ongoing |
 | Decision assessment | 88 | 7-tier classification, weighted 9-area model, critical-failure gate — engine-tested |
 | Scenario depth | 88 | 3 scenarios × 15 phases × ~25 steps + delayed-consequence layer |

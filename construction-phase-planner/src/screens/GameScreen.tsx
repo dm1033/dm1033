@@ -61,6 +61,14 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
   }, [currentPhaseNumber, state.firedConsequences.length])
   const [dismissedConsequences, setDismissedConsequences] = useState<string[]>([])
 
+  // Fun layer: streak of consecutive best/partial answers (learning modes only).
+  let streak = 0
+  for (let i = state.decisions.length - 1; i >= 0; i--) {
+    const d = state.decisions[i]
+    if (d.quality === 'best' || d.quality === 'partial') streak++
+    else break
+  }
+
   const phase = scenario?.phases[state.phaseIndex]
 
   const extraSteps: Step[] = useMemo(() => {
@@ -165,6 +173,14 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
                 Assessment mode — feedback in final report
               </span>
             )}
+            {state.mode !== 'assessment' && streak >= 3 && (
+              <span
+                role="status"
+                className="ml-2 align-middle text-[10px] font-bold uppercase tracking-wide rounded bg-emerald-900/70 text-emerald-300 px-2 py-0.5"
+              >
+                🔥 {streak} strong calls in a row
+              </span>
+            )}
           </h2>
           {state.stepIndex === 0 && <p className="text-sm text-slate-400 mt-1">{phase.intro}</p>}
         </div>
@@ -237,6 +253,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               reveal={reveal}
               deferFeedback={deferFeedback}
               onAnswer={(option) => dispatch({ type: 'ANSWER_DECISION', step, option, phaseNumber: phase.number })}
+              onRecover={(option) => dispatch({ type: 'RECOVER_DECISION', step, option })}
               onContinue={advance}
             />
           )}
