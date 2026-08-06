@@ -33,6 +33,7 @@ export const initialGameState: GameState = {
   cpp: {},
   drawnEventIds: [],
   delegateName: '',
+  runId: null,
   startedAt: null,
   finishedAt: null,
 }
@@ -66,12 +67,17 @@ function reducer(state: GameState, action: Action): GameState {
       const drawn = scenario
         ? seededShuffle(scenario.eventPool, seed).slice(0, scenario.eventDraw).map((e) => e.id)
         : []
+      const runId = `CPP-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 46656)
+        .toString(36)
+        .toUpperCase()
+        .padStart(3, '0')}`
       return {
         ...initialGameState,
         scenarioId: action.scenarioId,
         mode: action.mode,
         delegateName: action.delegateName,
         drawnEventIds: drawn,
+        runId,
         startedAt: new Date().toISOString(),
       }
     }
@@ -88,6 +94,7 @@ function reducer(state: GameState, action: Action): GameState {
           chosenOptionId: option.id,
           quality: option.quality,
           wasEvent: !!step.isEvent,
+          at: new Date().toISOString(),
         },
       ]
       const criticalFailures =

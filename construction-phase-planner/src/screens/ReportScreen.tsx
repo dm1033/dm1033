@@ -166,6 +166,15 @@ function ScoreReportView({ report }: { report: ReturnType<typeof buildScoreRepor
             <div className="mt-3 text-xs text-slate-500">
               Weighted competency model — see below. Mode: <b className="text-slate-300">{state.mode}</b>
             </div>
+            <div className="mt-2 text-[11px] text-slate-500 space-y-0.5">
+              {state.runId && <div>Audit ID: <b className="text-slate-400 font-mono">{state.runId}</b></div>}
+              {state.startedAt && (
+                <div>Started: {new Date(state.startedAt).toLocaleString()}</div>
+              )}
+              {state.finishedAt && (
+                <div>Completed: {new Date(state.finishedAt).toLocaleString()}</div>
+              )}
+            </div>
           </div>
           <div className="flex-1 min-w-[280px] space-y-2">
             {weighted.areas.map((a) => (

@@ -34,6 +34,7 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
   comparison), learning objectives, tutor review sheet, certificate placeholder
 - ✅ Print-to-PDF (browser) + CSV exports (5 files)
 - 🔶 PDF is browser-print based; no branded/paginated PDF engine
+- ✅ Run audit identifier on report header; ISO timestamps + recovery quality in decision CSV
 - 🔶 No delegate reflection / trainer comment capture in report
 
 ## Modes

@@ -278,6 +278,8 @@ export interface DecisionRecord {
   chosenOptionId: string
   quality: OptionQuality
   wasEvent: boolean
+  /** ISO timestamp of when the answer was given. */
+  at?: string
   /** Recovery attempt after a poor/unsafe first answer (learning modes only). */
   recoveryOptionId?: string
   recoveryQuality?: OptionQuality
@@ -368,6 +370,8 @@ export interface GameState {
   /** Ids of eventPool events drawn for this run (stable across reloads). */
   drawnEventIds: string[]
   delegateName: string
+  /** Unique audit identifier for this run, shown on the report and exports. */
+  runId: string | null
   startedAt: string | null
   finishedAt: string | null
 }

@@ -235,13 +235,19 @@ export function inspectionTrackerCsv(state: GameState, scenario: Scenario): stri
 
 export function decisionsCsv(state: GameState): string {
   const rows = state.decisions.map((d) => [
+    state.runId ?? '',
     String(d.phaseNumber),
     d.wasEvent ? 'Event' : 'Decision',
     d.prompt,
     d.topic,
     d.quality,
+    d.at ?? '',
+    d.recoveryQuality ?? '',
   ])
-  return toCsv(['Phase', 'Type', 'Prompt', 'Topic', 'Outcome quality'], rows)
+  return toCsv(
+    ['Run ID', 'Phase', 'Type', 'Prompt', 'Topic', 'Outcome quality', 'Answered at', 'Recovery quality'],
+    rows,
+  )
 }
 
 export function environmentalChecklistCsv(state: GameState, scenario: Scenario): string {
