@@ -64,5 +64,8 @@ Admins can also edit scenarios/stages/decisions/scoring live in the **Admin** ar
 See [`docs/`](./docs): architecture, database schema, user journeys, file
 structure and the MVP build plan.
 
+Also under `docs/`: [`ai-coding-deals/`](./docs/ai-coding-deals) — a vendored reference copy of a
+community AI coding tool pricing and free-tier guide, with all referral links removed.
+
 > For training purposes only — not a substitute for professional safety advice or a
 > project-specific Construction Phase Plan.
