@@ -121,6 +121,21 @@ import { DELAYED_CONSEQUENCES, dueConsequences } from '../src/engine/consequence
     dueConsequences(risky, 12).some((c) => c.id === 'near-miss-cluster'))
   check('every consequence has a valid phase 2..15',
     DELAYED_CONSEQUENCES.every((c) => c.firesAtPhase >= 2 && c.firesAtPhase <= 15))
+  check('consequence ids are unique',
+    new Set(DELAYED_CONSEQUENCES.map((c) => c.id)).size === DELAYED_CONSEQUENCES.length)
+  // Attainment-ratio consequences: poor TW attainment triggers the phase-11 scare.
+  const weakTw = {
+    ...base,
+    scores: {
+      ...base.scores,
+      earned: { ...base.scores.earned, temporaryWorks: 2 },
+      possible: { ...base.scores.possible, temporaryWorks: 10 },
+    },
+  }
+  check('TW scare fires at phase 11 on weak temporary-works attainment',
+    dueConsequences(weakTw, 11).some((c) => c.id === 'tw-standing-scare'))
+  check('TW scare does not fire on strong attainment',
+    !dueConsequences(base, 11).some((c) => c.id === 'tw-standing-scare'))
 }
 
 // --- performance bands ---

@@ -20,7 +20,7 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 - ✅ 7-tier decision classification (Excellent → Critical Failure), derived deterministically; rules in docs/SCORING-MODEL.md
 - ✅ Weighted 9-area competency model (30/15/15/10/10/5/5/5/5) with per-area evidence counts
 - ✅ Critical-failure gate: unresolved critical failure prevents a competent result regardless of score (verified by engine tests + screenshot evidence)
-- ✅ Delayed-consequence engine: 7 rules (5 adverse, 2 positive) fire in later phases from earlier decisions/meter build-up, once per run, logged and reported
+- ✅ Delayed-consequence engine: 10 rules (8 adverse, 2 positive) fire in later phases from earlier decisions/meter build-up, once per run, logged and reported
 - ✅ Recovery mechanic: poor/unsafe answers trigger a live recovery decision (learning modes); both classifications recorded and reported; recovery halves meter damage, never the assessment score
 
 ## Documents built during play
@@ -35,7 +35,7 @@ Status: ✅ working & verified · 🔶 working with limitations · 🧩 placehol
 - ✅ Print-to-PDF (browser) + CSV exports (5 files)
 - 🔶 PDF is browser-print based; no branded/paginated PDF engine
 - ✅ Run audit identifier on report header; ISO timestamps + recovery quality in decision CSV
-- 🔶 No delegate reflection / trainer comment capture in report
+- ✅ Delegate reflection + trainer comments + trainer sign-off on Tutor Review Sheet (autosaved, printed with signature line)
 
 ## Modes
 - ✅ Learning-style play (immediate feedback) — current default

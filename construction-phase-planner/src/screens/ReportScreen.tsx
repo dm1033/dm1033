@@ -686,8 +686,40 @@ function ObjectivesView() {
   )
 }
 
+function SignoffField({
+  label, hint, value, print, rows, onChange,
+}: {
+  label: string
+  hint: string
+  value: string
+  /** Extra text appended in print view (e.g. signature line). */
+  print?: string
+  rows?: number
+  onChange: (text: string) => void
+}) {
+  return (
+    <div>
+      <label className="block text-xs font-bold text-slate-300 mb-1">
+        {label}
+        <span className="block font-normal text-slate-500">{hint}</span>
+      </label>
+      <textarea
+        value={value}
+        rows={rows ?? 4}
+        onChange={(e) => onChange(e.target.value)}
+        className="no-print w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-sm"
+        placeholder="Type here — saved automatically and included when the report is printed."
+      />
+      <div className="hidden print:block whitespace-pre-wrap border border-slate-400 rounded p-2 text-sm min-h-16">
+        {value || ' '}
+        {print && <span className="block mt-3">{print}</span>}
+      </div>
+    </div>
+  )
+}
+
 function TutorSheetView({ report }: { report: ReturnType<typeof buildScoreReport> }) {
-  const { state } = useGame()
+  const { state, dispatch } = useGame()
   return (
     <Card title="Tutor Review Sheet">
       <p className="text-sm text-slate-400 mb-3">
@@ -720,6 +752,38 @@ function TutorSheetView({ report }: { report: ReturnType<typeof buildScoreReport
           {report.missed.revisionTopics.slice(0, 8).map((t) => <li key={t}>{t}</li>)}
           {report.missed.revisionTopics.length === 0 && <li>Full marks — discuss how the delegate would coach others on these standards.</li>}
         </ul>
+      </div>
+
+      <div className="mt-6 space-y-4 border-t border-slate-800 pt-4">
+        <h4 className="text-sm font-bold text-slate-200">Reflection &amp; sign-off</h4>
+        <SignoffField
+          label="Delegate reflection"
+          hint="In your own words: what would you do differently on a live project, and why?"
+          value={state.delegateReflection}
+          onChange={(text) => dispatch({ type: 'SET_SIGNOFF', field: 'delegateReflection', text })}
+        />
+        <SignoffField
+          label="Trainer comments"
+          hint="Observations on the delegate's decision-making, recovery and areas to develop."
+          value={state.trainerComments}
+          onChange={(text) => dispatch({ type: 'SET_SIGNOFF', field: 'trainerComments', text })}
+        />
+        <div className="max-w-sm">
+          <label className="block text-xs font-bold text-slate-300 mb-1">Trainer name (sign-off)</label>
+          <input
+            value={state.trainerName}
+            onChange={(e) => dispatch({ type: 'SET_SIGNOFF', field: 'trainerName', text: e.target.value })}
+            className="no-print w-full rounded-lg border border-slate-700 bg-slate-900 p-2.5 text-sm"
+            placeholder="Name of reviewing trainer"
+          />
+          <div className="hidden print:block border-b border-slate-400 pt-6 text-sm">
+            {state.trainerName}
+          </div>
+          <p className="hidden print:block text-[10px] text-slate-500 mt-1">
+            Trainer signature · Audit ID {state.runId ?? '—'} ·
+            Reviewed {state.finishedAt ? new Date(state.finishedAt).toLocaleDateString() : ''}
+          </p>
+        </div>
       </div>
     </Card>
   )

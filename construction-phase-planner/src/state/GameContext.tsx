@@ -33,6 +33,9 @@ export const initialGameState: GameState = {
   cpp: {},
   drawnEventIds: [],
   delegateName: '',
+  delegateReflection: '',
+  trainerComments: '',
+  trainerName: '',
   runId: null,
   startedAt: null,
   finishedAt: null,
@@ -50,6 +53,7 @@ type Action =
   | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; mode: GameMode }
   | { type: 'ANSWER_DECISION'; step: DecisionStep; option: DecisionOption; phaseNumber: number }
   | { type: 'RECOVER_DECISION'; step: DecisionStep; option: DecisionOption }
+  | { type: 'SET_SIGNOFF'; field: 'delegateReflection' | 'trainerComments' | 'trainerName'; text: string }
   | { type: 'SUBMIT_SITE_SETUP'; step: SiteSetupStep; placements: PlacementRecord[] }
   | { type: 'SUBMIT_TW'; step: TwRegisterStep; answers: TwAnswerRecord[] }
   | { type: 'SUBMIT_PERMITS'; step: PermitStep; selected: string[] }
@@ -198,6 +202,8 @@ function reducer(state: GameState, action: Action): GameState {
         ],
       }
     }
+    case 'SET_SIGNOFF':
+      return { ...state, [action.field]: action.text }
     case 'FINISH':
       return { ...state, completed: true, finishedAt: state.finishedAt ?? new Date().toISOString() }
     case 'RESET':
@@ -272,6 +278,9 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
           mode: saved.mode ?? 'learning',
           firedConsequences: saved.firedConsequences ?? [],
           consequenceLog: saved.consequenceLog ?? [],
+          delegateReflection: saved.delegateReflection ?? '',
+          trainerComments: saved.trainerComments ?? '',
+          trainerName: saved.trainerName ?? '',
         }
       : init
   })

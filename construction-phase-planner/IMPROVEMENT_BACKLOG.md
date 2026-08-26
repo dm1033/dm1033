@@ -16,6 +16,10 @@ admin, (7) accessibility, (8) polish, (9) commercial.
 | 7 | Savings calculator | Value case needs evidence-based illustration | Editable-input calculator screen, all outputs labelled illustrative | Inputs editable; totals update; no fabricated claims | Additive screen |
 | 8 | CITB demo pack docs | Demo requires script & collateral | `CITB_DEMO_SCRIPT.md`, `CITB_PRESENTATION_NOTES.md`, `CITB_QUESTIONS_AND_ANSWERS.md`, `PRODUCT_VALUE_CASE.md`, `PILOT_PROPOSAL.md` | Docs exist, compliant wording | Docs only |
 
+## Delivered iteration 5 ✅
+- (13) Delegate reflection + trainer comments + trainer sign-off captured on the Tutor Review Sheet, autosaved, rendered with signature line in print view
+- Replay variety: 3 new delayed-consequence rules (TW stood without checks, neighbourhood complaint, commercial pressure) driven by attainment ratios and cost meter
+
 ## Delivered iteration 4 ✅
 - (11, part / 13, part) Audit trail — unique run audit ID (shown on report header + decision CSV), ISO timestamp per decision, recovery quality in decision CSV
 
@@ -30,7 +34,6 @@ admin, (7) accessibility, (8) polish, (9) commercial.
 ## Next iterations (priority order)
 11. Decision record enrichment (remaining): affected persons, documents affected.
 12. Change-control record, action tracker and handover checklist documents.
-13. Trainer comments + delegate reflection on the final report (audit identifier done).
 14. Unit tests for scoring engine (Vitest) + CI workflow.
 15. WCAG 2.2 AA pass: keyboard alternative labelling, focus management, aria-live for status, reduced-motion, contrast audit.
 16. Branded paginated PDF (evaluate jsPDF from SiteSafe).

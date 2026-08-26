@@ -19,6 +19,12 @@ export interface DelayedConsequence {
 const decidedBadly = (state: GameState, stepId: string) =>
   state.decisions.some((d) => d.stepId === stepId && (d.quality === 'poor' || d.quality === 'unsafe'))
 
+/** Attainment ratio (earned/possible) in a score category; 1 when nothing was assessable yet. */
+const ratio = (state: GameState, key: 'temporaryWorks' | 'environment' | 'safety') => {
+  const possible = state.scores.possible[key]
+  return possible > 0 ? state.scores.earned[key] / possible : 1
+}
+
 export const DELAYED_CONSEQUENCES: DelayedConsequence[] = [
   {
     id: 'welfare-grievance',
@@ -78,6 +84,42 @@ export const DELAYED_CONSEQUENCES: DelayedConsequence[] = [
       'out the job. Critical failures never stay in the phase where they happened.',
     meters: { enforcementRisk: 10, cost: 10 },
     trigger: (s) => s.criticalFailures.length > 0,
+  },
+  {
+    id: 'tw-standing-scare',
+    firesAtPhase: 11,
+    severity: 'serious',
+    title: 'Temporary works stood without checks',
+    message:
+      'A subcontractor has propped a slab and struck formwork to their own programme — nobody ' +
+      'could produce a permit to load or strike. Your loose grip on temporary works control ' +
+      'earlier in the job set the tone; the TWC is now re-inspecting everything standing.',
+    meters: { incidentLikelihood: 8, cost: 4 },
+    trigger: (s) => ratio(s, 'temporaryWorks') < 0.5,
+  },
+  {
+    id: 'community-complaint',
+    firesAtPhase: 11,
+    severity: 'warning',
+    title: 'Neighbourhood complaint escalated',
+    message:
+      'Residents have complained to the council about dust and out-of-hours noise, copying the ' +
+      'client in. Weak environmental controls earlier in the project have become a public-relations ' +
+      'problem — the council is asking for your Section 61 position and dust management plan.',
+    meters: { clientConfidence: -6, enforcementRisk: 5 },
+    trigger: (s) => ratio(s, 'environment') < 0.5,
+  },
+  {
+    id: 'supply-chain-strain',
+    firesAtPhase: 12,
+    severity: 'warning',
+    title: 'Commercial pressure biting',
+    message:
+      'The commercial team flags that the project is burning contingency: rework, standing time and ' +
+      'recovery measures from earlier decisions have used the buffer, and two suppliers have moved ' +
+      'you to payment-on-order. Every future slip now costs real money.',
+    meters: { morale: -4 },
+    trigger: (s) => s.scores.meters.cost >= 60,
   },
   {
     id: 'strong-foundations',

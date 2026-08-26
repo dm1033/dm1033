@@ -370,6 +370,11 @@ export interface GameState {
   /** Ids of eventPool events drawn for this run (stable across reloads). */
   drawnEventIds: string[]
   delegateName: string
+  /** Delegate's own reflection, written on the final report. */
+  delegateReflection: string
+  /** Trainer's comments and sign-off name, written on the final report. */
+  trainerComments: string
+  trainerName: string
   /** Unique audit identifier for this run, shown on the report and exports. */
   runId: string | null
   startedAt: string | null

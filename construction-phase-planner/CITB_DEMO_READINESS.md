@@ -1,6 +1,6 @@
 # CITB Demo Readiness Report
 
-Updated: 2026-07-02 (post iteration 3 — recovery mechanic + engagement layer)
+Updated: 2026-07-02 (post iteration 5 — reflection/sign-off capture + wider consequence pool)
 
 ## Product scorecard (0–100, honest self-assessment)
 
@@ -12,7 +12,7 @@ Updated: 2026-07-02 (post iteration 3 — recovery mechanic + engagement layer)
 | Scenario depth | 88 | 3 scenarios × 15 phases × ~25 steps + delayed-consequence layer |
 | Saving & recovery | 78 | Write-verified save indicator, Save & Exit, recovery export/import; revision history pending |
 | Tutor functionality | 65 | Strong single-device tutor console; no cohorts/analytics (backend) |
-| Report quality | 80 | 13 tabs + CSV + objective evidence; print-PDF only |
+| Report quality | 84 | 13 tabs + CSV + objective evidence + reflection/sign-off; print-PDF only |
 | Accessibility | 68 | Keyboard planner, focus indicators, reduced motion, skip link; formal WCAG audit pending |
 | Technical reliability | 88 | Typecheck/build/E2E×3 green; static app, no infra to fail |
 | CITB demonstration readiness | 82 | Demo mode with docked script, full collateral pack in docs/citb/ |
