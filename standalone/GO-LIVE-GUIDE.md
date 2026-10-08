@@ -78,17 +78,10 @@ Do after launch (≈30 minutes total):
 
 ## Keeping the page updated
 
-Edit `standalone/template.html` (readable version), then rebuild:
+`standalone/template.html` is the ONLY file to edit (readable HTML with `{{IMG:*}}` tokens); the images live in `standalone/images/`. After any change, rebuild the deliverable:
 
 ```bash
-python3 - <<'EOF'
-import base64
-tpl = open("standalone/template.html").read()
-for key in ["logo","hero","robot","ats","linkedin","cvdocs","coach","tablet","portfolio","site","pmi","twlogo","villa"]:
-    b64 = base64.b64encode(open(f"/tmp/imgs/{key}.jpg","rb").read()).decode()
-    tpl = tpl.replace("{{IMG:%s}}" % key, f"data:image/jpeg;base64,{b64}")
-open("standalone/index.html","w").write(tpl)
-EOF
+npm run standalone
 ```
 
-(Or just edit `standalone/index.html` directly for text changes — search for the wording you want to change.) Re-drag the folder onto Netlify to publish.
+That regenerates `standalone/index.html` — a generated file, never edit it by hand (it says so in its first line). Then re-drag the folder onto Netlify to publish. To swap a photo, replace the matching `standalone/images/<name>.jpg` and rebuild.

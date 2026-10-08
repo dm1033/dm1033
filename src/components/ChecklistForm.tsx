@@ -8,16 +8,19 @@ import { leadMagnets } from "@/lib/data";
 export default function ChecklistForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
   const isPlaceholder = site.forms.checklist.includes("REPLACE");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (sending) return;
     setError(null);
     if (isPlaceholder) {
       // No form processor connected yet — let the visitor straight through.
       setSubmitted(true);
       return;
     }
+    setSending(true);
     try {
       const res = await fetch(site.forms.checklist, {
         method: "POST",
@@ -28,6 +31,8 @@ export default function ChecklistForm() {
       else setError("Something went wrong — please try again.");
     } catch {
       setError("Network error — please try again.");
+    } finally {
+      setSending(false);
     }
   }
 
@@ -91,9 +96,10 @@ export default function ChecklistForm() {
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
       <button
         type="submit"
-        className="mt-5 w-full rounded bg-amber-brand px-6 py-3 text-sm font-bold text-navy-950 transition hover:bg-amber-bright"
+        disabled={sending}
+        className="mt-5 w-full rounded bg-amber-brand px-6 py-3 text-sm font-bold text-navy-950 transition hover:bg-amber-bright disabled:opacity-60"
       >
-        Send Me the Free Checklist Pack
+        {sending ? "Sending…" : "Send Me the Free Checklist Pack"}
       </button>
     </form>
   );

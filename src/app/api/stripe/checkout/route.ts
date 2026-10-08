@@ -67,6 +67,9 @@ export async function GET(req: Request) {
       mode: config.mode,
       line_items: [config.line_item],
       allow_promotion_codes: true,
+      // Activation verifies this marker so only AI-premium checkouts can
+      // mint a premium token — a payment for any other product won't.
+      metadata: { product: "ai_premium", plan },
       success_url: `${url.origin}/premium/activate?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${url.origin}/payment-cancelled`,
     });

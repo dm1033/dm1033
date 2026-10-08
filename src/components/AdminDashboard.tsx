@@ -55,8 +55,13 @@ export default function AdminDashboard() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    setOrders(raw ? (JSON.parse(raw) as Order[]) : sampleOrders);
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      setOrders(raw ? (JSON.parse(raw) as Order[]) : sampleOrders);
+    } catch {
+      // Corrupt stored data: fall back to the sample rather than crashing.
+      setOrders(sampleOrders);
+    }
     setLoaded(true);
   }, []);
 

@@ -1,10 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import Stripe from "stripe";
 import { z } from "zod";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { PREMIUM_COOKIE, verifyPremiumToken } from "@/lib/premium";
+import { PREMIUM_COOKIE, verifyPremiumAccess } from "@/lib/premium";
 
 /**
  * AI-powered advisory ATS review.
@@ -16,7 +15,10 @@ import { PREMIUM_COOKIE, verifyPremiumToken } from "@/lib/premium";
  */
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+// Premium reviews (full schema + bullets + cover letter, with thinking) can
+// exceed 60s; give headroom so a paying customer's request isn't cut off
+// after the tokens are already spent. Vercel clamps to the plan's maximum.
+export const maxDuration = 300;
 
 const MAX_CV_CHARS = 20_000;
 const MAX_ADVERT_CHARS = 10_000;
@@ -79,22 +81,6 @@ const PremiumReviewSchema = ReviewSchema.extend(PremiumExtrasSchema.shape);
 export type AtsAiReview = z.infer<typeof ReviewSchema> &
   Partial<z.infer<typeof PremiumExtrasSchema>>;
 
-/** Verify premium access: signature check, plus a live Stripe status check
- *  for subscriptions so cancelled plans lose access automatically. */
-async function hasPremiumAccess(): Promise<boolean> {
-  const token = verifyPremiumToken((await cookies()).get(PREMIUM_COOKIE)?.value);
-  if (!token) return false;
-  if (token.kind === "one_time") return true;
-  if (!process.env.STRIPE_SECRET_KEY) return false;
-  try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-    const sub = await stripe.subscriptions.retrieve(token.subscriptionId);
-    return sub.status === "active" || sub.status === "trialing";
-  } catch {
-    return false;
-  }
-}
-
 const SYSTEM_PROMPT = `You are an expert construction-industry CV reviewer working for Construction Career Edge, a UK-based career documents service run by a civil engineer with 29 years' experience across civil engineering, construction management, temporary works, HV infrastructure and safety.
 
 You review a candidate's CV text against a specific job advert and produce an advisory screening-readiness review.
@@ -112,10 +98,30 @@ Hard rules — never break these:
    Sufficient for a single serverless instance; swap for Upstash/KV at scale. */
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_PER_WINDOW = 5;
+const SWEEP_THRESHOLD = 500;
 const hits = new Map<string, number[]>();
+
+/** Prefer the proxy-set client IP over x-forwarded-for's client-controlled
+ *  first entry; fall back to the LAST hop (appended by the nearest proxy),
+ *  which a caller can't fake by prepending values. */
+function clientIp(req: Request): string {
+  const real = req.headers.get("x-real-ip")?.trim();
+  if (real) return real;
+  const xff = req.headers.get("x-forwarded-for");
+  if (!xff) return "unknown";
+  const parts = xff.split(",").map((p) => p.trim()).filter(Boolean);
+  return parts[parts.length - 1] ?? "unknown";
+}
 
 function rateLimited(ip: string): boolean {
   const now = Date.now();
+  // Bound memory: once the map grows past the threshold, drop every entry
+  // whose newest hit is outside the window (otherwise stale IPs live forever).
+  if (hits.size > SWEEP_THRESHOLD) {
+    for (const [key, times] of hits) {
+      if (!times.length || now - times[times.length - 1] >= WINDOW_MS) hits.delete(key);
+    }
+  }
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
   if (recent.length >= MAX_PER_WINDOW) {
     hits.set(ip, recent);
@@ -134,23 +140,8 @@ export async function POST(req: Request) {
     );
   }
 
-  const premium = await hasPremiumAccess();
-
-  // Premium customers get unlimited reviews; free tier is rate-limited.
-  if (!premium) {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-    if (rateLimited(ip)) {
-      return NextResponse.json(
-        {
-          error:
-            "Free review limit reached. Try again in a few minutes — or get unlimited AI reviews with Premium Access.",
-          upgrade: true,
-        },
-        { status: 429 },
-      );
-    }
-  }
-
+  // Validate the request BEFORE any quota is charged, so malformed or
+  // consent-less attempts never burn a visitor's free-review allowance.
   let body: { cv?: string; advert?: string; consent?: boolean };
   try {
     body = await req.json();
@@ -180,10 +171,29 @@ export async function POST(req: Request) {
     );
   }
 
+  const premium = Boolean(
+    await verifyPremiumAccess((await cookies()).get(PREMIUM_COOKIE)?.value),
+  );
+
+  // Premium customers get unlimited reviews; free tier is rate-limited.
+  if (!premium && rateLimited(clientIp(req))) {
+    return NextResponse.json(
+      {
+        error:
+          "Free review limit reached. Try again in a few minutes — or get unlimited AI reviews with Premium Access.",
+        upgrade: true,
+      },
+      { status: 429 },
+    );
+  }
+
   const client = new Anthropic();
+  const schema = premium ? PremiumReviewSchema : ReviewSchema;
 
   try {
-    const response = await client.messages.parse({
+    // Stream the generation so the SDK's HTTP connection stays alive for
+    // long premium reviews; the API still enforces the JSON schema.
+    const stream = client.messages.stream({
       model: "claude-opus-4-8",
       max_tokens: 16000,
       thinking: { type: "adaptive" },
@@ -204,19 +214,23 @@ export async function POST(req: Request) {
           }\n\n<cv>\n${cv}\n</cv>\n\n<job_advert>\n${advert}\n</job_advert>`,
         },
       ],
-      output_config: {
-        format: zodOutputFormat(premium ? PremiumReviewSchema : ReviewSchema),
-      },
+      output_config: { format: zodOutputFormat(schema) },
     });
+    const message = await stream.finalMessage();
 
-    if (!response.parsed_output) {
+    const text = message.content.find((b) => b.type === "text")?.text;
+    let review: z.infer<typeof PremiumReviewSchema> | z.infer<typeof ReviewSchema>;
+    try {
+      review = schema.parse(JSON.parse(text ?? ""));
+    } catch {
+      console.error("ATS review parse failure", message.stop_reason);
       return NextResponse.json(
         { error: "The review could not be generated. Please try again." },
         { status: 502 },
       );
     }
 
-    return NextResponse.json({ review: response.parsed_output, premium });
+    return NextResponse.json({ review, premium });
   } catch (error) {
     if (
       error instanceof Anthropic.RateLimitError ||

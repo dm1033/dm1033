@@ -44,9 +44,25 @@ export async function POST(req: Request) {
       );
     }
 
+    // Only AI-premium checkouts may activate premium. The marker is set by
+    // /api/stripe/checkout; the amount check is belt-and-braces so a paid
+    // session for any other (cheaper) product can never mint access.
+    const expectedAmount = session.mode === "subscription" ? 2000 : 20000;
+    if (
+      session.metadata?.product !== "ai_premium" ||
+      session.currency !== "gbp" ||
+      (session.amount_total ?? 0) < expectedAmount
+    ) {
+      return NextResponse.json(
+        { error: "This payment was not for AI Premium Access. If you believe it was, contact us with your receipt." },
+        { status: 402 },
+      );
+    }
+
     let token: PremiumToken;
     let plan: string;
     let expires: string | null = null;
+    let cookieMaxAge = ONE_TIME_ACCESS_DAYS * 24 * 60 * 60;
 
     if (session.mode === "subscription" && session.subscription) {
       const subscriptionId =
@@ -56,10 +72,19 @@ export async function POST(req: Request) {
       token = { kind: "subscription", subscriptionId };
       plan = "Monthly subscription";
     } else {
-      const exp = Date.now() + ONE_TIME_ACCESS_DAYS * 24 * 60 * 60 * 1000;
+      // Expiry runs from PURCHASE time (session.created, unix seconds), so
+      // re-activating the same session later never extends the 12 months.
+      const exp = session.created * 1000 + ONE_TIME_ACCESS_DAYS * 24 * 60 * 60 * 1000;
+      if (exp <= Date.now()) {
+        return NextResponse.json(
+          { error: "The 12-month access period for this purchase has ended." },
+          { status: 410 },
+        );
+      }
       token = { kind: "one_time", sessionId, exp };
       plan = "12 months access";
       expires = new Date(exp).toISOString().slice(0, 10);
+      cookieMaxAge = Math.floor((exp - Date.now()) / 1000);
     }
 
     const signed = signPremiumToken(token);
@@ -71,7 +96,7 @@ export async function POST(req: Request) {
       secure: true,
       sameSite: "lax",
       path: "/",
-      maxAge: ONE_TIME_ACCESS_DAYS * 24 * 60 * 60,
+      maxAge: cookieMaxAge,
     });
     return res;
   } catch (error) {

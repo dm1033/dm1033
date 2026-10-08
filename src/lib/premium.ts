@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import Stripe from "stripe";
 
 /**
  * Signed premium-access tokens — lets the site grant and verify paid access
@@ -33,6 +34,27 @@ export function signPremiumToken(payload: PremiumToken): string {
   const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
   const sig = crypto.createHmac("sha256", key).update(body).digest("base64url");
   return `${body}.${sig}`;
+}
+
+/**
+ * Full access check: signature/expiry via verifyPremiumToken, plus a live
+ * Stripe status check for subscription tokens so cancelled plans lose
+ * access automatically. Single source of truth for every premium gate.
+ */
+export async function verifyPremiumAccess(
+  rawToken: string | undefined,
+): Promise<PremiumToken | null> {
+  const token = verifyPremiumToken(rawToken);
+  if (!token) return null;
+  if (token.kind === "one_time") return token;
+  if (!process.env.STRIPE_SECRET_KEY) return null;
+  try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const sub = await stripe.subscriptions.retrieve(token.subscriptionId);
+    return sub.status === "active" || sub.status === "trialing" ? token : null;
+  } catch {
+    return null;
+  }
 }
 
 export function verifyPremiumToken(token: string | undefined): PremiumToken | null {
