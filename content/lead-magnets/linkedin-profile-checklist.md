@@ -38,4 +38,4 @@ guaranteed.
 - Comment on industry posts weekly — visibility compounds
 - Connect with recruiters in your sector with a short, honest note
 
-Construction Career Edge — LinkedIn Optimisation service available on the website.
+Construct CV — LinkedIn Optimisation service available on the website.

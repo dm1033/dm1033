@@ -1,6 +1,6 @@
 # Construction CV Checklist (20 Points)
 
-Construction Career Edge — advisory guide. No checklist can guarantee
+Construct CV — advisory guide. No checklist can guarantee
 interviews or selection; final decisions remain with employers and recruiters.
 
 ## Structure
@@ -32,4 +32,4 @@ interviews or selection; final decisions remain with employers and recruiters.
 20. Saved as a clean PDF for humans and a plain Word/PDF version for portals
 
 Want a professional review against your target role?
-Visit the Upload CV page on the Construction Career Edge website.
+Visit the Upload CV page on the Construct CV website.

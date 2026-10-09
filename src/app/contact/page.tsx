@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Construction Career Edge — questions about CV reviews, rewrites, LinkedIn optimisation or career coaching. Reply usually within one working day.",
+    "Contact Construct CV — questions about CV reviews, rewrites, LinkedIn optimisation or career coaching. Reply usually within one working day.",
 };
 
 export default function ContactPage() {

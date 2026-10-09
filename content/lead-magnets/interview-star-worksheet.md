@@ -33,4 +33,4 @@ RESULT - Outcome with truthful numbers where possible
 - Practise saying answers aloud in under 2 minutes
 - End each answer with the result, not the story
 
-Construction Career Edge — interview preparation notes included in the Job Application Pack.
+Construct CV — interview preparation notes included in the Job Application Pack.

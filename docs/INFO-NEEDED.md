@@ -4,7 +4,7 @@ Items required to take the site from build-complete to launch-ready.
 
 ## Critical (blocks launch)
 1. ~~**Credential wording**~~ ✅ RESOLVED: IEng (Institution of Civil Engineers), PMI-CP, MSc Construction Management. Tech IOSH removed at David's instruction. Optional: awarding university for the MSc if you want it displayed.
-2. **Brand name decision** — "Construction Career Edge" is the working brand name. ✅ Domain decided: **linkedinconstructioncvprofile.com** (already set in `src/lib/site.ts`). Confirm whether the displayed brand name stays "Construction Career Edge" or should change to match the domain.
+2. ~~**Brand name decision**~~ ✅ RESOLVED: brand is **Construct CV — AI-Optimized Profiles** (per David's logo), domain **linkedinconstructioncvprofile.com** — both applied site-wide.
 3. **Prices** — real figures for all 9 price points in `src/lib/site.ts` (`prices`), including the new CV + LinkedIn Bundle. (Premium AI Access is already priced: £200/12mo, £20/month — coded in `src/app/api/stripe/checkout/route.ts`.)
 4. **Business legal details** — trading name / company number (if any), registered address, jurisdiction for terms (England & Wales assumed).
 5. **Stripe account** — set up by you (identity verification required); then the 6 Payment Links.

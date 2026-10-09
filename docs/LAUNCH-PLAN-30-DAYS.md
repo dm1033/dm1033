@@ -1,4 +1,4 @@
-# 30-Day Launch Plan — Construction Career Edge
+# 30-Day Launch Plan — Construct CV
 
 Goal state by Day 30: website live · Stripe products live · CV review form live · lead magnet live · LinkedIn profile updated · 10 blog drafts created · 30 LinkedIn posts prepared · 100 target prospects listed · first email campaign written · first paid service ready.
 

@@ -27,4 +27,4 @@ no format guarantees selection.
 - No numbers anywhere (or numbers you can't defend)
 - Title inflation - reference checks will find it
 
-Construction Career Edge — Construction Manager CV rewriting available on the website.
+Construct CV — Construction Manager CV rewriting available on the website.

@@ -34,4 +34,4 @@ Strong: "Coordinated temporary works on a major highways scheme,
 
 Rules: every word defensible at interview. No invented values. No inflation.
 
-Construction Career Edge — full achievement rewriting included in the CV Rewrite service.
+Construct CV — full achievement rewriting included in the CV Rewrite service.

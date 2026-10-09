@@ -12,10 +12,15 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           <span className="flex h-9 w-9 items-center justify-center rounded bg-amber-brand font-black text-navy-950">
-            CE
+            CV
           </span>
-          <span className="text-lg font-bold tracking-tight text-white">
-            {site.name}
+          <span className="leading-tight">
+            <span className="block text-lg font-bold tracking-tight text-white">
+              {site.name}
+            </span>
+            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.14em] text-amber-bright">
+              AI-Optimized Profiles
+            </span>
           </span>
         </Link>
 

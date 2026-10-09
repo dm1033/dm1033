@@ -1,8 +1,8 @@
 {
-  "name": "construction-career-edge",
+  "name": "construct-cv",
   "version": "1.0.0",
   "private": true,
-  "description": "Construction Career Edge — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals",
+  "description": "Construct CV — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

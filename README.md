@@ -1,4 +1,4 @@
-# Construction Career Edge
+# Construct CV
 
 > CVs, LinkedIn Profiles and Career Coaching for Construction Professionals
 > *Construction CVs, LinkedIn Profiles and Career Coaching — Built by a Civil Engineer Who Understands the Industry*
@@ -41,7 +41,7 @@ Next.js 15 (App Router, fully static output) · TypeScript · Tailwind CSS 4 · 
 | `docs/PREMIUM-AUTOMATED-SERVICE.md` | Fully automated paid AI service: £200/12mo or £20/month via Stripe Checkout |
 
 ## Brand name
-Working placeholder: **Construction Career Edge**. Shortlist considered: Construction CV Doctor · Built Environment Careers · Site to Senior · Construction Profile Pro · Civil Engineering Career Coach · The Construction CV Consultant · Contractor Career Coach · Engineering Career Edge. To rename: update `src/lib/site.ts` (`name`, `tagline`) and the logo initials in `Header.tsx`/`Footer.tsx`.
+Confirmed: **Construct CV — AI-Optimized Profiles** (matching David's logo; a service of Temporary Works Consulting & Design Ltd). To rename in future: update `src/lib/site.ts` (`name`, `tagline`) and the logo initials in `Header.tsx`/`Footer.tsx`.
 
 ## Compliance commitments (baked into the site)
 - No guaranteed interviews, offers, ATS passes, AI approval or salary increases — anywhere.

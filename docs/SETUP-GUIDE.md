@@ -1,4 +1,4 @@
-# Setup Guide — Construction Career Edge Website
+# Setup Guide — Construct CV Website
 
 Start here. This is the master guide; detailed guides are linked per step.
 

@@ -1,4 +1,4 @@
-# Email Marketing Funnels — Construction Career Edge
+# Email Marketing Funnels — Construct CV
 
 Two automated sequences. Set these up in your email tool (MailerLite, ConvertKit, Mailchimp — all have free tiers). Replace [bracketed] fields. Every email ends with an unsubscribe link (your tool adds this) and the sender's postal address where legally required.
 
@@ -26,7 +26,7 @@ Start with the 20-point checklist — most people find 5–8 quick fixes in the 
 One ask: when you've run through it, hit reply and tell me your score out of 20. I read every reply.
 
 David Miller
-Construction Career Edge — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals
+Construct CV — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals
 
 ### Email 2 (Day 2) — Why construction CVs fail screening
 **Subject:** Why good engineers fail CV screening

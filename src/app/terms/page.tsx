@@ -4,7 +4,7 @@ import { compliance, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
-  description: "Terms of service for Construction Career Edge CV writing, LinkedIn optimisation and career coaching services.",
+  description: "Terms of service for Construct CV CV writing, LinkedIn optimisation and career coaching services.",
 };
 
 export default function TermsPage() {

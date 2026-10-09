@@ -1,16 +1,16 @@
-# LinkedIn Marketing Plan — David Miller / Construction Career Edge
+# LinkedIn Marketing Plan — David Miller / Construct CV
 
 ## 1. David's profile
 
 ### Headline
 > Construction CV, LinkedIn & Career Coach | MSc Construction Management | PMI-CP | IEng (ICE) | 26 Years in Construction, Temporary Works, HV & Infrastructure
 
-(Alternative shorter version: "Construction CV & Career Coach | IEng (ICE) | 26 Years in Civils, Temporary Works & HV | Founder, Construction Career Edge")
+(Alternative shorter version: "Construction CV & Career Coach | IEng (ICE) | 26 Years in Civils, Temporary Works & HV | Founder, Construct CV")
 
 ### About section
 > Most construction professionals have valuable experience and poor presentation. After 26 years in civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy, I now help engineers, managers and site professionals fix that.
 >
-> What I do at Construction Career Edge:
+> What I do at Construct CV:
 > ▸ CV reviews and full rewrites — ATS-aware, recruiter-readable, evidence-led
 > ▸ LinkedIn profiles recruiters can actually find
 > ▸ Job application packs for the role that matters
@@ -30,7 +30,7 @@
 4. (Later) A permissioned, anonymised before/after case study
 
 ### Service page (LinkedIn "Services" / company page text)
-> **Construction Career Edge** — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals.
+> **Construct CV** — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals.
 > Construction-specific CV reviews, rewrites, LinkedIn optimisation, application packs and coaching — for civil engineers, site teams, temporary works professionals, managers and directors, UK and international. Built by a 26-year construction professional. Advisory service: clarity and presentation, honestly delivered — final hiring decisions remain with employers and recruiters.
 
 ## 2. 30 days of posts
@@ -39,7 +39,7 @@ Rhythm: ~5 posts/week (Mon–Fri). Formats rotate: tip / story / myth-bust / lis
 
 | Day | Post |
 |----|------|
-| 1 | Launch announcement: why Construction Career Edge exists (LP#10) |
+| 1 | Launch announcement: why Construct CV exists (LP#10) |
 | 2 | Tip: the seconds-long scan (LP#1) |
 | 3 | Myth-bust: "an ATS rejected me" — what screening actually does |
 | 4 | List: 5 things every site engineer CV must show |

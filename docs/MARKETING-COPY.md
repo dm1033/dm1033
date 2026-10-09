@@ -1,4 +1,4 @@
-# Marketing Copy Library — Construction Career Edge
+# Marketing Copy Library — Construct CV
 
 All copy follows the compliance rules: no guaranteed interviews/offers/ATS passes/salary increases; ATS-aware, recruiter-readable, keyword-aligned wording only; final hiring decisions remain with employers and recruiters.
 

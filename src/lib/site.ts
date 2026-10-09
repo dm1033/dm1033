@@ -1,5 +1,5 @@
 /**
- * Central site configuration for Construction Career Edge.
+ * Central site configuration for Construct CV.
  *
  * EVERYTHING that needs replacing before launch lives in this file:
  * Stripe Payment Links, Calendly URL, Formspree form IDs, contact details
@@ -7,7 +7,7 @@
  */
 
 export const site = {
-  name: "Construction Career Edge",
+  name: "Construct CV",
   tagline:
     "CVs, LinkedIn Profiles and Career Coaching for Construction Professionals",
   positioning:

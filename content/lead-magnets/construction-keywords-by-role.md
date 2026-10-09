@@ -40,4 +40,4 @@ National Grid, SSE/UKPN, outage management, commissioning, SAP/AP (state scheme)
 BIM coordination, Revit, Navisworks, clash detection, ISO 19650, CDE,
 design review, RFIs, buildability.
 
-Construction Career Edge — role-specific keyword alignment is part of every CV service.
+Construct CV — role-specific keyword alignment is part of every CV service.

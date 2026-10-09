@@ -38,7 +38,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded bg-amber-brand text-sm font-black text-navy-950">
-              CE
+              CV
             </span>
             <span className="font-bold text-white">{site.name}</span>
           </div>

@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Construction Career Edge collects, uses, stores and deletes your personal data, including CV uploads.",
+  description: "How Construct CV collects, uses, stores and deletes your personal data, including CV uploads.",
 };
 
 export default function PrivacyPage() {

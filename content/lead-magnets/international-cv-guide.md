@@ -30,4 +30,4 @@ vary by employer; verify visa/immigration matters with qualified advisers.
 - Currency-convert project values approximately and honestly ("approx. £40m equiv.")
 - Keep a master CV; produce one targeted version per market
 
-Construction Career Edge — International CV Pack available on the website.
+Construct CV — International CV Pack available on the website.
