@@ -13,13 +13,13 @@ All copy follows the compliance rules: no guaranteed interviews/offers/ATS passe
 5. Get Your CV Read Properly by Humans and Screening Systems
 6. Your Site Experience Deserves a Better CV
 7. Construction CV and LinkedIn Optimisation for Engineers, Managers and Site Professionals
-8. 29 Years on Site. Now Working on Your CV.
+8. 26 Years on Site. Now Working on Your CV.
 9. Career Coaching for Civil Engineering, Temporary Works, Site Management and Construction Professionals
 10. The CV Writer Who Knows What a TWC Actually Does
 
 ## 2. Subheadline options (10)
 
-1. Specialist CV, résumé, LinkedIn and career coaching for civil engineers, construction managers, temporary works professionals and site teams — written by a 29-year construction professional.
+1. Specialist CV, résumé, LinkedIn and career coaching for civil engineers, construction managers, temporary works professionals and site teams — written by a 26-year construction professional.
 2. Clearer, truthful, targeted career documents — structured for screening systems, written for recruiters.
 3. Most construction professionals have valuable experience and poor presentation. We fix the presentation.
 4. ATS-aware structure. Honest keyword alignment. Real project evidence. No tricks.
@@ -55,7 +55,7 @@ All copy follows the compliance rules: no guaranteed interviews/offers/ATS passe
 
 ## 4. LinkedIn posts (10) — longer-form
 
-1. **The seconds-long scan.** I've spent 29 years in construction. Here's what surprised me most when I started reviewing CVs professionally: the experience is almost always there. The presentation almost never is. Recruiters scan fast. Software scans faster. A CV that buries a £40m highways scheme under "various civil projects" loses to a weaker candidate who wrote it properly. Your experience is the asset. Presentation is the access. (CTA: free checklist link)
+1. **The seconds-long scan.** I've spent 26 years in construction. Here's what surprised me most when I started reviewing CVs professionally: the experience is almost always there. The presentation almost never is. Recruiters scan fast. Software scans faster. A CV that buries a £40m highways scheme under "various civil projects" loses to a weaker candidate who wrote it properly. Your experience is the asset. Presentation is the access. (CTA: free checklist link)
 
 2. **"Responsible for" is killing your CV.** Count how many of your bullets start with "Responsible for". Each one tells a recruiter what your job description said — not what you delivered. Swap them: action, scale, standard, outcome. "Coordinated temporary works on a £40m scheme — 25+ design briefs to BS 5975, zero NCRs." If it's true, write it like it happened.
 
@@ -73,7 +73,7 @@ All copy follows the compliance rules: no guaranteed interviews/offers/ATS passe
 
 9. **Keyword stuffing is a confession.** White text, pasted adverts, skill lists you can't defend — modern systems flag it and interviews expose it. The honest version of keyword strategy: name your genuine experience in the industry's words. That's it. That's the whole trick.
 
-10. **Why I started this business.** 29 years in civils, temporary works, HV and safety. I've watched brilliant site people lose roles to weaker candidates with better documents. The industry taught me what the evidence means; this business puts it on paper properly. CV reviews, rewrites, LinkedIn, coaching — built for construction. (CTA: site link)
+10. **Why I started this business.** 26 years in civils, temporary works, HV and safety. I've watched brilliant site people lose roles to weaker candidates with better documents. The industry taught me what the evidence means; this business puts it on paper properly. CV reviews, rewrites, LinkedIn, coaching — built for construction. (CTA: site link)
 
 ## 5. Email campaign templates (10)
 
@@ -94,7 +94,7 @@ All copy follows the compliance rules: no guaranteed interviews/offers/ATS passe
 
 > Purpose: relationship-building so recruiters refer candidates whose documents need work. Never claim partnership unless agreed in writing.
 
-1. "Hi [Name] — I write construction-specific CVs (29 years in civils/temporary works myself). When candidates' documents undersell them, I'm a useful referral. Happy to return the favour with candidates seeking representation. Worth a quick call?"
+1. "Hi [Name] — I write construction-specific CVs (26 years in civils/temporary works myself). When candidates' documents undersell them, I'm a useful referral. Happy to return the favour with candidates seeking representation. Worth a quick call?"
 2. "Hi [Name], what's the most common CV problem you see in [sector] candidates? I'm writing a guide for construction professionals and would value the recruiter view — credited or anonymous, your choice."
 3. "Hi [Name] — when you reject otherwise-strong candidates over poor CVs, do you tell them why? I run a CV service for construction professionals; if it helps, refer them to my free checklist (no cost to them)."
 4. "Hi [Name], I specialise in CVs for temporary works / HV / civils people. If a candidate's profile is too thin to put forward, I can get their real experience on paper — then they come back to you stronger. Sensible to connect?"
@@ -144,7 +144,7 @@ All copy follows the compliance rules: no guaranteed interviews/offers/ATS passe
 7. **Is it confidential?** Yes — CVs are personal data: stored securely, never shared without consent, deleted after the retention period.
 8. **Do you do international CVs?** Yes — Middle East, Singapore and UK-inbound, including honest sponsorship and relocation positioning.
 9. **What if I'm not happy?** A revision round is included, and inaccuracies are always fixed free. See the refund policy.
-10. **Why you and not a cheap CV mill?** 29 years in construction. I know what a TWC does, what NEC4 means and what recruiters in this industry actually read for.
+10. **Why you and not a cheap CV mill?** 26 years in construction. I know what a TWC does, what NEC4 means and what recruiters in this industry actually read for.
 
 ## 10. One-liners (10)
 
@@ -157,4 +157,4 @@ All copy follows the compliance rules: no guaranteed interviews/offers/ATS passe
 7. From site diary to career document.
 8. No tricks, no stuffing, no false promises — just clarity.
 9. Construction careers, presented properly.
-10. 29 years on site. Now on your side.
+10. 26 years on site. Now on your side.

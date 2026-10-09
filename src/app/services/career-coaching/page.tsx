@@ -13,7 +13,7 @@ export default function CareerCoachingPage() {
     <ServicePageTemplate
       eyebrow="Career Coaching"
       title="Construction Career Coaching With Someone Who Has Done the Job"
-      intro="A focused career call with a 29-year construction professional who has worked across civil engineering, temporary works, HV infrastructure, safety, training and consultancy — not a generic life coach reading from a script."
+      intro="A focused career call with a 26-year construction professional who has worked across civil engineering, temporary works, HV infrastructure, safety, training and consultancy — not a generic life coach reading from a script."
       price={prices.coachingCall}
       stripeLink={stripeLinks.coachingCall}
       imageLabel="Coaching call illustration — video call with notes"

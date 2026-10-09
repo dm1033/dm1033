@@ -16,13 +16,13 @@ import { compliance, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: `Construction CVs and LinkedIn Profiles That Get Read Properly | ${site.name}`,
   description:
-    "Specialist CV, résumé, LinkedIn and career coaching for civil engineers, construction managers, temporary works professionals and site teams — written by a 29-year construction professional.",
+    "Specialist CV, résumé, LinkedIn and career coaching for civil engineers, construction managers, temporary works professionals and site teams — written by a 26-year construction professional.",
 };
 
 const trustItems = [
   "MSc Construction Management",
   "PMI-CP",
-  "29 years' construction experience",
+  "26 years' construction experience",
   "Civil engineering background",
   "Temporary works & infrastructure specialist",
   "UK and international career positioning",
@@ -79,7 +79,7 @@ export default function HomePage() {
               <p className="mt-6 text-lg leading-relaxed text-steel-200">
                 Specialist CV, résumé, LinkedIn and career coaching for civil
                 engineers, construction managers, temporary works professionals
-                and site teams — written by a 29-year construction professional.
+                and site teams — written by a 26-year construction professional.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonPrimary href="/upload-cv">Get a CV Review</ButtonPrimary>
@@ -183,14 +183,14 @@ export default function HomePage() {
               </h2>
               <p className="mt-5 leading-relaxed text-steel-200">
                 Most CV writers have never set foot on site. David Miller has
-                spent 29 years in civil engineering, construction management,
+                spent 26 years in civil engineering, construction management,
                 temporary works, HV infrastructure, safety, training and
                 consultancy. He understands site language, technical roles and
                 contractor expectations — and how to translate real project
                 work into credible CV evidence.
               </p>
               <ul className="mt-6 space-y-2.5 text-steel-200">
-                <Check>29 years in construction</Check>
+                <Check>26 years in construction</Check>
                 <Check>Civil engineering and temporary works background</Check>
                 <Check>MSc Construction Management</Check>
                 <Check>PMI-CP</Check>

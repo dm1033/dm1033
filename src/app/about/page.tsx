@@ -4,9 +4,9 @@ import { Check, ImagePlaceholder, PageHero } from "@/components/ui";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About David Miller — 29 Years in Construction",
+  title: "About David Miller — 26 Years in Construction",
   description:
-    "David Miller: MSc Construction Management, PMI-CP, 29 years across civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy.",
+    "David Miller: MSc Construction Management, PMI-CP, 26 years across civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy.",
 };
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About David"
         title="Built by Someone Who Understands Construction"
-        intro="Most CV writers have never set foot on site. David Miller has spent 29 years in the industry — and that changes what your CV can say."
+        intro="Most CV writers have never set foot on site. David Miller has spent 26 years in the industry — and that changes what your CV can say."
       />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
@@ -28,17 +28,17 @@ export default function AboutPage() {
                 {site.founder.credentials.map((c) => (
                   <Check key={c}>{c}</Check>
                 ))}
-                <Check>29 years&apos; construction experience</Check>
+                <Check>26 years&apos; construction experience</Check>
               </ul>
             </div>
           </div>
 
           <div className="space-y-6 leading-relaxed text-steel-700">
             <h2 className="text-2xl font-extrabold text-navy-900">
-              29 years of real construction experience
+              26 years of real construction experience
             </h2>
             <p>
-              David Miller has spent 29 years working in civil engineering,
+              David Miller has spent 26 years working in civil engineering,
               construction management, temporary works, HV infrastructure,
               safety, training and consultancy. He has worked the roles your CV
               is describing — setting out on site, coordinating temporary

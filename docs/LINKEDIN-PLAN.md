@@ -3,12 +3,12 @@
 ## 1. David's profile
 
 ### Headline
-> Construction CV, LinkedIn & Career Coach | MSc Construction Management | PMI-CP | IEng (ICE) | 29 Years in Construction, Temporary Works, HV & Infrastructure
+> Construction CV, LinkedIn & Career Coach | MSc Construction Management | PMI-CP | IEng (ICE) | 26 Years in Construction, Temporary Works, HV & Infrastructure
 
-(Alternative shorter version: "Construction CV & Career Coach | IEng (ICE) | 29 Years in Civils, Temporary Works & HV | Founder, Construction Career Edge")
+(Alternative shorter version: "Construction CV & Career Coach | IEng (ICE) | 26 Years in Civils, Temporary Works & HV | Founder, Construction Career Edge")
 
 ### About section
-> Most construction professionals have valuable experience and poor presentation. After 29 years in civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy, I now help engineers, managers and site professionals fix that.
+> Most construction professionals have valuable experience and poor presentation. After 26 years in civil engineering, construction management, temporary works, HV infrastructure, safety, training and consultancy, I now help engineers, managers and site professionals fix that.
 >
 > What I do at Construction Career Edge:
 > ▸ CV reviews and full rewrites — ATS-aware, recruiter-readable, evidence-led
@@ -31,7 +31,7 @@
 
 ### Service page (LinkedIn "Services" / company page text)
 > **Construction Career Edge** — CVs, LinkedIn Profiles and Career Coaching for Construction Professionals.
-> Construction-specific CV reviews, rewrites, LinkedIn optimisation, application packs and coaching — for civil engineers, site teams, temporary works professionals, managers and directors, UK and international. Built by a 29-year construction professional. Advisory service: clarity and presentation, honestly delivered — final hiring decisions remain with employers and recruiters.
+> Construction-specific CV reviews, rewrites, LinkedIn optimisation, application packs and coaching — for civil engineers, site teams, temporary works professionals, managers and directors, UK and international. Built by a 26-year construction professional. Advisory service: clarity and presentation, honestly delivered — final hiring decisions remain with employers and recruiters.
 
 ## 2. 30 days of posts
 
@@ -72,7 +72,7 @@ Rhythm: ~5 posts/week (Mon–Fri). Formats rotate: tip / story / myth-bust / lis
 
 ## 3. Connection message templates
 
-1. (Engineer/manager) "Hi [Name] — I post practical CV and career content for construction professionals (29 years in the industry myself). Connecting so it reaches your feed. No pitch."
+1. (Engineer/manager) "Hi [Name] — I post practical CV and career content for construction professionals (26 years in the industry myself). Connecting so it reaches your feed. No pitch."
 2. (After they engage) "Hi [Name], thanks for the comment on my post about [topic]. What's your situation — happy where you are, or thinking about a move?"
 3. (Recruiter) "Hi [Name] — I prep construction candidates' CVs and LinkedIn profiles. Useful contact in both directions, I suspect. No partnership claims, just a sensible connection."
 4. (Graduate) "Hi [Name] — saw you're heading into [discipline]. I post free first-CV guidance for construction grads; connect if useful."

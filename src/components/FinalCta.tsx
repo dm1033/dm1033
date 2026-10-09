@@ -12,7 +12,7 @@ export default function FinalCta({
           {title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-steel-200">
-          Clearer, truthful, targeted career documents — built by a 29-year
+          Clearer, truthful, targeted career documents — built by a 26-year
           construction professional. We cannot guarantee selection, but we can
           make sure your real experience is presented properly.
         </p>

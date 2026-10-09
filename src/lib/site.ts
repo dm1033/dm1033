@@ -24,7 +24,7 @@ export const site = {
       "PMI-CP",
       "IEng — Incorporated Engineer, Institution of Civil Engineers (ICE)",
     ],
-    yearsExperience: 29,
+    yearsExperience: 26,
     linkedin: "https://www.linkedin.com/in/REPLACE_WITH_PROFILE",
   },
   // REPLACE with your Calendly (or equivalent) booking link.

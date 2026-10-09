@@ -33,7 +33,7 @@ Construction Career Edge — CVs, LinkedIn Profiles and Career Coaching for Cons
 
 Hi [First name],
 
-After 29 years in construction, here's the pattern I see in CVs that struggle:
+After 26 years in construction, here's the pattern I see in CVs that struggle:
 
 1. **The words aren't there.** You coordinated temporary works for years, but "temporary works" never appears. Recruiter searches find words, not implications.
 2. **Evidence is buried.** Your best project is a paragraph on page three. Recruiters scan; it might as well not exist.

@@ -81,7 +81,7 @@ const PremiumReviewSchema = ReviewSchema.extend(PremiumExtrasSchema.shape);
 export type AtsAiReview = z.infer<typeof ReviewSchema> &
   Partial<z.infer<typeof PremiumExtrasSchema>>;
 
-const SYSTEM_PROMPT = `You are an expert construction-industry CV reviewer working for Construction Career Edge, a UK-based career documents service run by a civil engineer with 29 years' experience across civil engineering, construction management, temporary works, HV infrastructure and safety.
+const SYSTEM_PROMPT = `You are an expert construction-industry CV reviewer working for Construction Career Edge, a UK-based career documents service run by a civil engineer with 26 years' experience across civil engineering, construction management, temporary works, HV infrastructure and safety.
 
 You review a candidate's CV text against a specific job advert and produce an advisory screening-readiness review.
 
