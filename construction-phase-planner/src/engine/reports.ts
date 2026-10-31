@@ -1,9 +1,10 @@
 import type {
   GameState, Scenario, ScoreKey, SiteSetupStep, TwRegisterStep, PermitStep, DecisionStep,
+  HazardHuntStep, SequenceStep,
 } from '../types'
 import { SCORE_KEYS, SCORE_LABELS } from '../types'
 import {
-  assessPlacements, categoryScore, gradeFor, overallScore, twItemScore, TW_FIELD_KEYS,
+  assessHunt, assessPlacements, assessSequence, categoryScore, gradeFor, overallScore, twItemScore,
   type PlacementAssessment,
 } from './scoring'
 import { SITE_ITEM_MAP } from '../data/siteItems'
@@ -18,7 +19,15 @@ export interface MissedItemsReport {
   programmeConsequences: string[]
   unsafePlacements: string[]
   missingPlacements: string[]
+  missedHazards: string[]
+  sequenceErrors: string[]
   revisionTopics: string[]
+}
+
+/** Overall competence score. An HSE shutdown caps the grade at "Unsafe planning". */
+export function finalOverall(state: GameState): number {
+  const overall = overallScore(state.scores)
+  return state.game?.shutdown ? Math.min(overall, 39) : overall
 }
 
 export function findSteps<T extends { type: string }>(scenario: Scenario, type: T['type']): T[] {
@@ -51,6 +60,8 @@ export function buildMissedItems(state: GameState, scenario: Scenario): MissedIt
     programmeConsequences: [],
     unsafePlacements: [],
     missingPlacements: [],
+    missedHazards: [],
+    sequenceErrors: [],
     revisionTopics: [],
   }
   const decisionMap = new Map(allDecisionSteps(scenario).map((d) => [d.id, d]))
@@ -104,6 +115,32 @@ export function buildMissedItems(state: GameState, scenario: Scenario): MissedIt
     if (a.status === 'missing') report.missingPlacements.push(`${label} — ${a.note}`)
   }
 
+  // Hazard hunt misses
+  for (const step of findSteps<HazardHuntStep>(scenario, 'hazardHunt')) {
+    const ans = state.huntAnswers.find((a) => a.stepId === step.id)
+    if (!ans) continue
+    const a = assessHunt(step, ans.flagged)
+    for (const o of a.missed) report.missedHazards.push(`${o.text} (${o.severity ?? 'hazard'})`)
+    if (a.missed.length || a.falseFlags.length) topics.add(step.topic)
+  }
+
+  // Sequencing errors
+  for (const step of findSteps<SequenceStep>(scenario, 'sequence')) {
+    const ans = state.sequenceAnswers.find((a) => a.stepId === step.id)
+    if (!ans) continue
+    const a = assessSequence(step, ans.order)
+    const label = (id: string) => step.activities.find((x) => x.id === id)?.label ?? id
+    for (const c of a.violated) {
+      report.sequenceErrors.push(`${c.critical ? 'CRITICAL: ' : ''}"${label(c.before)}" must precede "${label(c.after)}". ${c.reason}`)
+    }
+    if (a.violated.length) topics.add(step.topic)
+  }
+
+  // Project outcome
+  if (state.game?.shutdown) report.programmeConsequences.push('Project shut down by an HSE prohibition notice.')
+  if (state.game && state.game.floatDays < 0) report.programmeConsequences.push(`Handed over ${Math.abs(state.game.floatDays)} working days late.`)
+  if (state.game && state.game.budget < 0) report.programmeConsequences.push('Contingency budget exhausted: incidents, notices and rework cost more than the allowance.')
+
   if (state.scores.meters.cost > 70) {
     report.programmeConsequences.push('High cost pressure — decisions added avoidable cost or delay.')
   }
@@ -133,7 +170,7 @@ export function buildScoreReport(state: GameState, scenario: Scenario): ScoreRep
     label: SCORE_LABELS[key],
     score: categoryScore(state.scores, key),
   }))
-  const overall = overallScore(state.scores)
+  const overall = finalOverall(state)
   const grade = gradeFor(overall)
   return {
     delegateName: state.delegateName || 'Delegate',
@@ -239,9 +276,12 @@ export function decisionsCsv(state: GameState): string {
     d.wasEvent ? 'Event' : 'Decision',
     d.prompt,
     d.topic,
-    d.quality,
+    d.timedOut ? 'timed out' : d.quality,
+    d.confidence ?? '',
+    d.usedLifeline ? 'Yes' : 'No',
+    d.points ?? '',
   ])
-  return toCsv(['Phase', 'Type', 'Prompt', 'Topic', 'Outcome quality'], rows)
+  return toCsv(['Phase', 'Type', 'Prompt', 'Topic', 'Outcome quality', 'Confidence', 'Lifeline used', 'Points'], rows)
 }
 
 export function environmentalChecklistCsv(state: GameState, scenario: Scenario): string {

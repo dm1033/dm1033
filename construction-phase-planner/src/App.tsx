@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { soundMuted, toggleSound } from './engine/sound'
 import { useGame } from './state/GameContext'
 import HomeScreen from './screens/HomeScreen'
 import ScenarioSelect from './screens/ScenarioSelect'
@@ -15,6 +16,7 @@ export default function App() {
   const [screen, setScreen] = useState<ScreenId>(() =>
     state.scenarioId ? (state.completed ? 'report' : 'game') : 'home',
   )
+  const [muted, setMuted] = useState(soundMuted())
 
   return (
     <div className="min-h-full flex flex-col">
@@ -37,11 +39,25 @@ export default function App() {
             Tutor Mode {tutor.enabled && <span className="ml-1 inline-block w-2 h-2 rounded-full bg-emerald-400" />}
           </NavBtn>
           <NavBtn active={screen === 'licence'} onClick={() => setScreen('licence')}>Licensing</NavBtn>
+          <button
+            onClick={() => setMuted(toggleSound())}
+            aria-label={muted ? 'Turn sound on' : 'Mute sound'}
+            title={muted ? 'Sound off' : 'Sound on'}
+            className="px-2 py-1.5 rounded-md text-slate-300 hover:bg-slate-900"
+          >
+            {muted ? '🔇' : '🔊'}
+          </button>
         </nav>
       </header>
 
       <main className="flex-1">
-        {screen === 'home' && <HomeScreen onStart={() => setScreen('select')} onTutor={() => setScreen('tutor')} />}
+        {screen === 'home' && (
+          <HomeScreen
+            onStart={() => setScreen('select')}
+            onTutor={() => setScreen('tutor')}
+            onResume={state.scenarioId && !state.completed ? () => setScreen('game') : undefined}
+          />
+        )}
         {screen === 'select' && <ScenarioSelect onStarted={() => setScreen('game')} />}
         {screen === 'game' && <GameScreen onFinished={() => setScreen('report')} onExit={() => setScreen('home')} />}
         {screen === 'report' && <ReportScreen onRestart={() => setScreen('select')} />}

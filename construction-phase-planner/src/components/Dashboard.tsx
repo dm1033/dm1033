@@ -1,6 +1,7 @@
 import { useGame } from '../state/GameContext'
 import { METER_KEYS, METER_LABELS, SCORE_KEYS, SCORE_LABELS } from '../types'
 import { categoryScore } from '../engine/scoring'
+import { DIFFICULTIES } from '../engine/game'
 
 function ragClass(v: number, invert = false) {
   const x = invert ? 100 - v : v
@@ -11,10 +12,14 @@ function ragClass(v: number, invert = false) {
 
 export default function Dashboard() {
   const { state } = useGame()
+  const sealed = DIFFICULTIES[state.game.difficulty].deferFeedback
   return (
     <div className="space-y-4">
       <div>
         <h3 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">Performance</h3>
+        {sealed ? (
+          <p className="text-[11px] text-slate-500">🔒 Expert mode: your competence scores are sealed until handover. Watch the project meters and your site weeks for warning signs.</p>
+        ) : (
         <div className="space-y-1.5">
           {SCORE_KEYS.map((k) => {
             const score = categoryScore(state.scores, k)
@@ -34,6 +39,7 @@ export default function Dashboard() {
             )
           })}
         </div>
+        )}
       </div>
       <div>
         <h3 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">Project Meters</h3>
@@ -55,7 +61,7 @@ export default function Dashboard() {
           })}
         </div>
       </div>
-      {state.criticalFailures.length > 0 && (
+      {!sealed && state.criticalFailures.length > 0 && (
         <div className="rounded-md border border-red-800 bg-red-950/40 p-2">
           <div className="text-[11px] font-bold text-red-400 mb-1">
             ⚠ Critical failures: {state.criticalFailures.length}

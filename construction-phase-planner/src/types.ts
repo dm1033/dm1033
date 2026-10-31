@@ -61,6 +61,11 @@ export interface DecisionOption {
   feedback: string
   /** If chosen, recorded as a critical safety failure in the final report. */
   criticalFailure?: string
+  /**
+   * What later goes wrong on site if this (poor/unsafe) choice is left uncorrected.
+   * Shown on a consequence card when the latent hazard this choice created "fires".
+   */
+  consequence?: string
 }
 
 /** A multiple-choice decision (also used for incident/challenge events). */
@@ -198,7 +203,70 @@ export interface PermitStep {
   learningNote: string
 }
 
-export type Step = DecisionStep | InfoStep | SiteSetupStep | TwRegisterStep | PermitStep
+// ---------- Hazard hunt (timed site walk-round) ----------
+
+export interface HazardObservation {
+  id: string
+  /** Single emoji shown on the tile. */
+  icon: string
+  /** What the delegate sees on the walk-round — neutral wording that does not telegraph the answer. */
+  text: string
+  /** True if this observation is a hazard that must be flagged. */
+  hazard: boolean
+  /** Why it is a hazard (and the control), or why it is acceptable. */
+  explanation: string
+  /** Hazards only: consequence severity if left uncontrolled. */
+  severity?: 'low' | 'medium' | 'high'
+}
+
+export interface HazardHuntStep {
+  type: 'hazardHunt'
+  id: string
+  prompt: string
+  /** Scene-setting line, e.g. "Site walk-round — week 6, Tuesday 07:40". */
+  location: string
+  /** Base time limit in seconds (scaled by difficulty). */
+  timeLimit: number
+  observations: HazardObservation[]
+  topic: string
+  learningNote: string
+}
+
+// ---------- Sequencing (plan the order of work) ----------
+
+export interface SequenceActivity {
+  id: string
+  label: string
+  detail?: string
+}
+
+export interface SequenceConstraint {
+  /** Activity id that must come first. */
+  before: string
+  /** Activity id that must come later. */
+  after: string
+  /** Why the order matters (shown when violated). */
+  reason: string
+  /** Violating a critical constraint is recorded as a critical safety failure. */
+  critical?: boolean
+}
+
+export interface SequenceStep {
+  type: 'sequence'
+  id: string
+  prompt: string
+  context?: string
+  /** Authored in the CORRECT order; the UI shuffles them for the delegate. */
+  activities: SequenceActivity[]
+  /** Precedence rules used for scoring. */
+  constraints: SequenceConstraint[]
+  topic: string
+  learningNote: string
+}
+
+export type Step =
+  | DecisionStep | InfoStep | SiteSetupStep | TwRegisterStep | PermitStep
+  | HazardHuntStep | SequenceStep
 
 // ---------- Phases & scenario ----------
 
@@ -272,6 +340,10 @@ export interface DecisionRecord {
   chosenOptionId: string
   quality: OptionQuality
   wasEvent: boolean
+  confidence?: Confidence
+  timedOut?: boolean
+  usedLifeline?: boolean
+  points?: number
 }
 
 export interface PlacementRecord {
@@ -324,6 +396,124 @@ export interface CustomQuestion {
   explanation: string
 }
 
+// ---------- Game layer (difficulty, economy, consequences, points) ----------
+
+export type Difficulty = 'learner' | 'standard' | 'expert'
+export type Confidence = 'sure' | 'think' | 'guess'
+
+/** A shortcut or poor choice that is still "live" on site and may cause an incident later. */
+export interface LatentHazard {
+  /** `${stepId}:${optionId}` (or `${stepId}:seq:${n}` for sequencing errors). */
+  id: string
+  stepId: string
+  phaseNumber: number
+  severity: 'minor' | 'major'
+  topic: string
+  /** What the delegate chose (or did). */
+  choice: string
+  /** What goes wrong if it fires. */
+  consequence: string
+  status: 'open' | 'fired' | 'rectified'
+  /** Expert mode: hazards are hidden until an audit reveals them. */
+  revealed: boolean
+}
+
+export interface ConsequenceRecord {
+  hazardId: string
+  week: number
+  severity: 'minor' | 'major'
+  title: string
+  narrative: string
+  rootCause: string
+  cost: number
+  days: number
+  riddor: boolean
+  points: number
+}
+
+export interface NoticeRecord {
+  kind: 'improvement' | 'prohibition'
+  week: number
+  reason: string
+  cost: number
+  days: number
+  points: number
+}
+
+export interface WeekReport {
+  week: number
+  afterPhase: number
+  consequences: ConsequenceRecord[]
+  notice: NoticeRecord | null
+  shutdown: boolean
+  safe: boolean
+  points: number
+}
+
+export interface ConfidenceRecord {
+  stepId: string
+  confidence: Confidence
+  quality: OptionQuality
+}
+
+export interface PointsAward {
+  /** Increments so the UI can animate each award. */
+  seq: number
+  amount: number
+  label: string
+}
+
+export interface BonusLine {
+  label: string
+  points: number
+}
+
+export interface GameMeta {
+  difficulty: Difficulty
+  seed: number
+  points: number
+  streak: number
+  bestStreak: number
+  budgetStart: number
+  budget: number
+  floatStart: number
+  floatDays: number
+  weeksTotal: number
+  week: number
+  safeWeeks: number
+  /** Critical failures since the last prohibition notice. */
+  strikes: number
+  /** Number of critical failures already cited in an earlier HSE notice. */
+  noticeMark?: number
+  lifelines: number
+  lifelineSteps: string[]
+  timeouts: number
+  latent: LatentHazard[]
+  consequences: ConsequenceRecord[]
+  notices: NoticeRecord[]
+  confidence: ConfidenceRecord[]
+  /** Extra eventPool events injected into construction phases. */
+  surpriseEvents: { phaseNumber: number; eventId: string }[]
+  pendingWeek: WeekReport | null
+  auditsUsed: number
+  shutdown: boolean
+  bonuses: BonusLine[]
+  lastAward: PointsAward | null
+  /** Set once the result has been written to the local profile/leaderboard. */
+  recorded: boolean
+}
+
+export interface HuntAnswerRecord {
+  stepId: string
+  flagged: string[]
+  secondsLeft: number
+}
+
+export interface SequenceAnswerRecord {
+  stepId: string
+  order: string[]
+}
+
 export interface GameState {
   scenarioId: string | null
   phaseIndex: number
@@ -334,6 +524,8 @@ export interface GameState {
   placements: PlacementRecord[]
   twAnswers: TwAnswerRecord[]
   permitAnswers: PermitAnswerRecord[]
+  huntAnswers: HuntAnswerRecord[]
+  sequenceAnswers: SequenceAnswerRecord[]
   riskRegister: RiskRegisterRow[]
   incidentLog: IncidentLogRow[]
   criticalFailures: string[]
@@ -343,6 +535,7 @@ export interface GameState {
   delegateName: string
   startedAt: string | null
   finishedAt: string | null
+  game: GameMeta
 }
 
 export interface TutorState {

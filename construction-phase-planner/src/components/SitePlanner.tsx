@@ -2,6 +2,9 @@ import { useMemo, useState } from 'react'
 import type { PlacementRecord, SiteSetupStep } from '../types'
 import { SITE_ITEM_MAP, ITEM_CATEGORY_LABELS, type SiteItemDef } from '../data/siteItems'
 import { assessPlacements, type PlacementAssessment } from '../engine/scoring'
+import { useGame } from '../state/GameContext'
+import { DIFFICULTIES } from '../engine/game'
+import { sfx } from '../engine/sound'
 
 interface Props {
   step: SiteSetupStep
@@ -14,6 +17,8 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
   const [placements, setPlacements] = useState<PlacementRecord[]>([])
   const [selected, setSelected] = useState<string | null>(null)
   const [result, setResult] = useState<PlacementAssessment[] | null>(null)
+  const { state } = useGame()
+  const defer = DIFFICULTIES[state.game.difficulty].deferFeedback
 
   const paletteItems = useMemo(() => {
     const ids = step.rules.map((r) => r.itemId)
@@ -39,6 +44,7 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
     if (placements.some((p) => p.x === x && p.y === y && p.itemId !== itemId)) return
     setPlacements((prev) => [...prev.filter((p) => p.itemId !== itemId), { itemId, x, y }])
     setSelected(null)
+    sfx.tick()
   }
 
   const removeItem = (itemId: string) => {
@@ -56,8 +62,12 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
   }
 
   const submit = () => {
-    setResult(assessPlacements(step, placements))
+    const r = assessPlacements(step, placements)
+    setResult(r)
     onSubmit(placements)
+    if (defer) sfx.click()
+    else if (r.some((a) => a.status === 'unsafe' || a.status === 'missing')) sfx.bad()
+    else sfx.good()
   }
 
   const requiredCount = step.rules.filter((r) => r.required).length
@@ -98,7 +108,7 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
                 const topZone = zones[zones.length - 1]
                 const placed = placements.find((p) => p.x === x && p.y === y)
                 const blocked = blockedCells.has(`${x},${y}`)
-                const assessment = result && placed ? result.find((r) => r.itemId === placed.itemId) : null
+                const assessment = result && placed && !defer ? result.find((r) => r.itemId === placed.itemId) : null
                 return (
                   <div
                     key={`${x},${y}`}
@@ -195,6 +205,11 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
         </div>
       ) : (
         <div className="mt-4 space-y-3">
+          {defer ? (
+            <div className="rounded-lg border border-sky-800 bg-sky-950/30 p-3 text-sm text-sky-200">
+              📝 Site layout issued for mobilisation. Expert mode: the layout is assessed at handover, and on site if it goes wrong.
+            </div>
+          ) : (<>
           <div className="rounded-lg border border-slate-700 bg-slate-900 p-3 max-h-56 overflow-y-auto">
             <p className="text-xs font-bold text-slate-300 mb-2">Placement assessment</p>
             <div className="grid sm:grid-cols-2 gap-1 text-xs">
@@ -210,6 +225,7 @@ export default function SitePlanner({ step, reveal, onSubmit, onContinue }: Prop
             <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note — {step.topic}</p>
             <p>{step.learningNote}</p>
           </div>
+          </>)}
           <button onClick={onContinue} className="rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5">
             Continue →
           </button>

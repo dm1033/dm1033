@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import type { PermitStep } from '../types'
+import { useGame } from '../state/GameContext'
+import { DIFFICULTIES } from '../engine/game'
+import { sfx } from '../engine/sound'
 
 interface Props {
   step: PermitStep
@@ -11,15 +14,22 @@ interface Props {
 export default function PermitForm({ step, reveal, onSubmit, onContinue }: Props) {
   const [selected, setSelected] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
+  const { state } = useGame()
+  const defer = DIFFICULTIES[state.game.difficulty].deferFeedback
 
   const toggle = (id: string) => {
     if (submitted) return
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
+    sfx.tick()
   }
 
   const submit = () => {
     setSubmitted(true)
     onSubmit(selected)
+    const missed = step.required.filter((r) => !selected.includes(r)).length
+    if (defer) sfx.click()
+    else if (missed === 0) sfx.good()
+    else sfx.bad()
   }
 
   return (
@@ -31,7 +41,7 @@ export default function PermitForm({ step, reveal, onSubmit, onContinue }: Props
         {step.options.map((o) => {
           const isSel = selected.includes(o.id)
           const isReq = step.required.includes(o.id)
-          const showState = submitted || reveal
+          const showState = (submitted && !defer) || (reveal && !submitted)
           return (
             <button
               key={o.id}
@@ -66,13 +76,19 @@ export default function PermitForm({ step, reveal, onSubmit, onContinue }: Props
         </button>
       ) : (
         <div className="mt-4 space-y-3">
+          {defer ? (
+            <div className="rounded-lg border border-sky-800 bg-sky-950/30 p-3 text-sm text-sky-200">
+              📝 Permit systems set up as selected. Expert mode: gaps will show up on site, or in your handover report.
+            </div>
+          ) : (<>
           <div className="rounded-lg border border-slate-700 bg-slate-900 p-3 text-sm text-slate-300">
             {step.explanation}
           </div>
           <div className="rounded-lg border border-sky-900 bg-sky-950/30 p-3 text-sm text-sky-200">
-            <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note — {step.topic}</p>
+            <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note: {step.topic}</p>
             <p>{step.learningNote}</p>
           </div>
+          </>)}
           <button onClick={onContinue} className="rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5">
             Continue →
           </button>

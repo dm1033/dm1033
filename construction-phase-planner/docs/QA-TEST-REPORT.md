@@ -1,5 +1,31 @@
 # QA / Test Report
 
+## v2.0.0: "Run the Project" (2026-10-31)
+
+| Check | Command | Result |
+|---|---|---|
+| TypeScript strict typecheck | `npm run check` | ✅ PASS (0 errors) |
+| Production build | `npm run build` | ✅ PASS (bundle 784 kB, 235 kB gzip; scenario JSON roughly doubled) |
+| Scenario data validation (extended rules) | `npm run validate:data` | ✅ PASS (3/3 files, 0 warnings) |
+| Answer-length cue | validator | ✅ Best answer is the longest option in 28% / 26% / 29% of decisions (v1: 100%) |
+| E2E smoke, all 9 scenario × difficulty combinations | `npm run smoke -- <0-2> <level> random` | ✅ 9/9 PASS, no console or page errors, leaderboard entry written |
+| Monte-Carlo balance (100 runs per cell, 36 cells) | `npm run sim:balance` | ✅ See `docs/GAME-DESIGN.md` |
+
+New content per scenario: 1 hazard hunt (16 observations, 8 hazards), 2 sequence steps
+(8 activities; 8–12 constraints, of which 2–4 are critical), and a `consequence` narrative on
+every poor/unsafe option (80 / 70 / 64).
+
+Fixed during QA: the smoke test raced the weekly-report modal (a test-only issue, fixed with a
+commit wait and guarded clicks); hazard-hunt tiles were cramped at four columns (now two, with
+a sticky timer); repeat HSE notices restated old findings (they now cite only new findings);
+one bad sequence could add three strikes at once (now capped at one per step).
+
+Screenshots: `docs/screenshots/` (`npm run screenshots`).
+
+---
+
+## v1.0.0
+
 **Application:** Construction Phase Planner — SMSTS Safety Challenge v1.0.0
 **Date:** 2026-07-02
 **Environment:** Node 22 · Vite 8 · React 19 · TypeScript 6 (strict) · Chromium (Playwright)

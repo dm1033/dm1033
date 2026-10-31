@@ -1,7 +1,7 @@
 import type {
-  DecisionStep, DecisionOption, GameState, MeterKey, PermitStep, PlacementRecord,
-  ScoreImpact, ScoreKey, ScoreState, SiteSetupStep, TwAnswerRecord, TwItem, TwRegisterStep,
-  GradeBand,
+  DecisionStep, DecisionOption, MeterKey, PermitStep, PlacementRecord,
+  ScoreKey, ScoreState, SiteSetupStep, TwAnswerRecord, TwItem, TwRegisterStep,
+  GradeBand, HazardHuntStep, HazardObservation, SequenceStep, SequenceConstraint,
 } from '../types'
 import { GRADE_BANDS, METER_KEYS, SCORE_KEYS } from '../types'
 
@@ -192,6 +192,92 @@ export function applyPermits(scores: ScoreState, step: PermitStep, selected: str
       next.meters.incidentLikelihood = clamp(next.meters.incidentLikelihood + 5)
     }
   }
+  return next
+}
+
+// ---------- Hazard hunt scoring ----------
+
+export interface HuntAssessment {
+  found: HazardObservation[]
+  missed: HazardObservation[]
+  falseFlags: HazardObservation[]
+}
+
+export function assessHunt(step: HazardHuntStep, flagged: string[]): HuntAssessment {
+  const set = new Set(flagged)
+  return {
+    found: step.observations.filter((o) => o.hazard && set.has(o.id)),
+    missed: step.observations.filter((o) => o.hazard && !set.has(o.id)),
+    falseFlags: step.observations.filter((o) => !o.hazard && set.has(o.id)),
+  }
+}
+
+const HUNT_SAFETY_PTS = 4
+const HUNT_PLANNING_PTS = 2
+
+export function applyHazardHunt(scores: ScoreState, step: HazardHuntStep, flagged: string[]): ScoreState {
+  const next: ScoreState = {
+    earned: { ...scores.earned },
+    possible: { ...scores.possible },
+    meters: { ...scores.meters },
+  }
+  const a = assessHunt(step, flagged)
+  const hazards = a.found.length + a.missed.length
+  next.possible.safety += hazards * HUNT_SAFETY_PTS
+  next.possible.planning += hazards * HUNT_PLANNING_PTS
+  next.earned.safety += a.found.length * HUNT_SAFETY_PTS - a.falseFlags.length * (HUNT_SAFETY_PTS / 2)
+  next.earned.planning += a.found.length * HUNT_PLANNING_PTS
+  for (const m of a.missed) {
+    next.meters.incidentLikelihood = clamp(next.meters.incidentLikelihood + (m.severity === 'high' ? 4 : 2))
+  }
+  return next
+}
+
+// ---------- Sequencing scoring ----------
+
+export interface SequenceAssessment {
+  satisfied: SequenceConstraint[]
+  violated: SequenceConstraint[]
+  criticalViolated: SequenceConstraint[]
+  perfect: boolean
+}
+
+export function assessSequence(step: SequenceStep, order: string[]): SequenceAssessment {
+  const pos = new Map(order.map((id, i) => [id, i]))
+  const satisfied: SequenceConstraint[] = []
+  const violated: SequenceConstraint[] = []
+  for (const c of step.constraints) {
+    const b = pos.get(c.before)
+    const a = pos.get(c.after)
+    if (b !== undefined && a !== undefined && b < a) satisfied.push(c)
+    else violated.push(c)
+  }
+  return {
+    satisfied,
+    violated,
+    criticalViolated: violated.filter((c) => c.critical),
+    perfect: violated.length === 0,
+  }
+}
+
+const SEQ_PLANNING_PTS = 3
+const SEQ_SAFETY_PTS = 4
+
+export function applySequence(scores: ScoreState, step: SequenceStep, order: string[]): ScoreState {
+  const next: ScoreState = {
+    earned: { ...scores.earned },
+    possible: { ...scores.possible },
+    meters: { ...scores.meters },
+  }
+  const a = assessSequence(step, order)
+  next.possible.planning += step.constraints.length * SEQ_PLANNING_PTS
+  next.earned.planning += a.satisfied.length * SEQ_PLANNING_PTS
+  const critical = step.constraints.filter((c) => c.critical)
+  next.possible.safety += critical.length * SEQ_SAFETY_PTS
+  next.earned.safety += (critical.length - a.criticalViolated.length) * SEQ_SAFETY_PTS
+  next.possible.programme += step.constraints.length
+  next.earned.programme += a.satisfied.length
+  next.meters.incidentLikelihood = clamp(next.meters.incidentLikelihood + a.criticalViolated.length * 5)
   return next
 }
 

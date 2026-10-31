@@ -7,8 +7,13 @@ import InfoCard from '../components/InfoCard'
 import SitePlanner from '../components/SitePlanner'
 import TwRegisterForm from '../components/TwRegisterForm'
 import PermitForm from '../components/PermitForm'
+import HazardHunt from '../components/HazardHunt'
+import SequenceBuilder from '../components/SequenceBuilder'
+import Hud from '../components/Hud'
+import SiteWeekCard from '../components/SiteWeekCard'
 import type { CustomQuestion, DecisionStep, Step } from '../types'
 import { isEventPhase } from '../state/GameContext'
+import { DIFFICULTIES } from '../engine/game'
 
 /** Convert a tutor-authored question into a decision step. */
 function customToDecision(q: CustomQuestion): DecisionStep {
@@ -22,7 +27,7 @@ function customToDecision(q: CustomQuestion): DecisionStep {
       text: o.text,
       quality: o.correct ? 'best' : 'poor',
       impact: o.correct ? { safety: 5, legal: 5 } : {},
-      feedback: o.correct ? 'Correct — tutor question.' : 'Not the best answer — see the tutor explanation.',
+      feedback: o.correct ? 'Correct: tutor question.' : 'Not the best answer. See the tutor explanation.',
     })),
     topic: 'Tutor question',
     learningNote: q.explanation,
@@ -40,13 +45,17 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
   const phase = scenario?.phases[state.phaseIndex]
 
   const extraSteps: Step[] = useMemo(() => {
-    if (!scenario || !phase || !isEventPhase(phase.number)) return []
-    const drawn = state.drawnEventIds
-      .map((id) => scenario.eventPool.find((e) => e.id === id))
+    if (!scenario || !phase) return []
+    const find = (id: string) => scenario.eventPool.find((e) => e.id === id)
+    const surprise = state.game.surpriseEvents
+      .filter((s) => s.phaseNumber === phase.number)
+      .map((s) => find(s.eventId))
       .filter((e): e is DecisionStep => !!e)
+    if (!isEventPhase(phase.number)) return surprise
+    const drawn = state.drawnEventIds.map(find).filter((e): e is DecisionStep => !!e)
     const custom = tutor.customQuestions.map(customToDecision)
-    return [...drawn, ...custom]
-  }, [scenario, phase, state.drawnEventIds, tutor.customQuestions])
+    return [...surprise, ...drawn, ...custom]
+  }, [scenario, phase, state.drawnEventIds, state.game.surpriseEvents, tutor.customQuestions])
 
   if (!scenario || !phase) {
     return (
@@ -59,10 +68,13 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
     )
   }
 
-  const steps: Step[] = isEventPhase(phase.number) ? [...phase.steps, ...extraSteps] : phase.steps
+  const diff = DIFFICULTIES[state.game.difficulty]
+  const steps: Step[] = [...phase.steps, ...extraSteps]
   const step = steps[Math.min(state.stepIndex, steps.length - 1)]
   const advance = () => dispatch({ type: 'ADVANCE', scenario, extraSteps: extraSteps.length })
   const reveal = tutor.enabled && tutor.revealAnswers
+  const paused = tutor.enabled && tutor.paused
+  const surpriseHere = step.type === 'decision' && state.game.surpriseEvents.some((s) => s.eventId === step.id)
 
   // Guard against double-scoring after a reload: a step whose answer was already
   // recorded BEFORE the step was entered renders as completed instead of accepting a
@@ -75,16 +87,23 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
         (step.type === 'decision' && state.decisions.some((d) => d.stepId === step.id)) ||
         (step.type === 'permits' && state.permitAnswers.some((a) => a.stepId === step.id)) ||
         (step.type === 'twRegister' && step.items.length > 0 && step.items.every((i) => state.twAnswers.some((a) => a.itemId === i.id))) ||
-        (step.type === 'siteSetup' && state.placements.length > 0),
+        (step.type === 'siteSetup' && state.placements.length > 0) ||
+        (step.type === 'hazardHunt' && state.huntAnswers.some((a) => a.stepId === step.id)) ||
+        (step.type === 'sequence' && state.sequenceAnswers.some((a) => a.stepId === step.id)),
     }
   }
   const alreadyDone = entryRef.current.done
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4 grid lg:grid-cols-[220px_1fr_280px] gap-4">
+      {state.game.pendingWeek && <SiteWeekCard />}
+
       {/* Phase progress */}
       <aside className="no-print hidden lg:block">
         <div className="sticky top-16 space-y-0.5 text-xs">
+          <div className="mb-2 rounded-md border border-slate-800 bg-slate-900/60 px-2 py-1.5 text-[11px] text-slate-400">
+            {diff.icon} <b className="text-slate-200">{diff.role}</b> · {diff.label}
+          </div>
           {scenario.phases.map((p, i) => (
             <div
               key={p.id}
@@ -109,17 +128,29 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
 
       {/* Main step area */}
       <section className="min-w-0">
+        <Hud />
+
+        {/* Compact phase progress for tablets / phones */}
+        <div className="no-print lg:hidden flex gap-0.5 mb-3" aria-hidden="true">
+          {scenario.phases.map((p, i) => (
+            <div key={p.id} className={`h-1.5 flex-1 rounded ${i < state.phaseIndex ? 'bg-emerald-600' : i === state.phaseIndex ? 'bg-amber-500' : 'bg-slate-800'}`} />
+          ))}
+        </div>
+
         <div className="mb-3">
           <div className="text-xs text-slate-500">
-            Phase {phase.number} of 15 · Step {Math.min(state.stepIndex + 1, steps.length)} of {steps.length} · {scenario.title}
+            Phase {phase.number} of {scenario.phases.length} · Step {Math.min(state.stepIndex + 1, steps.length)} of {steps.length} · {scenario.title}
           </div>
           <h2 className="text-xl font-bold">{phase.title}</h2>
           {state.stepIndex === 0 && <p className="text-sm text-slate-400 mt-1">{phase.intro}</p>}
+          {surpriseHere && (
+            <p className="mt-2 text-xs font-bold text-red-400">⚡ Unplanned event: site doesn't wait for the right phase.</p>
+          )}
         </div>
 
-        {tutor.enabled && tutor.paused && (
+        {paused && (
           <div className="mb-3 rounded-lg border border-amber-700 bg-amber-950/40 p-4 text-amber-200 text-sm flex items-center justify-between gap-3">
-            <span>⏸ <b>Paused for tutor discussion.</b> The tutor has paused the game to discuss this step with the group.</span>
+            <span>⏸ <b>Paused for tutor discussion.</b> The tutor has paused the game (and the clock) to discuss this step with the group.</span>
             <button
               onClick={() => tutorDispatch({ type: 'SET_PAUSED', paused: false })}
               className="rounded bg-amber-500 text-slate-950 font-bold px-3 py-1.5 text-xs whitespace-nowrap"
@@ -129,7 +160,7 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
           </div>
         )}
 
-        <div className={tutor.enabled && tutor.paused ? 'pointer-events-none opacity-50' : ''}>
+        <div className={paused ? 'pointer-events-none opacity-50' : ''}>
           {alreadyDone && (
             <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5">
               <p className="text-sm text-slate-300">✓ This step has already been completed and scored.</p>
@@ -144,7 +175,9 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               key={step.id}
               step={step}
               reveal={reveal}
-              onAnswer={(option) => dispatch({ type: 'ANSWER_DECISION', step, option, phaseNumber: phase.number })}
+              paused={paused}
+              onAnswer={(option, confidence, timeFrac, timedOut) =>
+                dispatch({ type: 'ANSWER_DECISION', step, option, phaseNumber: phase.number, confidence, timeFrac, timedOut })}
               onContinue={advance}
             />
           )}
@@ -172,6 +205,25 @@ export default function GameScreen({ onFinished, onExit }: { onFinished: () => v
               step={step}
               reveal={reveal}
               onSubmit={(selected) => dispatch({ type: 'SUBMIT_PERMITS', step, selected })}
+              onContinue={advance}
+            />
+          )}
+          {!alreadyDone && step.type === 'hazardHunt' && (
+            <HazardHunt
+              key={step.id}
+              step={step}
+              reveal={reveal}
+              paused={paused}
+              onSubmit={(flagged, secondsLeft) => dispatch({ type: 'SUBMIT_HUNT', step, flagged, secondsLeft })}
+              onContinue={advance}
+            />
+          )}
+          {!alreadyDone && step.type === 'sequence' && (
+            <SequenceBuilder
+              key={step.id}
+              step={step}
+              reveal={reveal}
+              onSubmit={(order) => dispatch({ type: 'SUBMIT_SEQUENCE', step, order, phaseNumber: phase.number })}
               onContinue={advance}
             />
           )}
