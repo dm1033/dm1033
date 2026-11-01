@@ -1,7 +1,7 @@
 // Minimal offline cache for the Construction Phase Planner.
 // Cache-first for same-origin GET requests, with network fallback and
 // background refresh of the cache on successful fetches.
-const CACHE = 'cpp-smsts-v1'
+const CACHE = 'cpp-smsts-v2'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./'])))

@@ -18,10 +18,18 @@ const CATS = new Set(['cat0', 'cat1', 'cat2', 'cat3'])
 const RESP = new Set(['TWC', 'TWS', 'PC', 'contractor', 'designer'])
 
 let errors = 0
+let warnings = 0
 const err = (file: string, msg: string) => {
   errors++
   console.error(`  ✗ [${file}] ${msg}`)
 }
+const warn = (file: string, msg: string) => {
+  warnings++
+  console.warn(`  ⚠ [${file}] ${msg}`)
+}
+
+/** Answer-cue statistics: is the best answer guessable from its length? */
+const cueStats = { decisions: 0, bestLongest: 0 }
 
 function checkDecision(file: string, d: any, where: string) {
   if (!d.id) err(file, `${where}: decision missing id`)
@@ -34,9 +42,18 @@ function checkDecision(file: string, d: any, where: string) {
   }
   const bestCount = d.options.filter((o: any) => o.quality === 'best').length
   if (bestCount !== 1) err(file, `${where}: decision ${d.id} must have exactly 1 'best' option (has ${bestCount})`)
+  const best = d.options.find((o: any) => o.quality === 'best')
+  if (best) {
+    cueStats.decisions++
+    const others = d.options.filter((o: any) => o !== best).map((o: any) => String(o.text ?? '').length)
+    if (others.every((len: number) => String(best.text).length > len)) cueStats.bestLongest++
+  }
   for (const o of d.options) {
     if (!QUALITIES.has(o.quality)) err(file, `${where}: decision ${d.id} option ${o.id} invalid quality '${o.quality}'`)
     if (!o.feedback) err(file, `${where}: decision ${d.id} option ${o.id} missing feedback`)
+    if ((o.quality === 'poor' || o.quality === 'unsafe') && !o.consequence) {
+      err(file, `${where}: decision ${d.id} option ${o.id} (${o.quality}) needs a 'consequence' for the site-week engine`)
+    }
     if (o.impact) {
       for (const k of Object.keys(o.impact)) {
         if (!VALID_IMPACT_KEYS.has(k)) err(file, `${where}: decision ${d.id} option ${o.id} invalid impact key '${k}'`)
@@ -59,7 +76,9 @@ function validateScenario(file: string, s: any) {
     if (!numbers.includes(n)) err(file, `missing phase number ${n}`)
   }
   const seenIds = new Set<string>()
-  let siteSetups = 0, twSteps = 0, permitSteps = 0, decisions = 0
+  let siteSetups = 0, twSteps = 0, permitSteps = 0, decisions = 0, hunts = 0, sequences = 0
+  cueStats.decisions = 0
+  cueStats.bestLongest = 0
 
   for (const phase of s.phases) {
     if (!phase.id || !phase.title || !phase.intro) err(file, `phase ${phase.number} missing id/title/intro`)
@@ -117,6 +136,43 @@ function validateScenario(file: string, s: any) {
           if (!step.explanation) err(file, `permits ${step.id} missing explanation`)
           break
         }
+        case 'hazardHunt': {
+          hunts++
+          const obs = step.observations ?? []
+          const ids = new Set(obs.map((o: any) => o.id))
+          if (ids.size !== obs.length) err(file, `hazardHunt ${step.id} has duplicate observation ids`)
+          const hazards = obs.filter((o: any) => o.hazard === true)
+          const safe = obs.filter((o: any) => o.hazard === false)
+          if (obs.length < 10) err(file, `hazardHunt ${step.id} needs at least 10 observations (has ${obs.length})`)
+          if (hazards.length < 4 || safe.length < 4) err(file, `hazardHunt ${step.id} needs at least 4 hazards and 4 acceptable observations`)
+          for (const o of obs) {
+            if (!o.icon || !o.text || !o.explanation) err(file, `hazardHunt ${step.id} observation ${o.id} missing icon/text/explanation`)
+            if (o.hazard && !['low', 'medium', 'high'].includes(o.severity)) err(file, `hazardHunt ${step.id} hazard ${o.id} needs severity low|medium|high`)
+          }
+          if (!(step.timeLimit > 0)) err(file, `hazardHunt ${step.id} needs a positive timeLimit`)
+          if (!step.prompt || !step.location || !step.topic || !step.learningNote) err(file, `hazardHunt ${step.id} missing prompt/location/topic/learningNote`)
+          break
+        }
+        case 'sequence': {
+          sequences++
+          const acts = step.activities ?? []
+          const ids = acts.map((a: any) => a.id)
+          if (new Set(ids).size !== ids.length) err(file, `sequence ${step.id} has duplicate activity ids`)
+          if (acts.length < 5) err(file, `sequence ${step.id} needs at least 5 activities`)
+          const pos = new Map(ids.map((id: string, i: number) => [id, i]))
+          const cons = step.constraints ?? []
+          if (cons.length < acts.length - 1) err(file, `sequence ${step.id} needs at least ${acts.length - 1} constraints`)
+          if (!cons.some((c: any) => c.critical)) err(file, `sequence ${step.id} needs at least one critical constraint`)
+          for (const c of cons) {
+            if (!pos.has(c.before) || !pos.has(c.after)) { err(file, `sequence ${step.id} constraint references unknown activity (${c.before} → ${c.after})`); continue }
+            if (!c.reason) err(file, `sequence ${step.id} constraint ${c.before} → ${c.after} missing reason`)
+            if ((pos.get(c.before) as number) >= (pos.get(c.after) as number)) {
+              err(file, `sequence ${step.id}: authored order breaks its own constraint ${c.before} → ${c.after} (activities must be authored in the correct order)`)
+            }
+          }
+          if (!step.prompt || !step.topic || !step.learningNote) err(file, `sequence ${step.id} missing prompt/topic/learningNote`)
+          break
+        }
         default:
           err(file, `unknown step type '${step.type}' (${step.id})`)
       }
@@ -136,7 +192,14 @@ function validateScenario(file: string, s: any) {
   if (permitSteps < 1) err(file, 'needs at least one permits step')
   if (decisions < 12) err(file, `needs at least 12 decisions (found ${decisions})`)
 
-  console.log(`  ${file}: ${s.phases.length} phases, ${decisions} decisions, ${(s.eventPool ?? []).length} pool events, ${siteSetups} site setup, ${twSteps} TW step(s), ${permitSteps} permit step(s)`)
+  // The best answer must not be guessable from being the longest option.
+  const cueRate = cueStats.decisions ? cueStats.bestLongest / cueStats.decisions : 0
+  if (cueRate > 0.6) err(file, `best answer is the longest option in ${Math.round(cueRate * 100)}% of decisions (max 60%): rebalance distractor wording`)
+  else if (cueRate > 0.4) warn(file, `best answer is the longest option in ${Math.round(cueRate * 100)}% of decisions (aim for 40% or less)`)
+  if (hunts < 1) warn(file, 'no hazardHunt step: the walk-round mini-game will be skipped')
+  if (sequences < 1) warn(file, 'no sequence step: the planning mini-game will be skipped')
+
+  console.log(`  ${file}: ${s.phases.length} phases, ${decisions} decisions, ${(s.eventPool ?? []).length} pool events, ${siteSetups} site setup, ${twSteps} TW, ${permitSteps} permit, ${hunts} hazard hunt, ${sequences} sequence step(s); best-is-longest ${Math.round(cueRate * 100)}%`)
 }
 
 console.log('Validating scenario data...')
@@ -160,4 +223,4 @@ if (errors > 0) {
   console.error(`\n${errors} error(s) found.`)
   process.exit(1)
 }
-console.log(`\nAll ${files.length} scenario file(s) valid.`)
+console.log(`\nAll ${files.length} scenario file(s) valid${warnings ? ` (${warnings} warning(s))` : ''}.`)

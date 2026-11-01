@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import type { TwAnswerRecord, TwItem, TwRegisterStep } from '../types'
 import { twItemScore } from '../engine/scoring'
+import { useGame } from '../state/GameContext'
+import { DIFFICULTIES } from '../engine/game'
+import { sfx } from '../engine/sound'
 
 interface Props {
   step: TwRegisterStep
@@ -52,6 +55,10 @@ function YesNo({ value, onChange, disabled }: { value: boolean | undefined; onCh
 export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: Props) {
   const [answers, setAnswers] = useState<Record<string, TwAnswerRecord>>({})
   const [submitted, setSubmitted] = useState(false)
+  const { state } = useGame()
+  const defer = DIFFICULTIES[state.game.difficulty].deferFeedback
+  /** Show marking only when not deferred (Expert marks at handover). */
+  const marked = submitted && !defer
 
   const update = (itemId: string, patch: Partial<TwAnswerRecord>) => {
     setAnswers((prev) => ({ ...prev, [itemId]: { ...(prev[itemId] ?? { itemId }), ...patch } }))
@@ -67,7 +74,11 @@ export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: P
 
   const submit = () => {
     setSubmitted(true)
-    onSubmit(step.items.map((i) => answers[i.id] ?? { itemId: i.id }))
+    const list = step.items.map((i) => answers[i.id] ?? { itemId: i.id })
+    onSubmit(list)
+    if (defer) sfx.click()
+    else if (step.items.every((i) => twItemScore(i, answers[i.id]).wrongFields.length === 0)) sfx.fanfare()
+    else sfx.ok()
   }
 
   return (
@@ -78,15 +89,15 @@ export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: P
       <div className="space-y-4">
         {step.items.map((item) => {
           const a = answers[item.id] ?? { itemId: item.id }
-          const score = submitted ? twItemScore(item, a) : null
+          const score = marked ? twItemScore(item, a) : null
           return (
-            <div key={item.id} className={`rounded-lg border p-3 ${submitted ? (score!.wrongFields.length === 0 ? 'border-emerald-800' : 'border-amber-800') : 'border-slate-700'}`}>
+            <div key={item.id} className={`rounded-lg border p-3 ${marked ? (score!.wrongFields.length === 0 ? 'border-emerald-800' : 'border-amber-800') : 'border-slate-700'}`}>
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="font-semibold text-sm">{item.name}</div>
                   <div className="text-xs text-slate-400">{item.description}</div>
                 </div>
-                {submitted && (
+                {marked && (
                   <span className={`text-[10px] font-bold whitespace-nowrap ${score!.wrongFields.length === 0 ? 'text-emerald-400' : 'text-amber-400'}`}>
                     {14 - score!.wrongFields.length * 2}/14 pts
                   </span>
@@ -94,35 +105,35 @@ export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: P
               </div>
 
               <div className="mt-2 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 text-xs">
-                <Field label="Add to TW register?" wrong={submitted && a.register !== item.correct.register}>
+                <Field label="Add to TW register?" wrong={marked && a.register !== item.correct.register}>
                   <YesNo disabled={submitted} value={a.register} onChange={(v) => update(item.id, { register: v })} />
                 </Field>
-                <Field label="Design requirement" wrong={submitted && a.design !== item.correct.design}>
+                <Field label="Design requirement" wrong={marked && a.design !== item.correct.design}>
                   <Select disabled={submitted} value={a.design} opts={DESIGN_OPTS} onChange={(v) => update(item.id, { design: v as TwAnswerRecord['design'] })} />
                 </Field>
-                <Field label="Design check category" wrong={submitted && a.catCheck !== item.correct.catCheck}>
+                <Field label="Design check category" wrong={marked && a.catCheck !== item.correct.catCheck}>
                   <Select disabled={submitted} value={a.catCheck} opts={CAT_OPTS} onChange={(v) => update(item.id, { catCheck: v as TwAnswerRecord['catCheck'] })} />
                 </Field>
-                <Field label="RAMS required?" wrong={submitted && a.rams !== item.correct.rams}>
+                <Field label="RAMS required?" wrong={marked && a.rams !== item.correct.rams}>
                   <YesNo disabled={submitted} value={a.rams} onChange={(v) => update(item.id, { rams: v })} />
                 </Field>
-                <Field label="Inspection / permit before use?" wrong={submitted && a.inspection !== item.correct.inspection}>
+                <Field label="Inspection / permit before use?" wrong={marked && a.inspection !== item.correct.inspection}>
                   <YesNo disabled={submitted} value={a.inspection} onChange={(v) => update(item.id, { inspection: v })} />
                 </Field>
-                <Field label="Hold point before loading/use?" wrong={submitted && a.holdPoint !== item.correct.holdPoint}>
+                <Field label="Hold point before loading/use?" wrong={marked && a.holdPoint !== item.correct.holdPoint}>
                   <YesNo disabled={submitted} value={a.holdPoint} onChange={(v) => update(item.id, { holdPoint: v })} />
                 </Field>
-                <Field label="Responsible person" wrong={submitted && a.responsible !== item.correct.responsible}>
+                <Field label="Responsible person" wrong={marked && a.responsible !== item.correct.responsible}>
                   <Select disabled={submitted} value={a.responsible} opts={RESP_OPTS} onChange={(v) => update(item.id, { responsible: v as TwAnswerRecord['responsible'] })} />
                 </Field>
               </div>
 
-              {(submitted || reveal) && (
-                <div className={`mt-2 rounded border p-2 text-xs ${submitted ? 'border-sky-900 bg-sky-950/30 text-sky-200' : 'border-amber-800 bg-amber-950/30 text-amber-200'}`}>
+              {(marked || (reveal && !submitted)) && (
+                <div className={`mt-2 rounded border p-2 text-xs ${marked ? 'border-sky-900 bg-sky-950/30 text-sky-200' : 'border-amber-800 bg-amber-950/30 text-amber-200'}`}>
                   {reveal && !submitted && (
                     <p className="mb-1"><b>Tutor reveal:</b> register: {item.correct.register ? 'yes' : 'no'} · design: {item.correct.design} · check: {item.correct.catCheck} · RAMS: {item.correct.rams ? 'yes' : 'no'} · inspection: {item.correct.inspection ? 'yes' : 'no'} · hold point: {item.correct.holdPoint ? 'yes' : 'no'} · responsible: {item.correct.responsible}</p>
                   )}
-                  {submitted && <p>{item.explanation}</p>}
+                  {marked && <p>{item.explanation}</p>}
                 </div>
               )}
             </div>
@@ -143,10 +154,16 @@ export default function TwRegisterForm({ step, reveal, onSubmit, onContinue }: P
         </div>
       ) : (
         <div className="mt-4 space-y-3">
+          {defer ? (
+            <div className="rounded-lg border border-sky-800 bg-sky-950/30 p-3 text-sm text-sky-200">
+              📝 Register issued. Expert mode: the TWC's register is audited at handover, or by events on site.
+            </div>
+          ) : (
           <div className="rounded-lg border border-sky-900 bg-sky-950/30 p-3 text-sm text-sky-200">
-            <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note — {step.topic}</p>
+            <p className="font-bold text-xs text-sky-400 mb-1">📘 Learning note: {step.topic}</p>
             <p>{step.learningNote}</p>
           </div>
+          )}
           <button onClick={onContinue} className="rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5">
             Continue →
           </button>

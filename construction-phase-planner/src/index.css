@@ -13,6 +13,41 @@ body {
 .rag-amber { @apply bg-amber-500; }
 .rag-red { @apply bg-red-500; }
 
+/* ---------- Game feel ---------- */
+@keyframes pop-float {
+  0% { opacity: 0; transform: translateY(6px) scale(0.9); }
+  15% { opacity: 1; transform: translateY(0) scale(1.08); }
+  80% { opacity: 1; transform: translateY(-14px) scale(1); }
+  100% { opacity: 0; transform: translateY(-22px) scale(1); }
+}
+.anim-pop { animation: pop-float 1.6s ease-out forwards; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.anim-shake { animation: shake 0.45s ease-in-out; }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-rise { animation: rise-in 0.35s ease-out both; }
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.0); }
+  50% { box-shadow: 0 0 18px 2px rgba(245, 158, 11, 0.35); }
+}
+.anim-glow { animation: glow 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pop, .anim-shake, .anim-rise, .anim-glow, .animate-pulse { animation: none !important; }
+  .anim-pop { opacity: 1; }
+}
+
 /* Print styles: only the printable report area is emitted */
 @media print {
   body { background: white !important; color: #111 !important; }

@@ -3,6 +3,7 @@ import { useGame } from '../state/GameContext'
 import { CPP_SECTIONS, TW_FIELDS } from '../types'
 import { findSteps } from '../engine/reports'
 import type { TwRegisterStep } from '../types'
+import { DIFFICULTIES, fmtMoney } from '../engine/game'
 
 type Tab = 'cpp' | 'risk' | 'tw' | 'rams' | 'incidents'
 
@@ -10,6 +11,7 @@ export default function PanelsDrawer() {
   const { state, scenario, tutor } = useGame()
   const [tab, setTab] = useState<Tab>('cpp')
   if (!scenario) return null
+  const sealed = DIFFICULTIES[state.game.difficulty].deferFeedback
 
   const tabs: { id: Tab; label: string }[] = [
     { id: 'cpp', label: 'CPP' },
@@ -63,9 +65,11 @@ export default function PanelsDrawer() {
               <div key={i} className="rounded border border-slate-800 p-2">
                 <div className="font-semibold text-slate-200">{r.hazard}</div>
                 <div className="text-slate-400 mt-0.5">{r.control}</div>
-                <div className={`mt-1 text-[10px] font-bold ${r.adequate ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {r.adequate ? 'CONTROL ADEQUATE' : 'CONTROL NEEDS REVIEW'}
-                </div>
+                {!sealed && (
+                  <div className={`mt-1 text-[10px] font-bold ${r.adequate ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {r.adequate ? 'CONTROL ADEQUATE' : 'CONTROL NEEDS REVIEW'}
+                  </div>
+                )}
               </div>
             ))
           )
@@ -107,26 +111,44 @@ export default function PanelsDrawer() {
               .map((d) => (
                 <div key={d.stepId} className="rounded border border-slate-800 p-2">
                   <div className="text-slate-300">{d.topic}</div>
-                  <div className={`text-[10px] font-bold mt-0.5 ${d.quality === 'best' ? 'text-emerald-400' : d.quality === 'partial' ? 'text-amber-400' : 'text-red-400'}`}>
-                    {d.quality.toUpperCase()}
-                  </div>
+                  {!sealed && (
+                    <div className={`text-[10px] font-bold mt-0.5 ${d.quality === 'best' ? 'text-emerald-400' : d.quality === 'partial' ? 'text-amber-400' : 'text-red-400'}`}>
+                      {d.quality.toUpperCase()}
+                    </div>
+                  )}
                 </div>
               ))}
           </>
         )}
         {tab === 'incidents' && (
-          state.incidentLog.length === 0 ? (
+          state.incidentLog.length === 0 && state.game.consequences.length === 0 && state.game.notices.length === 0 ? (
             <p className="text-slate-500">No incidents yet. They will come.</p>
           ) : (
-            state.incidentLog.map((r, i) => (
+            <>
+            {state.game.notices.map((n, i) => (
+              <div key={`n${i}`} className="rounded border border-red-800 bg-red-950/30 p-2">
+                <div className="font-bold text-red-300">🏛️ Wk {n.week}: HSE {n.kind === 'prohibition' ? 'Prohibition' : 'Improvement'} Notice</div>
+                <div className="text-slate-400 mt-0.5">{fmtMoney(n.cost)} · {n.days} days lost</div>
+              </div>
+            ))}
+            {state.game.consequences.map((c) => (
+              <div key={c.hazardId} className={`rounded border p-2 ${c.severity === 'major' ? 'border-red-800 bg-red-950/20' : 'border-orange-800 bg-orange-950/20'}`}>
+                <div className={`font-bold ${c.severity === 'major' ? 'text-red-300' : 'text-orange-300'}`}>Wk {c.week}: {c.title}</div>
+                <div className="text-slate-400 mt-0.5">{c.narrative}</div>
+              </div>
+            ))}
+            {state.incidentLog.map((r, i) => (
               <div key={i} className="rounded border border-slate-800 p-2">
                 <div className="text-slate-300">{r.prompt.replace(/^EVENT:\s*/, '')}</div>
                 <div className="text-slate-400 mt-0.5">Response: {r.response}</div>
-                <div className={`text-[10px] font-bold mt-0.5 ${r.outcomeQuality === 'best' ? 'text-emerald-400' : r.outcomeQuality === 'partial' ? 'text-amber-400' : 'text-red-400'}`}>
-                  {r.outcomeQuality === 'best' ? 'WELL HANDLED' : r.outcomeQuality === 'partial' ? 'PARTIALLY CONTROLLED' : 'POORLY HANDLED'}
-                </div>
+                {!sealed && (
+                  <div className={`text-[10px] font-bold mt-0.5 ${r.outcomeQuality === 'best' ? 'text-emerald-400' : r.outcomeQuality === 'partial' ? 'text-amber-400' : 'text-red-400'}`}>
+                    {r.outcomeQuality === 'best' ? 'WELL HANDLED' : r.outcomeQuality === 'partial' ? 'PARTIALLY CONTROLLED' : 'POORLY HANDLED'}
+                  </div>
+                )}
               </div>
-            ))
+            ))}
+            </>
           )
         )}
         {tutor.enabled && tutor.customHazards.length > 0 && tab === 'risk' && (

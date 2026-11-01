@@ -1,15 +1,18 @@
 {
   "name": "construction-phase-planner",
   "private": true,
-  "version": "1.0.0",
-  "description": "Construction Phase Planner — SMSTS Safety Challenge. An SMSTS-aligned learning game based on construction site safety principles.",
+  "version": "2.0.0",
+  "description": "Construction Phase Planner \u2014 SMSTS Safety Challenge. An SMSTS-aligned learning game based on construction site safety principles.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
     "preview": "vite preview",
     "check": "tsc --noEmit -p tsconfig.json",
-    "validate:data": "tsx scripts/validate-data.ts"
+    "validate:data": "tsx scripts/validate-data.ts",
+    "smoke": "tsx scripts/smoke-test.ts",
+    "screenshots": "tsx scripts/screenshots.ts",
+    "sim:balance": "tsx scripts/balance-sim.ts"
   },
   "dependencies": {
     "react": "^19.2.7",

@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useGame } from '../state/GameContext'
-import { allDecisionSteps, buildScoreReport, decisionsCsv, downloadText } from '../engine/reports'
+import { allDecisionSteps, buildScoreReport, decisionsCsv, downloadText, toCsv } from '../engine/reports'
 import type { CustomQuestion } from '../types'
+import { clearLeaderboard, loadLeaderboard, type LeaderboardEntry } from '../state/profile'
+import { CONFIDENCE_LABELS, DIFFICULTIES, fmtDays, fmtMoney } from '../engine/game'
 
 // Placeholder access code for tutor mode. Training providers replace this
 // (or wire it to their licence system) before deployment.
@@ -108,11 +110,20 @@ export default function TutorScreen({ onSelectScenario, onViewReport }: { onSele
               {state.completed && ' · COMPLETED'}
               {report && <> · Current overall: <b className="text-slate-200">{report.overall}/100 ({report.gradeLabel})</b></>}
             </p>
+            <div className="mb-3 flex flex-wrap gap-2 text-[11px]">
+              <span className="rounded bg-slate-800 px-2 py-1">{DIFFICULTIES[state.game.difficulty].icon} {DIFFICULTIES[state.game.difficulty].label}</span>
+              <span className="rounded bg-slate-800 px-2 py-1">⭐ {state.game.points.toLocaleString('en-GB')} pts</span>
+              <span className="rounded bg-slate-800 px-2 py-1">💷 {fmtMoney(state.game.budget)}</span>
+              <span className="rounded bg-slate-800 px-2 py-1">📅 {fmtDays(state.game.floatDays)}</span>
+              <span className="rounded bg-slate-800 px-2 py-1">🚑 {state.game.consequences.length} incident(s)</span>
+              <span className="rounded bg-slate-800 px-2 py-1">🏛️ {state.game.notices.length} notice(s)</span>
+              <span className="rounded bg-slate-800 px-2 py-1">⚠ {state.game.latent.filter((h) => h.status === 'open').length} open risk(s)</span>
+            </div>
             <div className="max-h-72 overflow-y-auto">
               <table className="w-full text-xs">
                 <thead className="sticky top-0 bg-slate-900">
                   <tr className="text-left text-slate-500 border-b border-slate-800">
-                    <th className="py-1.5 pr-2">Ph.</th><th className="py-1.5 pr-2">Decision</th><th className="py-1.5 pr-2">Chosen</th><th className="py-1.5 pr-2">Best answer</th><th className="py-1.5">Outcome</th>
+                    <th className="py-1.5 pr-2">Ph.</th><th className="py-1.5 pr-2">Decision</th><th className="py-1.5 pr-2">Chosen</th><th className="py-1.5 pr-2">Best answer</th><th className="py-1.5 pr-2">Conf.</th><th className="py-1.5">Outcome</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -124,8 +135,9 @@ export default function TutorScreen({ onSelectScenario, onViewReport }: { onSele
                       <tr key={d.stepId} className="border-b border-slate-800/50 align-top">
                         <td className="py-1.5 pr-2">{d.phaseNumber}</td>
                         <td className="py-1.5 pr-2 text-slate-400">{d.prompt.replace(/^EVENT:\s*/, '')}</td>
-                        <td className="py-1.5 pr-2">{chosen?.text ?? d.chosenOptionId}</td>
+                        <td className="py-1.5 pr-2">{chosen?.text ?? (d.timedOut ? '⏱ No decision (timed out)' : d.chosenOptionId)}</td>
                         <td className="py-1.5 pr-2 text-emerald-300/80">{best?.text ?? '—'}</td>
+                        <td className="py-1.5 pr-2">{d.confidence && !d.timedOut ? CONFIDENCE_LABELS[d.confidence].label : '—'}</td>
                         <td className={`py-1.5 font-bold ${d.quality === 'best' ? 'text-emerald-400' : d.quality === 'partial' ? 'text-amber-400' : 'text-red-400'}`}>
                           {d.quality.toUpperCase()}
                         </td>
@@ -133,7 +145,7 @@ export default function TutorScreen({ onSelectScenario, onViewReport }: { onSele
                     )
                   })}
                   {state.decisions.length === 0 && (
-                    <tr><td colSpan={5} className="py-3 text-slate-500">No decisions taken yet.</td></tr>
+                    <tr><td colSpan={6} className="py-3 text-slate-500">No decisions taken yet.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -141,6 +153,9 @@ export default function TutorScreen({ onSelectScenario, onViewReport }: { onSele
           </>
         )}
       </div>
+
+      {/* Class leaderboard */}
+      <LeaderboardPanel />
 
       {/* Custom questions */}
       <CustomQuestionBuilder />
@@ -278,6 +293,72 @@ function CustomHazards() {
           </span>
         ))}
       </div>
+    </div>
+  )
+}
+
+function LeaderboardPanel() {
+  const [rows, setRows] = useState<LeaderboardEntry[]>(() => loadLeaderboard())
+  const exportCsv = () => {
+    const csv = toCsv(
+      ['Rank', 'Delegate', 'Scenario', 'Difficulty', 'Points', 'Competence /100', 'On budget', 'On programme', 'RIDDOR', 'HSE notices', 'Shut down', 'Date'],
+      rows.map((r, i) => [
+        i + 1, r.name, r.scenarioTitle, DIFFICULTIES[r.difficulty]?.label ?? r.difficulty, r.points, r.overall,
+        r.onBudget ? 'Yes' : 'No', r.onProgramme ? 'Yes' : 'No', r.riddor, r.notices, r.shutdown ? 'Yes' : 'No',
+        new Date(r.date).toLocaleString('en-GB'),
+      ]),
+    )
+    downloadText('class-leaderboard.csv', csv)
+  }
+  return (
+    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <h3 className="text-lg font-bold mr-auto">🏆 Class leaderboard (this device)</h3>
+        <button onClick={() => setRows(loadLeaderboard())} className="text-xs rounded border border-slate-600 px-2.5 py-1.5 hover:border-amber-500">↻ Refresh</button>
+        <button onClick={exportCsv} disabled={rows.length === 0} className="text-xs rounded border border-slate-600 px-2.5 py-1.5 hover:border-amber-500 disabled:opacity-40">⬇ Export CSV</button>
+        <button
+          onClick={() => { if (confirm('Clear the leaderboard on this device? This cannot be undone.')) { clearLeaderboard(); setRows([]) } }}
+          disabled={rows.length === 0}
+          className="text-xs rounded border border-red-800 text-red-300 px-2.5 py-1.5 hover:border-red-500 disabled:opacity-40"
+        >
+          Clear
+        </button>
+      </div>
+      <p className="text-xs text-slate-400 mb-3">
+        Every completed project on this device is recorded. Run a cohort on one machine (or collect the CSVs) for a
+        class competition. Points reward judgement under pressure; the competence score is the learning measure.
+      </p>
+      {rows.length === 0 ? (
+        <p className="text-sm text-slate-500">No completed projects yet.</p>
+      ) : (
+        <div className="max-h-72 overflow-y-auto">
+          <table className="w-full text-xs">
+            <thead className="sticky top-0 bg-slate-900">
+              <tr className="text-left text-slate-500 border-b border-slate-800">
+                <th className="py-1.5 pr-2">#</th><th className="py-1.5 pr-2">Delegate</th><th className="py-1.5 pr-2">Scenario</th><th className="py-1.5 pr-2">Level</th>
+                <th className="py-1.5 pr-2 text-right">Points</th><th className="py-1.5 pr-2 text-right">Grade</th><th className="py-1.5">Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, i) => (
+                <tr key={r.id} className="border-b border-slate-800/50">
+                  <td className="py-1.5 pr-2">{['🥇', '🥈', '🥉'][i] ?? i + 1}</td>
+                  <td className="py-1.5 pr-2 font-semibold">{r.name}</td>
+                  <td className="py-1.5 pr-2 text-slate-400">{r.scenarioTitle.replace(/^Scenario \d+ — /, '')}</td>
+                  <td className="py-1.5 pr-2">{DIFFICULTIES[r.difficulty]?.icon} {DIFFICULTIES[r.difficulty]?.label}</td>
+                  <td className="py-1.5 pr-2 text-right tabular-nums font-bold">{r.points.toLocaleString('en-GB')}</td>
+                  <td className="py-1.5 pr-2 text-right tabular-nums">{r.overall}</td>
+                  <td className="py-1.5">
+                    {r.shutdown ? <span className="text-red-400 font-bold">SHUT DOWN</span> : (
+                      <span className="text-slate-400">{r.onBudget ? '💷✓' : '💷✗'} {r.onProgramme ? '📅✓' : '📅✗'} {r.riddor ? `🚑${r.riddor}` : ''} {r.notices ? `🏛️${r.notices}` : ''}</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   )
 }
