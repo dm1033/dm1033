@@ -1,18 +1,18 @@
 name: median CI
 
-# Checks for the median project in median/. Runs only when files in median/
-# (or this workflow) change, so the rest of the repository is unaffected.
+# Checks for the median project in median/.
+#
+# The workflow starts on every push to main and every pull request, but the
+# test, audit and link jobs only run when files in median/ (or this workflow)
+# change; otherwise they are skipped. The final "median CI result" job always
+# reports, so it can be a required status check without blocking pull
+# requests that don't touch median/. (A workflow filtered out with "paths:"
+# never reports at all, which would leave a required check waiting forever.)
 
 on:
   push:
     branches: [main]
-    paths:
-      - "median/**"
-      - ".github/workflows/median-ci.yml"
   pull_request:
-    paths:
-      - "median/**"
-      - ".github/workflows/median-ci.yml"
   schedule:
     - cron: "53 5 * * 1" # weekly, Mondays at 05:53 UTC: new advisories and broken external links
   workflow_dispatch:
@@ -29,8 +29,58 @@ defaults:
     working-directory: median
 
 jobs:
+  changes:
+    name: Detect median changes
+    runs-on: ubuntu-latest
+    outputs:
+      median: ${{ steps.detect.outputs.median }}
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Detect changes to median/ or this workflow
+        id: detect
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          case "$EVENT" in
+            pull_request)
+              range="origin/$BASE_REF...HEAD" ;;
+            push)
+              if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+                || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+                range=""
+              else
+                range="$BEFORE..$SHA"
+              fi ;;
+            *)
+              range="" ;;
+          esac
+
+          if [ -z "$range" ]; then
+            echo "No comparison range for $EVENT; running all median checks."
+            median=true
+          elif git diff --name-only "$range" | grep -qE '^(median/|\.github/workflows/median-ci\.yml$)'; then
+            median=true
+          else
+            median=false
+          fi
+          echo "median=$median" >> "$GITHUB_OUTPUT"
+          echo "Changes to median/ or this workflow: $median"
+
   test:
     name: Test (Node ${{ matrix.node-version }})
+    needs: changes
+    if: needs.changes.outputs.median == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -73,6 +123,8 @@ jobs:
 
   audit:
     name: npm audit
+    needs: changes
+    if: needs.changes.outputs.median == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -119,6 +171,8 @@ jobs:
 
   links:
     name: Check Markdown links
+    needs: changes
+    if: needs.changes.outputs.median == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -146,3 +200,36 @@ jobs:
           fail: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+  # The one job to mark as required in branch protection. It passes when every
+  # median job passed or was skipped because median/ didn't change, and fails
+  # if any of them failed or was cancelled.
+  result:
+    name: median CI result
+    needs: [changes, test, audit, links]
+    if: always()
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Check median job results
+        env:
+          CHANGES: ${{ needs.changes.result }}
+          TEST: ${{ needs.test.result }}
+          AUDIT: ${{ needs.audit.result }}
+          LINKS: ${{ needs.links.result }}
+        run: |
+          echo "changes=$CHANGES test=$TEST audit=$AUDIT links=$LINKS"
+          if [ "$CHANGES" != "success" ]; then
+            echo "::error::Change detection did not succeed ($CHANGES)"
+            exit 1
+          fi
+          for r in "$TEST" "$AUDIT" "$LINKS"; do
+            case "$r" in
+              success|skipped) ;;
+              *) echo "::error::A median CI job did not pass ($r)"; exit 1 ;;
+            esac
+          done
+          echo "median CI passed"

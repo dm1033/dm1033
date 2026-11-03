@@ -45,11 +45,13 @@ A pre-commit hook (Husky and lint-staged) lints, formats and runs related tests 
 
 ## Continuous integration
 
-The [median CI workflow](../.github/workflows/median-ci.yml), at the top level of the repository, runs only when files in `median/` change (on pushes to `main` and on pull requests), weekly, and on demand from the Actions tab. It has three jobs:
+The [median CI workflow](../.github/workflows/median-ci.yml), at the top level of the repository, starts on every push to `main` and every pull request, weekly, and on demand from the Actions tab. Its checks only run when files in `median/` (or the workflow itself) change; otherwise they're skipped. It has three check jobs:
 
 - **Test**, on Node.js 22 and 24: `npm ci`, then lint, formatting check, spell check and tests with 100% coverage. The coverage report from the Node.js 24 run is kept as a build artifact for 14 days.
 - **npm audit**: fails on any advisory in runtime dependencies, or on high and critical advisories in development dependencies, and verifies package signatures.
 - **Check Markdown links**: checks every link in median's Markdown files with lychee.
+
+A final **median CI result** job always reports. It passes when every check passed, or was skipped because `median/` didn't change, and fails otherwise. This is the job to require in branch protection: unlike the individual checks, it never leaves a pull request that doesn't touch `median/` waiting.
 
 ## Files that GitHub doesn't act on here
 
