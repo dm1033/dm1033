@@ -17,7 +17,7 @@ jobs:
       pull-requests: write # needed to label, comment on and close pull requests
 
     steps:
-      - uses: actions/stale@v9
+      - uses: actions/stale@v11
         with:
           # Issues: marked stale after 60 days without activity, closed 14 days later
           days-before-issue-stale: 60
