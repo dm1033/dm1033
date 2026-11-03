@@ -7,14 +7,14 @@
 
 ## Where to go
 
-| You want to…                                                     | Go to                                                                                      |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Ask how to use `median()`, or check whether a result is expected | A [new issue](https://github.com/dm1033/dm1033/issues/new) with a title starting `median:` |
-| Report a wrong result, crash or other bug                        | A [new issue](https://github.com/dm1033/dm1033/issues/new) with a title starting `median:` |
-| Suggest a new feature or a change in behaviour                   | A [new issue](https://github.com/dm1033/dm1033/issues/new) with a title starting `median:` |
-| Report a security vulnerability                                  | **Not** a public issue. Follow [SECURITY.md](SECURITY.md) to report it privately           |
-| Contribute a fix or improvement                                  | [CONTRIBUTING.md](CONTRIBUTING.md)                                                         |
-| Report behaviour that breaks the Code of Conduct                 | The contact in [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)                                    |
+| You want to…                                                     | Go to                                                                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Ask how to use `median()`, or check whether a result is expected | A new issue on the [Issues page](https://github.com/dm1033/dm1033/issues), with a title starting `median:` |
+| Report a wrong result, crash or other bug                        | A new issue on the [Issues page](https://github.com/dm1033/dm1033/issues), with a title starting `median:` |
+| Suggest a new feature or a change in behaviour                   | A new issue on the [Issues page](https://github.com/dm1033/dm1033/issues), with a title starting `median:` |
+| Report a security vulnerability                                  | **Not** a public issue. Follow [SECURITY.md](SECURITY.md) to report it privately                           |
+| Contribute a fix or improvement                                  | [CONTRIBUTING.md](CONTRIBUTING.md)                                                                         |
+| Report behaviour that breaks the Code of Conduct                 | The contact in [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)                                                    |
 
 ## Asking a good question
 

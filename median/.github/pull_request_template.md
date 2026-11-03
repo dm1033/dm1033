@@ -20,11 +20,11 @@ Closes #<!-- issue number, if there is one -->
 
 ## Checklist
 
-- [ ] I have read [CONTRIBUTING.md](https://github.com/dm1033/dm1033/blob/main/median/CONTRIBUTING.md)
+- [ ] I have read [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [ ] `npm run lint` passes
 - [ ] `npm run format:check` passes (run `npm run format` to fix)
 - [ ] `npm run coverage` passes locally with 100% coverage
 - [ ] I added or updated tests for this change
 - [ ] I updated `README.md` if usage or behaviour changed
 - [ ] I added a line to the `[Unreleased]` section of `CHANGELOG.md` (if the change affects users)
-- [ ] This pull request does not disclose a security vulnerability (report those privately, as described in [SECURITY.md](https://github.com/dm1033/dm1033/blob/main/median/SECURITY.md))
+- [ ] This pull request does not disclose a security vulnerability (report those privately, as described in [SECURITY.md](../SECURITY.md))
