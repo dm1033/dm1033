@@ -1,0 +1,59 @@
+# Repository labels. The Sync labels workflow creates or updates these on GitHub
+# whenever this file changes on main. Labels not listed here are left alone.
+# Colours are hex codes without the leading #.
+
+# GitHub's default labels, kept with their standard colours
+- name: bug
+  color: d73a4a
+  description: Something isn't working
+- name: documentation
+  color: 0075ca
+  description: Improvements or additions to documentation
+- name: duplicate
+  color: cfd3d7
+  description: This issue or pull request already exists
+- name: enhancement
+  color: a2eeef
+  description: New feature or request
+- name: good first issue
+  color: 7057ff
+  description: Good for newcomers
+- name: help wanted
+  color: 008672
+  description: Extra attention is needed
+- name: invalid
+  color: e4e669
+  description: This doesn't seem right
+- name: question
+  color: d876e3
+  description: Further information is requested
+- name: wontfix
+  color: ffffff
+  description: This will not be worked on
+
+# Used by the release notes (.github/release.yml)
+- name: breaking-change
+  color: b60205
+  description: Existing callers would need to change their code
+- name: ignore-for-release
+  color: ededed
+  description: Leave this pull request out of the release notes
+
+# Used by Renovate (.github/renovate.json)
+- name: dependencies
+  color: 0366d6
+  description: Updates a dependency
+- name: github-actions
+  color: "000000"
+  description: Updates a GitHub Actions workflow dependency
+
+# Used by the stale workflow (.github/workflows/stale.yml)
+- name: stale
+  color: fbca04
+  description: No recent activity; will be closed soon unless updated
+- name: pinned
+  color: 0e8a16
+  description: Never mark as stale
+- name: security
+  color: b60205
+  description: Security-related; never marked as stale

@@ -1,0 +1,21 @@
+# Code owners are automatically asked to review pull requests that change
+# matching files. Later rules take precedence over earlier ones.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repository
+*                           @dm1033
+
+# CI, automation and repository settings. Listed separately so a second
+# owner can be added here later without changing the default.
+/.github/                   @dm1033
+/.husky/                    @dm1033
+
+# Security, licensing and community policies
+/SECURITY.md                @dm1033
+/LICENSE                    @dm1033
+/CODE_OF_CONDUCT.md         @dm1033
+
+# Dependencies and tool configuration
+/package.json               @dm1033
+/package-lock.json          @dm1033
+/.npmrc                     @dm1033

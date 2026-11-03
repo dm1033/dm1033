@@ -1,0 +1,13 @@
+# Configuration for the lychee link checker (Check Markdown links job in
+# ../.github/workflows/median-ci.yml)
+# Docs: https://lychee.cli.rs/usage/config/
+
+# Don't check folders that aren't part of the docs
+exclude_path = ["node_modules", "coverage"]
+
+# Treat "too many requests" as OK rather than a broken link
+accept = ["100..=103", "200..=299", "429"]
+
+max_retries = 3
+retry_wait_time = 5
+timeout = 30

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "timezone": "Europe/London",
+  "schedule": ["before 8am on monday"],
+  "prConcurrentLimit": 5,
+  "labels": ["dependencies"],
+  "rangeStrategy": "auto",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": ["at any time"],
+    "labels": ["dependencies", "security"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 8am on the first day of the month"]
+  },
+  "packageRules": [
+    {
+      "description": "npm updates: commit messages start with deps",
+      "matchManagers": ["npm"],
+      "commitMessagePrefix": "deps:"
+    },
+    {
+      "description": "Bundle other minor and patch npm updates; major updates stay separate",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "minor and patch npm updates"
+    },
+    {
+      "description": "Keep Jest packages on matching versions in one pull request (listed after the rule above so it takes precedence)",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["jest", "jest-*", "@jest/**", "babel-jest"],
+      "groupName": "Jest"
+    },
+    {
+      "description": "Bundle all GitHub Actions updates in one pull request",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "commitMessagePrefix": "ci:",
+      "addLabels": ["github-actions"]
+    },
+    {
+      "description": "Keep the Node.js version files (.nvmrc, engines) for manual updates alongside the CI matrix",
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
+      "matchManagers": ["nvm"],
+      "enabled": false
+    }
+  ]
+}

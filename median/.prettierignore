@@ -1,0 +1,4 @@
+coverage/
+package-lock.json
+# Kept identical to the official Contributor Covenant text
+CODE_OF_CONDUCT.md

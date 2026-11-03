@@ -1,0 +1,8 @@
+# Runs from the repository root. Only acts on staged files inside median/,
+# and skips quietly if median's dependencies aren't installed, so commits to
+# the rest of the repository are never blocked.
+if [ ! -x median/node_modules/.bin/lint-staged ]; then
+  echo "median pre-commit hook skipped: run 'npm ci' in median/ to enable it."
+  exit 0
+fi
+cd median && npx --no-install lint-staged
