@@ -1,0 +1,55 @@
+name: Stale issues and pull requests
+
+on:
+  schedule:
+    - cron: "17 3 * * *" # daily at 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stale:
+    name: Mark and close stale items
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write # needed to label, comment on and close issues
+      pull-requests: write # needed to label, comment on and close pull requests
+
+    steps:
+      - uses: actions/stale@v9
+        with:
+          # Issues: marked stale after 60 days without activity, closed 14 days later
+          days-before-issue-stale: 60
+          days-before-issue-close: 14
+          stale-issue-label: stale
+          stale-issue-message: >
+            This issue has had no activity for 60 days, so it has been marked as stale.
+            It will be closed in 14 days unless there is new activity.
+            If it's still relevant, add a comment and it will stay open.
+          close-issue-message: >
+            Closed because there has been no activity for 14 days since this issue was marked as stale.
+            If it's still relevant, comment and ask a maintainer to reopen it, or open a new issue.
+          close-issue-reason: not_planned
+
+          # Pull requests: marked stale after 30 days without activity, closed 14 days later
+          days-before-pr-stale: 30
+          days-before-pr-close: 14
+          stale-pr-label: stale
+          stale-pr-message: >
+            This pull request has had no activity for 30 days, so it has been marked as stale.
+            It will be closed in 14 days unless there is new activity.
+            Push a commit or add a comment to keep it open.
+          close-pr-message: >
+            Closed because there has been no activity for 14 days since this pull request was marked as stale.
+            You're welcome to reopen it, or open a new one, when you're ready to continue.
+
+          # Never mark these as stale
+          exempt-issue-labels: pinned,security,help wanted,good first issue
+          exempt-pr-labels: pinned,security,dependencies
+          exempt-draft-pr: true
+          exempt-all-milestones: true
+
+          # Any new activity removes the stale label
+          remove-stale-when-updated: true
+          operations-per-run: 100

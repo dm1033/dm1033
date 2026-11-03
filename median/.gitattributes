@@ -1,0 +1,14 @@
+# Normalise line endings: store text files with LF in the repository and
+# check them out with LF on every platform (matches .editorconfig).
+* text=auto eol=lf
+
+# Files that must never have their line endings changed
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# Generated file: collapse it in GitHub pull request diffs and leave it out
+# of the repository's language statistics
+package-lock.json linguist-generated=true

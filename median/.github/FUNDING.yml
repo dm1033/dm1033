@@ -1,0 +1,10 @@
+# Shows a "Sponsor" button on the repository page.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+github: [dm1033]
+
+# Other supported platforms, if you want to add them later:
+# open_collective: your-collective
+# ko_fi: your-username
+# buy_me_a_coffee: your-username
+# custom: ["https://example.com/support"]

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/dm1033/dm1033/discussions/categories/q-a
+    about: Ask how to use median() or check whether a result is expected.
+  - name: Report a security vulnerability
+    url: https://github.com/dm1033/dm1033/security/advisories/new
+    about: Please report vulnerabilities privately here, not in a public issue.

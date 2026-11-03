@@ -1,0 +1,48 @@
+name: Feature request
+description: Suggest a new behaviour or a change to how median() works.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Discussing changes in an issue first means no one spends time on a pull request that won't be accepted.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do, and what gets in the way today?
+      placeholder: "I need the median of an array that sometimes contains null values, but median() ..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: How should median() behave? Example calls and results help.
+      placeholder: |
+        median([1, null, 3]) // 2, ignoring null
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you thought about, including handling it in your own code.
+  - type: dropdown
+    id: breaking
+    attributes:
+      label: Would this change existing behaviour?
+      description: For example, an input that currently throws an error would start returning a value.
+      options:
+        - "No, it only adds new behaviour"
+        - "Yes, existing callers could see different results"
+        - "Not sure"
+    validations:
+      required: true
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contributing
+      options:
+        - label: I'd be willing to open a pull request for this.

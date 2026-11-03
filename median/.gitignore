@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+
+# Share the project's VS Code settings, but not personal ones
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# lychee link checker cache
+.lycheecache

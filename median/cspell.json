@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en-GB",
+  "import": ["@cspell/dict-en-gb/cspell-ext.json"],
+  "ignorePaths": [
+    "node_modules/**",
+    "coverage/**",
+    "package-lock.json",
+    ".lycheecache",
+    "CODE_OF_CONDUCT.md",
+    "LICENSE"
+  ],
+  "words": [
+    "dbaeumer",
+    "esac",
+    "esbenp",
+    "lycheecache",
+    "lycheeverse",
+    "nvmrc",
+    "orta",
+    "timezone"
+  ],
+  "overrides": [
+    {
+      "filename": ["**/*.{yml,yaml}", "**/*.js"],
+      "words": ["color"]
+    }
+  ],
+  "ignoreRegExpList": ["/\\b[0-9a-f]{6}\\b/gi"]
+}

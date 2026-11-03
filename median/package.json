@@ -1,0 +1,73 @@
+{
+  "name": "median",
+  "version": "1.0.0",
+  "description": "Returns the median of an array of numbers.",
+  "main": "median.js",
+  "files": [
+    "median.js"
+  ],
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "cd .. && husky median/.husky",
+    "spell": "cspell --no-progress --gitignore \"**/*.{js,md,json,yml,yaml,toml}\" \".github/**\" \".vscode/**\" \".*\""
+  },
+  "devDependencies": {
+    "@cspell/dict-en-gb": "^5.0.38",
+    "@eslint/js": "^10.0.1",
+    "cspell": "^10.4.0",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "husky": "^9.1.7",
+    "jest": "^30.5.2",
+    "lint-staged": "^17.6.0",
+    "prettier": "3.9.10"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "*.js",
+      "!*.test.js",
+      "!eslint.config.js",
+      "!coverage/**"
+    ],
+    "coverageReporters": [
+      "text",
+      "html",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "cspell --no-progress --no-must-find-files",
+      "jest --bail --findRelatedTests --passWithNoTests"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write",
+      "cspell --no-progress --no-must-find-files"
+    ]
+  },
+  "overrides": {
+    "glob": "^14.0.2",
+    "minimatch": "^11.0.1"
+  }
+}

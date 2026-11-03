@@ -1,0 +1,148 @@
+name: median CI
+
+# Checks for the median project in median/. Runs only when files in median/
+# (or this workflow) change, so the rest of the repository is unaffected.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "median/**"
+      - ".github/workflows/median-ci.yml"
+  pull_request:
+    paths:
+      - "median/**"
+      - ".github/workflows/median-ci.yml"
+  schedule:
+    - cron: "53 5 * * 1" # weekly, Mondays at 05:53 UTC: new advisories and broken external links
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: median
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22, 24]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: median/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Check spelling
+        run: npm run spell
+
+      - name: Run tests with coverage
+        run: npm run coverage
+
+      - name: Upload coverage report
+        if: always() && matrix.node-version == 24
+        uses: actions/upload-artifact@v4
+        with:
+          name: median-coverage-report
+          path: median/coverage/
+          retention-days: 14
+
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: median/.nvmrc
+          cache: npm
+          cache-dependency-path: median/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Summarise all advisories
+        if: always()
+        run: |
+          npm audit --json > audit.json || true
+          {
+            echo "## npm audit (median)"
+            echo
+            echo "| Severity | Count |"
+            echo "| --- | --- |"
+            for level in critical high moderate low info; do
+              echo "| $level | $(jq ".metadata.vulnerabilities.$level // 0" audit.json) |"
+            done
+            echo
+            echo "Total: $(jq '.metadata.vulnerabilities.total // 0' audit.json)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The published package has no runtime dependencies, so any advisory
+      # here is unexpected and fails the run.
+      - name: Audit runtime dependencies (any severity)
+        run: npm audit --omit=dev --audit-level=low
+
+      # Development tools never ship to users: fail only on high or critical.
+      - name: Audit all dependencies (high and critical)
+        run: npm audit --audit-level=high
+
+      - name: Verify package signatures and provenance
+        run: npm audit signatures
+
+  links:
+    name: Check Markdown links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: median/.lycheecache
+          key: lychee-${{ github.sha }}
+          restore-keys: lychee-
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          workingDirectory: median
+          args: >-
+            --config lychee.toml
+            --cache
+            --max-cache-age 1d
+            --no-progress
+            './**/*.md'
+            './.github/**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
