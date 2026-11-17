@@ -27,7 +27,11 @@ export function shortcutAllowed(e: KeyboardEvent, opts: { paused?: boolean; allo
   const t = e.target as HTMLElement | null
   if (t && typeof t.tagName === 'string') {
     if (TYPING_TAGS.has(t.tagName) || t.isContentEditable) return false
-    if (ACTIVATING_KEYS.has(e.key) && typeof t.closest === 'function' && t.closest(CONTROL_SELECTOR)) return false
+    if (ACTIVATING_KEYS.has(e.key) && typeof t.closest === 'function') {
+      // A control marked aria-disabled does nothing with the key, so the shortcut may have it.
+      const control = t.closest(CONTROL_SELECTOR)
+      if (control && control.getAttribute('aria-disabled') !== 'true') return false
+    }
   }
   return true
 }
