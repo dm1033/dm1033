@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
 import type {
-  Confidence, CustomQuestion, DecisionOption, DecisionStep, Difficulty, GameMeta, GameRoute, GameState,
-  HazardHuntStep, PermitStep, PlacementRecord, Scenario, SequenceStep, SiteSetupStep, TeamInfo, TutorState,
+  Confidence, CustomQuestion, DecisionOption, DecisionRecord, DecisionStep, Difficulty, GameMeta, GameRoute, GameState,
+  HazardHuntStep, PermitStep, PlacementRecord, Scenario, SequenceStep, SiteSetupStep, Step, TeamInfo, TutorState,
   TwAnswerRecord, TwRegisterStep,
 } from '../types'
 import {
@@ -9,15 +9,19 @@ import {
   assessHunt, assessSequence, initialScoreState, twItemScore,
 } from '../engine/scoring'
 import {
-  DIFFICULTIES, WEEK_PHASES, auditCost, award, completionBonuses, decisionEconomy, decisionPoints,
-  economyFor, latentFromOption, rectifyCost, rngFor, shuffleWith, simulateWeek,
+  DIFFICULTIES, EVENT_PHASE, WEEK_PHASES, auditCost, award, completionBonuses, decisionEconomy, decisionPoints,
+  economyFor, huntTimeLimit, isCustomStep, isHseMatter, latentFromHunt, latentFromOption, latentFromPermits,
+  latentFromSequence, latentFromSiteSetup, latentFromTwRegister, lifelineRemovals, rectifyCost, rngFor, routeSteps,
+  sequenceFailureLabel, shuffleWith, simulateWeek,
 } from '../engine/game'
 import { getScenario } from '../data'
+import { SITE_ITEM_MAP } from '../data/siteItems'
 import { initialWalkthrough, isWalkAction, walkReducer } from '../walkthrough/walkReducer'
 import type { WalkAction } from '../walkthrough/types'
+import { STORAGE_KEYS } from './profile'
 
-const SAVE_KEY = 'cpp-smsts-save-v2'
-const TUTOR_KEY = 'cpp-smsts-tutor-v1'
+const SAVE_KEY = STORAGE_KEYS.save
+const TUTOR_KEY = STORAGE_KEYS.tutor
 
 export const initialGameMeta = (): GameMeta => ({
   difficulty: 'standard',
@@ -62,6 +66,7 @@ export const initialGameState: GameState = {
   permitAnswers: [],
   huntAnswers: [],
   sequenceAnswers: [],
+  setupDone: [],
   riskRegister: [],
   incidentLog: [],
   criticalFailures: [],

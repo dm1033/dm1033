@@ -9,8 +9,8 @@
 // ============================================================
 import type {
   BonusLine, Confidence, ConsequenceRecord, CustomQuestion, DecisionOption, DecisionStep, Difficulty, GameMeta,
-  GameState, HazardHuntStep, LatentHazard, MeterKey, NoticeRecord, OptionQuality, PermitStep, PlacementRecord,
-  Scenario, SequenceStep, SiteSetupStep, Step, TwAnswerRecord, TwRegisterStep, WeekReport,
+  GameRoute, GameState, HazardHuntStep, LatentHazard, MeterKey, NoticeRecord, OptionQuality, PermitStep, Phase,
+  PlacementRecord, Scenario, SequenceStep, SiteSetupStep, Step, TwAnswerRecord, TwRegisterStep, WeekReport,
 } from '../types'
 import { assessSequence, zoneAt, type HuntAssessment, type PlacementAssessment } from './scoring'
 import { SITE_ITEM_MAP } from '../data/siteItems'
@@ -209,13 +209,27 @@ export function customToDecision(q: CustomQuestion): DecisionStep {
 export const EVENT_PHASE = 12
 
 /**
- * The steps played in the current phase, in order: the authored steps, any unplanned event
- * injected into this phase, then (in the incident phase) the drawn events and the tutor's own
- * questions. `extra` is the number of steps beyond the authored ones (what ADVANCE needs).
+ * The authored steps of a phase on the chosen route. The classroom route keeps every practical
+ * task and information step and only the decisions flagged `core`. A scenario with no `core`
+ * flags cannot be shortened and plays in full, and no phase is ever left empty.
+ */
+export function routeSteps(scenario: Scenario, phase: Phase, route: GameRoute | undefined): Step[] {
+  if (route !== 'classroom') return phase.steps
+  const flagged = scenario.phases.some((p) => p.steps.some((s) => s.type === 'decision' && s.core))
+  if (!flagged) return phase.steps
+  const kept = phase.steps.filter((s) => s.type !== 'decision' || s.core)
+  return kept.length > 0 ? kept : phase.steps.slice(0, 1)
+}
+
+/**
+ * The steps played in the current phase, in order: the authored steps for the route, any
+ * unplanned event injected into this phase, then (in the incident phase) the drawn events and the
+ * tutor's own questions. `extra` is the number of steps beyond the authored ones (what ADVANCE
+ * needs). The screens, the reducer and the simulator all take their step list from here.
  */
 export function phaseSteps(
   scenario: Scenario,
-  state: Pick<GameState, 'phaseIndex' | 'drawnEventIds'> & { game: Pick<GameMeta, 'surpriseEvents'> },
+  state: Pick<GameState, 'phaseIndex' | 'drawnEventIds'> & { game: Pick<GameMeta, 'surpriseEvents'> & { route?: GameRoute } },
   customQuestions: CustomQuestion[] = [],
 ): { steps: Step[]; extra: number } {
   const phase = scenario.phases[state.phaseIndex]
@@ -232,7 +246,7 @@ export function phaseSteps(
         ...customQuestions.filter(isAskable).map(customToDecision),
       ]
     : surprise
-  return { steps: [...phase.steps, ...extra], extra: extra.length }
+  return { steps: [...routeSteps(scenario, phase, state.game.route), ...extra], extra: extra.length }
 }
 
 /** Seconds allowed for a decision at this difficulty (null = no clock), before the access setting is applied. */
@@ -274,9 +288,13 @@ export function initialSequenceOrder(step: SequenceStep, seed: number): string[]
 }
 
 /** Rough size of a full run, for the "how long will this take?" line before a group starts. */
-export function playEstimate(scenario: Scenario, difficulty: Difficulty): { decisions: number; tasks: number; siteWeeks: number; minutes: number } {
+export function playEstimate(
+  scenario: Scenario,
+  difficulty: Difficulty,
+  route: GameRoute = 'full',
+): { decisions: number; tasks: number; siteWeeks: number; minutes: number } {
   const d = DIFFICULTIES[difficulty]
-  const authored = scenario.phases.flatMap((p) => p.steps)
+  const authored = scenario.phases.flatMap((p) => routeSteps(scenario, p, route))
   const decisions = authored.filter((s) => s.type === 'decision').length
     + Math.min(scenario.eventPool.length, d.eventDraw + d.surpriseEvents)
   const tasks = authored.filter((s) => s.type !== 'decision' && s.type !== 'info').length

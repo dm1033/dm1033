@@ -231,7 +231,7 @@ export function buildMissedItems(state: GameState, scenario: Scenario): MissedIt
       const { wrongFields } = twItemScore(item, ans)
       if (wrongFields.includes('register')) {
         if (item.correct.register) report.missedTwItems.push(item.name)
-        else report.overRegisteredTwItems.push(`${item.name} — added to the register, but it is not temporary works`)
+        else if (ans?.register === true) report.overRegisteredTwItems.push(`${item.name} — added to the register, but it is not temporary works`)
       }
       if (wrongFields.includes('inspection') && item.correct.inspection) {
         report.missedInspections.push(`${item.name} — pre-use inspection/permit`)

@@ -248,10 +248,32 @@ export interface CameraOptions {
   fallback?: CameraPose
 }
 
+const flatDistance = (a: Vec3, b: Vec3) => Math.hypot(a[0] - b[0], a[2] - b[2])
+
+function bestYaw(target: Vec3, pitch: number, points: Vec3[], structures: StructureModel[], prefer: number[]): { pose: CameraPose; seen: number } {
+  const spread = Math.max(...points.map((p) => flatDistance(p, target)))
+  const distance = round3(clamp(CAMERA_DISTANCE.perSpread * spread + CAMERA_DISTANCE.base, CAMERA_DISTANCE.min, CAMERA_DISTANCE.max))
+  let best: { pose: CameraPose; seen: number } = { pose: { target, yaw: prefer[0], pitch, distance }, seen: -1 }
+  for (const yaw of prefer) {
+    const pose: CameraPose = { target, yaw, pitch, distance }
+    const seen = seenCount(pose, points, structures)
+    if (seen > best.seen) best = { pose, seen }
+  }
+  return best
+}
+
+/** Steeper pitches tried, in order, only when the standard pose cannot show everything. */
+export const FALLBACK_PITCHES = [45, 55, 65]
+
 /**
  * Camera pose for a checkpoint: aim at the centroid of the positions it covers (or the nearest of
  * them, if the centroid is inside a building), stand back far enough to take in their spread, and
  * of eight compass directions pick the one that shows the most.
+ *
+ * A layout scattered across the whole site can defeat that rule (about one stop in a hundred in
+ * random layouts). Only then are other poses tried: the same rule aimed at the middle of the
+ * positions' bounding box, then looking down more steeply. The first pose that shows everything
+ * wins; if none does, the one that shows the most.
  */
 export function cameraFor(points: Vec3[], options: CameraOptions = {}): CameraPose {
   const structures = options.structures ?? []
@@ -259,30 +281,32 @@ export function cameraFor(points: Vec3[], options: CameraOptions = {}): CameraPo
   if (points.length === 0) {
     return options.fallback ?? { target: [0, 0, 0], yaw: prefer[0], pitch: CHECKPOINT_PITCH, distance: CAMERA_DISTANCE.max }
   }
-  const flatDistance = (a: Vec3, b: Vec3) => Math.hypot(a[0] - b[0], a[2] - b[2])
-  let target: Vec3 = [
+  const nearestTo = (q: Vec3): Vec3 => {
+    const p = points.reduce((best, c) => (flatDistance(c, q) < flatDistance(best, q) ? c : best), points[0])
+    return [p[0], 0, p[2]]
+  }
+  const clear = (q: Vec3): Vec3 => (insideBuilding(q, structures) ? nearestTo(q) : q)
+  const centroid: Vec3 = [
     round3(points.reduce((s, p) => s + p[0], 0) / points.length),
     0,
     round3(points.reduce((s, p) => s + p[2], 0) / points.length),
   ]
-  if (insideBuilding(target, structures)) {
-    const centroid = target
-    const nearest = points.reduce((best, p) => (flatDistance(p, centroid) < flatDistance(best, centroid) ? p : best), points[0])
-    target = [nearest[0], 0, nearest[2]]
+  const xs = points.map((p) => p[0])
+  const zs = points.map((p) => p[2])
+  const boxCentre: Vec3 = [round3((Math.min(...xs) + Math.max(...xs)) / 2), 0, round3((Math.min(...zs) + Math.max(...zs)) / 2)]
+
+  let best = bestYaw(clear(centroid), CHECKPOINT_PITCH, points, structures, prefer)
+  if (best.seen === points.length) return best.pose
+  const alternatives: [Vec3, number][] = [
+    [clear(boxCentre), CHECKPOINT_PITCH],
+    ...FALLBACK_PITCHES.flatMap((pitch): [Vec3, number][] => [[clear(centroid), pitch], [clear(boxCentre), pitch]]),
+  ]
+  for (const [target, pitch] of alternatives) {
+    const candidate = bestYaw(target, pitch, points, structures, prefer)
+    if (candidate.seen > best.seen) best = candidate
+    if (best.seen === points.length) break
   }
-  const spread = Math.max(...points.map((p) => flatDistance(p, target)))
-  const distance = round3(clamp(CAMERA_DISTANCE.perSpread * spread + CAMERA_DISTANCE.base, CAMERA_DISTANCE.min, CAMERA_DISTANCE.max))
-  let best: CameraPose = { target, yaw: prefer[0], pitch: CHECKPOINT_PITCH, distance }
-  let bestSeen = -1
-  for (const yaw of prefer) {
-    const pose: CameraPose = { target, yaw, pitch: CHECKPOINT_PITCH, distance }
-    const n = seenCount(pose, points, structures)
-    if (n > bestSeen) {
-      best = pose
-      bestSeen = n
-    }
-  }
-  return best
+  return best.pose
 }
 
 /** Whole-site pose for the start of the tour and for sign-off. */

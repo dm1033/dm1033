@@ -55,28 +55,55 @@ export function anchorSpot(anchor: Anchor, site: OverlaySite): Vec3 {
   return checkpointSpot(anchor.checkpoint, site)
 }
 
+/** True if a ground position is within `margin` metres of a zone nothing can stand in. */
+function inBlockedZone(p: Vec3, site: OverlaySite, margin: number): boolean {
+  return site.zones.some((z) => z.blocked
+    && Math.abs(p[0] - z.centre[0]) <= z.size[0] / 2 + margin
+    && Math.abs(p[2] - z.centre[2]) <= z.size[1] / 2 + margin)
+}
+
+const RING_STEP = 30
+/** Preferred and minimum gap between a tag and a building or live road, in metres. */
+const TAG_CLEARANCES = [2, 0.4]
+const TAG_SPACING = 0.9
+
 /**
  * Tags that share an anchor are fanned out in a ring round it, so none hides another and none
- * sits on top of the item's own status marker.
+ * sits on top of the item's own status marker. A slot that would put a tag inside (or hard up
+ * against) an occupied building or a live road is skipped: the tag turns round the ring until it
+ * stands on open ground, where the camera can see it.
  */
 function spread(drafts: Draft[], site: OverlaySite): Overlay[] {
   const key = (p: Vec3) => `${p[0]},${p[2]}`
   const groupSize = new Map<string, number>()
   for (const d of drafts) groupSize.set(key(d.base), (groupSize.get(key(d.base)) ?? 0) + 1)
   const seen = new Map<string, number>()
+  const used: Vec3[] = []
+  const crowded = (p: Vec3) => used.some((u) => Math.hypot(u[0] - p[0], u[2] - p[2]) < TAG_SPACING)
   return drafts.map((d) => {
     const k = key(d.base)
     const n = groupSize.get(k) ?? 1
     const i = seen.get(k) ?? 0
     seen.set(k, i + 1)
-    const radius = Math.max(1.6, n * 0.45)
-    const angle = ((45 + (i * 360) / n) * Math.PI) / 180
     const { base, ...rest } = d
-    const position = clampToWorld(
-      [round3(base[0] + radius * Math.cos(angle)), 0, round3(base[2] + radius * Math.sin(angle))],
-      site.world,
-      0.5,
-    )
+    const start = 45 + (i * 360) / n
+    const slot = (radius: number, degrees: number): Vec3 => {
+      const angle = (degrees * Math.PI) / 180
+      return clampToWorld([round3(base[0] + radius * Math.cos(angle)), 0, round3(base[2] + radius * Math.sin(angle))], site.world, 0.5)
+    }
+    const radii = [Math.max(1.6, n * 0.45), 1.1, 2.6]
+    const firstFree = (clearance: number): Vec3 | null => {
+      for (const radius of radii) {
+        for (let turn = 0; turn < 360; turn += RING_STEP) {
+          const candidate = slot(radius, start + turn)
+          if (!inBlockedZone(candidate, site, clearance) && !crowded(candidate)) return candidate
+        }
+      }
+      return null
+    }
+    // Nowhere clear nearby (an anchor walled in on every side): stand on the anchor itself.
+    const position = TAG_CLEARANCES.map(firstFree).find((p): p is Vec3 => !!p) ?? clampToWorld(base, site.world, 0.5)
+    used.push(position)
     return { ...rest, position }
   })
 }
