@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { soundMuted, toggleSound } from './engine/sound'
 import { useGame } from './state/GameContext'
 import HomeScreen from './screens/HomeScreen'
@@ -8,13 +8,17 @@ import ReportScreen from './screens/ReportScreen'
 import TutorScreen from './screens/TutorScreen'
 import LicenceScreen from './screens/LicenceScreen'
 import { ALIGNMENT_STATEMENT } from './types'
+import { walkIsOpen } from './walkthrough/walkReducer'
 
-export type ScreenId = 'home' | 'select' | 'game' | 'report' | 'tutor' | 'licence'
+// The walk-through pulls in three.js, so it is loaded only when the finale starts.
+const WalkthroughScreen = lazy(() => import('./walkthrough/WalkthroughScreen'))
+
+export type ScreenId = 'home' | 'select' | 'game' | 'walkthrough' | 'report' | 'tutor' | 'licence'
 
 export default function App() {
   const { state, tutor } = useGame()
   const [screen, setScreen] = useState<ScreenId>(() =>
-    state.scenarioId ? (state.completed ? 'report' : 'game') : 'home',
+    state.scenarioId ? (state.completed ? (walkIsOpen(state) ? 'walkthrough' : 'report') : 'game') : 'home',
   )
   const [muted, setMuted] = useState(soundMuted())
 
@@ -31,6 +35,9 @@ export default function App() {
         <nav className="ml-auto flex items-center gap-1 text-sm">
           {state.scenarioId && !state.completed && (
             <NavBtn active={screen === 'game'} onClick={() => setScreen('game')}>Resume Game</NavBtn>
+          )}
+          {state.scenarioId && state.completed && (
+            <NavBtn active={screen === 'walkthrough'} onClick={() => setScreen('walkthrough')}>Walk-through</NavBtn>
           )}
           {state.scenarioId && state.completed && (
             <NavBtn active={screen === 'report'} onClick={() => setScreen('report')}>Reports</NavBtn>
@@ -59,7 +66,12 @@ export default function App() {
           />
         )}
         {screen === 'select' && <ScenarioSelect onStarted={() => setScreen('game')} />}
-        {screen === 'game' && <GameScreen onFinished={() => setScreen('report')} onExit={() => setScreen('home')} />}
+        {screen === 'game' && <GameScreen onFinished={() => setScreen('walkthrough')} onExit={() => setScreen('home')} />}
+        {screen === 'walkthrough' && (
+          <Suspense fallback={<p className="p-8 text-slate-300" role="status">Loading the site walk-through…</p>}>
+            <WalkthroughScreen onDone={() => setScreen('report')} onExit={() => setScreen('home')} />
+          </Suspense>
+        )}
         {screen === 'report' && <ReportScreen onRestart={() => setScreen('select')} />}
         {screen === 'tutor' && <TutorScreen onSelectScenario={() => setScreen('select')} onViewReport={() => setScreen('report')} />}
         {screen === 'licence' && <LicenceScreen />}

@@ -2,32 +2,43 @@
   "name": "construction-phase-planner",
   "private": true,
   "version": "2.0.0",
-  "description": "Construction Phase Planner \u2014 SMSTS Safety Challenge. An SMSTS-aligned learning game based on construction site safety principles.",
+  "description": "Construction Phase Planner — SMSTS Safety Challenge. An SMSTS-aligned learning game based on construction site safety principles.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
     "preview": "vite preview",
     "check": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
     "validate:data": "tsx scripts/validate-data.ts",
+    "verify": "npm run check && npm run validate:data && npm run coverage && npm run build",
     "smoke": "tsx scripts/smoke-test.ts",
     "screenshots": "tsx scripts/screenshots.ts",
     "sim:balance": "tsx scripts/balance-sim.ts"
   },
   "dependencies": {
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.2",
     "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.187.0",
     "@vitejs/plugin-react": "^6.0.3",
+    "@vitest/coverage-v8": "^5.1.0",
     "playwright": "^1.61.1",
     "tailwindcss": "^4.3.2",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
-    "vite": "^8.1.3"
+    "vite": "^8.1.3",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": "^22.12.0 || >=24.0.0"
   }
 }
