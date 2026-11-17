@@ -66,6 +66,20 @@ export interface DecisionOption {
    * Shown on a consequence card when the latent hazard this choice created "fires".
    */
   consequence?: string
+  /**
+   * Authored flag: true when the `consequence` describes something reportable under RIDDOR 2013
+   * (a specified injury, an over-seven-day injury, an occupational disease or a dangerous
+   * occurrence); false when it does not (for example a waste paperwork offence or a neighbour
+   * complaint). When absent the engine falls back to a keyword check.
+   */
+  riddor?: boolean
+  /**
+   * Who would act on this failure. Defaults to 'hse'. Environmental offences (pollution, waste,
+   * discharge consents) are for the environmental regulator; statutory nuisance (noise, dust,
+   * mud on the road) and highway licences are for the local or highway authority. Used so that
+   * an HSE notice never cites something HSE does not enforce.
+   */
+  regulator?: 'hse' | 'environment' | 'localAuthority' | 'highwayAuthority'
 }
 
 /** A multiple-choice decision (also used for incident/challenge events). */
@@ -74,13 +88,32 @@ export interface DecisionStep {
   id: string
   /** Set true for incident/challenge events — rendered as an alert. */
   isEvent?: boolean
+  /**
+   * True when this decision is part of the shorter classroom route (about an hour): the one or
+   * two decisions in each phase that carry the phase's main learning point. Practical tasks
+   * (site set-up, TW register, permits, hazard hunt, sequences) are always included.
+   */
+  core?: boolean
+  /**
+   * Tutor-authored quiz question (see customToDecision in engine/game.ts). It is scored like any
+   * decision but is never a site incident: no incident clock, no latent hazard, no incident-log row.
+   */
+  custom?: boolean
   prompt: string
   context?: string
   options: DecisionOption[]
-  /** Reference topic, e.g. "CDM 2015 — construction phase plan". */
+  /**
+   * Reference topic, e.g. "CDM 2015 - construction phase plan". Shown only AFTER the group has
+   * answered (it often names the answer), and in reports.
+   */
   topic: string
   /** Corrective learning note shown after answering. */
   learningNote: string
+  /**
+   * One or two open questions for the group to talk through once the answer is revealed, or when
+   * the tutor pauses the game ("Who on your site would have noticed this first?").
+   */
+  discussion?: string[]
   /** If set, the chosen answer populates this CPP section. */
   cppSection?: CppSectionId
   /** CPP text keyed by chosen option quality ('best' text is the model answer). */
@@ -249,6 +282,13 @@ export interface SequenceConstraint {
   reason: string
   /** Violating a critical constraint is recorded as a critical safety failure. */
   critical?: boolean
+  /** Authored flag, as DecisionOption.riddor: would the resulting incident be RIDDOR reportable? */
+  riddor?: boolean
+  /**
+   * What actually happens on site if a critical constraint is broken and never corrected (an
+   * event, not a restatement of the rule). When absent the engine builds a line from `reason`.
+   */
+  consequence?: string
 }
 
 export interface SequenceStep {
@@ -305,6 +345,52 @@ export const CPP_SECTIONS: { id: CppSectionId; title: string }[] = [
   { id: 'handover', title: 'Handover Requirements' },
 ]
 
+// ---------- Case study pack (what a group reads before playing inside the case study) ----------
+
+export interface CaseStudyRole {
+  id: string
+  /** e.g. "Site Manager (chair)". */
+  title: string
+  /** What this person leads on during play and in the walk-through. */
+  focus: string
+}
+
+export interface CaseStudyPack {
+  /** Short label, e.g. "Case Study A". */
+  reference: string
+  title: string
+  /** Two or three sentences a tutor can read out. */
+  summary: string
+  learningObjectives: string[]
+  /** Paragraphs: who the client is, what is being built and why. */
+  background: string[]
+  /** Paragraphs: the site, its boundaries, neighbours and existing conditions. */
+  siteDescription: string[]
+  programme: { stage: string; weeks: string; note: string }[]
+  /** Duty holders and other organisations (fictional names). */
+  organisations: { role: string; name: string; note?: string }[]
+  keyConstraints: string[]
+  /** Roles for a group of 3 to 6 delegates; larger groups double up. */
+  groupRoles: CaseStudyRole[]
+  /** What the group must produce or demonstrate by the end. */
+  deliverables: string[]
+  /** What the group demonstrates in the end-of-game 3D site walk-through. */
+  walkthroughBrief: string[]
+  /** Tutor-led debrief questions. */
+  discussionPrompts: string[]
+  /** Environmental themes this case study exercises (kept current with published guidance). */
+  environmentFocus?: string[]
+}
+
+/** The group playing a case study together on one device. */
+export interface TeamInfo {
+  name: string
+  /** First names only (data minimisation: this is saved on a shared classroom device). */
+  members: string[]
+  /** CaseStudyRole.id -> member first name. */
+  roles: Record<string, string>
+}
+
 export interface ScenarioBrief {
   client: string
   location: string
@@ -328,9 +414,13 @@ export interface Scenario {
   eventDraw: number
   /** Model answer summary bullets shown in the final comparison. */
   modelAnswerNotes: string[]
+  /** Case study pack shown before play and used by the tutor debrief. */
+  caseStudy?: CaseStudyPack
 }
 
 // ---------- Runtime state ----------
+
+import type { WalkthroughRecord } from './walkthrough/types'
 
 export interface DecisionRecord {
   stepId: string
@@ -344,6 +434,16 @@ export interface DecisionRecord {
   timedOut?: boolean
   usedLifeline?: boolean
   points?: number
+  /** True for a tutor quiz question (its step is not in the scenario, so reports cannot look it up). */
+  custom?: boolean
+  /**
+   * Stored for tutor quiz questions only, so the decision review can show what was chosen and what
+   * the answer was without the step: the chosen text, its feedback, the correct answer and the note.
+   */
+  chosenText?: string
+  chosenFeedback?: string
+  bestText?: string
+  learningNote?: string
 }
 
 export interface PlacementRecord {
@@ -399,6 +499,7 @@ export interface CustomQuestion {
 // ---------- Game layer (difficulty, economy, consequences, points) ----------
 
 export type Difficulty = 'learner' | 'standard' | 'expert'
+export type GameRoute = 'full' | 'classroom'
 export type Confidence = 'sure' | 'think' | 'guess'
 
 /** A shortcut or poor choice that is still "live" on site and may cause an incident later. */
@@ -416,6 +517,19 @@ export interface LatentHazard {
   status: 'open' | 'fired' | 'rectified'
   /** Expert mode: hazards are hidden until an audit reveals them. */
   revealed: boolean
+  /** Where the hazard came from. Absent on saves made before this field existed (decision or sequence). */
+  source?: 'decision' | 'timeout' | 'sequence' | 'siteSetup' | 'twRegister' | 'permits' | 'hazardHunt'
+  /**
+   * Authored RIDDOR flag copied from the option or sequence constraint that created the hazard.
+   * When absent the engine falls back to a strict keyword check of `consequence`.
+   */
+  riddor?: boolean
+  /** The critical-failure label recorded with this hazard, if the choice was a critical failure. */
+  critical?: string
+  /** Set only when the matter is NOT for HSE (see DecisionOption.regulator): kept out of HSE notices. */
+  regulator?: 'environment' | 'localAuthority' | 'highwayAuthority'
+  /** What closing the risk out involves (the model answer for the step), shown at the weekly review. */
+  remedy?: string
 }
 
 export interface ConsequenceRecord {
@@ -434,6 +548,8 @@ export interface ConsequenceRecord {
 export interface NoticeRecord {
   kind: 'improvement' | 'prohibition'
   week: number
+  /** Phase after which the notice was served (the cool-down counts site-week reports, not calendar weeks). */
+  afterPhase?: number
   reason: string
   cost: number
   days: number
@@ -448,6 +564,17 @@ export interface WeekReport {
   shutdown: boolean
   safe: boolean
   points: number
+  /**
+   * Open risks the group can see at this review (on Expert: only those an audit has revealed).
+   * A week can be `safe` (no incident, no notice) with risks still open: that is luck, not control.
+   */
+  openRisks?: { major: number; minor: number }
+  /** True when the week was safe AND nothing known was left open: the only weeks that earn the bonus. */
+  controlled?: boolean
+  /** Plain-English early warning that HSE attention is building (shown before any notice is served). */
+  warning?: string
+  /** True for the last site-week report before handover (the pre-handover inspection). */
+  final?: boolean
 }
 
 export interface ConfidenceRecord {
@@ -470,6 +597,11 @@ export interface BonusLine {
 
 export interface GameMeta {
   difficulty: Difficulty
+  /**
+   * 'full' plays every decision (about two hours for a group); 'classroom' plays the practical
+   * tasks and only the decisions flagged `core` (about an hour).
+   */
+  route: GameRoute
   seed: number
   points: number
   streak: number
@@ -483,8 +615,15 @@ export interface GameMeta {
   safeWeeks: number
   /** Critical failures since the last prohibition notice. */
   strikes: number
+  /** Step ids behind the current strikes, so that closing out the risk can clear its strike. */
+  strikeSteps?: string[]
   /** Number of critical failures already cited in an earlier HSE notice. */
   noticeMark?: number
+  /**
+   * Critical-failure labels that are not HSE matters (DecisionOption.regulator is the environmental
+   * regulator or a local/highway authority). They never count as strikes or appear in an HSE notice.
+   */
+  nonHseFailures?: string[]
   lifelines: number
   lifelineSteps: string[]
   timeouts: number
@@ -496,6 +635,13 @@ export interface GameMeta {
   surpriseEvents: { phaseNumber: number; eventId: string }[]
   pendingWeek: WeekReport | null
   auditsUsed: number
+  /** Phase of the weekly report in which the last site audit was commissioned (one audit per report). */
+  auditedAfterPhase?: number
+  /**
+   * Set when the tutor's "reveal answers" was on at any point in this run. An assisted run is a
+   * demonstration: it is not written to the career profile or the leaderboard.
+   */
+  assisted?: boolean
   shutdown: boolean
   bonuses: BonusLine[]
   lastAward: PointsAward | null
@@ -526,6 +672,8 @@ export interface GameState {
   permitAnswers: PermitAnswerRecord[]
   huntAnswers: HuntAnswerRecord[]
   sequenceAnswers: SequenceAnswerRecord[]
+  /** Ids of site set-up steps already submitted (a layout, even an empty one, is scored once). */
+  setupDone?: string[]
   riskRegister: RiskRegisterRow[]
   incidentLog: IncidentLogRow[]
   criticalFailures: string[]
@@ -536,6 +684,10 @@ export interface GameState {
   startedAt: string | null
   finishedAt: string | null
   game: GameMeta
+  /** Group playing together; null for a solo delegate. */
+  team: TeamInfo | null
+  /** End-of-game 3D site walk-through record (see src/walkthrough/types.ts). */
+  walkthrough: WalkthroughRecord
 }
 
 export interface TutorState {
@@ -555,9 +707,10 @@ export interface GradeBand {
 }
 
 export const GRADE_BANDS: GradeBand[] = [
-  { min: 90, label: 'Excellent', summary: 'Strong SMSTS-level planning.' },
+  { min: 90, label: 'Excellent', summary: 'Strong planning across all seven disciplines.' },
   { min: 75, label: 'Good', summary: 'Safe with minor gaps.' },
-  { min: 60, label: 'Pass-level', summary: 'Improvement required.' },
+  // "Developing", never "pass": the game is a learning aid, not an assessment.
+  { min: 60, label: 'Developing', summary: 'Improvement required.' },
   { min: 40, label: 'Significant gaps', summary: 'Key duties and controls were missed.' },
   { min: 0, label: 'Unsafe planning', summary: 'Restart recommended.' },
 ]

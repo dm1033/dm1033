@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
 import type {
-  Confidence, CustomQuestion, DecisionOption, DecisionStep, Difficulty, GameMeta, GameState,
-  HazardHuntStep, PermitStep, PlacementRecord, Scenario, SequenceStep, SiteSetupStep, TutorState,
+  Confidence, CustomQuestion, DecisionOption, DecisionRecord, DecisionStep, Difficulty, GameMeta, GameRoute, GameState,
+  HazardHuntStep, PermitStep, PlacementRecord, Scenario, SequenceStep, SiteSetupStep, Step, TeamInfo, TutorState,
   TwAnswerRecord, TwRegisterStep,
 } from '../types'
 import {
@@ -9,16 +9,23 @@ import {
   assessHunt, assessSequence, initialScoreState, twItemScore,
 } from '../engine/scoring'
 import {
-  DIFFICULTIES, WEEK_PHASES, auditCost, award, completionBonuses, decisionEconomy, decisionPoints,
-  economyFor, latentFromOption, rectifyCost, rngFor, shuffleWith, simulateWeek,
+  DIFFICULTIES, EVENT_PHASE, WEEK_PHASES, auditCost, award, completionBonuses, decisionEconomy, decisionPoints,
+  economyFor, huntTimeLimit, isCustomStep, isHseMatter, latentFromHunt, latentFromOption, latentFromPermits,
+  latentFromSequence, latentFromSiteSetup, latentFromTwRegister, lifelineRemovals, rectifyCost, rngFor, routeSteps,
+  sequenceFailureLabel, shuffleWith, simulateWeek,
 } from '../engine/game'
 import { getScenario } from '../data'
+import { SITE_ITEM_MAP } from '../data/siteItems'
+import { initialWalkthrough, isWalkAction, walkReducer } from '../walkthrough/walkReducer'
+import type { WalkAction } from '../walkthrough/types'
+import { STORAGE_KEYS } from './profile'
 
-const SAVE_KEY = 'cpp-smsts-save-v2'
-const TUTOR_KEY = 'cpp-smsts-tutor-v1'
+const SAVE_KEY = STORAGE_KEYS.save
+const TUTOR_KEY = STORAGE_KEYS.tutor
 
 export const initialGameMeta = (): GameMeta => ({
   difficulty: 'standard',
+  route: 'full',
   seed: 1,
   points: 0,
   streak: 0,
@@ -59,6 +66,7 @@ export const initialGameState: GameState = {
   permitAnswers: [],
   huntAnswers: [],
   sequenceAnswers: [],
+  setupDone: [],
   riskRegister: [],
   incidentLog: [],
   criticalFailures: [],
@@ -68,6 +76,8 @@ export const initialGameState: GameState = {
   startedAt: null,
   finishedAt: null,
   game: initialGameMeta(),
+  team: null,
+  walkthrough: initialWalkthrough(),
 }
 
 export const initialTutorState: TutorState = {
@@ -79,7 +89,7 @@ export const initialTutorState: TutorState = {
 }
 
 export type GameAction =
-  | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; difficulty: Difficulty; seed: number }
+  | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; difficulty: Difficulty; seed: number; team?: TeamInfo | null; route?: GameRoute }
   | {
       type: 'ANSWER_DECISION'
       step: DecisionStep
@@ -103,6 +113,7 @@ export type GameAction =
   | { type: 'FINISH' }
   | { type: 'RESET' }
   | { type: 'LOAD'; state: GameState }
+  | WalkAction
 
 function mult(state: GameState) {
   return DIFFICULTIES[state.game.difficulty].pointsMultiplier
@@ -138,11 +149,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         scores: initialScoreState(),
         scenarioId: action.scenarioId,
         delegateName: action.delegateName,
+        team: action.team ?? null,
+        walkthrough: initialWalkthrough(),
         drawnEventIds: drawn,
         startedAt: new Date().toISOString(),
         game: {
           ...initialGameMeta(),
           difficulty: action.difficulty,
+          route: action.route ?? 'full',
           seed: action.seed,
           budgetStart: eco.budgetStart,
           budget: eco.budgetStart,
@@ -435,11 +449,12 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case 'FINISH':
       return state.completed ? state : finish(state)
     case 'RESET':
-      return { ...initialGameState, scores: initialScoreState(), game: initialGameMeta() }
+      return { ...initialGameState, scores: initialScoreState(), game: initialGameMeta(), walkthrough: initialWalkthrough() }
     case 'LOAD':
       return action.state
     default:
-      return state
+      // Every WALK_* action belongs to the end-of-game walk-through (src/walkthrough/walkReducer.ts).
+      return isWalkAction(action) ? walkReducer(state, action) : state
   }
 }
 
@@ -494,7 +509,12 @@ function loadSaved<T>(key: string): T | null {
 function loadGame(): GameState | null {
   const saved = loadSaved<GameState>(SAVE_KEY)
   if (!saved || !saved.game || !Array.isArray(saved.huntAnswers) || !Array.isArray(saved.sequenceAnswers)) return null
-  return { ...initialGameState, ...saved, game: { ...initialGameMeta(), ...saved.game } }
+  return {
+    ...initialGameState,
+    ...saved,
+    game: { ...initialGameMeta(), ...saved.game },
+    walkthrough: { ...initialWalkthrough(), ...(saved.walkthrough ?? {}) },
+  }
 }
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
