@@ -284,6 +284,11 @@ export interface SequenceConstraint {
   critical?: boolean
   /** Authored flag, as DecisionOption.riddor: would the resulting incident be RIDDOR reportable? */
   riddor?: boolean
+  /**
+   * What actually happens on site if a critical constraint is broken and never corrected (an
+   * event, not a restatement of the rule). When absent the engine builds a line from `reason`.
+   */
+  consequence?: string
 }
 
 export interface SequenceStep {
@@ -521,6 +526,8 @@ export interface LatentHazard {
   riddor?: boolean
   /** The critical-failure label recorded with this hazard, if the choice was a critical failure. */
   critical?: string
+  /** Set only when the matter is NOT for HSE (see DecisionOption.regulator): kept out of HSE notices. */
+  regulator?: 'environment' | 'localAuthority' | 'highwayAuthority'
   /** What closing the risk out involves (the model answer for the step), shown at the weekly review. */
   remedy?: string
 }
@@ -617,8 +624,6 @@ export interface GameMeta {
    * regulator or a local/highway authority). They never count as strikes or appear in an HSE notice.
    */
   nonHseFailures?: string[]
-  /** Critical-failure labels whose risk has since been closed out or has already caused its incident. */
-  settledFailures?: string[]
   lifelines: number
   lifelineSteps: string[]
   timeouts: number

@@ -406,11 +406,26 @@ export function award(game: GameMeta, amount: number, label: string): GameMeta {
 
 // ---------- Latent hazards ----------
 
+/**
+ * True when a critical failure is a matter for HSE. Pollution, waste and discharge offences are
+ * for the environmental regulator, and nuisance or highway matters for the local or highway
+ * authority: they are still critical failures, but they are never strikes towards an HSE
+ * inspection and never quoted in an HSE notice.
+ */
+export function isHseMatter(option: Pick<DecisionOption, 'regulator' | 'criticalFailure'>): boolean {
+  if (option.regulator) return option.regulator === 'hse'
+  return !/^\s*(environmental offence|environment agency|local authority|highway authority)/i.test(option.criticalFailure ?? '')
+}
+
 export function latentFromOption(step: DecisionStep, option: DecisionOption, phaseNumber: number): LatentHazard | null {
   if (option.quality !== 'poor' && option.quality !== 'unsafe') return null
+  // A tutor quiz question tests knowledge; a wrong answer is not a shortcut taken on site.
+  if (isCustomStep(step)) return null
+  const timedOut = option.id === 'timeout'
   const consequence = option.consequence
     ?? `The shortcut on "${step.topic}" was never corrected and caught up with the project. ${option.feedback}`
-  return {
+  const best = step.options.find((o) => o.quality === 'best')
+  const hazard: LatentHazard = {
     id: `${step.id}:${option.id}`,
     stepId: step.id,
     phaseNumber,
@@ -420,7 +435,170 @@ export function latentFromOption(step: DecisionStep, option: DecisionOption, pha
     consequence,
     status: 'open',
     revealed: false,
+    source: timedOut ? 'timeout' : 'decision',
   }
+  if (typeof option.riddor === 'boolean') hazard.riddor = option.riddor
+  if (option.criticalFailure) hazard.critical = option.criticalFailure
+  if (option.regulator && option.regulator !== 'hse') hazard.regulator = option.regulator
+  if (best) hazard.remedy = best.text
+  return hazard
+}
+
+/** Hazards created by a sequence plan that breaks critical hold points. */
+export function latentFromSequence(step: SequenceStep, order: string[], phaseNumber: number): LatentHazard[] {
+  const label = (id: string) => step.activities.find((x) => x.id === id)?.label ?? id
+  return assessSequence(step, order).criticalViolated.map((c, i) => {
+    const hazard: LatentHazard = {
+      id: `${step.id}:seq:${i}`,
+      stepId: step.id,
+      phaseNumber,
+      severity: 'major',
+      topic: step.topic,
+      choice: `Planned "${label(c.after)}" before "${label(c.before)}"`,
+      consequence: c.consequence ?? `"${label(c.after)}" went ahead before "${label(c.before)}" was done. ${c.reason}`,
+      status: 'open',
+      revealed: false,
+      source: 'sequence',
+      critical: sequenceFailureLabel(step, c),
+      remedy: `Re-plan the work so that "${label(c.before)}" is complete before "${label(c.after)}" starts.`,
+    }
+    if (typeof c.riddor === 'boolean') hazard.riddor = c.riddor
+    return hazard
+  })
+}
+
+/** The critical-failure label recorded for a broken critical sequence constraint. */
+export function sequenceFailureLabel(step: SequenceStep, c: { before: string; after: string }): string {
+  const label = (id: string) => step.activities.find((x) => x.id === id)?.label ?? id
+  return `Out-of-sequence work: "${label(c.after)}" planned before "${label(c.before)}"`
+}
+
+// The mini-games also leave risk on site. Each one creates at most a handful of hazards, so a
+// careless form is felt in the site weeks without flooding the weekly review.
+const MAX_LAYOUT_HAZARDS = 3
+const MAX_FORM_HAZARDS = 2
+const MAX_HUNT_HAZARDS = 3
+
+const itemLabel = (itemId: string) => SITE_ITEM_MAP[itemId]?.label ?? itemId
+
+/** Unsafe placements, and required items never provided, stay on site as risks. */
+export function latentFromSiteSetup(
+  step: SiteSetupStep,
+  placements: PlacementRecord[],
+  assessments: PlacementAssessment[],
+  phaseNumber: number,
+): LatentHazard[] {
+  const out: LatentHazard[] = []
+  const zoneName = (id: string) => step.zones.find((z) => z.id === id)?.label ?? id
+  const unsafe = assessments
+    .filter((a) => a.status === 'unsafe')
+    .sort((a, b) => Number(!!step.rules.find((r) => r.itemId === b.itemId)?.required) - Number(!!step.rules.find((r) => r.itemId === a.itemId)?.required))
+  for (const a of unsafe.slice(0, MAX_LAYOUT_HAZARDS)) {
+    const rule = step.rules.find((r) => r.itemId === a.itemId)
+    const placed = placements.find((p) => p.itemId === a.itemId)
+    const zones = placed ? zoneAt(step, placed.x, placed.y).filter((z) => rule?.badZones.includes(z)) : []
+    const where = zones.length ? zoneName(zones[0]) : 'an unsafe location'
+    const good = rule?.goodZones.length ? rule.goodZones.map(zoneName).join(' or ') : null
+    out.push({
+      id: `${step.id}:unsafe:${a.itemId}`,
+      stepId: step.id,
+      phaseNumber,
+      severity: 'major',
+      topic: step.topic,
+      choice: `Site layout: ${itemLabel(a.itemId)} set up in ${where}`,
+      consequence: `The site was run as it was laid out, with the ${itemLabel(a.itemId).toLowerCase()} in ${where}, and it led to an incident. ${a.note}`,
+      status: 'open',
+      revealed: false,
+      source: 'siteSetup',
+      riddor: false,
+      remedy: good ? `Move the ${itemLabel(a.itemId).toLowerCase()} to ${good}. ${a.note}` : a.note,
+    })
+  }
+  const required = step.rules.filter((r) => r.required)
+  const missing = assessments.filter((a) => a.status === 'missing')
+  if (missing.length > 0) {
+    const names = missing.map((a) => itemLabel(a.itemId))
+    const list = names.length > 4 ? `${names.slice(0, 4).join(', ')} and ${names.length - 4} more` : names.join(', ')
+    out.push({
+      id: `${step.id}:missing`,
+      stepId: step.id,
+      phaseNumber,
+      severity: missing.length * 3 > required.length ? 'major' : 'minor',
+      topic: step.topic,
+      choice: `Site layout: ${missing.length} required item(s) not provided (${list})`,
+      consequence: `The site opened without ${list}. The gap was found the hard way, when it was needed and was not there. ${missing[0].note}`,
+      status: 'open',
+      revealed: false,
+      source: 'siteSetup',
+      riddor: false,
+      remedy: `Provide the missing set-up: ${list}.`,
+    })
+  }
+  return out
+}
+
+/** Temporary works left off the register have no design check and no permit to load. */
+export function latentFromTwRegister(step: TwRegisterStep, answers: TwAnswerRecord[], phaseNumber: number): LatentHazard[] {
+  return step.items
+    .filter((item) => item.correct.register && answers.find((a) => a.itemId === item.id)?.register !== true)
+    .slice(0, MAX_FORM_HAZARDS)
+    .map((item) => ({
+      id: `${step.id}:tw:${item.id}`,
+      stepId: step.id,
+      phaseNumber,
+      severity: 'major' as const,
+      topic: step.topic,
+      choice: `Temporary works register: "${item.name}" left off the register`,
+      consequence: `"${item.name}" was built and used without being on the temporary works register, so nobody checked its design or released it for use, and it failed in service. ${item.explanation}`,
+      status: 'open' as const,
+      revealed: false,
+      source: 'twRegister' as const,
+      remedy: `Add "${item.name}" to the temporary works register and have the Temporary Works Coordinator confirm the design, the check and the sign-off before it is used again.`,
+    }))
+}
+
+/** A permit that was needed and never set up means the work goes ahead uncontrolled. */
+export function latentFromPermits(step: PermitStep, selected: string[], phaseNumber: number): LatentHazard[] {
+  return step.required
+    .filter((id) => !selected.includes(id))
+    .slice(0, MAX_FORM_HAZARDS)
+    .map((id) => {
+      const name = step.options.find((o) => o.id === id)?.name ?? id
+      return {
+        id: `${step.id}:permit:${id}`,
+        stepId: step.id,
+        phaseNumber,
+        severity: 'major' as const,
+        topic: step.topic,
+        choice: `Permit systems: no "${name}" in place`,
+        consequence: `Work that needed a "${name}" went ahead without one: nobody checked the precautions before it started, and it went wrong. ${step.explanation}`,
+        status: 'open' as const,
+        revealed: false,
+        source: 'permits' as const,
+        remedy: `Set up the "${name}" system and stop the affected work until a permit has been issued.`,
+      }
+    })
+}
+
+/** A hazard walked past on the walk-round is still there. */
+export function latentFromHunt(step: HazardHuntStep, assessment: HuntAssessment, phaseNumber: number): LatentHazard[] {
+  const rank = { high: 0, medium: 1, low: 2 } as const
+  return [...assessment.missed]
+    .sort((a, b) => rank[a.severity ?? 'low'] - rank[b.severity ?? 'low'])
+    .slice(0, MAX_HUNT_HAZARDS)
+    .map((o) => ({
+      id: `${step.id}:missed:${o.id}`,
+      stepId: step.id,
+      phaseNumber,
+      severity: o.severity === 'high' ? 'major' as const : 'minor' as const,
+      topic: step.topic,
+      choice: `Not picked up on the walk-round: ${o.text}`,
+      consequence: `Nobody acted on something that was in plain view on the walk-round: ${o.text} ${o.explanation}`,
+      status: 'open' as const,
+      revealed: false,
+      source: 'hazardHunt' as const,
+      remedy: o.explanation,
+    }))
 }
 
 export function rectifyCost(h: LatentHazard, scenario: Scenario): { cost: number; days: number } {
@@ -432,26 +610,65 @@ export function auditCost(scenario: Scenario): { cost: number; days: number } {
   return { cost: round100(2500 * scaleFor(scenario)), days: 0.5 }
 }
 
-/** Phase numbers after which a "site week" passes (construction period). */
-export const WEEK_PHASES = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+/**
+ * Phase numbers after which a "site week" passes. Phases 4-13 are the construction period; the
+ * report after phase 14 is the last week before handover, when everything still open gets a final roll.
+ */
+export const WEEK_PHASES = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+const FINAL_WEEK_PHASE = WEEK_PHASES[WEEK_PHASES.length - 1]
 
 export function weekFor(afterPhase: number, weeksTotal: number): number {
   return Math.max(1, Math.min(weeksTotal, Math.round((weeksTotal * (afterPhase - 3)) / 11)))
 }
 
 const clamp = (v: number, lo = 0, hi = 100) => Math.min(hi, Math.max(lo, v))
-const RIDDOR_RX = /riddor|injur|fractur|hospital|dangerous occurrence|collaps|fell |fall |struck|crush|burn|amputat|unconscious|electric shock/i
+
+// RIDDOR status is authored (DecisionOption.riddor / SequenceConstraint.riddor). The keyword check
+// below is only the fallback for content that has no flag yet, and it is deliberately strict: it
+// needs wording for an injury, a dangerous occurrence, a collapse or a strike of a live service,
+// and it never fires on paperwork, waste, neighbour or nuisance wording.
+const RIDDOR_NEVER_RX = /\bwaste\b|transfer station|duty of care|consignment|paperwork|\bneighbou?r|nuisance|\bcomplain|\bnoise\b|\bdust\b|mud on the road|environment agency|environmental health|\bcouncil\b|pollut|\bdischarg/i
+const RIDDOR_NO_HARM_RX = /\b(nobody|no[- ]one|none of (them|the \w+)) (was|were) (hurt|injured|harmed|hit|struck)|\bno injur|without injury|\buninjured\b|\bunhurt\b|not reportable|\bnear miss\b/i
+const RIDDOR_INJURY_RX = /\binjur(y|ies|ed)\b|\bfractur|\bbroke (his|her|their)\b|\bbroken (arm|leg|hip|wrist|ankle|pelvis|collarbone|ribs?|back|bones?)\b|\bhospital|\bamputat|\bunconscious\b|\belectric shock\b|\belectrocut|\bkilled\b|\bfatal|\bdied\b/i
+const RIDDOR_OCCURRENCE_RX = /dangerous occurrence|\bcollaps|\b(struck|hit|gouged|ruptured|severed|cut through)\b[^.]{0,60}\b(live|buried|gas|electric(ity)?|high[- ]voltage|cables?|mains?|services?)\b|\b(gas|cable|service) strike\b/i
+
+/** Fallback only: does this narrative clearly describe something reportable under RIDDOR? */
+export function riddorFromNarrative(text: string): boolean {
+  if (RIDDOR_NEVER_RX.test(text)) return false
+  if (RIDDOR_OCCURRENCE_RX.test(text)) return true
+  if (RIDDOR_NO_HARM_RX.test(text)) return false
+  return RIDDOR_INJURY_RX.test(text)
+}
+
+/** Is the incident this hazard causes RIDDOR reportable? The authored flag wins; otherwise the strict fallback (major incidents only). */
+export function hazardIsRiddor(h: Pick<LatentHazard, 'riddor' | 'severity' | 'consequence'>): boolean {
+  if (typeof h.riddor === 'boolean') return h.riddor
+  return h.severity === 'major' && riddorFromNarrative(h.consequence)
+}
+
+const sentence = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s)
 
 function noticeReason(state: GameState, kind: NoticeRecord['kind'], firedThisWeek: ConsequenceRecord[]): string {
-  // Cite what is new since the last notice, not the same findings every visit.
-  const fresh = state.criticalFailures.slice(state.game.noticeMark ?? 0)
-  const incidents = firedThisWeek.filter((c) => c.severity === 'major').map((c) => c.title.toLowerCase())
-  const openMajor = state.game.latent.filter((h) => h.status === 'open' && h.severity === 'major').map((h) => `uncontrolled risk: ${h.topic}`)
-  const pieces = [...new Set([...fresh.slice(-3), ...incidents, ...openMajor])].slice(0, 3)
+  const g = state.game
+  // Cite what is new since the last notice. Leave out anything HSE does not enforce, anything the
+  // group has since closed out, and anything that has already caused its incident (the incident is cited).
+  const settled = new Set(g.latent.filter((h) => h.critical && h.status !== 'open').map((h) => h.critical))
+  const nonHse = new Set(g.nonHseFailures ?? [])
+  const fresh = state.criticalFailures.slice(g.noticeMark ?? 0).filter((f) => !settled.has(f) && !nonHse.has(f))
+  const serious = firedThisWeek.filter((c) => c.severity === 'major')
+  const reportable = firedThisWeek.filter((c) => c.riddor).length
+  const incidents = serious.length === 0 ? []
+    : [`${serious.length === 1 ? 'a serious incident' : `${serious.length} serious incidents`} on site this week${reportable ? ` (${reportable === serious.length && serious.length === 1 ? 'RIDDOR reportable' : `${reportable} RIDDOR reportable`})` : ''}`]
+  const openMajor = g.latent
+    .filter((h) => h.status === 'open' && h.severity === 'major' && !h.regulator)
+    .map((h) => `no effective control in place for: ${h.topic}`)
+  const pieces = [...new Set([...fresh.slice(-3), ...incidents, ...openMajor])].slice(0, 3).map(sentence)
   const lead = kind === 'prohibition'
-    ? 'Inspector judged there was a risk of serious personal injury and stopped the affected work.'
-    : 'Inspector found material breaches that must be put right by a deadline.'
-  return pieces.length ? `${lead} Findings: ${pieces.join('; ')}.` : `${lead} Findings: the site's own safety indicators (enforcement history, incident rate) prompted the visit.`
+    ? 'The inspector judged that there was a risk of serious personal injury and stopped the affected work.'
+    : 'The inspector found breaches of health and safety law that must be put right by a set date.'
+  return pieces.length
+    ? `${lead} Findings: ${pieces.join('; ')}.`
+    : `${lead} Findings: the standard of control seen across the site, and its recent record, did not give the inspector confidence that risks were being managed.`
 }
 
 /**
@@ -470,11 +687,13 @@ export function simulateWeek(
   const meters = { ...state.scores.meters }
   let game: GameMeta = { ...state.game, latent: state.game.latent.map((h) => ({ ...h })) }
   const week = weekFor(afterPhase, game.weeksTotal)
+  const final = afterPhase >= FINAL_WEEK_PHASE
 
-  // 1. Latent hazards roll.
+  // 1. Latent hazards roll. A hazard cannot fire in the phase that created it, except in the last
+  //    week before handover, when everything still open is in play.
   const exposure = 0.6 + (meters.incidentLikelihood / 100) * 0.8
   const candidates = game.latent
-    .filter((h) => h.status === 'open' && h.phaseNumber < afterPhase)
+    .filter((h) => h.status === 'open' && (h.phaseNumber < afterPhase || (final && h.phaseNumber <= afterPhase)))
     .sort((a, b) => (a.severity === b.severity ? 0 : a.severity === 'major' ? -1 : 1))
   const fired: ConsequenceRecord[] = []
   for (const h of candidates) {
@@ -483,14 +702,18 @@ export function simulateWeek(
     if (rand() < base * diff.incidentFactor * exposure) {
       h.status = 'fired'
       const major = h.severity === 'major'
-      const riddor = major && RIDDOR_RX.test(h.consequence)
+      const riddor = hazardIsRiddor(h)
       const rec: ConsequenceRecord = {
         hazardId: h.id,
         week,
         severity: h.severity,
-        title: major ? (riddor ? 'Serious incident: RIDDOR reportable' : 'Serious incident') : 'Site problem',
+        title: major
+          ? (riddor ? 'Serious incident: RIDDOR reportable' : 'Serious incident')
+          : (riddor ? 'Site incident: RIDDOR reportable' : 'Site problem'),
         narrative: h.consequence,
-        rootCause: `Phase ${h.phaseNumber}, ${h.topic}. You chose: "${h.choice}"`,
+        rootCause: h.source && h.source !== 'decision' && h.source !== 'timeout' && h.source !== 'sequence'
+          ? `Phase ${h.phaseNumber}, ${h.topic}. ${h.choice}`
+          : `Phase ${h.phaseNumber}, ${h.topic}. You chose: "${h.choice}"`,
         cost: round100((major ? 15000 : 4000) * k),
         days: major ? 4 : 1.5,
         riddor,
@@ -511,16 +734,23 @@ export function simulateWeek(
     }
   }
 
-  // 2. HSE inspection.
+  // 2. HSE inspection. No notice in two consecutive site-week reports (the cool-down counts
+  //    reports, not calendar weeks, so it works the same in every case study).
   let notice: NoticeRecord | null = null
-  const lastNoticeWeek = game.notices.length ? game.notices[game.notices.length - 1].week : -99
-  const inspect = (meters.enforcementRisk >= 70 || game.strikes >= 3) && week - lastNoticeWeek > 1
+  const last = game.notices.length ? game.notices[game.notices.length - 1] : null
+  const reportIndex = WEEK_PHASES.indexOf(afterPhase) >= 0 ? WEEK_PHASES.indexOf(afterPhase) : afterPhase
+  const lastIndex = last?.afterPhase !== undefined
+    ? (WEEK_PHASES.indexOf(last.afterPhase) >= 0 ? WEEK_PHASES.indexOf(last.afterPhase) : last.afterPhase)
+    : null
+  const cooledDown = !last || (lastIndex !== null ? reportIndex - lastIndex > 1 : week - last.week > 1)
+  const inspect = (meters.enforcementRisk >= 70 || game.strikes >= 3) && cooledDown
   if (inspect) {
     const prohibition = meters.enforcementRisk >= 88 || game.strikes >= 3
     const kind: NoticeRecord['kind'] = prohibition ? 'prohibition' : 'improvement'
     notice = {
       kind,
       week,
+      afterPhase,
       reason: noticeReason({ ...state, game }, kind, fired),
       cost: round100((prohibition ? 12000 : 3000) * k),
       days: prohibition ? 6 : 2,
@@ -530,6 +760,7 @@ export function simulateWeek(
     if (prohibition) {
       meters.enforcementRisk = 50
       game.strikes = 0
+      game.strikeSteps = []
     } else {
       meters.enforcementRisk = clamp(meters.enforcementRisk - 20)
     }
@@ -540,12 +771,31 @@ export function simulateWeek(
   const prohibitions = game.notices.filter((n) => n.kind === 'prohibition').length + (notice?.kind === 'prohibition' ? 1 : 0)
   const shutdown = diff.shutdownAfterProhibitions !== null && prohibitions >= diff.shutdownAfterProhibitions
 
-  // 4. Settle the week.
+  // 4. Settle the week. A week with no incident and no notice is "safe", but it only earns the
+  //    bonus when nothing the group knows about is still open: otherwise it was luck, not control.
   const safe = fired.length === 0 && !notice
-  const safePoints = safe ? Math.round(40 * mult) : 0
+  const known = game.latent.filter((h) => h.status === 'open' && (!diff.deferFeedback || h.revealed))
+  const openRisks = {
+    major: known.filter((h) => h.severity === 'major').length,
+    minor: known.filter((h) => h.severity === 'minor').length,
+  }
+  const controlled = safe && known.length === 0
+  const safePoints = controlled ? Math.round(40 * mult) : 0
   const points = fired.reduce((a, c) => a + c.points, 0) + (notice?.points ?? 0) + safePoints
   const cost = fired.reduce((a, c) => a + c.cost, 0) + (notice?.cost ?? 0)
   const days = fired.reduce((a, c) => a + c.days, 0) + (notice?.days ?? 0)
+
+  // Early warning, so that a prohibition notice (a shutdown on Expert) never arrives unannounced.
+  let warning: string | undefined
+  if (!notice && !shutdown) {
+    const closes = diff.shutdownAfterProhibitions === 1 ? ' At this level one prohibition notice shuts the project down.' : ''
+    if (game.strikes === 2) {
+      warning = `Two critical failures are on record. A third brings an HSE inspection and a prohibition notice.${closes}`
+    } else if (meters.enforcementRisk >= 60) {
+      warning = `Enforcement risk is high. HSE is likely to visit soon unless the site is brought back under control.${closes}`
+    }
+  }
+
   game = {
     ...game,
     week,
@@ -556,8 +806,10 @@ export function simulateWeek(
     notices: notice ? [...game.notices, notice] : game.notices,
     shutdown,
   }
-  if (points !== 0) game = award(game, points, safe ? 'Safe week' : 'Site week')
-  const report: WeekReport = { week, afterPhase, consequences: fired, notice, shutdown, safe, points }
+  if (points !== 0) game = award(game, points, controlled ? 'Safe week' : 'Site week')
+  const report: WeekReport = { week, afterPhase, consequences: fired, notice, shutdown, safe, points, openRisks, controlled }
+  if (warning) report.warning = warning
+  if (final) report.final = true
   return { game: { ...game, pendingWeek: report }, meters, report }
 }
 
@@ -569,13 +821,17 @@ export function completionBonuses(state: GameState): BonusLine[] {
   const m = (n: number) => Math.round(n * mult)
   if (g.shutdown) return [{ label: 'Project shut down by HSE prohibition', points: m(-1500) }]
   const lines: BonusLine[] = []
-  if (g.budget >= 0) lines.push({ label: `Delivered within budget (${fmtMoney(g.budget)} contingency left)`, points: m(400 + Math.round((300 * g.budget) / Math.max(1, g.budgetStart))) })
+  // Money and days "saved" by shortcuts never earn more than finishing with the starting allowance:
+  // the bonus rewards protecting the contingency and the float, not cutting corners to grow them.
+  const budgetKept = Math.min(g.budget, g.budgetStart)
+  const floatKept = Math.min(g.floatDays, Math.max(g.floatStart, 0))
+  if (g.budget >= 0) lines.push({ label: `Delivered within budget (${fmtMoney(g.budget)} contingency left)`, points: m(400 + Math.round((300 * budgetKept) / Math.max(1, g.budgetStart))) })
   else lines.push({ label: `Over budget by ${fmtMoney(-g.budget)}`, points: m(-200) })
-  if (g.floatDays >= 0) lines.push({ label: `Handed over on programme (${fmtDays(g.floatDays)} float left)`, points: m(400 + Math.round(25 * g.floatDays)) })
+  if (g.floatDays >= 0) lines.push({ label: `Handed over on programme (${fmtDays(g.floatDays)} float left)`, points: m(400 + Math.round(25 * floatKept)) })
   else lines.push({ label: `Handed over ${Math.abs(g.floatDays)} days late`, points: m(-200) })
   if (!g.consequences.some((c) => c.riddor)) lines.push({ label: 'No RIDDOR-reportable incidents', points: m(500) })
   if (g.notices.length === 0) lines.push({ label: 'No HSE enforcement notices', points: m(300) })
-  if (state.criticalFailures.length === 0) lines.push({ label: 'No critical safety failures', points: m(400) })
+  if (state.criticalFailures.length === 0) lines.push({ label: 'No critical failures', points: m(400) })
   const open = g.latent.filter((h) => h.status === 'open').length
   if (open > 0) lines.push({ label: `${open} uncorrected risk(s) handed over to the client`, points: m(-50 * open) })
   return lines

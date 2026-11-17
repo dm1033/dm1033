@@ -704,9 +704,77 @@ describe('assessSequence / applySequence', () => {
   }
 })
 
+describe('initialSequenceOrder (eng-tests-10)', () => {
+  it('is a permutation of the activities, stable for a seed, and different across seeds', () => {
+    const ids = sequenceFixture.activities.map((a) => a.id)
+    const seen = new Set<string>()
+    for (let seed = 1; seed <= 200; seed++) {
+      const order = initialSequenceOrder(sequenceFixture, seed)
+      expect([...order].sort()).toEqual([...ids].sort())
+      expect(initialSequenceOrder(sequenceFixture, seed)).toEqual(order)
+      seen.add(order.join(','))
+    }
+    expect(seen.size).toBeGreaterThan(5)
+  })
+
+  it('never hands over an order that already satisfies every dependency', () => {
+    // The fixture has only 4 activities and 3 rules, so 3 of its 24 orders are already perfect.
+    for (let seed = 1; seed <= 2000; seed++) {
+      expect(assessSequence(sequenceFixture, initialSequenceOrder(sequenceFixture, seed)).perfect, `seed ${seed}`).toBe(false)
+    }
+  })
+
+  for (const scenario of SCENARIOS) {
+    for (const step of sequenceSteps(scenario)) {
+      it(`${scenario.id} ${step.id}: seeds 1-3000 all start from a plan that still needs work`, () => {
+        const ids = step.activities.map((a) => a.id).sort()
+        for (let seed = 1; seed <= 3000; seed++) {
+          const order = initialSequenceOrder(step, seed)
+          expect(assessSequence(step, order).perfect, `seed ${seed}`).toBe(false)
+          if (seed % 250 === 0) expect([...order].sort()).toEqual(ids)
+        }
+      })
+    }
+  }
+
+  it('falls back to the reversed plan when no shuffle can be wrong (nothing is constrained)', () => {
+    const free = { ...sequenceFixture, constraints: [] }
+    expect(initialSequenceOrder(free, 7)).toEqual(['d', 'c', 'b', 'a'])
+  })
+})
+
 // ---------------------------------------------------------------------------
 // Final scores and grades
 // ---------------------------------------------------------------------------
+
+/** The score state of a model run through the authored phases (no incident events), by pure scoring. */
+function modelRun(scenario: Scenario): ScoreState {
+  let s = initialScoreState()
+  for (const d of scenario.phases.flatMap((p) => p.steps)) {
+    if (d.type === 'decision') s = applyDecision(s, d, d.options.find((o) => o.quality === 'best')!)
+    else if (d.type === 'siteSetup') s = applySiteSetup(s, d, layoutFor(d, 'good')!).scores
+    else if (d.type === 'twRegister') s = applyTwRegister(s, d, perfectTw(d))
+    else if (d.type === 'permits') s = applyPermits(s, d, d.required)
+    else if (d.type === 'hazardHunt') s = applyHazardHunt(s, d, perfectHunt(d))
+    else if (d.type === 'sequence') s = applySequence(s, d, perfectSequence(d))
+  }
+  return s
+}
+
+/** The model run with one decision re-answered. */
+function withAnswer(base: ScoreState, step: DecisionStep, answer: DecisionOption): ScoreState {
+  const best = applyDecision(initialScoreState(), step, step.options.find((o) => o.quality === 'best')!)
+  const other = applyDecision(initialScoreState(), step, answer)
+  const earned = { ...base.earned }
+  for (const k of SCORE_KEYS) earned[k] += other.earned[k] - best.earned[k]
+  return { ...base, earned }
+}
+
+/** Overall score before rounding, to measure how far one answer moves it. */
+function exactOverall(state: ScoreState): number {
+  const w = categoryWeights(state)
+  return SCORE_KEYS.reduce((sum, k) => sum + (w[k] ?? 0) * Math.min(1, Math.max(0, state.earned[k] / (state.possible[k] || 1))), 0) * 100
+}
 
 describe('categoryScore / overallScore / gradeFor', () => {
   it('a category nobody has been tested on yet is null, not 0%', () => {
@@ -721,16 +789,89 @@ describe('categoryScore / overallScore / gradeFor', () => {
     expect(categoryScore(withScores({ legal: 9 }, { legal: 9 }), 'legal')).toBe(100)
   })
 
-  it('overall is the mean of the categories that have been assessed', () => {
+  it('overall only counts the categories that have been assessed', () => {
     expect(overallScore(withScores({ legal: 10, safety: 5 }, { legal: 10, safety: 10 }))).toBe(75)
     expect(overallScore(withScores({ legal: 1 }, { legal: 3, safety: 0 }))).toBe(33)
+    expect(categoryWeights(withScores({}, { legal: 3 }))).toEqual({ legal: 1 })
+    expect(categoryWeights(initialScoreState())).toEqual({})
   })
 
+  it('a category counts in proportion to the marks behind it, with a 3% floor for thin categories', () => {
+    expect(CATEGORY_WEIGHT_FLOOR).toBe(0.03)
+    // Safety has 300 marks, quality has 100: safety counts three times as much.
+    const w = categoryWeights(withScores({}, { safety: 300, quality: 100 }))
+    expect(w.safety).toBeCloseTo(0.75, 10)
+    expect(w.quality).toBeCloseTo(0.25, 10)
+    expect(overallScore(withScores({ safety: 300, quality: 0 }, { safety: 300, quality: 100 }))).toBe(75)
+    expect(overallScore(withScores({ safety: 0, quality: 100 }, { safety: 300, quality: 100 }))).toBe(25)
+    // A category with 1% of the marks is lifted to the floor (3% of the marks, then shares re-normalised).
+    const thin = categoryWeights(withScores({}, { safety: 990, quality: 10 }))
+    expect(thin.quality).toBeCloseTo(30 / 1020, 10)
+    expect(thin.safety).toBeCloseTo(990 / 1020, 10)
+    expect(Object.values(thin).reduce((a, b) => a + b, 0)).toBeCloseTo(1, 10)
+  })
+
+  it('one answer in a thin category cannot move the grade a band (eng-engine-3)', () => {
+    // 14 quality marks from a single question, beside 1,000 marks elsewhere: equal weights used to
+    // make that one answer worth a seventh of the grade.
+    const possible = { legal: 160, safety: 310, planning: 330, temporaryWorks: 190, environment: 50, programme: 30, quality: 14 }
+    const perfect = withScores(possible, possible)
+    expect(overallScore(perfect)).toBe(100)
+    const slipped = withScores({ ...possible, quality: 0 }, possible)
+    expect(categoryScore(slipped, 'quality')).toBe(0)
+    expect(overallScore(slipped)).toBeGreaterThanOrEqual(97)
+  })
+
+  it('a category cannot go below 0% or above 100% in the overall, whatever the raw marks', () => {
+    expect(overallScore(withScores({ legal: -50, safety: 100 }, { legal: 100, safety: 100 }))).toBe(50)
+    expect(overallScore(withScores({ legal: 150, safety: 0 }, { legal: 100, safety: 100 }))).toBe(50)
+    expect(overallScore(withScores({ legal: -5 }, { legal: 10 }))).toBe(0)
+  })
+
+  for (const scenario of SCENARIOS) {
+    it(`${scenario.id}: a model run scores 100% in every category and 100 overall`, () => {
+      const s = modelRun(scenario)
+      for (const k of SCORE_KEYS) {
+        expect(s.possible[k], k).toBeGreaterThan(0)
+        expect(categoryScore(s, k), k).toBe(100)
+      }
+      expect(overallScore(s)).toBe(100)
+      // Drawing any of the incident events and answering it properly keeps it there.
+      let withEvents = s
+      for (const e of scenario.eventPool) withEvents = applyDecision(withEvents, e, e.options.find((o) => o.quality === 'best')!)
+      for (const k of SCORE_KEYS) expect(categoryScore(withEvents, k), k).toBe(100)
+      expect(overallScore(withEvents)).toBe(100)
+    })
+
+    it(`${scenario.id}: no single answer moves the overall grade by more than about 3 points`, () => {
+      const base = modelRun(scenario)
+      let worst = { drop: 0, where: '' }
+      let worstPartial = { drop: 0, where: '' }
+      for (const d of scenario.phases.flatMap((p) => p.steps)) {
+        if (d.type !== 'decision') continue
+        for (const o of d.options) {
+          const drop = 100 - exactOverall(withAnswer(base, d, o))
+          expect(drop, `${d.id} ${o.id}`).toBeGreaterThanOrEqual(0)
+          if (drop > worst.drop) worst = { drop, where: `${d.id} ${o.id} (${o.quality})` }
+          if (o.quality === 'partial' && drop > worstPartial.drop) worstPartial = { drop, where: `${d.id} ${o.id}` }
+        }
+      }
+      // Worst case today is an unsafe answer on the construction phase plan question (about 3.4);
+      // the worst "partly right" answer costs under 2.
+      expect(worst.drop, worst.where).toBeLessThanOrEqual(4)
+      expect(worstPartial.drop, worstPartial.where).toBeLessThanOrEqual(2.5)
+    })
+  }
+
   it.each([
-    [100, 'Excellent'], [90, 'Excellent'], [89, 'Good'], [75, 'Good'], [74, 'Pass-level'], [60, 'Pass-level'],
+    [100, 'Excellent'], [90, 'Excellent'], [89, 'Good'], [75, 'Good'], [74, 'Developing'], [60, 'Developing'],
     [59, 'Significant gaps'], [40, 'Significant gaps'], [39, 'Unsafe planning'], [0, 'Unsafe planning'],
   ])('%i -> %s', (score, label) => {
     expect(gradeFor(score).label).toBe(label)
+  })
+
+  it('no grade band reads as an assessment result: the game is never an SMSTS pass', () => {
+    for (const b of GRADE_BANDS) expect(`${b.label} ${b.summary}`).not.toMatch(/\bpass|\bfail|smsts|citb|certif/i)
   })
 
   it('grade bands are in descending order and out-of-range scores fall into the bottom band', () => {
@@ -739,23 +880,5 @@ describe('categoryScore / overallScore / gradeFor', () => {
     expect(mins.at(-1)).toBe(0)
     expect(gradeFor(-5).label).toBe('Unsafe planning')
     expect(gradeFor(Number.NaN).label).toBe('Unsafe planning')
-  })
-})
-
-describe('seededShuffle', () => {
-  it('is a deterministic permutation for positive seeds', () => {
-    const items = ['a', 'b', 'c', 'd', 'e', 'f']
-    for (const seed of [0, 1, 2, 99, 2 ** 31 - 1]) {
-      const out = seededShuffle(items, seed)
-      expect([...out].sort()).toEqual(items)
-      expect(seededShuffle(items, seed)).toEqual(out)
-    }
-    expect(items).toEqual(['a', 'b', 'c', 'd', 'e', 'f'])
-  })
-
-  knownBug('BUG eng-tests-15: a negative seed still returns a permutation (no undefined holes)', () => {
-    const items = ['a', 'b', 'c', 'd', 'e', 'f']
-    const out = seededShuffle(items, -5)
-    expect([...out].sort()).toEqual(items)
   })
 })
