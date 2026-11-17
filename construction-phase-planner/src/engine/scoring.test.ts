@@ -440,7 +440,7 @@ describe('twItemScore / applyTwRegister', () => {
         expect(new Set(step.items.map((i) => i.id)).size).toBe(step.items.length)
         const answers = perfectTw(step)
         for (const item of step.items) {
-          expect(twItemScore(item, answers.find((a) => a.itemId === item.id))).toEqual({ earned: 14, possible: 14, wrongFields: [] })
+          expect(twItemScore(item, answers.find((a) => a.itemId === item.id))).toEqual({ earned: 14, possible: 14, wrongFields: [], cautiousFields: [] })
         }
         const s = applyTwRegister(fresh(), step, answers)
         expect(categoryScore(s, 'temporaryWorks')).toBe(100)
@@ -851,7 +851,7 @@ describe('categoryScore / overallScore / gradeFor', () => {
         if (d.type !== 'decision') continue
         for (const o of d.options) {
           const drop = 100 - exactOverall(withAnswer(base, d, o))
-          expect(drop, `${d.id} ${o.id}`).toBeGreaterThanOrEqual(0)
+          expect(drop, `${d.id} ${o.id}`).toBeGreaterThan(-1e-9) // no answer beats the model answer
           if (drop > worst.drop) worst = { drop, where: `${d.id} ${o.id} (${o.quality})` }
           if (o.quality === 'partial' && drop > worstPartial.drop) worstPartial = { drop, where: `${d.id} ${o.id}` }
         }
