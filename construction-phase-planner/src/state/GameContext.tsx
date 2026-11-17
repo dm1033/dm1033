@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
 import type {
-  Confidence, CustomQuestion, DecisionOption, DecisionStep, Difficulty, GameMeta, GameState,
+  Confidence, CustomQuestion, DecisionOption, DecisionStep, Difficulty, GameMeta, GameRoute, GameState,
   HazardHuntStep, PermitStep, PlacementRecord, Scenario, SequenceStep, SiteSetupStep, TeamInfo, TutorState,
   TwAnswerRecord, TwRegisterStep,
 } from '../types'
@@ -21,6 +21,7 @@ const TUTOR_KEY = 'cpp-smsts-tutor-v1'
 
 export const initialGameMeta = (): GameMeta => ({
   difficulty: 'standard',
+  route: 'full',
   seed: 1,
   points: 0,
   streak: 0,
@@ -83,7 +84,7 @@ export const initialTutorState: TutorState = {
 }
 
 export type GameAction =
-  | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; difficulty: Difficulty; seed: number; team?: TeamInfo | null }
+  | { type: 'START_SCENARIO'; scenarioId: string; delegateName: string; difficulty: Difficulty; seed: number; team?: TeamInfo | null; route?: GameRoute }
   | {
       type: 'ANSWER_DECISION'
       step: DecisionStep
@@ -150,6 +151,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         game: {
           ...initialGameMeta(),
           difficulty: action.difficulty,
+          route: action.route ?? 'full',
           seed: action.seed,
           budgetStart: eco.budgetStart,
           budget: eco.budgetStart,

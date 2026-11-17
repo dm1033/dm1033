@@ -494,6 +494,7 @@ export interface CustomQuestion {
 // ---------- Game layer (difficulty, economy, consequences, points) ----------
 
 export type Difficulty = 'learner' | 'standard' | 'expert'
+export type GameRoute = 'full' | 'classroom'
 export type Confidence = 'sure' | 'think' | 'guess'
 
 /** A shortcut or poor choice that is still "live" on site and may cause an incident later. */
@@ -589,6 +590,11 @@ export interface BonusLine {
 
 export interface GameMeta {
   difficulty: Difficulty
+  /**
+   * 'full' plays every decision (about two hours for a group); 'classroom' plays the practical
+   * tasks and only the decisions flagged `core` (about an hour).
+   */
+  route: GameRoute
   seed: number
   points: number
   streak: number

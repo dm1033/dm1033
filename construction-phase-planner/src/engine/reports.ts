@@ -317,6 +317,8 @@ export interface ScoreReport {
   gradeSummary: string
   /** Counts for the outcome line and the completion record. */
   outcome: ReturnType<typeof seriousOutcomes>
+  /** True when the tutor's "reveal answers" was on during the run (a demonstration, not a result). */
+  assisted: boolean
   missed: MissedItemsReport
 }
 
@@ -346,6 +348,7 @@ export function buildScoreReport(state: GameState, scenario: Scenario): ScoreRep
     gradeLabel: grade.label,
     gradeSummary: grade.summary,
     outcome: seriousOutcomes(state),
+    assisted: !!state.game?.assisted,
     missed: buildMissedItems(state, scenario),
   }
 }
@@ -461,9 +464,6 @@ export const DECISION_LOG_HEADERS = [
   'Outcome quality', 'Confidence', 'Lifeline used', 'Points',
 ]
 
-/** Text a decision record may carry when the step is not part of the scenario (tutor questions). */
-type DecisionRecordText = DecisionRecord & { chosenText?: string; bestText?: string }
-
 /**
  * Decision log. Every row names the delegate or team, the scenario and the difficulty, so logs
  * collected from several devices can be merged and still told apart, and gives the answer chosen
@@ -473,8 +473,8 @@ export function decisionsCsv(state: GameState, scenario?: Scenario | null): stri
   const steps = new Map((scenario ? allDecisionSteps(scenario) : []).map((d) => [d.id, d]))
   const who = displayName(state)
   const difficulty = state.game?.difficulty ? DIFFICULTIES[state.game.difficulty]?.label ?? '' : ''
-  const rows = state.decisions.map((rec): Cell[] => {
-    const d: DecisionRecordText = rec
+  const rows = state.decisions.map((d): Cell[] => {
+    // Tutor quiz questions are not in the scenario: their wording is stored on the record itself.
     const step = steps.get(d.stepId)
     const chosen = d.timedOut
       ? 'No decision made in time'

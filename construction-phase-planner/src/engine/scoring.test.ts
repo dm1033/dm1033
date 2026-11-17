@@ -1,18 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import {
-  TW_FIELD_KEYS, applyDecision, applyHazardHunt, applyPermits, applySequence, applySiteSetup, applyTwRegister,
-  assessHunt, assessPlacements, assessSequence, categoryScore, decisionPossible, gradeFor, initialMeters,
-  initialScoreState, overallScore, seededShuffle, twItemScore, zeroScores, zoneAt,
+  CATEGORY_WEIGHT_FLOOR, ENVIRONMENTAL_SITE_ITEMS, TW_FIELD_KEYS, applyDecision, applyHazardHunt, applyPermits,
+  applySequence, applySiteSetup, applyTwRegister, assessHunt, assessPermits, assessPlacements, assessSequence,
+  categoryScore, categoryWeights, decisionPossible, gradeFor, initialMeters, initialScoreState, initialSequenceOrder,
+  overallScore, twItemScore, zeroScores, zoneAt,
 } from './scoring'
 import { GRADE_BANDS, METER_KEYS, SCORE_KEYS } from '../types'
-import type { ScoreKey, ScoreState, TwAnswerRecord } from '../types'
+import type { DecisionOption, DecisionStep, Scenario, ScoreKey, ScoreState, SiteSetupStep, TwAnswerRecord } from '../types'
 import { SCENARIOS } from '../data'
 import {
   allDecisions, decisionStep, huntFixture, huntSteps, option, permitFixture, permitSteps, sequenceFixture,
   sequenceSteps, setupFixture, setupSteps, twItemFixture, twSteps,
 } from '../test/fixtures'
 import { blockedCells, deepFreeze, layoutFor, perfectHunt, perfectSequence, perfectTw } from '../test/playthrough'
-import { knownBug } from '../test/knownBug'
 
 const fresh = (): ScoreState => deepFreeze(initialScoreState())
 const withScores = (earned: Partial<Record<ScoreKey, number>>, possible: Partial<Record<ScoreKey, number>>): ScoreState => ({
@@ -95,7 +95,7 @@ describe('decisionPossible / applyDecision', () => {
     }
   })
 
-  knownBug('BUG eng-tests-3: the best answer earns every mark the question makes available', () => {
+  it('the best answer earns every mark the question makes available (eng-tests-3)', () => {
     // Otherwise the model answer cannot reach 100% and "cutting corners" out-scores it on Programme.
     const short: string[] = []
     for (const scenario of SCENARIOS) {
@@ -107,6 +107,68 @@ describe('decisionPossible / applyDecision', () => {
       }
     }
     expect(short).toEqual([])
+  })
+
+  describe('the marks available are the model answer\'s marks, never a distractor\'s', () => {
+    // The shape that used to cap a perfect delegate at 50-69% for Programme Management: doing it
+    // properly costs time (programme -2) while the unsafe shortcut "saves" three days.
+    const pressured = decisionStep({
+      options: [
+        option('best', { impact: { safety: 10, temporaryWorks: 10, programme: -2 } }),
+        option('partial', { impact: { safety: 4, programme: -1 } }),
+        option('poor', { impact: { safety: 12, quality: 3, programme: 1 } }),
+        option('unsafe', { impact: { safety: -6, programme: 3 } }),
+      ],
+    })
+    const [pBest, pPartial, pPoor, pUnsafe] = pressured.options
+
+    it('a shortcut with a higher mark does not raise the maximum', () => {
+      expect(decisionPossible(pressured)).toEqual({ ...zeroScores(), safety: 10, temporaryWorks: 10 })
+    })
+
+    it('the best answer never loses competence marks for the time it costs', () => {
+      const s = applyDecision(fresh(), pressured, pBest)
+      expect(s.earned).toEqual({ ...zeroScores(), safety: 10, temporaryWorks: 10 })
+      expect(s.possible).toEqual(s.earned)
+      for (const k of SCORE_KEYS) expect([null, 100]).toContain(categoryScore(s, k))
+      expect(overallScore(s)).toBe(100)
+    })
+
+    it('a distractor cannot earn marks the model answer does not carry, and is capped at the model answer\'s mark', () => {
+      const poor = applyDecision(fresh(), pressured, pPoor)
+      expect(poor.earned).toMatchObject({ safety: 10, quality: 0, programme: 0 })
+      const unsafe = applyDecision(fresh(), pressured, pUnsafe)
+      expect(unsafe.earned).toMatchObject({ safety: -6, programme: 0 })
+      expect(unsafe.possible.programme).toBe(0)
+    })
+
+    it('an answer other than the best keeps its own negative marks', () => {
+      expect(applyDecision(fresh(), pressured, pPartial).earned).toMatchObject({ safety: 4, programme: -1 })
+    })
+
+    it('no option out-scores the best answer in any category, in any authored decision', () => {
+      for (const scenario of SCENARIOS) {
+        for (const d of allDecisions(scenario)) {
+          const top = applyDecision(fresh(), d, d.options.find((o) => o.quality === 'best')!)
+          for (const o of d.options) {
+            const s = applyDecision(fresh(), d, o)
+            for (const k of SCORE_KEYS) expect(s.earned[k], `${scenario.id} ${d.id} ${o.id} ${k}`).toBeLessThanOrEqual(top.earned[k])
+          }
+        }
+      }
+    })
+
+    it('with two best options the higher mark is available and either earns it in full', () => {
+      const twin = decisionStep({ options: [option('best', { id: 'a', impact: { legal: 6 } }), option('best', { id: 'b', impact: { legal: 8, quality: 2 } }), option('poor')] })
+      expect(decisionPossible(twin)).toMatchObject({ legal: 8, quality: 2 })
+      for (const o of twin.options.slice(0, 2)) expect(applyDecision(fresh(), twin, o).earned).toMatchObject({ legal: 8, quality: 2 })
+    })
+
+    it('a step with no best option (never authored) falls back to the highest mark on offer', () => {
+      const none = decisionStep({ options: [option('partial', { impact: { safety: 4 } }), option('poor', { impact: { safety: 1, legal: 2 } })] })
+      expect(decisionPossible(none)).toMatchObject({ safety: 4, legal: 2 })
+      expect(applyDecision(fresh(), none, none.options[1]).earned).toMatchObject({ safety: 1, legal: 2 })
+    })
   })
 })
 
@@ -141,7 +203,16 @@ describe('zoneAt / assessPlacements / applySiteSetup', () => {
     expect(assessPlacements(step, [{ itemId: 'welfare', x: 0, y: 1 }])[0].status).toBe('unsafe')
   })
 
-  it('scores required items only: 10 planning + 5 safety each; 60% for neutral; −5 safety for unsafe', () => {
+  it('reports whether each item is required and where it should go, by zone label', () => {
+    const a = assessPlacements(setupFixture, [{ itemId: 'lighting', x: 0, y: 1 }])
+    expect(a.find((x) => x.itemId === 'welfare')).toEqual({
+      itemId: 'welfare', status: 'missing', note: 'Welfare belongs in the compound.', required: true, idealZones: ['Compound'],
+    })
+    expect(a.find((x) => x.itemId === 'lighting')).toMatchObject({ status: 'good', required: false, idealZones: ['Compound'] })
+    expect(a.find((x) => x.itemId === 'fuel-store')).toMatchObject({ required: true, idealZones: ['Works area'] })
+  })
+
+  it('required items earn 10 planning + 5 safety each; 60% for neutral; −5 safety for unsafe', () => {
     const good = applySiteSetup(fresh(), setupFixture, [{ itemId: 'welfare', x: 0, y: 1 }, { itemId: 'fuel-store', x: 4, y: 1 }]).scores
     expect(good.possible).toMatchObject({ planning: 20, safety: 10 })
     expect(good.earned).toMatchObject({ planning: 20, safety: 10 })
@@ -187,17 +258,102 @@ describe('zoneAt / assessPlacements / applySiteSetup', () => {
         const { scores } = applySiteSetup(fresh(), step, layout!)
         expect(scores.earned.planning).toBe(scores.possible.planning)
         expect(scores.earned.safety).toBe(scores.possible.safety)
+        expect(scores.earned.environment).toBe(scores.possible.environment)
+        expect(scores.meters).toEqual(initialMeters())
+      })
+
+      it(`${scenario.id} ${step.id}: the required environmental controls carry Environmental Control marks`, () => {
+        const envRequired = step.rules.filter((r) => r.required && ENVIRONMENTAL_SITE_ITEMS.has(r.itemId))
+        expect(envRequired.length).toBeGreaterThan(0)
+        expect(applySiteSetup(fresh(), step, []).scores.possible.environment).toBe(envRequired.length * 5)
       })
     }
   }
 
-  knownBug('BUG eng-tests-4: an optional item put somewhere the rules call unsafe costs the delegate something', () => {
-    // The fixture's optional lighting tower is placed on the public footpath (a badZone).
+  describe('optional items (eng-tests-4)', () => {
     const required = [{ itemId: 'welfare', x: 0, y: 1 }, { itemId: 'fuel-store', x: 4, y: 1 }]
     const clean = applySiteSetup(fresh(), setupFixture, required)
-    const careless = applySiteSetup(fresh(), setupFixture, [...required, { itemId: 'lighting', x: 0, y: 3 }])
-    expect(careless.assessments.find((a) => a.itemId === 'lighting')?.status).toBe('unsafe')
-    expect(careless.scores).not.toEqual(clean.scores)
+
+    it('an optional item put somewhere its own rule calls unsafe costs 5 safety marks and raises incident likelihood', () => {
+      // The fixture's optional lighting tower is placed on the public footpath (a badZone).
+      const careless = applySiteSetup(fresh(), setupFixture, [...required, { itemId: 'lighting', x: 0, y: 3 }])
+      expect(careless.assessments.find((a) => a.itemId === 'lighting')?.status).toBe('unsafe')
+      expect(careless.scores.earned.safety).toBe(clean.scores.earned.safety - 5)
+      expect(careless.scores.earned.planning).toBe(clean.scores.earned.planning)
+      expect(careless.scores.possible).toEqual(clean.scores.possible)
+      expect(careless.scores.meters.incidentLikelihood).toBe(clean.scores.meters.incidentLikelihood + 5)
+    })
+
+    it('an optional item placed well, acceptably or not at all changes nothing', () => {
+      for (const extra of [[], [{ itemId: 'lighting', x: 0, y: 2 }], [{ itemId: 'lighting', x: 3, y: 1 }]]) {
+        expect(applySiteSetup(fresh(), setupFixture, [...required, ...extra]).scores).toEqual(clean.scores)
+      }
+    })
+
+    for (const scenario of SCENARIOS) {
+      for (const step of setupSteps(scenario)) {
+        it(`${scenario.id} ${step.id}: every optional item with an unsafe zone costs marks when it is put there`, () => {
+          const good = layoutFor(step, 'good', true)!
+          const taken = new Set(good.map((p) => `${p.x},${p.y}`))
+          const base = applySiteSetup(fresh(), step, good).scores
+          const optional = step.rules.filter((r) => !r.required && r.badZones.length > 0)
+          for (const rule of optional) {
+            const bad = layoutFor({ ...step, rules: [rule] }, 'unsafe')?.find((p) => !taken.has(`${p.x},${p.y}`))
+            if (!bad) continue
+            const s = applySiteSetup(fresh(), step, [...good, bad]).scores
+            expect(s.earned.safety, rule.itemId).toBe(base.earned.safety - 5)
+            expect(s.meters.incidentLikelihood, rule.itemId).toBe(base.meters.incidentLikelihood + 5)
+          }
+        })
+      }
+    }
+  })
+
+  describe('environmental controls on the site plan', () => {
+    // fuel-storage, spill-kit and drain-protection are environmental controls; welfare is not.
+    const envStep: SiteSetupStep = {
+      ...setupFixture,
+      rules: [
+        { itemId: 'welfare', required: true, goodZones: ['compound'], badZones: ['works'], placementNote: 'n' },
+        { itemId: 'fuel-storage', required: true, goodZones: ['works'], badZones: ['footpath'], placementNote: 'n' },
+        { itemId: 'spill-kit', required: true, goodZones: ['works'], badZones: [], placementNote: 'n' },
+        { itemId: 'drain-protection', required: false, goodZones: ['works'], badZones: ['footpath'], placementNote: 'n' },
+      ],
+    }
+    const at = (itemId: string, x: number, y: number) => ({ itemId, x, y })
+    const welfare = at('welfare', 0, 1)
+
+    it('a required environmental control is worth 5 Environmental Control marks on top of planning and safety', () => {
+      const s = applySiteSetup(fresh(), envStep, [welfare, at('fuel-storage', 3, 1), at('spill-kit', 4, 1)]).scores
+      expect(s.possible).toMatchObject({ planning: 30, safety: 15, environment: 10 })
+      expect(s.earned).toMatchObject({ planning: 30, safety: 15, environment: 10 })
+    })
+
+    it('60% in an acceptable location, nothing when missing, and −5 when it is somewhere unsafe', () => {
+      const neutral = applySiteSetup(fresh(), envStep, [welfare, at('fuel-storage', 1, 1), at('spill-kit', 4, 1)]).scores
+      expect(neutral.earned.environment).toBe(8)
+      const missing = applySiteSetup(fresh(), envStep, [welfare, at('spill-kit', 4, 1)]).scores
+      expect(missing.earned.environment).toBe(5)
+      expect(missing.possible.environment).toBe(10)
+      const unsafe = applySiteSetup(fresh(), envStep, [welfare, at('fuel-storage', 1, 3), at('spill-kit', 4, 1)]).scores
+      expect(unsafe.earned).toMatchObject({ environment: 0, safety: 5 }) // spill kit +5, fuel store −5 in each
+      expect(unsafe.meters.incidentLikelihood).toBe(20)
+    })
+
+    it('an optional environmental control put somewhere unsafe costs environment and safety marks', () => {
+      const good = [welfare, at('fuel-storage', 3, 1), at('spill-kit', 4, 1)]
+      const base = applySiteSetup(fresh(), envStep, good).scores
+      const s = applySiteSetup(fresh(), envStep, [...good, at('drain-protection', 2, 3)]).scores
+      expect(s.earned.environment).toBe(base.earned.environment - 5)
+      expect(s.earned.safety).toBe(base.earned.safety - 5)
+      expect(s.possible).toEqual(base.possible)
+    })
+
+    it('an item that is not an environmental control never touches the Environmental Control score', () => {
+      const s = applySiteSetup(fresh(), setupFixture, [{ itemId: 'welfare', x: 4, y: 1 }, { itemId: 'fuel-store', x: 4, y: 2 }]).scores
+      expect(s.possible.environment).toBe(0)
+      expect(s.earned.environment).toBe(0)
+    })
   })
 })
 
@@ -210,12 +366,12 @@ describe('twItemScore / applyTwRegister', () => {
 
   it('marks seven fields at two points each', () => {
     expect(TW_FIELD_KEYS).toEqual(['register', 'design', 'catCheck', 'rams', 'inspection', 'holdPoint', 'responsible'])
-    expect(twItemScore(twItemFixture, correct)).toEqual({ earned: 14, possible: 14, wrongFields: [] })
+    expect(twItemScore(twItemFixture, correct)).toEqual({ earned: 14, possible: 14, wrongFields: [], cautiousFields: [] })
   })
 
   it('a missing answer scores 0/14 with every field listed for review', () => {
-    expect(twItemScore(twItemFixture, undefined)).toEqual({ earned: 0, possible: 14, wrongFields: [...TW_FIELD_KEYS] })
-    expect(twItemScore(twItemFixture, { itemId: twItemFixture.id })).toEqual({ earned: 0, possible: 14, wrongFields: [...TW_FIELD_KEYS] })
+    expect(twItemScore(twItemFixture, undefined)).toEqual({ earned: 0, possible: 14, wrongFields: [...TW_FIELD_KEYS], cautiousFields: [] })
+    expect(twItemScore(twItemFixture, { itemId: twItemFixture.id })).toEqual({ earned: 0, possible: 14, wrongFields: [...TW_FIELD_KEYS], cautiousFields: [] })
   })
 
   it.each(TW_FIELD_KEYS.map((k) => [k] as const))('one wrong field (%s) costs exactly two points and is named', (key) => {
@@ -223,7 +379,36 @@ describe('twItemScore / applyTwRegister', () => {
       register: false, design: 'none', catCheck: 'cat3', rams: false, inspection: false, holdPoint: false, responsible: 'PC',
     }
     const answer = { ...correct, [key]: flipped[key] } as TwAnswerRecord
-    expect(twItemScore(twItemFixture, answer)).toEqual({ earned: 12, possible: 14, wrongFields: [key] })
+    expect(twItemScore(twItemFixture, answer)).toEqual({ earned: 12, possible: 14, wrongFields: [key], cautiousFields: [] })
+  })
+
+  describe('design check category: one step more rigorous than the model answer (edu-s2-tw-highrisk-7)', () => {
+    // The fixture's model answer is category 1.
+    it('earns half the field\'s marks and is reported as cautious, not simply wrong', () => {
+      expect(twItemScore(twItemFixture, { ...correct, catCheck: 'cat2' })).toEqual({
+        earned: 13, possible: 14, wrongFields: ['catCheck'], cautiousFields: ['catCheck'],
+      })
+    })
+    it('a less rigorous check, or one two steps over, is still wrong and earns nothing', () => {
+      expect(twItemScore(twItemFixture, { ...correct, catCheck: 'cat0' })).toMatchObject({ earned: 12, wrongFields: ['catCheck'], cautiousFields: [] })
+      expect(twItemScore(twItemFixture, { ...correct, catCheck: 'cat3' })).toMatchObject({ earned: 12, wrongFields: ['catCheck'], cautiousFields: [] })
+    })
+    it('never applies to any other field, and never lifts an item to full marks', () => {
+      for (const scenario of SCENARIOS) {
+        for (const item of twSteps(scenario).flatMap((s) => s.items)) {
+          const model: TwAnswerRecord = { itemId: item.id, ...item.correct }
+          for (const cat of ['cat0', 'cat1', 'cat2', 'cat3'] as const) {
+            const r = twItemScore(item, { ...model, catCheck: cat })
+            if (cat === item.correct.catCheck) expect(r).toMatchObject({ earned: 14, cautiousFields: [] })
+            else {
+              expect(r.earned).toBeLessThan(14)
+              expect(r.wrongFields).toEqual(['catCheck'])
+              expect(r.cautiousFields.every((f) => f === 'catCheck')).toBe(true)
+            }
+          }
+        }
+      }
+    })
   })
 
   it('an unanswered field is wrong even when the correct value is "No"', () => {
@@ -287,9 +472,21 @@ describe('applyPermits', () => {
     expect(none.meters.enforcementRisk).toBe(30)
   })
 
-  it('raising a permit nobody needs does not change the competence score; unknown ids are ignored', () => {
+  it('assessPermits splits the form into raised, missed and unnecessary; unknown ids are ignored', () => {
+    const a = assessPermits(permitFixture, ['dig', 'paint', 'nonsense', 'dig'])
+    expect(a.raised.map((p) => p.id)).toEqual(['dig'])
+    expect(a.missed.map((p) => p.name)).toEqual(['Hot works', 'Permit to lift'])
+    expect(a.unnecessary).toEqual([{ id: 'paint', name: 'Permit to paint' }])
+    expect(assessPermits(permitFixture, [])).toMatchObject({ raised: [], unnecessary: [] })
+  })
+
+  it('a permit nobody needs costs 2 planning marks (paperwork padding) but no legal or safety marks; unknown ids are ignored', () => {
     const exact = applyPermits(fresh(), permitFixture, ['dig', 'hot', 'lift'])
-    expect(applyPermits(fresh(), permitFixture, ['dig', 'hot', 'lift', 'paint', 'nonsense'])).toEqual(exact)
+    expect(exact.earned.planning).toBe(0)
+    const padded = applyPermits(fresh(), permitFixture, ['dig', 'hot', 'lift', 'paint', 'nonsense'])
+    expect(padded.earned).toEqual({ ...exact.earned, planning: -2 })
+    expect(padded.possible).toEqual(exact.possible)
+    expect(padded.meters).toEqual(exact.meters)
   })
 
   it('meters clamp at 100 and the input state is not mutated', () => {
@@ -309,6 +506,12 @@ describe('applyPermits', () => {
         expect(step.required.length).toBeLessThan(ids.length) // at least one distractor
         const s = applyPermits(fresh(), step, step.required)
         expect(s.earned.legal).toBe(s.possible.legal)
+        expect(s.earned.safety).toBe(s.possible.safety)
+        expect(s.earned.planning).toBe(0)
+        // Ticking every box is not a model answer: it keeps the legal marks but loses planning marks.
+        const everything = applyPermits(fresh(), step, ids)
+        expect(everything.earned.legal).toBe(s.earned.legal)
+        expect(everything.earned.planning).toBe(-2 * (ids.length - step.required.length))
       }
     })
   }
@@ -352,13 +555,22 @@ describe('assessHunt / applyHazardHunt', () => {
     }
   })
 
-  it('scores 4 safety + 2 planning per hazard found and −2 safety per false alarm', () => {
+  it('scores 4 safety + 2 planning per hazard found; a false alarm costs half a find in each', () => {
     const perfect = applyHazardHunt(fresh(), huntFixture, ['h1', 'h2', 'h3'])
     expect(perfect.earned).toMatchObject({ safety: 12, planning: 6 })
     expect(perfect.possible).toMatchObject({ safety: 12, planning: 6 })
     const sloppy = applyHazardHunt(fresh(), huntFixture, ['h1', 'ok1', 'ok2'])
-    expect(sloppy.earned).toMatchObject({ safety: 0, planning: 2 })
+    expect(sloppy.earned).toMatchObject({ safety: 0, planning: 0 })
     expect(sloppy.possible).toMatchObject({ safety: 12, planning: 6 })
+    const everything = applyHazardHunt(fresh(), huntFixture, ['h1', 'h2', 'h3', 'ok1', 'ok2'])
+    expect(everything.earned).toMatchObject({ safety: 8, planning: 4 })
+  })
+
+  it('false alarms can cancel finds but never take the walk-round below zero', () => {
+    const before = withScores({ safety: 20, planning: 10 }, { safety: 20, planning: 10 })
+    const s = applyHazardHunt(before, huntFixture, ['ok1', 'ok2'])
+    expect(s.earned).toMatchObject({ safety: 20, planning: 10 })
+    expect(s.possible).toMatchObject({ safety: 32, planning: 16 })
   })
 
   it('a missed hazard raises incident likelihood: +4 if high severity, otherwise +2', () => {
@@ -379,6 +591,10 @@ describe('assessHunt / applyHazardHunt', () => {
         const s = applyHazardHunt(fresh(), step, perfectHunt(step))
         expect(s.earned.safety).toBe(s.possible.safety)
         expect(s.earned.planning).toBe(s.possible.planning)
+        // Flagging every tile without looking is worth exactly half marks, not full marks for planning.
+        const blind = applyHazardHunt(fresh(), step, step.observations.map((o) => o.id))
+        expect(blind.earned.safety).toBe(s.possible.safety / 2)
+        expect(blind.earned.planning).toBe(s.possible.planning / 2)
       }
     })
   }

@@ -8,9 +8,12 @@
 // resources to protect, risks that come back to bite, and points.
 // ============================================================
 import type {
-  BonusLine, Confidence, ConsequenceRecord, DecisionOption, DecisionStep, Difficulty, GameMeta,
-  GameState, LatentHazard, MeterKey, NoticeRecord, OptionQuality, Scenario, WeekReport,
+  BonusLine, Confidence, ConsequenceRecord, CustomQuestion, DecisionOption, DecisionStep, Difficulty, GameMeta,
+  GameState, HazardHuntStep, LatentHazard, MeterKey, NoticeRecord, OptionQuality, PermitStep, PlacementRecord,
+  Scenario, SequenceStep, SiteSetupStep, Step, TwAnswerRecord, TwRegisterStep, WeekReport,
 } from '../types'
+import { assessSequence, zoneAt, type HuntAssessment, type PlacementAssessment } from './scoring'
+import { SITE_ITEM_MAP } from '../data/siteItems'
 
 // ---------- Difficulty ----------
 
@@ -38,24 +41,27 @@ export interface DifficultyDef {
   budgetFactor: number
 }
 
+// Clocks are sized for a group reading a card aloud and agreeing an answer, not for one fast
+// reader: an incident card runs to about 130-200 words. The access setting in state/settings.ts
+// can double every clock or remove it.
 export const DIFFICULTIES: Record<Difficulty, DifficultyDef> = {
   learner: {
     id: 'learner',
     label: 'Learning',
     role: 'Assistant Site Manager',
     icon: '🟢',
-    tagline: 'Learn the ropes: instant feedback, no clock, three adviser calls.',
+    tagline: 'Feedback after every answer, no time limit on decisions, three adviser calls.',
     rules: [
-      'Instant feedback and a learning note after every decision',
-      'No decision clock; extra time on the hazard hunt',
-      'Fewer incidents and a bigger contingency budget',
+      'Feedback and a learning note after every decision',
+      'No time limit on decisions; the hazard walk-round is timed, with extra time',
+      'Fewer incidents and a larger contingency budget',
       'HSE can serve notices but will not shut the project down',
     ],
     pointsMultiplier: 1,
     lifelines: 3,
     decisionTimer: null,
     eventTimer: null,
-    huntTimeFactor: 1.5,
+    huntTimeFactor: 2.5,
     incidentFactor: 0.6,
     eventDraw: 2,
     surpriseEvents: 0,
@@ -68,18 +74,19 @@ export const DIFFICULTIES: Record<Difficulty, DifficultyDef> = {
     label: 'Standard',
     role: 'Site Manager',
     icon: '🟠',
-    tagline: 'The real job: incidents on the clock, surprise events, shortcuts that bite back.',
+    tagline: 'Incident events are timed, one unplanned event arrives during the works, and risky choices can cause incidents later.',
     rules: [
-      'Instant feedback after every decision',
-      'Incident events must be answered within 50 seconds',
-      'A surprise incident lands mid-project',
+      'Feedback after every decision',
+      'Incident events must be answered within 90 seconds',
+      'One unplanned incident arrives during the works',
+      'Three critical failures bring an HSE inspection',
       'Two HSE prohibition notices and the project is shut down',
     ],
     pointsMultiplier: 1.25,
     lifelines: 2,
     decisionTimer: null,
-    eventTimer: 50,
-    huntTimeFactor: 1,
+    eventTimer: 90,
+    huntTimeFactor: 1.5,
     incidentFactor: 1,
     eventDraw: 3,
     surpriseEvents: 1,
@@ -92,19 +99,20 @@ export const DIFFICULTIES: Record<Difficulty, DifficultyDef> = {
     label: 'Expert',
     role: 'Contracts Manager',
     icon: '🔴',
-    tagline: 'No marking until handover. Every decision on the clock. Hidden risks.',
+    tagline: 'Answers are not marked until handover. Every decision is timed. Risks stay hidden until you audit.',
     rules: [
-      'No right/wrong feedback during play: you find out on site, as in real life',
-      'Every decision timed (75 s); incidents 40 s',
+      'No right or wrong feedback during play: the results show on site and at handover',
+      'Every decision is timed (2 minutes); incident events 75 seconds',
       'More incidents, a tighter budget and one adviser call',
       'Risks are hidden: commission site audits to find them',
+      'Three critical failures, or very high enforcement risk, bring an HSE prohibition notice',
       'One HSE prohibition notice and the project is shut down',
     ],
     pointsMultiplier: 1.6,
     lifelines: 1,
-    decisionTimer: 75,
-    eventTimer: 40,
-    huntTimeFactor: 0.75,
+    decisionTimer: 120,
+    eventTimer: 75,
+    huntTimeFactor: 1,
     incidentFactor: 1.4,
     eventDraw: 4,
     surpriseEvents: 2,
@@ -163,21 +171,151 @@ export function lifelineRemovals(step: DecisionStep, seed: number): string[] {
   return ordered.slice(0, Math.max(0, Math.min(2, wrong.length - 1))).map((o) => o.id)
 }
 
-// ---------- Project economy ----------
+// ---------- Step rules shared by the screens, the reducer and the simulator ----------
 
-export function parseMoney(v: string): number {
-  const m = v.replace(/,/g, '').match(/£?\s*([\d.]+)\s*(m|k|bn)?/i)
-  if (!m) return 1_400_000
-  const n = parseFloat(m[1])
-  const unit = (m[2] ?? '').toLowerCase()
-  return unit === 'm' ? n * 1e6 : unit === 'k' ? n * 1e3 : unit === 'bn' ? n * 1e9 : n
+/** True for a tutor quiz question: scored like a decision, never treated as a site incident. */
+export function isCustomStep(step: { id: string; custom?: boolean }): boolean {
+  return !!step.custom || step.id.startsWith('custom-')
 }
 
+/** A tutor question can only be asked if it has at least two answers and exactly marks one as correct. */
+export function isAskable(q: CustomQuestion): boolean {
+  const filled = q.options.filter((o) => o.text.trim().length > 0)
+  return q.prompt.trim().length > 0 && filled.length >= 2 && filled.some((o) => o.correct)
+}
+
+/** Convert a tutor-authored question into a decision step. */
+export function customToDecision(q: CustomQuestion): DecisionStep {
+  return {
+    type: 'decision',
+    id: `custom-${q.id}`,
+    custom: true,
+    prompt: q.prompt,
+    options: q.options
+      .filter((o) => o.text.trim().length > 0)
+      .map((o, i) => ({
+        id: `o${i}`,
+        text: o.text,
+        quality: o.correct ? 'best' as const : 'poor' as const,
+        impact: o.correct ? { safety: 5, legal: 5 } : {},
+        feedback: o.correct ? 'Correct.' : 'Not the best answer. See the tutor\'s explanation.',
+      })),
+    topic: 'Tutor question',
+    learningNote: q.explanation,
+  }
+}
+
+/** Incident events are handled in the phase 12 "Incident / Challenge Events" phase. */
+export const EVENT_PHASE = 12
+
+/**
+ * The steps played in the current phase, in order: the authored steps, any unplanned event
+ * injected into this phase, then (in the incident phase) the drawn events and the tutor's own
+ * questions. `extra` is the number of steps beyond the authored ones (what ADVANCE needs).
+ */
+export function phaseSteps(
+  scenario: Scenario,
+  state: Pick<GameState, 'phaseIndex' | 'drawnEventIds'> & { game: Pick<GameMeta, 'surpriseEvents'> },
+  customQuestions: CustomQuestion[] = [],
+): { steps: Step[]; extra: number } {
+  const phase = scenario.phases[state.phaseIndex]
+  if (!phase) return { steps: [], extra: 0 }
+  const find = (id: string) => scenario.eventPool.find((e) => e.id === id)
+  const surprise = state.game.surpriseEvents
+    .filter((s) => s.phaseNumber === phase.number)
+    .map((s) => find(s.eventId))
+    .filter((e): e is DecisionStep => !!e)
+  const extra: Step[] = phase.number === EVENT_PHASE
+    ? [
+        ...surprise,
+        ...state.drawnEventIds.map(find).filter((e): e is DecisionStep => !!e),
+        ...customQuestions.filter(isAskable).map(customToDecision),
+      ]
+    : surprise
+  return { steps: [...phase.steps, ...extra], extra: extra.length }
+}
+
+/** Seconds allowed for a decision at this difficulty (null = no clock), before the access setting is applied. */
+export function decisionTimeLimit(step: DecisionStep, difficulty: Difficulty): number | null {
+  const d = DIFFICULTIES[difficulty]
+  return step.isEvent && !isCustomStep(step) ? d.eventTimer : d.decisionTimer
+}
+
+/** Seconds allowed for the hazard walk-round at this difficulty, before the access setting is applied. */
+export function huntTimeLimit(step: HazardHuntStep, difficulty: Difficulty): number {
+  return Math.round(step.timeLimit * DIFFICULTIES[difficulty].huntTimeFactor)
+}
+
+/** The single definition of "no decision was made in time". */
+export function timeoutOption(step: DecisionStep): DecisionOption {
+  return {
+    id: 'timeout',
+    text: 'No decision made in time',
+    quality: 'poor',
+    impact: { incidentLikelihood: 5, enforcementRisk: 3 },
+    feedback: 'Time ran out, so no decision was recorded. The situation carried on without anyone managing it.',
+    consequence: `No decision was made on "${step.topic}" in time, so the issue was left as it stood. It was still unmanaged when it next came up on site.`,
+    riddor: false,
+  }
+}
+
+/**
+ * The order the Sequence Planner starts from: a stable per-run shuffle that never already
+ * satisfies every constraint (so "submit without moving anything" can never be a perfect plan).
+ */
+export function initialSequenceOrder(step: SequenceStep, seed: number): string[] {
+  const ids = step.activities.map((a) => a.id)
+  for (let n = 0; n < 20; n++) {
+    const order = shuffleWith(ids, rngFor(seed, `seq:${step.id}:${n}`))
+    if (!assessSequence(step, order).perfect) return order
+  }
+  const reversed = [...ids].reverse()
+  return assessSequence(step, reversed).perfect ? ids : reversed
+}
+
+/** Rough size of a full run, for the "how long will this take?" line before a group starts. */
+export function playEstimate(scenario: Scenario, difficulty: Difficulty): { decisions: number; tasks: number; siteWeeks: number; minutes: number } {
+  const d = DIFFICULTIES[difficulty]
+  const authored = scenario.phases.flatMap((p) => p.steps)
+  const decisions = authored.filter((s) => s.type === 'decision').length
+    + Math.min(scenario.eventPool.length, d.eventDraw + d.surpriseEvents)
+  const tasks = authored.filter((s) => s.type !== 'decision' && s.type !== 'info').length
+  const siteWeeks = WEEK_PHASES.length
+  // A group reads a card aloud and agrees an answer in about two minutes; a task takes about five.
+  const minutes = Math.round((decisions * 2 + tasks * 5 + siteWeeks * 1 + 10) / 5) * 5
+  return { decisions, tasks, siteWeeks, minutes }
+}
+
+// ---------- Project economy ----------
+
+const DEFAULT_VALUE = 1_400_000
+const DEFAULT_WEEKS = 20
+
+/** "£1.4m", "Approx. £3.2 million", "£950k", "£1,400,000" -> pounds. Never NaN: unreadable text gives the reference value. */
+export function parseMoney(v: string): number {
+  const text = String(v ?? '').replace(/,/g, '')
+  // Prefer the figure that follows a pound sign; otherwise the first number in the text.
+  const m = text.match(/£\s*(\d+(?:\.\d+)?)\s*(bn|billion|m|million|k|thousand)?\b/i)
+    ?? text.match(/(\d+(?:\.\d+)?)\s*(bn|billion|m|million|k|thousand)?\b/i)
+  if (!m) return DEFAULT_VALUE
+  const n = parseFloat(m[1])
+  const unit = (m[2] ?? '').toLowerCase()
+  const value = unit === 'm' || unit === 'million' ? n * 1e6
+    : unit === 'k' || unit === 'thousand' ? n * 1e3
+      : unit === 'bn' || unit === 'billion' ? n * 1e9 : n
+  return Number.isFinite(value) && value > 0 ? value : DEFAULT_VALUE
+}
+
+/** "22 weeks", "40-week programme", "18 months", "1 year", "52 wks" -> weeks. Unreadable text gives 20. */
 export function parseWeeks(d: string): number {
-  const m = d.match(/(\d+)\s*week/i)
-  if (m) return parseInt(m[1], 10)
-  const months = d.match(/(\d+)\s*month/i)
-  return months ? Math.round(parseInt(months[1], 10) * 4.33) : 20
+  const text = String(d ?? '')
+  const weeks = text.match(/(\d+)[\s-]*(?:weeks?|wks?)\b/i)
+  if (weeks) return Math.max(1, parseInt(weeks[1], 10))
+  const months = text.match(/(\d+)[\s-]*months?\b/i)
+  if (months) return Math.max(1, Math.round(parseInt(months[1], 10) * 4.33))
+  const years = text.match(/(\d+)[\s-]*(?:years?|yrs?)\b/i)
+  if (years) return Math.max(1, parseInt(years[1], 10) * 52)
+  return DEFAULT_WEEKS
 }
 
 /** Money scale relative to the £1.4m reference project. */
@@ -232,9 +370,9 @@ const CONFIDENCE_FACTOR: Record<Confidence, Record<OptionQuality, number>> = {
 }
 
 export const CONFIDENCE_LABELS: Record<Confidence, { label: string; hint: string; key: string }> = {
-  sure: { label: 'Certain', hint: '×1.5 if right · ×2 penalty if wrong', key: 'S' },
+  sure: { label: 'Certain', hint: '1.5 times the points if right; double the penalty if wrong', key: 'S' },
   think: { label: 'Fairly sure', hint: 'Standard points', key: 'F' },
-  guess: { label: 'Unsure', hint: 'Safer: ×0.6 if right · half penalty', key: 'G' },
+  guess: { label: 'Unsure', hint: 'Safer: 0.6 times the points if right; half the penalty if wrong', key: 'G' },
 }
 
 export function decisionPoints(args: {
@@ -249,10 +387,12 @@ export function decisionPoints(args: {
   if (args.timedOut) return Math.round(-60 * args.multiplier)
   let pts = BASE_POINTS[args.quality] * CONFIDENCE_FACTOR[args.confidence][args.quality]
   if (args.quality === 'best') {
-    pts += Math.min(args.streak, 10) * 10
-    if (args.timeFrac !== null) pts += Math.round(50 * Math.max(0, Math.min(1, args.timeFrac)))
-    if (args.lifeline) pts *= 0.5
+    pts += Math.min(Math.max(0, args.streak), 10) * 10
+    // `timeFrac` is null on an untimed question (no clock, or the access setting): no bonus, no penalty.
+    if (args.timeFrac !== null && Number.isFinite(args.timeFrac)) pts += Math.round(50 * Math.max(0, Math.min(1, args.timeFrac)))
   }
+  // The adviser halves whatever the answer earns; a penalty is not softened.
+  if (args.lifeline && pts > 0) pts *= 0.5
   return Math.round(pts * args.multiplier)
 }
 
