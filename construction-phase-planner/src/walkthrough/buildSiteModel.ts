@@ -6,7 +6,7 @@ import { assessPlacements, type PlacementAssessment } from '../engine/scoring'
 import { SITE_ITEM_MAP } from '../data/siteItems'
 import { CHECKPOINTS, checkpointForItem } from './checkpoints'
 import {
-  CELL, YAW_ORDER, cameraFor, cellRef, cellToWorld, footprintFor, isLinearItem, overviewFor, round3,
+  YAW_ORDER, cameraFor, cellRef, cellToWorld, footprintFor, isLinearItem, overviewFor,
   worldFor, worldToCell, zoneKind, zoneRect, type Cell, type GridSize,
 } from './geometry'
 import { allOverlays, buildOverlays } from './overlays'
@@ -140,10 +140,13 @@ function uniqueRules(step: SiteSetupStep): SiteItemRule[] {
   return step.rules.filter((r) => (seen.has(r.itemId) ? false : (seen.add(r.itemId), true)))
 }
 
+type PlacedAssessment = PlacementAssessment & { status: SiteItem['status'] }
+const isPlaced = (a: PlacementAssessment | undefined): a is PlacedAssessment => !!a && a.status !== 'missing'
+
 function placedItem(
-  step: SiteSetupStep, rule: SiteItemRule, placed: PlacementRecord, assessment: PlacementAssessment, model: ModelSpot,
+  step: SiteSetupStep, rule: SiteItemRule, placed: PlacementRecord, assessment: PlacedAssessment, model: ModelSpot,
 ): SiteItem {
-  const status = assessment.status === 'missing' ? 'neutral' : assessment.status
+  const status = assessment.status
   const cell: Cell = {
     x: Math.min(step.grid.cols - 1, Math.max(0, Math.floor(placed.x))),
     y: Math.min(step.grid.rows - 1, Math.max(0, Math.floor(placed.y))),
@@ -165,7 +168,9 @@ function placedItem(
   }
 }
 
-function buildItems(step: SiteSetupStep, placements: PlacementRecord[]): { items: SiteItem[]; missing: MissingItem[] } {
+interface BuiltItems { items: SiteItem[]; missing: MissingItem[]; modelZone: Map<string, string> }
+
+function buildItems(step: SiteSetupStep, placements: PlacementRecord[]): BuiltItems {
   const assessments = assessPlacements(step, placements)
   const spots = modelSpots(step)
   const items: SiteItem[] = []
@@ -174,7 +179,7 @@ function buildItems(step: SiteSetupStep, placements: PlacementRecord[]): { items
     const model = spots.get(rule.itemId) ?? { position: [0, 0, 0] as Vec3, zoneLabel: 'the site' }
     const assessment = assessments.find((a) => a.itemId === rule.itemId)
     const placed = placements.find((p) => p.itemId === rule.itemId)
-    if (placed && assessment && assessment.status !== 'missing') {
+    if (placed && isPlaced(assessment)) {
       items.push(placedItem(step, rule, placed, assessment, model))
     } else {
       missing.push({
@@ -189,13 +194,13 @@ function buildItems(step: SiteSetupStep, placements: PlacementRecord[]): { items
       })
     }
   }
-  return { items, missing }
+  return { items, missing, modelZone: new Map([...spots].map(([id, spot]) => [id, spot.zoneLabel])) }
 }
 
 // ---------- Rows ----------
 
-function itemRow(item: SiteItem): WalkRow {
-  const elsewhere = item.status === 'good' ? '' : ' The model answer has more on where it belongs.'
+function itemRow(item: SiteItem, modelZoneLabel: string): WalkRow {
+  const elsewhere = item.status === 'good' ? '' : ` It belongs in: ${modelZoneLabel}.`
   return {
     id: `item:${item.itemId}`,
     kind: 'item',
@@ -265,20 +270,22 @@ function assessmentFor(items: SiteItem[], missing: MissingItem[], overlays: Over
 }
 
 function buildCheckpoints(
-  step: SiteSetupStep | null, grid: GridSize, items: SiteItem[], missing: MissingItem[],
+  step: SiteSetupStep | null, grid: GridSize, built: BuiltItems,
   overlays: Overlay[], structures: StructureModel[], overview: SiteModel['overview'],
 ): Checkpoint[] {
+  const { items, missing, modelZone } = built
   return CHECKPOINTS.map((def) => {
     const mine = (i: { checkpoint: CheckpointId }) => i.checkpoint === def.id
     const order = (a: { itemId: string }, b: { itemId: string }) => rank(def.itemIds, a.itemId) - rank(def.itemIds, b.itemId)
     const here = items.filter(mine).sort(order)
     const absent = missing.filter(mine).sort(order)
     const tags = overlays.filter(mine)
-    const itemIds = [...here, ...absent].sort(order).map((i) => i.itemId)
-    const rows: WalkRow[] = [
-      ...[...here.map(itemRow), ...absent.map(missingRow)].sort((a, b) => itemIds.indexOf(a.id.slice(5)) - itemIds.indexOf(b.id.slice(5))),
-      ...tags.map((o) => overlayRow(o, step, grid)),
-    ]
+    const listed = [
+      ...here.map((i) => ({ itemId: i.itemId, row: itemRow(i, modelZone.get(i.itemId) ?? 'the site') })),
+      ...absent.map((m) => ({ itemId: m.itemId, row: missingRow(m) })),
+    ].sort(order)
+    const itemIds = listed.map((l) => l.itemId)
+    const rows: WalkRow[] = [...listed.map((l) => l.row), ...tags.map((o) => overlayRow(o, step, grid))]
     // What the camera must show: placed items, the dashed outline of each missing one, every tag.
     const covered: Vec3[] = [
       ...here.map((i) => i.position),
@@ -319,20 +326,21 @@ export function buildSiteModel(scenario: Scenario, state: GameState): SiteModel 
   const world = worldFor(grid)
   const zones = step ? zoneModels(step) : []
   const structures = zones.map(structureFor).filter((s): s is StructureModel => !!s)
-  const { items, missing } = step ? buildItems(step, state.placements ?? []) : { items: [], missing: [] }
+  const built: BuiltItems = step ? buildItems(step, state.placements) : { items: [], missing: [], modelZone: new Map() }
+  const { items, missing } = built
   const overlays = buildOverlays(scenario, state, { world, zones, items, missing })
   const overview = overviewFor(world)
   return {
     version: 1,
     scenarioId: scenario.id,
-    shutdown: !!state.game?.shutdown,
+    shutdown: state.game.shutdown,
     world,
     zones,
     structures,
     items,
     missing,
     overlays,
-    checkpoints: buildCheckpoints(step, grid, items, missing, allOverlays(overlays), structures, overview),
+    checkpoints: buildCheckpoints(step, grid, built, allOverlays(overlays), structures, overview),
     overview,
   }
 }
@@ -344,5 +352,3 @@ export function modelItem(model: SiteModel, itemId: string): SiteItem | MissingI
 
 /** Every overlay in the model, in a stable order (temporary works, permits, then incidents). */
 export const modelOverlays = (model: SiteModel): Overlay[] => allOverlays(model.overlays)
-
-export { CELL, round3 }
